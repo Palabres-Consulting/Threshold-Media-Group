@@ -63,6 +63,7 @@ const PricingPage = () => {
 
             return (
               <div
+                key={id}
                 onMouseEnter={() => setActivePlan(id)}
                 className={`${
                   active ? "bg-accent-main text-white" : "bg-foreground/5"
