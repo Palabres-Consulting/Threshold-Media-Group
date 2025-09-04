@@ -16,7 +16,7 @@ const ContactPage = () => {
             aspernatur repellat?
           </p>
         </div>
-        <div className="flex flex-col lg:flex-row lg:justify-between">
+        <div className="flex flex-col lg:flex-row lg:justify-between gap-20">
           <div className="lg:w-[50%] ">
             <ContactForm />
           </div>

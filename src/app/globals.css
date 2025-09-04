@@ -88,3 +88,7 @@ body {
 p {
   @apply text-foreground/50;
 }
+
+.input {
+  @apply px-4 py-3 bg-foreground/5 rounded-md w-full  my-1;
+}
