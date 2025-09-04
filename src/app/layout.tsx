@@ -5,6 +5,7 @@ import Header from "./_components/base/header";
 import Footer from "./_components/base/footer";
 import { ToastProvider } from "./_components/sections/toasters";
 import { SubdomainProvider } from "./context/subDomainContext";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,13 +33,21 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SubdomainProvider>
-          <ToastProvider>
-            <Header />
-            {children}
-            <Footer />
-          </ToastProvider>
-        </SubdomainProvider>
+        <Suspense
+          fallback={
+            <div className="flex justify-center items-center min-h-[100vh]">
+              Loading...
+            </div>
+          }
+        >
+          <SubdomainProvider>
+            <ToastProvider>
+              <Header />
+              {children}
+              <Footer />
+            </ToastProvider>
+          </SubdomainProvider>
+        </Suspense>
       </body>
     </html>
   );
