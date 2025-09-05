@@ -47,6 +47,12 @@ const ContactPage = () => {
             </div>
           </div>
         </div>
+
+        <div className="h-[80vh] w-full  p-3 py-10">
+          <div className="rounded-2xl h-full w-full bg-foreground/5">
+            {/* {map} */}
+          </div>
+        </div>
       </div>
     </PageContainer>
   );

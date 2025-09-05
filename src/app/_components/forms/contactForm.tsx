@@ -11,15 +11,6 @@ const ContactForm = () => {
         </div>
       </div>
 
-      {/* Name */}
-
-      <div className="">
-        <label>E-mail *</label>
-        <div className="flex gap-3">
-          <input type="text" placeholder="E-mail" className="input" />
-        </div>
-      </div>
-
       {/* Email */}
 
       <div className="">
@@ -29,11 +20,17 @@ const ContactForm = () => {
         </div>
       </div>
 
-      {/* Label */}
+      {/* Select */}
 
       <div className="">
-        <label>E-mail *</label>
-        <div className="flex gap-3">{/* import shadcn select component */}</div>
+        <label>Quel type de bien recherchez-vous? *</label>
+        <div className="flex gap-3 input">
+          {/* import shadcn select component */}
+
+          <select className="w-full">
+            <option className="">Quel type de bien recherchez-vous?</option>
+          </select>
+        </div>
       </div>
       <div className="">
         <label>E-mail *</label>
@@ -41,7 +38,7 @@ const ContactForm = () => {
           <textarea
             name=""
             id=""
-            className="input"
+            className="input resize-none h-[10em]"
             placeholder="Message"
           ></textarea>
         </div>

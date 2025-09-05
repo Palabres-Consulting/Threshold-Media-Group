@@ -92,3 +92,7 @@ p {
 .input {
   @apply px-4 py-3 bg-foreground/5 rounded-md w-full  my-1;
 }
+
+.btn-var1 {
+  @apply w-full py-2 bg-accent-main text-white px-4 rounded-lg;
+}

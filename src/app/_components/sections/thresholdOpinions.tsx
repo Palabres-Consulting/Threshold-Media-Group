@@ -37,9 +37,13 @@ const ThresholdOpinions = () => {
   ];
 
   return (
-    <section className="flex flex-col bg-accent-main/5 ">
+    <section className="flex flex-col bg-accent-main/5 border-sub-right">
+      <div className="px-6 pt-6  ">
+        <h2 className="text-[2rem] font-bold">Threshold Opinion</h2>
+      </div>
+
       <div className="">
-        <div className="flex flex-col lg:flex-row w-full  p-6 gap-6 justify-center items-center border-sub-right">
+        <div className="flex flex-col lg:flex-row w-full  p-6 gap-6 justify-center items-center ">
           <div className="rounded-2xl overflow-hidden h-[50vh] w-full lg:w-[50%] bg-foreground/10 border-sub">
             {/* <Image
             loader={cloudinaryLoader}
@@ -83,7 +87,7 @@ const ThresholdOpinions = () => {
         </div>
       </div>
 
-      <div className="  flex flex-col lg:flex-row gap-3 w-full items-center lg:p-5 border-sub-right">
+      <div className="  flex flex-col lg:flex-row gap-3 w-full items-center lg:p-5 ">
         {posts.map(({ id, title, date, author, authorImage, customStyle }) => (
           <div
             className={`flex flex-col gap-3 h-[35vh] justify-center   ${customStyle}`}

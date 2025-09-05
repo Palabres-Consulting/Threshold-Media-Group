@@ -121,7 +121,7 @@ const Header = () => {
               )}
             </div>
 
-            <Link href="/signup">Login/Sign Up</Link>
+            <Link href="/auth">Login/Sign Up</Link>
           </div>
         </div>
       </nav>
