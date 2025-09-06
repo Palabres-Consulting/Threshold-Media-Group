@@ -37,6 +37,9 @@ const Header = () => {
   const pathName = usePathname();
   const [hoverId, setHoverId] = useState<number | null>(null);
 
+  const [isAuth, setIsAuth] = useState(true);
+  // const [pathName, setPathName] = useState("");
+
   const [transDropdown, setTransDropdown] = useState(false);
 
   return (
@@ -121,7 +124,19 @@ const Header = () => {
               )}
             </div>
 
-            <Link href="/auth">Login/Sign Up</Link>
+            {isAuth ? (
+              <div className="flex justify-center items-center gap-2">
+                <div className="h-[25px] w-[25px] rounded-full  bg-foreground/10">
+                  {/* {image} */}
+                </div>
+                <h5 className="">John Doe</h5>
+                <div className="">
+                  <GoTriangleDown className="" />
+                </div>
+              </div>
+            ) : (
+              <Link href="/auth">Login/Sign Up</Link>
+            )}
           </div>
         </div>
       </nav>
