@@ -1,7 +1,7 @@
 // lib/useConfig.ts
 "use client";
 import { siteConfigs } from "./config";
-import { useSubdomain } from "../context/subDomainContext";
+import { useSubdomain } from "../[locale]/context/subDomainContext";
 
 export function useConfig() {
   const subdomain = useSubdomain();

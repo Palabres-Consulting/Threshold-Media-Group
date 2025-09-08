@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+* {
+  /* @apply border; */
+}
+
+:root {
+  --background: #fcfbfb;
+  --foreground: #0a0a0a;
+  --accent-main: rgb(241, 89, 1);
+  --accent-extraction: #a97c50;
+  --accent-asint: #28a745;
+}
+
+[data-site="extraction"] {
+  --accent-main: #a97c50; /* pink/red for extraction */
+}
+
+[data-site="asint"] {
+  --accent-main: #28a745; /* green for asint */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent-main: var(--accent-main);
+  --color-accent-extraction: var(--accent-extraction);
+  --color-accent-asint: var(--accent-asint);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #fcfbfb;
+  }
+}
+
+body {
+  background-color: var(--background);
+  /* background-image: repeating-radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.05) 0,
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 100%
+  );
+  background-size: 4px 3px;
+  animation: grain 1s steps(2) ease-in-out infinite; */
+  color: var(--foreground);
+  /* font-family: Arial, Helvetica, sans-serif; */
+}
+
+@keyframes grain {
+  0% {
+    background-size: 4px 3px;
+  }
+  100% {
+    background-size: 50px 50px;
+  }
+}
+
+.toasters {
+  @apply absolute top-0 m-auto px-8 py-4 rounded-md bg-background border-solid border-b-4 border-[2px] border-foreground/60 text-foreground w-[50%] flex text-center;
+}
+
+.border-sub {
+  @apply border  border-foreground/10 hover:border-foreground/10 transition-all duration-300;
+}
+
+.border-sub-side {
+  @apply border-l-[1px] border-r-[1px]  border-foreground/10 hover:border-foreground/20 transition-all duration-300;
+}
+
+.border-sub-y {
+  @apply border-t-[1px] border-b-[1px]  border-foreground/10 hover:border-foreground/20 transition-all duration-300;
+}
+
+.border-sub-top {
+  @apply border-t-[1px]  border-foreground/10 hover:border-foreground/20 transition-all duration-300;
+}
+
+.border-sub-right {
+  @apply border-r-[1px]  border-foreground/10 hover:border-foreground/20 transition-all duration-300;
+}
+
+.border-sub-left {
+  @apply border-l-[1px]  border-foreground/10 hover:border-foreground/20 transition-all duration-300;
+}
+
+.border-sub-bottom {
+  @apply border-b-[1px]  border-foreground/10 hover:border-foreground/20 transition-all duration-300;
+}
+
+p {
+  @apply text-foreground/50;
+}
+
+.input {
+  @apply px-4 py-3 bg-foreground/5 rounded-md w-full  my-1;
+}
+
+.btn-var1 {
+  @apply w-full py-2 bg-accent-main text-white px-4 rounded-lg;
+}

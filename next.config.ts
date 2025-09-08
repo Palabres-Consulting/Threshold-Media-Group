@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const config: NextConfig = {
+const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
@@ -10,8 +10,8 @@ const config: NextConfig = {
       },
     ],
     loader: "custom",
-    loaderFile: "./src/app/lib/cloudinary.ts",
+    loaderFile: "./src/app/lib/cloudinary.ts", // no `loader: "custom"`
   },
 };
 
-export default config;
+export default nextConfig;

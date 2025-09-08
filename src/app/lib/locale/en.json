@@ -1,0 +1,158 @@
+{
+  "nav": {
+    "aboutUs": "About Us",
+    "ourTeam": "Our Team",
+    "services": "Services",
+    "process": "Process",
+    "pricing": "Pricing",
+    "contact": "Contact",
+    "lang": "Eng",
+    "french": "French",
+    "spanish": "Spanish",
+    "welcome": "Welcome",
+    "login": "Login/Sign Up"
+  },
+  "footer": {
+    "siteMap": "SITE MAP",
+    "socialMedia": "SOCIAL MEDIA",
+    "contactInfo": "CONTACT INFORMATION",
+    "about": "About",
+    "pricing": "Pricing",
+    "contact": "Contact",
+    "asint": "Asint",
+    "extraction": "Extraction",
+    "login": "Login",
+    "phone": "+224 629 00 69 29",
+    "email": "info@groupeibs.com",
+    "terms": "Terms & Conditions | Privacy and Policy",
+    "rights": "All Rights Reserved - Threshold 2025"
+  },
+  "profile": {
+    "sections": {
+      "personalInfo": "Your Personal Information",
+      "subscription": "Your Subscription",
+      "help": "Need Help?",
+      "savedArticles": "Saved Articles"
+    },
+    "items": {
+      "title": "Title",
+      "email": "Email",
+      "password": "Password *",
+      "subscriptionStatus": "You do not have an active subscription at the moment",
+      "helpByMail": "Contact our customer service department by email at customercare@gmail.com"
+    }
+  },
+  "pricing": {
+    "pageTitle": "Pricing",
+    "headline": "Choose the pricing plan",
+    "subtext": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore eaque modi adipisci esse quam ad possimus? Accusamus dicta aspernatur repellat?",
+    "plans": [
+      {
+        "title": "Basic",
+        "price": "25.34",
+        "description": "Unlock your business potential with our flexible pricing plans",
+        "offers": [
+          "Lorem ipsum dolor sit,",
+          "Lorem ipsum dolor sit,",
+          "Lorem ipsum dolor sit,"
+        ]
+      },
+      {
+        "title": "Standard",
+        "price": "25.34",
+        "description": "Unlock your business potential with our flexible pricing plans",
+        "offers": [
+          "Lorem ipsum dolor sit,",
+          "Lorem ipsum dolor sit,",
+          "Lorem ipsum dolor sit,"
+        ],
+        "popular": "Popular"
+      },
+      {
+        "title": "Premium",
+        "price": "25.34",
+        "description": "Unlock your business potential with our flexible pricing plans",
+        "offers": [
+          "Lorem ipsum dolor sit,",
+          "Lorem ipsum dolor sit,",
+          "Lorem ipsum dolor sit,"
+        ]
+      }
+    ],
+    "month": "Month",
+    "subscribe": "Subscribe"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore eaque modi adipisci esse quam ad possimus? Accusamus dicta aspernatur repellat?",
+    "faqPrompt": "Dont see what you're looking for? Our",
+    "faqLink": "FAQ",
+    "faqRest": "page offers further information about subscriptions, Threshold Media Group mobile app, managing your account, and more",
+    "email": "info@groupeibs.com",
+    "phone": "+224 629 00 69 29",
+    "address": "Nongo, commune de Ratoma - a cote du state Petit Sory"
+  },
+  "auth": {
+    "buttons": {
+      "signIn": "Sign In",
+      "signUp": "Create Account",
+      "google": "Sign in with Google"
+    },
+    "divider": "Or",
+    "fields": {
+      "email": {
+        "label": "E-mail *",
+        "placeholder": "Input E-mail"
+      },
+      "password": {
+        "label": "Password *",
+        "placeholder": "Input Password"
+      },
+      "confirmPassword": {
+        "label": "Confirm Password *",
+        "placeholder": "Confirm Password"
+      }
+    },
+    "forgotPassword": "Forgot Password",
+    "submit": {
+      "signIn": "Sign In",
+      "signUp": "Create Account"
+    },
+    "forgotPasswordPage": {
+      "title": "Forgot Password",
+      "description": "Input your email to recover your password. You will receive a recovery link in your mailbox.",
+      "placeholder": "Input your email",
+      "submit": "Submit"
+    }
+  },
+
+  "about": {
+    "title": "About",
+    "nav": {
+      "team": "Our Team",
+      "services": "Services",
+      "process": "Processes",
+      "strengths": "Our Strengths"
+    },
+    "intro": {
+      "headline": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim eveniet tempore aut, labore iure nisi.",
+      "paragraph1": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, rerum illo at laudantium tenetur magnam!",
+      "paragraph2": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quaerat voluptate consequatur est labore obcaecati, dolores eveniet veniam itaque ipsum nisi voluptates voluptatibus commodi asperiores eius. Odio, est! Illum, illo!",
+      "paragraph3": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat mollitia cum alias recusandae doloremque. Ex vel quae doloribus rerum aut minima animi, dolor architecto cum illum? Facere sed enim et?"
+    },
+    "team": {
+      "title": "Our Team",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
+    },
+    "services": {
+      "title": "Services",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
+    },
+    "process": {
+      "title": "Processes",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis",
+      "stepTitle": "Lorem ipsum dolor sit amet consectetur adipisicing",
+      "stepDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit odit ipsa magnam fugit a quasi saepe provident! Vero beatae aliquam obcaecati, a assumenda esse sapiente minus natus dolor? Perferendis, quo!"
+    }
+  }
+}
