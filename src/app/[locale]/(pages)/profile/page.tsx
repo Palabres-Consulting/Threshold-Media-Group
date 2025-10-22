@@ -22,7 +22,10 @@ const ProfilePage = () => {
   return (
     <section className="flex lg:mx-16 mx-3 py-10 lg:py-0">
       <div className="lg:w-[24%] lg:flex hidden border-sub-side relative">
-        <ProfileDetails username={user?.title} subscriber={true} />
+        <ProfileDetails
+          username={user?.title || "John Doe"}
+          subscriber={true}
+        />
       </div>
       <div className="lg:w-[76%] lg:p-6 flex flex-col gap-8 ">
         <ProfileSectionsContainer title={dict.profile.sections.personalInfo}>
@@ -37,7 +40,9 @@ const ProfilePage = () => {
             value={user?.email || "johndoe@dummymail.com"}
           />
           <ProfileItem
-            editButton={user?.password && !user?.password.startsWith("oauth:")}
+            editButton={
+              (user?.password && !user?.password.startsWith("oauth:")) || true
+            }
             title={dict.profile.items.password}
             value={user?.password || "********"}
           />

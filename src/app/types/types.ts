@@ -86,5 +86,7 @@ export interface PageLayoutProps {
 
 export interface User {
   title: string, 
-  avatar_url: string
+  avatar_url: string, 
+  email: string, 
+  password: string
 }
