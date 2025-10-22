@@ -19,53 +19,10 @@ const ProfileSectionsContainer: React.FC<{
 
 export default ProfileSectionsContainer;
 
-export const ProfileItem: React.FC<{
-  editButton: boolean;
-  title: string;
-  value: string;
-}> = ({ title, value, editButton }) => {
-  const [editActive, setEditActive] = useState(false);
-
-  return (
-    <div className="flex flex-col w-full">
-      <div className="flex justify-between items-center">
-        <div className={`flex flex-col ${editButton ? "gap-5" : "gap-2"} `}>
-          <h6 className="">{title}</h6>
-          <p className="">{value}</p>
-        </div>
-        {editButton && (
-          <div className="">
-            <button
-              onClick={() => setEditActive(!editActive)}
-              className="btn-var1 cursor-pointer"
-              type="button"
-            >
-              {!editActive ? "Change" : "Cancel"}
-            </button>
-          </div>
-        )}
-      </div>
-      <div className="">
-        {editActive && (
-          <div className="py-4 transition-all duration-300">
-            <form className="">
-              <input
-                type="text"
-                className="input"
-                placeholder={`Input your new ${title}`}
-              />
-              <div className="lg:w-[20%]">
-                <button className="mt-3 btn-var1 cursor-pointer">Submit</button>
-              </div>
-            </form>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export const ProfileDetails = () => {
+export const ProfileDetails: React.FC<{
+  username: string;
+  subscriber: boolean;
+}> = ({ username, subscriber }) => {
   const navLinks = [
     {
       id: 0,
@@ -98,11 +55,11 @@ export const ProfileDetails = () => {
           </div>
 
           {/* Profile name */}
-          <h3 className="font-semibold text-[1.5rem]">John Doe</h3>
+          <h3 className="font-semibold text-[1.5rem]">{username}</h3>
 
           {/* User Status Tag */}
           <div className="rounded-lg p-3 border-sub text-xs">
-            Non Subscriber
+            {subscriber ? "Subscriber" : "Free User"}
           </div>
         </div>
         <div className="border-sub-top grid w-full">

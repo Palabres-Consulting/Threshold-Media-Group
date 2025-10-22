@@ -9,6 +9,7 @@ import { Suspense } from "react";
 import { cookies } from "next/headers";
 import { getDictionary } from "../lib/dict";
 import { LocalizationProvider } from "./context/localizationContext";
+import QueryProvider from "./context/queryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,11 +35,14 @@ export default async function RootLayout({
   params: Promise<{ locale: "en" | "fr" }>;
 }) {
   const cookieStore = await cookies();
-  const site = cookieStore.get("site")?.value || "main";
+  const site = (cookieStore.get("site")?.value || "main") as
+    | "main"
+    | "extraction"
+    | "asint";
 
   const { locale } = await params;
 
-  const dict = await getDictionary(locale);
+  const dict = await getDictionary(site, locale);
 
   return (
     <html lang={locale} data-site={site}>
@@ -52,13 +56,15 @@ export default async function RootLayout({
             </div>
           }
         >
-          <LocalizationProvider locale={locale} dict={dict}>
+          <LocalizationProvider locale={locale} dict={dict} site={site}>
             <SubdomainProvider>
-              <ToastProvider>
-                <Header />
-                {children}
-                <Footer />
-              </ToastProvider>
+              <QueryProvider>
+                <ToastProvider>
+                  <Header site={site} />
+                  {children}
+                  <Footer site={site} />
+                </ToastProvider>
+              </QueryProvider>
             </SubdomainProvider>
           </LocalizationProvider>
         </Suspense>

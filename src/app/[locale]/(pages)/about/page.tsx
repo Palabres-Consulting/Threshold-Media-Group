@@ -5,9 +5,16 @@ import Link from "next/link";
 import React from "react";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { useLocalization } from "../../context/localizationContext";
+import { useCookieSubDomain } from "../../hook/useCookieSubDomain";
+import ThresholdAboutPage from "../../_components/sections/thresholdHome/thresholdAboutPage";
 
 const Aboutpage = () => {
-  const { dict } = useLocalization();
+  const { dict, site } = useLocalization();
+  // if not a subdomain, render threshold about page;
+
+  if (site === "main") {
+    return <ThresholdAboutPage dict={dict} />;
+  }
 
   const team = [
     {

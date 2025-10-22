@@ -1,0 +1,160 @@
+{
+  "nav": {
+    "aboutUs": "À propos",
+    "ourTeam": "Notre équipe",
+    "services": "Services",
+    "process": "Processus",
+    "pricing": "Tarifs",
+    "contact": "Contact",
+    "lang": "Fr",
+    "french": "Français",
+    "english": "Anglais",
+    "spanish": "Espagnol",
+    "welcome": "Bienvenue",
+    "login": "Connexion / Inscription"
+  },
+
+  "footer": {
+    "siteMap": "PLAN DU SITE",
+    "socialMedia": "RÉSEAUX SOCIAUX",
+    "contactInfo": "INFOS DE CONTACT",
+    "about": "À propos",
+    "pricing": "Tarification",
+    "contact": "Contact",
+    "asint": "Asint",
+    "extraction": "Extraction",
+    "login": "Connexion",
+    "phone": "+224 629 00 69 29",
+    "email": "info@groupeibs.com",
+    "terms": "Termes & Conditions | Politique de confidentialité",
+    "rights": "Tous droits réservés - Threshold 2025"
+  },
+  "profile": {
+    "sections": {
+      "personalInfo": "Vos informations personnelles",
+      "subscription": "Votre abonnement",
+      "help": "Besoin d'aide ?",
+      "savedArticles": "Articles sauvegardés"
+    },
+    "items": {
+      "title": "Nom",
+      "email": "Email",
+      "password": "Mot de passe *",
+      "subscriptionStatus": "Vous n'avez pas d'abonnement actif pour le moment",
+      "helpByMail": "Contactez notre service clientèle par email à customercare@gmail.com"
+    }
+  },
+  "pricing": {
+    "pageTitle": "Tarification",
+    "headline": "Choisissez le plan tarifaire",
+    "subtext": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore eaque modi adipisci esse quam ad possimus? Accusamus dicta aspernatur repellat?",
+    "plans": [
+      {
+        "title": "Basique",
+        "price": "25.34",
+        "description": "Libérez le potentiel de votre entreprise grâce à nos plans tarifaires flexibles",
+        "offers": [
+          "Lorem ipsum dolor sit,",
+          "Lorem ipsum dolor sit,",
+          "Lorem ipsum dolor sit,"
+        ]
+      },
+      {
+        "title": "Standard",
+        "price": "25.34",
+        "description": "Libérez le potentiel de votre entreprise grâce à nos plans tarifaires flexibles",
+        "offers": [
+          "Lorem ipsum dolor sit,",
+          "Lorem ipsum dolor sit,",
+          "Lorem ipsum dolor sit,"
+        ],
+        "popular": "Populaire"
+      },
+      {
+        "title": "Premium",
+        "price": "25.34",
+        "description": "Libérez le potentiel de votre entreprise grâce à nos plans tarifaires flexibles",
+        "offers": [
+          "Lorem ipsum dolor sit,",
+          "Lorem ipsum dolor sit,",
+          "Lorem ipsum dolor sit,"
+        ]
+      }
+    ],
+    "month": "Mois",
+    "subscribe": "S'abonner"
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore eaque modi adipisci esse quam ad possimus ? Accusamus dicta aspernatur repellat ?",
+    "faqPrompt": "Vous ne trouvez pas ce que vous cherchez ? Notre",
+    "faqLink": "FAQ",
+    "faqRest": "propose plus d’informations sur les abonnements, l’application mobile Threshold Media Group, la gestion de votre compte, et bien plus encore",
+    "email": "info@groupeibs.com",
+    "phone": "+224 629 00 69 29",
+    "address": "Nongo, commune de Ratoma - à côté du stade Petit Sory"
+  },
+  "auth": {
+    "buttons": {
+      "signIn": "Se connecter",
+      "signUp": "Créer un compte",
+      "google": "Se connecter avec Google"
+    },
+    "divider": "Ou",
+    "fields": {
+      "email": {
+        "label": "E-mail *",
+        "placeholder": "Entrez votre e-mail"
+      },
+      "password": {
+        "label": "Mot de passe *",
+        "placeholder": "Entrez votre mot de passe"
+      },
+      "confirmPassword": {
+        "label": "Confirmez le mot de passe *",
+        "placeholder": "Confirmez votre mot de passe"
+      }
+    },
+    "forgotPassword": "Mot de passe oublié",
+    "submit": {
+      "signIn": "Se connecter",
+      "signUp": "Créer un compte"
+    },
+    "forgotPasswordPage": {
+      "title": "Mot de passe oublié",
+      "description": "Entrez votre adresse e-mail pour récupérer votre mot de passe. Vous recevrez un lien de récupération dans votre boîte mail.",
+      "placeholder": "Entrez votre e-mail",
+      "submit": "Envoyer"
+    }
+  },
+
+  "about": {
+    "title": "À propos",
+    "nav": {
+      "team": "Notre équipe",
+      "services": "Services",
+      "process": "Processus",
+      "strengths": "Nos forces"
+    },
+    "intro": {
+      "headline": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim eveniet tempore aut, labore iure nisi.",
+      "paragraph1": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, rerum illo at laudantium tenetur magnam!",
+      "paragraph2": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quaerat voluptate consequatur est labore obcaecati, dolores eveniet veniam itaque ipsum nisi voluptates voluptatibus commodi asperiores eius. Odio, est! Illum, illo!",
+      "paragraph3": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat mollitia cum alias recusandae doloremque. Ex vel quae doloribus rerum aut minima animi, dolor architecto cum illum? Facere sed enim et?"
+    },
+    "team": {
+      "title": "Notre équipe",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
+    },
+    "services": {
+      "title": "Services",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
+    },
+    "process": {
+      "title": "Processus",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis",
+      "stepTitle": "Lorem ipsum dolor sit amet consectetur adipisicing",
+      "stepDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit odit ipsa magnam fugit a quasi saepe provident! Vero beatae aliquam obcaecati, a assumenda esse sapiente minus natus dolor? Perferendis, quo!"
+    }
+  }
+}

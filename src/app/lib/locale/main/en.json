@@ -1,6 +1,7 @@
 {
   "nav": {
     "aboutUs": "About Us",
+    "ourTechnology": "Our Technology",
     "ourTeam": "Our Team",
     "services": "Services",
     "process": "Process",
@@ -8,6 +9,7 @@
     "contact": "Contact",
     "lang": "Eng",
     "french": "French",
+    "english": "English",
     "spanish": "Spanish",
     "welcome": "Welcome",
     "login": "Login/Sign Up"
@@ -129,10 +131,9 @@
   "about": {
     "title": "About",
     "nav": {
-      "team": "Our Team",
-      "services": "Services",
-      "process": "Processes",
-      "strengths": "Our Strengths"
+      "theGroup": "The Group",
+      "ourMediaBrands": "Our Media Brands",
+      "editorialTeam": "Editorial Team"
     },
     "intro": {
       "headline": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim eveniet tempore aut, labore iure nisi.",
@@ -140,19 +141,56 @@
       "paragraph2": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quaerat voluptate consequatur est labore obcaecati, dolores eveniet veniam itaque ipsum nisi voluptates voluptatibus commodi asperiores eius. Odio, est! Illum, illo!",
       "paragraph3": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat mollitia cum alias recusandae doloremque. Ex vel quae doloribus rerum aut minima animi, dolor architecto cum illum? Facere sed enim et?"
     },
-    "team": {
-      "title": "Our Team",
+    "theGroup": {
+      "title": "The Group",
       "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
     },
-    "services": {
-      "title": "Services",
+    "pressMentions": {
+      "title": "Press Mentions",
       "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
     },
-    "process": {
-      "title": "Processes",
-      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis",
-      "stepTitle": "Lorem ipsum dolor sit amet consectetur adipisicing",
-      "stepDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit odit ipsa magnam fugit a quasi saepe provident! Vero beatae aliquam obcaecati, a assumenda esse sapiente minus natus dolor? Perferendis, quo!"
+    "ourMediaBrands": {
+      "title": "Our Media Brands",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
+    },
+    "editorialTeam": {
+      "title": "Editorial Team",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
     }
+  },
+  "technology": {
+    "title": "Technology",
+    "nav": {
+      "ourAi": "Our AI",
+      "editorialProcess": "Editorial Process",
+      "dataInsight": "Data & Insight"
+    },
+    "ourAi": {
+      "title": "Our AI",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
+    },
+    "intro": {
+      "headline": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim eveniet tempore aut, labore iure nisi.",
+      "paragraph1": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, rerum illo at laudantium tenetur magnam!",
+      "paragraph2": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quaerat voluptate consequatur est labore obcaecati, dolores eveniet veniam itaque ipsum nisi voluptates voluptatibus commodi asperiores eius. Odio, est! Illum, illo!",
+      "paragraph3": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat mollitia cum alias recusandae doloremque. Ex vel quae doloribus rerum aut minima animi, dolor architecto cum illum? Facere sed enim et?"
+    },
+    "editorialProcess": {
+      "title": "Editorial Process",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis",
+      "subTitle": "lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam",
+      "subDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quaerat voluptate consequatur est labore obcaecati, dolores eveniet veniam itaque ipsum nisi voluptates voluptatibus commodi asperiores eius. Odio, est! Illum, illo!"
+    },
+    "dataInsight": {
+      "title": "Data & Insight",
+      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis",
+      "insight1": "Data-Driven Decisions",
+      "insight2": "Advanced Analytics",
+      "insight3": "Real-Time Monitoring"
+    }
+  }, 
+  "brands": {
+    "title": "Press Mentions", 
+    "description":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
   }
 }

@@ -1,10 +1,44 @@
+"use client";
+
 import PageContainer from "@/app/[locale]/_components/sections/pageContainer";
 import Sidebar from "@/app/[locale]/_components/sections/sidebar";
 import SubscribeCard from "@/app/[locale]/_components/sections/subscribeCard";
 import ThresholdOpinions from "@/app/[locale]/_components/sections/thresholdOpinions";
+import useSinglePost from "@/app/[locale]/hook/useSinglePost";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 import React from "react";
 
 const UniquePost = () => {
+  const params = useParams();
+  const title = params.title;
+
+  const { data: post, isLoading, error, isError } = useSinglePost(title);
+
+  console.log(post);
+
+  console.log(title);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div>Loading post...</div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div>
+          {error.response?.status === 404
+            ? "Post not found"
+            : `Error: ${error.message}`}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <PageContainer id="unique-post" path="" title="Unique Post">
       <div className="w-full flex">

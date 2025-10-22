@@ -3,9 +3,21 @@ import GreatReads from "./_components/sections/greatReads";
 import Hero from "./_components/sections/hero";
 import MorePosts from "./_components/sections/morePosts";
 import Sidebar from "./_components/sections/sidebar";
+import ThresholdHompage from "./_components/sections/thresholdHome/ThresholdHompage";
 import ThresholdOpinions from "./_components/sections/thresholdOpinions";
+import { useServerSite } from "./hook/useServerSite";
 
-const Home = () => {
+const Home = async () => {
+  const site = await useServerSite();
+
+  if (site === "main") {
+    return (
+      <main className="lg:mx-16 mx-2 border-sub-side">
+        <ThresholdHompage />
+      </main>
+    );
+  }
+
   return (
     <main className="lg:mx-16 mx-2 border-sub-side">
       <Hero />

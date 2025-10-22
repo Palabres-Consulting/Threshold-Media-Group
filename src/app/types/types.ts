@@ -82,3 +82,9 @@ export interface PageContents {
 export interface PageLayoutProps {
   contents: PageContents;
 }
+
+
+export interface User {
+  title: string, 
+  avatar_url: string
+}
