@@ -21,7 +21,7 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
 
   const path = pathName.slice(3, pathName.length);
 
-  console.log(path);
+  // console.log(path);
 
   const { dict } = useLocalization(); // localization dictionary
 
@@ -83,7 +83,7 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
 
   const activeNavlink = site === "main" ? thresholdMainNav : navLinks;
 
-  console.log(site, activeNavlink);
+  // console.log(site, activeNavlink);  
 
   const MobileMenu = () => {
     const [navOpen, setNavOpen] = useState(false);
@@ -97,7 +97,7 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
             {/* Optional: placeholder to balance layout */}
           </div>
 
-          <Logo />
+          <Logo site ={site}/>
 
           <button
             onClick={() => setNavOpen(!navOpen)}
@@ -209,7 +209,7 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
   return (
     <header className="flex justify-center items-center  lg:px-16 shadow-xs shadow-foreground/5 px-3 sticky top-0 backdrop-blur-sm bg-transparent z-60">
       <nav className="lg:flex justify-between items-center hidden w-full  px-5 text-sm  border-sub-side">
-        <Logo />
+        <Logo site={site} />
         <div className="flex justify-between gap-10  items-center">
           {activeNavlink.map(({ id, title, href, subMenu }) => (
             <div

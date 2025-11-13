@@ -8,12 +8,14 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 type FormState = "signIn" | "signUp";
 
 const AuthContainer = () => {
   const [formState, setFormState] = useState<FormState>("signIn");
   const { dict } = useLocalization();
+  const router = useRouter()
 
   // ✅ Schema with conditional validation
   const authSchema = z
@@ -48,7 +50,10 @@ const AuthContainer = () => {
     try {
       if (formState === "signIn") {
         console.log("Logging in with:", data);
-        await axios.post("/api/auth/login", data);
+        const response = await axios.post("/api/auth/login", data);
+        if (response.status === 200) {
+          router.push("/profile");
+        }
       } else {
         console.log("Signing up with:", data);
         await axios.post("/api/auth/signUp", data);

@@ -27,15 +27,96 @@ function getLocale(req: NextRequest): string {
   return matched || defaultLocale;
 }
 
+// Read from environment variables
+const prodDomainsString = process.env.TRUSTED_PROD_DOMAINS || "";
+const devDomainsString = process.env.TRUSTED_DEV_DOMAINS || "";
+
+const trustedDomains = {
+  production: prodDomainsString
+    .split(",")
+    .map((d) => d.trim())
+    .filter((d) => d.length > 0),
+  development: devDomainsString
+    .split(",")
+    .map((d) => d.trim())
+    .filter((d) => d.length > 0),
+};
+
+function isValidHost(host: string): boolean {
+  const hostWithoutPort = host.split(":")[0];
+
+  // Check production domains (host only)
+  if (trustedDomains.production.includes(hostWithoutPort)) {
+    return true;
+  }
+
+  // Check development domains (host:port must match exactly)
+  if (trustedDomains.development.includes(host)) {
+    return true;
+  }
+
+  return false;
+}
 function getSubdomain(host: string): string {
-  const parts = host.split(".");
-  if (parts.length > 2) return parts[0];
+  // 1. Convert to lowercase for consistent comparison
+  const lowerHost = host.toLowerCase();
+
+  // 2. Remove port number if present (common in localhost:3000)
+  const hostWithoutPort = lowerHost.split(":")[0];
+
+  // 3. Define standard prefixes to ignore
+  const standardPrefixes = ["www", "m", "mobile"];
+
+  let parts: string[];
+
+  // --- Development Check: Handling *.localhost ---
+  if (hostWithoutPort.endsWith(".localhost")) {
+    // Example: "extraction.localhost" -> ["extraction", "localhost"]
+    // Example: "app.extraction.localhost" -> ["app", "extraction", "localhost"]
+
+    parts = hostWithoutPort.split(".");
+
+    console.log(parts);
+    console.log(parts.length);
+    // If there are more than 2 parts (e.g., "extraction.localhost"), the first part is the subdomain.
+    if (parts.length >= 2 && parts[0] !== "localhost") {
+      return parts[0];
+    }
+    // Otherwise (e.g., "localhost"), return "main".
+    return "main";
+  }
+
+  // --- Production Check: Handling Standard TLDs (e.g., .com, .net) ---
+  parts = hostWithoutPort.split(".");
+
+  if (parts.length > 2) {
+    const firstPart = parts[0];
+
+    // Check if the first part is a standard prefix (e.g., www.example.com)
+    if (standardPrefixes.includes(firstPart)) {
+      // Check for nested subdomains (e.g., sub.www.example.com)
+      if (parts.length > 3) {
+        return parts[1];
+      }
+      // If only 'www', 'm', etc., return "main".
+      return "main";
+    }
+
+    // If the first part is NOT a standard prefix (e.g., app.example.com),
+    // it is the subdomain.
+    return firstPart;
+  }
+
+  // 4. Fallback for simple domains (example.com) or naked localhost
   return "main";
 }
-
 export async function middleware(req: NextRequest) {
+  console.log("middleware running");
+
   const url = req.nextUrl.clone();
   const pathname = url.pathname;
+
+  // console.log(req);
 
   // Skip internal paths
   if (
@@ -49,12 +130,26 @@ export async function middleware(req: NextRequest) {
 
   // Site detection
   const siteParam = url.searchParams.get("site");
-  let host = url.host;
-  if (process.env.NODE_ENV === "development" && siteParam) {
-    host = `${siteParam}.localhost:3000`;
+  let host = req.headers.get("x-forwarded-host") || req.nextUrl.host;
+  console.log(host);
+
+  if (!isValidHost(host)) {
+    console.error(
+      `SECURITY ALERT: Untrusted host detected: ${host}. Falling back to safe default.`
+    );
+
+    // 2. Overwrite 'host' with a known safe value
+    host = req.nextUrl.host;
   }
+
+  const safeHost = host.split(",")[0].trim();
+  // if (process.env.NODE_ENV === "development" && siteParam) {
+  //   host = `${siteParam}.localhost:3000`;
+  // }
   const cookieSite = req.cookies.get("site")?.value;
-  const resolvedSite = siteParam || cookieSite || getSubdomain(host);
+  const resolvedSite = getSubdomain(safeHost);
+
+  console.log(resolvedSite);
 
   const response = NextResponse.next();
   response.headers.set("site", resolvedSite);
@@ -113,5 +208,7 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|locales|.*\\.(?:svg|png|jpg|jpeg|gif|webp|json)$).*)"],
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|locales|.*\\.(?:svg|png|jpg|jpeg|gif|webp|json)$).*)",
+  ],
 };

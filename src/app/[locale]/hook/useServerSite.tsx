@@ -5,4 +5,4 @@ export async function useServerSite() {
   const site = cookieStore.get("site")?.value || "main";
 
   return site;
-}
+} 
