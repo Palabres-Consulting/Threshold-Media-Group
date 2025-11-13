@@ -15,7 +15,7 @@ const ProfilePage = () => {
   const { dict } = useLocalization();
 
   const { data: user } = useUser();
-  // const
+  
 
   console.log(user);
 
@@ -23,7 +23,7 @@ const ProfilePage = () => {
     <section className="flex lg:mx-16 mx-3 py-10 lg:py-0">
       <div className="lg:w-[24%] lg:flex hidden border-sub-side relative">
         <ProfileDetails
-          username={user?.title || "John Doe"}
+          username={user?.title}
           subscriber={true}
         />
       </div>
@@ -32,12 +32,12 @@ const ProfilePage = () => {
           <ProfileItem
             editButton={true}
             title={dict.profile.items.title}
-            value={user?.title || "John Doe"}
+            value={user?.title}
           />
           <ProfileItem
             editButton={false}
             title={dict.profile.items.email}
-            value={user?.email || "johndoe@dummymail.com"}
+            value={user?.email}
           />
           <ProfileItem
             editButton={

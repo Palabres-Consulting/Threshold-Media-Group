@@ -3,7 +3,6 @@
 import cloudinaryLoader from "@/app/lib/cloudinary";
 import Image from "next/image";
 import React from "react";
-import Logo, { LogoImage } from "./logo";
 import Link from "next/link";
 
 import { SiFacebook, SiLinphone } from "react-icons/si";

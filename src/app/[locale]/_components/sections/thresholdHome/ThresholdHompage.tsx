@@ -91,6 +91,8 @@ const ThresholdHompage = () => {
     <section className="">
       {/* TOP STATISTICS */}
 
+
+
       <div className="lg:p-6 relative flex gap-2 bg-background/90  overflow-hidden">
         <div className="absolute h-full w-full bg-gradient-to-r from-0% from-transparent via-92% via-transparent to-95%  to-background/90"></div>
 

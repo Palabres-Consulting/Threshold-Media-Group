@@ -42,7 +42,7 @@ const updateProfileField = async (
 export const ProfileItem: React.FC<{
   editButton: boolean;
   title: "Password" | "Title" | "By Mail";
-  value: string;
+  value?: string;
 }> = ({ title, value, editButton }) => {
   const [editActive, setEditActive] = useState(false);
   const queryClient = useQueryClient();
@@ -105,7 +105,7 @@ export const ProfileItem: React.FC<{
               Password is managed by the provider and can't be changed here.
             </p>
           ) : (
-            <p>{value}</p>
+            <div>{value ? <p className="">{value}</p> : <p className="blur-sm">User name</p>}</div>
           )}
         </div>
         {editButton && (

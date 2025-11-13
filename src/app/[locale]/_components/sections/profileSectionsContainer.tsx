@@ -20,7 +20,7 @@ const ProfileSectionsContainer: React.FC<{
 export default ProfileSectionsContainer;
 
 export const ProfileDetails: React.FC<{
-  username: string;
+  username?: string;
   subscriber: boolean;
 }> = ({ username, subscriber }) => {
   const navLinks = [
@@ -55,11 +55,14 @@ export const ProfileDetails: React.FC<{
           </div>
 
           {/* Profile name */}
-          <h3 className="font-semibold text-[1.5rem]">{username}</h3>
+          {
+            username ? 
+            <h3 className="font-semibold text-[1.5rem]">{username}</h3> : <h3 className="font-semibold text-[1.5rem] blur-sm">John Doe</h3>
+          }
 
           {/* User Status Tag */}
           <div className="rounded-lg p-3 border-sub text-xs">
-            {subscriber ? "Subscriber" : "Free User"}
+            {subscriber ? "Subscriber" : "Free User"} 
           </div>
         </div>
         <div className="border-sub-top grid w-full">

@@ -17,7 +17,7 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
 
   // const site = useSubdomain();
 
-  const user = useUser();
+  const { data, isLoading } = useUser();
 
   const path = pathName.slice(3, pathName.length);
 
@@ -107,8 +107,8 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
           </button>
         </div>{" "}
         {navOpen ? (
-          <div className="absolute top-28 right-5 w-[60%] md:w-[20%] border-sub   p-8 rounded-md  bg-background z-70">
-            <ul className="grid gap-4 ">
+          <div className="absolute  top-18 right-5 w-[80%] md:w-[20%] border-sub overflow-y-scroll h-[100vh]  p-8 rounded-md  bg-background z-70">
+            <ul className="grid gap-10 ">
               {activeNavlink.map(({ href, id, subMenu, title }) => {
                 return (
                   <li key={id} className="relative w-full h-fit">
@@ -169,7 +169,7 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
   const OtherNavItems = () => {
     const [transDropdown, setTransDropdown] = useState(false);
     return (
-      <div className="flex flex-col lg:flex-row lg:gap-10  gap-4 lg:items-center">
+      <div className="flex flex-col lg:flex-row lg:gap-10 my-10 gap-10 lg:items-center">
         <div className="flex lg:flex-row flex-col gap-4">
           <Link
             href="http://extraction.localhost:3000/?site=extraction"
@@ -186,19 +186,19 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
         </div>
 
         <ThemeSwitcher dict={dict} />
-
-        {!user.error ? (
-          <div className="flex justify-center items-center gap-2">
-            <div className="h-[25px] w-[25px] rounded-full  bg-foreground/10">
-              {/* {image} */}
-            </div>
-            <h5 className="">
-              {dict.nav.welcome}, {user.data?.title.slice(0, 4)}
-            </h5>
-            <div className="">
-              <GoTriangleDown className="" />
-            </div>
+        {isLoading ? (
+          <div className="px-2 py-1 flex items-center gap-2">
+            <div className="h-[25px] w-[25px] rounded-full bg-foreground/10 animate-pulse" />
+            <div className="h-3 w-16 bg-foreground/10 animate-pulse rounded" />
           </div>
+        ) : data ? (
+          <Link href="/profile" className="px-2 py-1 flex items-center gap-2">
+            <div className="h-[25px] w-[25px] rounded-full bg-foreground/10" />
+            <h5>
+              {dict.nav.welcome}, {data.title.slice(0, 4)}
+            </h5>
+            <GoTriangleDown />
+          </Link>
         ) : (
           <Link href="/auth">{dict.nav.login}</Link>
         )}
@@ -208,7 +208,7 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
 
   return (
     <header className="flex justify-center items-center  lg:px-16 shadow-xs shadow-foreground/5 px-3 sticky top-0 backdrop-blur-sm bg-transparent z-60">
-      <nav className="lg:flex justify-between items-center hidden w-full lg:py-5 py-5 px-5 text-sm  border-sub-side">
+      <nav className="lg:flex justify-between items-center hidden w-full  px-5 text-sm  border-sub-side">
         <Logo />
         <div className="flex justify-between gap-10  items-center">
           {activeNavlink.map(({ id, title, href, subMenu }) => (

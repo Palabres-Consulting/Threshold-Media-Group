@@ -1,3 +1,4 @@
+import MainFooter from "./_components/base/mainFooter";
 import CyberSecurityPosts from "./_components/sections/cyberSecurityPosts";
 import GreatReads from "./_components/sections/greatReads";
 import Hero from "./_components/sections/hero";
@@ -33,6 +34,7 @@ const Home = async () => {
           <Sidebar />
         </div>
       </div>
+      <MainFooter />
     </main>
   );
 };

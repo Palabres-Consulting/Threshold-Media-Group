@@ -192,5 +192,8 @@
   "brands": {
     "title": "Press Mentions", 
     "description":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
+  },
+  "hero": {
+    
   }
 }
