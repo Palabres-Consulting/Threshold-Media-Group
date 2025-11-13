@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useClientSite } from "../../hook/useSite";
 
-const Logo = ({ site }: { site: string }) => {
+const Logo = ({ site }: { site?: string   }) => {
   return (
     <Link href="/" className="block">
       {site === "extraction" ? (

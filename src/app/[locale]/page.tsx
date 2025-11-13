@@ -34,7 +34,6 @@ const Home = async () => {
           <Sidebar />
         </div>
       </div>
-      <MainFooter />
     </main>
   );
 };

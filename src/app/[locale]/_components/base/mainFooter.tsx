@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import { useLocalization } from "../../context/localizationContext";
 
-const MainFooter = () => {
+const MainFooter = ({site}: {site: string}) => {
   const { dict } = useLocalization();
 
   const links = [
