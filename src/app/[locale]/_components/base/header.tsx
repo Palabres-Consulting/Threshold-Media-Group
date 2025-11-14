@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Logo from "./logo";
+import Logo, { useHomeLink } from "./logo";
 import { useEffect, useRef, useState } from "react";
 import { NavLinks } from "@/app/types/types";
 import { usePathname } from "next/navigation";
@@ -14,6 +14,7 @@ import { useUser } from "../../hook/useUser";
 const Header: React.FC<{ site: string }> = ({ site }) => {
   const pathName = usePathname();
   const [hoverId, setHoverId] = useState<number | null>(null);
+  const { asintLink, extractionLink } = useHomeLink(site);
 
   // const site = useSubdomain();
 
@@ -83,7 +84,7 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
 
   const activeNavlink = site === "main" ? thresholdMainNav : navLinks;
 
-  // console.log(site, activeNavlink);  
+  // console.log(site, activeNavlink);
 
   const MobileMenu = () => {
     const [navOpen, setNavOpen] = useState(false);
@@ -97,7 +98,7 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
             {/* Optional: placeholder to balance layout */}
           </div>
 
-          <Logo site ={site}/>
+          <Logo site={site} />
 
           <button
             onClick={() => setNavOpen(!navOpen)}
@@ -172,15 +173,12 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
       <div className="flex flex-col lg:flex-row lg:gap-10 my-10 gap-10 lg:items-center">
         <div className="flex lg:flex-row flex-col gap-4">
           <Link
-            href="http://extraction.localhost:3000/?site=extraction"
+            href={extractionLink}
             className="px-6 py-1 rounded-md border-sub"
           >
             Extraction
           </Link>
-          <Link
-            href="http://asint.localhost:3000/?site=asint"
-            className="px-6 py-1 rounded-md border-sub"
-          >
+          <Link href={asintLink} className="px-6 py-1 rounded-md border-sub">
             ASINT
           </Link>
         </div>

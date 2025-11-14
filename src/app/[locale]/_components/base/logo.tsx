@@ -5,17 +5,41 @@ import Image from "next/image";
 import Link from "next/link";
 import { useClientSite } from "../../hook/useSite";
 
-const Logo = ({ site }: { site?: string   }) => {
+export const useHomeLink = (site?: string) => {
+  const httpEnv =
+    process.env.NODE_ENV === "development" ? "http://" : "https://";
+  const baseHost =
+    process.env.NODE_ENV === "development"
+      ? "localHost:3000"
+      : "tresholdmediagroup.com";
+
+  const mainLink = httpEnv + baseHost;
+  const subDomainLink = httpEnv + `${site}.` + baseHost;
+  const extractionLink = httpEnv + "extraction." + baseHost;
+  const asintLink = httpEnv + "asint." + baseHost;
+
+  return { mainLink, subDomainLink, extractionLink, asintLink };
+};
+
+const Logo = ({ site }: { site?: string }) => {
+  const { mainLink, subDomainLink } = useHomeLink(site);
+
   return (
-    <Link href="/" className="block">
+    <div className="">
       {site === "extraction" ? (
-        <ExtractionLogo />
+        <Link href={subDomainLink}>
+          <ExtractionLogo />
+        </Link>
       ) : site === "asint" ? (
-        <AsintLogo />
+        <Link href={subDomainLink}>
+          <AsintLogo />
+        </Link>
       ) : (
-        <ThresholdLogo />
+        <Link href={mainLink}>
+          <ThresholdLogo />
+        </Link>
       )}
-    </Link>
+    </div>
   );
 };
 
