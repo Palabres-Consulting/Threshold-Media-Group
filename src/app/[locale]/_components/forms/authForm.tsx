@@ -9,13 +9,17 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import GoogleAuthButton, { handleGoogleSignUp } from "./googleButton";
 
 type FormState = "signIn" | "signUp";
 
 const AuthContainer = () => {
   const [formState, setFormState] = useState<FormState>("signIn");
   const { dict } = useLocalization();
-  const router = useRouter()
+  const router = useRouter();
+
+  const [loading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // ✅ Schema with conditional validation
   const authSchema = z
@@ -50,7 +54,9 @@ const AuthContainer = () => {
     try {
       if (formState === "signIn") {
         console.log("Logging in with:", data);
-        const response = await axios.post("/api/auth/login", data);
+        const response = await axios.post("/api/auth/login", data, {
+          withCredentials: true,
+        });
         if (response.status === 200) {
           router.push("/profile");
         }
@@ -100,12 +106,11 @@ const AuthContainer = () => {
       </div>
 
       {/* Google Button */}
-      <button
-        className="flex cursor-pointer hover:bg-accent-main hover:text-white justify-center gap-4 py-4 rounded-lg w-full px-5 font-semibold items-center border-sub bg-foreground/5 text-center"
-        type="button"
-      >
-        <FaGoogle /> {dict.auth.buttons.google}
-      </button>
+
+      <GoogleAuthButton
+        onClick={() => handleGoogleSignUp(setIsLoading, setError)}
+        label={dict.auth.buttons.google}
+      />
 
       {/* Divider */}
       <div className="flex gap-4 items-center">

@@ -5,8 +5,8 @@ import {
   createSupabaseServer,
   createSupabaseServerClient,
   getBaseDomain,
-} from "./app/api/_lib/supabaseClient";
-import { corsResponse, getCorsHeaders } from "./lib/cors";
+} from "../app/api/_lib/supabaseClient";
+import { corsResponse, getCorsHeaders } from "../lib/cors";
 
 const locales = ["en", "fr"];
 const defaultLocale = "en";
@@ -186,11 +186,16 @@ export async function middleware(req: NextRequest) {
 
   const isAuthPath = path.includes("/auth");
 
+  
+
   console.log(isSubdomain, isAuthPath);
 
   if (isSubdomain && isAuthPath) {
     console.log("user is on subdomain, redirect");
-
+   
+    if (process.env.NODE_ENV === "development") {
+      return NextResponse.redirect("http://localhost:3000/auth", 301);
+    }
 
     const redirectUrl = new URL(
       `${process.env.NEXT_PUBLIC_PROD_BASE_URL}${path}`

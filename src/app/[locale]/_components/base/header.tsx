@@ -19,6 +19,7 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
   // const site = useSubdomain();
 
   const { data, isLoading } = useUser();
+  console.log(data);
 
   const path = pathName.slice(3, pathName.length);
 
