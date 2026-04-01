@@ -379,12 +379,6 @@
   },
   "about": {
     "title": "À Propos",
-    "nav": {
-      "team": "Notre équipe",
-      "services": "Services",
-      "process": "Processus",
-      "strengths": "Nos forces"
-    },
     "theGroup": {
       "title": "L'Écosystème Threshold",
       "description": "Un point d'ancrage entre l'information et la décision. Threshold Media Group réunit des expertises hybrides — journalisme d'investigation, analyse macro et intelligence artificielle — pour éclairer les marchés d'Afrique de l'Ouest et servir les acteurs qui y investissent, y opèrent ou y décident."
@@ -416,7 +410,22 @@
       "p1": "Ancrage local réel (Nous sommes à Conakry et Dakar, pas à Londres ou Paris).",
       "p2": "Exigence analytique (Des articles conçus pour être cités en réunion de direction).",
       "p3": "Formats utiles (Lectures de 4 minutes, pensées pour l’écran et prêtes pour la décision)."
-    }
+    },
+    
+  "nav": {
+    "team": "Notre Équipe",
+    "services": "Services",
+    "process": "Processus",
+    "strengths": "Nos Atouts",
+    "theGroup": "Le Groupe",
+    "ourMediaBrands": "Nos Marques Médias",
+    "editorialTeam": "Équipe Rédactionnelle"
+  },
+  "ourMediaBrands": {
+    "title": "Nos Marques Médias",
+    "description": "Chacune de nos marques médias est conçue pour répondre à des besoins stratégiques spécifiques. Des rapports sectoriels approfondis à la veille institutionnelle en temps réel, nous proposons une gamme de produits qui forment ensemble un écosystème d'intelligence complet."
+  }
+
   },
   "technology": {
     "title": "IA Stratégique",

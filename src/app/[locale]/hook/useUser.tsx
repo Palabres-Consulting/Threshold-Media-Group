@@ -1,5 +1,4 @@
 import { User } from "@/app/types/types";
-import { api } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 

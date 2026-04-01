@@ -8,10 +8,7 @@ import {
   FaFacebook,
   FaInstagram,
   FaLinkedin,
-  FaMailBulk,
-  FaPhoneAlt,
 } from "react-icons/fa";
-import { useLocalization } from "../../context/localizationContext";
 import { TranslationSchema } from "@/app/lib/locale";
 
 const Footer = ({site, dict}: {site: string, dict: TranslationSchema["main"]}) => {

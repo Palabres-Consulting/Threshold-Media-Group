@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
-import { FaGoogle } from "react-icons/fa";
-import { useLocalization } from "../../context/localizationContext";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

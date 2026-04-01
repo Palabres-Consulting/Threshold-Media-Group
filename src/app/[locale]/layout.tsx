@@ -10,7 +10,6 @@ import { cookies } from "next/headers";
 import { getDictionary } from "../lib/dict";
 import { LocalizationProvider } from "./context/localizationContext";
 import QueryProvider from "./context/queryProvider";
-import { createSupabaseServerClient } from "../api/_lib/supabaseClient";
 import { TranslationProvider } from "../lib/locale/context/translationContext";
 import { getTranslations } from "../lib/locale/i18n/getTranslations";
 

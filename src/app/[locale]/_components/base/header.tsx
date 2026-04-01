@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import Logo, { useHomeLink } from "./logo";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { NavLinks } from "@/app/types/types";
 import { usePathname } from "next/navigation";
 import { GoTriangleDown } from "react-icons/go";
-// import { useSubdomain } from "@/app/[locale]/hook/useSubDomain";
 import { useLocalization } from "../../context/localizationContext";
 import LangSwitcher from "../ui/LangSwitcher";
 import { useUser } from "../../hook/useUser";
