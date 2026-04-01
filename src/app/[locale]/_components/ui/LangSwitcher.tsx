@@ -21,7 +21,7 @@ const LangSwitcher: React.FC<{ dict: any }> = ({ dict }) => {
     const newPath = pathname.replace(/^\/(en|fr|ar)/, `/${newLocale}`);
 
     setLocale(newLocale);
-    if (typeof document === "undefined") return;
+    if (typeof document === "undefined") return;  
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=${
       60 * 60 * 24 * 365
     }`;
