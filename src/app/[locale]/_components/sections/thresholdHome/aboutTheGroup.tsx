@@ -1,27 +1,28 @@
 import cloudinaryLoader from "@/app/lib/cloudinary";
+import { TranslationSchema } from "@/app/lib/locale";
 import Image from "next/image";
 import React from "react";
 
 
-const AboutTheGroup: React.FC<{ dict: any; id: string }> = ({ dict, id }) => {
+const AboutTheGroup: React.FC<{ dict: TranslationSchema["main"]; id: string }> = ({ dict, id }) => {
   return (
     <section className="  px-3 lg:px-6 ">
       <div className="flex flex-col lg:flex-row lg:justify-between mt-4 lg:gap-x-28 gap-10 py-8">
         <div className="lg:w-[55%] border-t-2 border-solid border-accent-main py-8">
-          <h2 className="text-lg font-bold text-accent-main mb-5">Mission</h2>
+          <h2 className="text-lg font-bold text-accent-main mb-5">{dict.about.mission.title}</h2>
           <h4 className="text-[1.8rem] font-semibold">
-            {dict.about.intro.headline}
+            {dict.about.mission.description}
           </h4>
           <div className="mt-10">
             <GroupStatistics textAlign="" />
           </div>
         </div>
         <div className="lg:w-[45%] flex flex-col gap-5 border-t-2 border-solid border-accent-main py-8">
-          <h2 className="font-bold text-accent-main text-lg">Vision</h2>
-          <h5 className="text-[1.4rem]">{dict.about.intro.paragraph1}</h5>
+          <h2 className="font-bold text-accent-main text-lg">{dict.about.vision.title}</h2>
+          <h5 className="text-[1.4rem]">{dict.about.vision.description}</h5>
           <div className="text-sm gap-5 flex flex-col">
-            <p>{dict.about.intro.paragraph2}</p>
-            <p>{dict.about.intro.paragraph3}</p>
+            <p>{dict.about.vision.subtitle}</p>
+            {/* <p>{dict.about.vision.}</p> */}
           </div>
         </div>
       </div>

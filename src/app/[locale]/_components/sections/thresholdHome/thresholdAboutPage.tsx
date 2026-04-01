@@ -6,11 +6,12 @@ import AboutTheGroup from "./aboutTheGroup";
 import PressMentions from "./pressMentions";
 import EditorialTeam from "./EditorialTeam";
 import EditorialProcess from "./editorialProcess";
+import { TranslationSchema } from "@/app/lib/locale";
 
-const ThresholdAboutPage: React.FC<{ dict: any }> = ({ dict }) => {
+const ThresholdAboutPage: React.FC<{ dict: TranslationSchema["main"] }> = ({ dict }) => {
   return (
     <PageContainer
-      title={dict?.aboutTitle || "About Us"}
+      title={dict?.about?.theGroup?.title || "About Us"}
       path="About"
       id="thresholdAbout"
     >
@@ -60,7 +61,7 @@ const ThresholdAboutPage: React.FC<{ dict: any }> = ({ dict }) => {
         description={dict.about.ourMediaBrands.description}
       />
 
-      <EditorialTeam dict={dict} id="editorialTeam" />
+      {/* <EditorialTeam dict={dict} id="editorialTeam" /> */}
     </PageContainer>
   );
 };

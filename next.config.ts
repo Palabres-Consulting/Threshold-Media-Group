@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
- 
+
   images: {
     remotePatterns: [
       {
@@ -12,6 +12,15 @@ const nextConfig: NextConfig = {
     ],
     loader: "custom",
     loaderFile: "./src/app/lib/cloudinary.ts", // no `loader: "custom"`
+  },
+
+  async rewrites() {
+    return [
+      {
+        source: '/wp-admin/',
+        destination: 'https://wp.tresholdmediagroup.com/wp-admin/',
+      },
+    ]
   },
 };
 

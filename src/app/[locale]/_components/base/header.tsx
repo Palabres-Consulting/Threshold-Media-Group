@@ -8,10 +8,16 @@ import { usePathname } from "next/navigation";
 import { GoTriangleDown } from "react-icons/go";
 // import { useSubdomain } from "@/app/[locale]/hook/useSubDomain";
 import { useLocalization } from "../../context/localizationContext";
-import ThemeSwitcher from "../ui/themeSwitcher";
+import LangSwitcher from "../ui/LangSwitcher";
 import { useUser } from "../../hook/useUser";
+import Categories from "./Categories";
+import { TranslationSchema } from "@/app/lib/locale";
+import UserNav from "./userNav";
 
-const Header: React.FC<{ site: string }> = ({ site }) => {
+const Header: React.FC<{ site: string; t: TranslationSchema }> = ({
+  site,
+  t,
+}) => {
   const pathName = usePathname();
   const [hoverId, setHoverId] = useState<number | null>(null);
   const { asintLink, extractionLink } = useHomeLink(site);
@@ -19,7 +25,7 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
   // const site = useSubdomain();
 
   const { data, isLoading } = useUser();
-  console.log(data);
+  // console.log(data);
 
   const path = pathName.slice(3, pathName.length);
 
@@ -36,6 +42,7 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
         { id: 0, title: dict.nav.ourTeam, href: "/about#team" },
         { id: 1, title: dict.nav.services, href: "/about#services" },
         { id: 2, title: dict.nav.process, href: "/about#process" },
+        { id: 3, title: dict.nav.pricing, href: "/pricing" },
       ],
     },
     {
@@ -46,17 +53,22 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
     },
     {
       id: 2,
-      title: dict.nav.pricing,
-      href: "/pricing",
-      subMenu: null,
-    },
-    {
-      id: 3,
       title: dict.nav.contact,
       href: "/contact",
       subMenu: null,
     },
   ];
+
+  const ourMediaLinks = {
+    // id: 3,
+    title: dict.nav.ourTeam,
+    href: "/#",
+    subMenu: [
+      { id: 0, title: dict.nav.asint, href: "/about#team" },
+      { id: 1, title: dict.nav.extraction, href: "/about#team" },
+      { id: 2, title: dict.nav.gi, href: "/about#team" },
+    ],
+  };
 
   const navLinks: NavLinks[] = [
     {
@@ -109,11 +121,11 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
           </button>
         </div>{" "}
         {navOpen ? (
-          <div className="absolute  top-18 right-5 w-[80%] md:w-[20%] border-sub overflow-y-scroll h-[100vh]  p-8 rounded-md  bg-background z-70">
-            <ul className="grid gap-10 ">
+          <div className="absolute gap-5  top-18 right-5 w-fit md:w-[80%] border-sub overflow-y-scroll h-[100vh]  p-8 rounded-md  bg-background z-70">
+            <ul className="grid gap-7 ">
               {activeNavlink.map(({ href, id, subMenu, title }) => {
                 return (
-                  <li key={id} className="relative w-full h-fit">
+                  <li key={id} className="relative w-fit h-fit">
                     <div className="flex items-center justify-between">
                       <Link
                         href={href}
@@ -157,9 +169,16 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
                   </li>
                 );
               })}
+              <Categories
+                extractionLink={extractionLink}
+                asintLink={asintLink}
+                dict={t}
+              />
             </ul>
 
-            <OtherNavItems />
+            <div className="mt-4 w-[30%]">
+              <LangSwitcher dict={dict} />
+            </div>
           </div>
         ) : (
           ""
@@ -169,10 +188,16 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
   };
 
   const OtherNavItems = () => {
+    const prodUrl = `${process.env.NEXT_PUBLIC_PROD_URL!}/auth`;
+    const localUrl = `${process.env.NEXT_PUBLIC_LOCAL_BASE_URL!}/auth`;
+
+    const authUrl = process.env.NODE_ENV === "production" ? prodUrl : localUrl;
+
     const [transDropdown, setTransDropdown] = useState(false);
+
     return (
-      <div className="flex flex-col lg:flex-row lg:gap-10 my-10 gap-10 lg:items-center">
-        <div className="flex lg:flex-row flex-col gap-4">
+      <div className="flex flex-col lg:flex-row lg:gap-5 lg:my-0 my-10 gap-10 lg:items-center">
+        {/* <div className="flex lg:flex-row flex-col gap-4">
           <Link
             href={extractionLink}
             className="px-6 py-1 rounded-md border-sub"
@@ -182,73 +207,102 @@ const Header: React.FC<{ site: string }> = ({ site }) => {
           <Link href={asintLink} className="px-6 py-1 rounded-md border-sub">
             ASINT
           </Link>
-        </div>
+        </div> */}
 
-        <ThemeSwitcher dict={dict} />
-        {isLoading ? (
-          <div className="px-2 py-1 flex items-center gap-2">
-            <div className="h-[25px] w-[25px] rounded-full bg-foreground/10 animate-pulse" />
-            <div className="h-3 w-16 bg-foreground/10 animate-pulse rounded" />
-          </div>
-        ) : data ? (
-          <Link href="/profile" className="px-2 py-1 flex items-center gap-2">
-            <div className="h-[25px] w-[25px] rounded-full bg-foreground/10" />
-            <h5>
-              {dict.nav.welcome}, {data.title.slice(0, 4)}
-            </h5>
-            <GoTriangleDown />
-          </Link>
-        ) : (
-          <Link href="/auth">{dict.nav.login}</Link>
-        )}
+        {/* <LangSwitcher dict={dict} /> */}
+        {/* Inside Header */}
+        <UserNav
+          data={data}
+          isLoading={isLoading}
+          dict={dict}
+          authUrl={authUrl}
+        />
       </div>
     );
   };
 
   return (
-    <header className="flex justify-center items-center  lg:px-16 shadow-xs shadow-foreground/5 px-3 sticky top-0 backdrop-blur-sm bg-transparent z-60">
-      <nav className="lg:flex justify-between items-center hidden w-full  px-5 text-sm  border-sub-side">
-        <Logo site={site} />
-        <div className="flex justify-between gap-10  items-center">
-          {activeNavlink.map(({ id, title, href, subMenu }) => (
-            <div
-              key={id}
-              className="relative"
-              onMouseEnter={() => setHoverId(id)}
-            >
-              <Link
-                href={href}
-                className={` ${
-                  hoverId === id && subMenu ? "text-accent-main" : ""
-                }  hover:text-accent-main w-fit flex items-center justify-center gap-2 ${
-                  pathName === href ? "text-accent-main font-bold" : ""
-                }`}
-              >
-                {title} {subMenu && <GoTriangleDown className="" />}
-              </Link>
+    <header className="flex justify-center items-center  lg:px-10 shadow-xs shadow-foreground/5 px-3 sticky top-0 backdrop-blur-sm bg-transparent z-[1000]">
+      <nav className="lg:flex flex-col gap-7 justify-between items- hidden w-full py-5  px-5 text-sm  border-sub-side">
+        <div className="flex justify-between">
+          <Logo site={site} />
 
-              {subMenu && hoverId === id && (
-                <div
-                  onMouseLeave={() => setHoverId(null)}
-                  className={`absolute left-0 mt-2 bg-background shadow-lg rounded-2xl p-5 z-50 w-[10em] `}
+          <div className="flex justify-between gap-7 items-center  ">
+            {activeNavlink.map(({ id, title, href, subMenu }) => (
+              <div
+                key={id}
+                className="relative  h-fit"
+                onMouseEnter={() => setHoverId(id)}
+              >
+                <Link
+                  href={href}
+                  className={` ${
+                    hoverId === id && subMenu ? "text-accent-main" : ""
+                  }  hover:text-accent-main w-fit flex items-center justify-center gap-1 ${
+                    pathName === href ? "text-accent-main font-bold" : ""
+                  }`}
                 >
-                  <ul>
-                    {subMenu.map((item) => (
-                      <li key={item.id} className="py-3 flex justify-center">
+                  {title} {subMenu && <GoTriangleDown className="" />}
+                </Link>
+
+                {subMenu && hoverId === id && (
+                  <div
+                    onMouseLeave={() => setHoverId(null)}
+                    className={`absolute left-0 mt-2 bg-background shadow-lg rounded-md p-5 z-50 w-[10em] `}
+                  >
+                    <ul>
+                      {subMenu.map((item) => (
+                        <li key={item.id} className="py-3 flex justify-center">
+                          <Link
+                            href={item.href}
+                            className="hover:text-accent-main text-center"
+                          >
+                            {item.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ))}
+            <OtherNavItems />
+          </div>
+        </div>
+
+        <div className="flex gap-5 items-center justify-between ">
+          <Categories
+            extractionLink={extractionLink}
+            asintLink={asintLink}
+            dict={t}
+          />
+
+          <div className="flex gap-3 items-center">
+            <LangSwitcher dict={dict} />
+
+            <div className="">
+              {
+                <div className="relative group">
+                  <div className="flex  items-center  gap-1 cursor-pointer hover:text-accent-main">
+                    {ourMediaLinks.title} <GoTriangleDown className="" />
+                  </div>
+                  <div className="absolute hidden shadow-lg group-hover:grid right-0 p-4 gap-4  top-[100%] bg-background">
+                    {ourMediaLinks.subMenu?.map((item) => {
+                      return (
                         <Link
+                          key={item.id}
                           href={item.href}
-                          className="hover:text-accent-main text-center"
+                          className="text-nowrap hover:text-accent-main"
                         >
                           {item.title}
                         </Link>
-                      </li>
-                    ))}
-                  </ul>
+                      );
+                    })}
+                  </div>
                 </div>
-              )}
+              }
             </div>
-          ))}
-          <OtherNavItems />
+          </div>
         </div>
       </nav>
 

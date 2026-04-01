@@ -39,7 +39,7 @@ const PricingPage = () => {
                   onMouseEnter={() => setActivePlan(id)}
                   className={`${
                     active ? "bg-accent-main text-white" : "bg-foreground/5"
-                  } h-[80vh] rounded-2xl p-8 transition-all duration-300`}
+                  } h-fit rounded-2xl p-8 transition-all duration-300`}
                 >
                   <div className="flex justify-between mb-5">
                     <h3 className="font-semibold text-[1.7rem]">{title}</h3>

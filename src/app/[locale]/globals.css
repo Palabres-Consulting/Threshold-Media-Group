@@ -3,6 +3,7 @@
 
 @import "tw-animate-css";
 
+@import "leaflet/dist/leaflet.css";
 
 @tailwind utilities;
 
@@ -172,6 +173,10 @@ p {
 
 .btn-var1 {
   @apply w-full py-2 bg-accent-main text-white px-4 rounded-lg;
+}
+
+button {
+  @apply cursor-pointer;
 }
 
 .dark {

@@ -12,5 +12,6 @@ export const useUser = () =>
           withCredentials: true,
         })
       ).data,
-    gcTime: 1000 * 60 * 60,
+    gcTime: 1000 * 60 * 60, // 1 hour: How long to keep it in the cache
+      // staleTime: 1000 * 60 * 60, // 1 hour: Data is considered fresh for this duration
   });

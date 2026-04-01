@@ -23,10 +23,10 @@ const ServicesComponent: React.FC<{ dict: any }> = ({ dict }) => {
     <div className="py-10 border-sub-y lg:p-6 p-3" id="service">
       <div className="flex flex-col text-center mb-14">
         <h2 className="text-[3rem] font-bold mb-6">
-          {dict.technology.dataInsight.title}
+          {/* {dict.technology.dataInsight.title} */}
         </h2>
         <p className="text-foreground/50">
-          {dict.technology.dataInsight.description}
+          {/* {dict.technology.dataInsight.description} */}
         </p>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-8">

@@ -1,32 +1,31 @@
 import cloudinaryLoader from "@/app/lib/cloudinary";
+import { TranslationSchema } from "@/app/lib/locale";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { FaArrowRight, FaDesktop, FaImage, FaRegEdit } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 
-const SpotLightSection = () => {
+// Assuming you pass the translation object or use a hook like useTranslations('hero')
+const SpotLightSection = ({ t }: { t: TranslationSchema["main"]["hero"]} ) => {
   const spotLights = [
     {
-      id: 0,
-      title: "Lorem, ipsum.",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam deleniti sed praesentium.",
+      id: "asint",
+      title: t.pillars.asint.title, // "Strategic Monitoring"
+      description: t.pillars.asint.description,
       icon: "/icons/imac.svg",
       alt: "desktop icon",
     },
     {
-      id: 1,
-      title: "Lorem, ipsum.",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam deleniti sed praesentium.",
+      id: "extraction",
+      title: t.pillars.extraction.title, // "Sectoral Reports"
+      description: t.pillars.extraction.description,
       icon: "/icons/edit.svg",
       alt: "edit icon",
     },
     {
-      id: 2,
-      title: "Lorem, ipsum.",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam deleniti sed praesentium.",
+      id: "data",
+      title: t.pillars.data.title, // "Predictive Analysis"
+      description: t.pillars.data.description,
       icon: "/icons/chart.svg",
       alt: "chart icon",
     },
@@ -35,12 +34,11 @@ const SpotLightSection = () => {
   return (
     <section className="flex items-center flex-col justify-center py-12 px-3 my-14">
       <div className="flex justify-center flex-col items-center gap-4">
-        <h2 className="font-bold text-[2rem] lg:text-[3rem]">
-          Spotlight on Innovation (AI)
+        <h2 className="font-bold text-[2rem] lg:text-[3rem] text-center">
+          {t.spotlight.title}
         </h2>
-        <p className="w-[70%] text-center">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Minus animi
-          architecto molestiae repudiandae, quidem magni.
+        <p className="w-full lg:w-[70%] text-center">
+          {t.spotlight.description}
         </p>
       </div>
 
@@ -48,27 +46,24 @@ const SpotLightSection = () => {
         {spotLights.map(({ id, title, description, icon, alt }) => {
           return (
             <div key={id} className="flex text-center flex-col gap-4 items-center">
-              <div className="">
-                <Image 
-                   loader={cloudinaryLoader}
+              <div className="relative w-[100px] h-[100px]">
+                <Image
+                  loader={cloudinaryLoader}
                   src={icon}
                   alt={alt}
-                  width={100}
-                  height={100}
-
-                
+                  fill
+                  className="object-contain"
                 />
               </div>
-              <h3 className="font-semibold">Lorem, ipsum.</h3>
-              <p className="w-[80%] text-sm">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
-                deleniti sed praesentium.
+              <h3 className="font-semibold text-xl">{title}</h3>
+              <p className="w-[90%] lg:w-[80%] text-sm">
+                {description}
               </p>
               <Link
-                href={"#"}
-                className="flex gap-2 py-1 px-2 rounded-lg border-sub items-center"
+                href={`/services/${id}`}
+                className="flex gap-2 py-2 px-4 mt-2 transition-all hover:bg-gray-50 rounded-lg border border-sub items-center text-sm font-medium"
               >
-                Learn More <FaArrowRight />
+                {t.pillars[id as keyof typeof t.pillars].cta} <FaArrowRight className="text-xs" />
               </Link>
             </div>
           );

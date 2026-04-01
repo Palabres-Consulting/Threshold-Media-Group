@@ -20,7 +20,7 @@ const ProfilePage = () => {
   console.log(user);
 
   return (
-    <section className="flex lg:mx-16 mx-3 py-10 lg:py-0">
+    <section className="flex lg:mx-10 mx-3 py-10 lg:py-0">
       <div className="lg:w-[24%] lg:flex hidden border-sub-side relative">
         <ProfileDetails
           username={user?.title}

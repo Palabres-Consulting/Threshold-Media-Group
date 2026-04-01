@@ -3,8 +3,10 @@ import CategoryTime from "../../utilities/category&time";
 import AuthorTime from "../../utilities/author&time";
 import AuthorPost from "../../utilities/authorPost";
 import Subscribe from "../../forms/subscribe";
+import EmptyState from "../../ui/empty";
+import { Locale } from "@/app/[locale]/context/types";
 
-const LatestArticleReads = () => {
+const LatestArticleReads = ({ locale }: { locale: Locale }) => {
   const posts = [
     {
       id: 0,
@@ -46,8 +48,24 @@ const LatestArticleReads = () => {
   ];
 
   return (
-    <section className="lg:p-6 px-3 py-12 flex flex-col lg:flex-row gap-4">
-      <div className="lg:w-[70%]">
+    <section className="lg:p-6 px-3 py-12 flex flex-col lg:flex-row gap-4 relative">
+     
+      <div className="lg:w-[70%] relative overflow-hidden">
+        <div className="bg-[var(--background)]/50  text-[var(--foreground)]  top-0 left-0 w-full h-full z-[999] absolute">
+          <div className="w-full h-full bg-[var(--background)]/40 backdrop-blur-xs flex items-center justify-center">
+            {/* <header className="mb-12 border-b border-[var(--foreground)]/10 pb-8">
+            <h1 className="text-4xl font-black uppercase tracking-tighter">
+              {site.toUpperCase()}
+            </h1>
+          </header> */}
+
+            {/* Empty State Call */}
+            <div className="container mx-auto px-4">
+              <EmptyState locale={locale} />
+            </div>
+          </div>
+        </div>
+
         <section className="flex flex-col  ">
           <div className="lg:px-6 pt-6  ">
             <h2 className="text-[2rem] font-bold">Latest articles feed</h2>
@@ -133,7 +151,7 @@ const LatestArticleReads = () => {
                     readTime="10 mins read"
                   />
                 </div>
-              )
+              ),
             )}
           </div>
         </section>

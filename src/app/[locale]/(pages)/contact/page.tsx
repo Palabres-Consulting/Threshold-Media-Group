@@ -1,4 +1,5 @@
-"use client";
+
+
 
 import ContactForm from "@/app/[locale]/_components/forms/contactForm";
 import PageContainer from "@/app/[locale]/_components/sections/pageContainer";
@@ -6,10 +7,16 @@ import Link from "next/link";
 import React from "react";
 import { FaLocationArrow, FaMailBulk, FaPhoneAlt } from "react-icons/fa";
 import { getDictionary } from "@/app/lib/dict";
-import { useLocalization } from "../../context/localizationContext";
+import { Locale } from "../../context/types";
+import { getTranslations } from "@/app/lib/locale/i18n/getTranslations";
+import { Mapbox } from "./MapContainer";
 
-const ContactPage = () => {
-  const { dict } = useLocalization();
+const ContactPage = async ({params}: {params: Promise<{ locale: Locale }>}) => {
+
+  const {locale} = await params;
+
+  const {main: dict }= getTranslations(locale);
+
 
   return (
     <PageContainer id="contact" path="" title={dict.contact.title}>
@@ -18,11 +25,11 @@ const ContactPage = () => {
           <h1 className="text-[3rem] font-bold">{dict.contact.title}</h1>
           <p className="text-sm w-[60%]">{dict.contact.subtitle}</p>
         </div>
-        <div className="flex flex-col lg:flex-row lg:justify-between gap-20">
+        <div className="flex flex-col lg:flex-row lg:justify-center">
           <div className="lg:w-[50%] ">
-            <ContactForm />
+            <ContactForm dict={dict} />
           </div>
-          <div className="lg:w-[50%] flex flex-col">
+          {/* <div className="lg:w-[50%] flex flex-col">
             <div className="mb-8">
               <h5 className="text-[2rem]">
                 {dict.contact.faqPrompt}{" "}
@@ -45,12 +52,13 @@ const ContactPage = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="h-[80vh] w-full p-3 py-10">
           <div className="rounded-2xl h-full w-full bg-foreground/5">
             {/* {map} */}
+            <Mapbox />
           </div>
         </div>
       </div>

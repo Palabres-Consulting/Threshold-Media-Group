@@ -6,8 +6,9 @@ import React, { useState } from "react";
 import { GoTriangleDown } from "react-icons/go";
 import { useLocalization } from "../../context/localizationContext";
 import { Locale } from "../../context/types";
+import { Globe } from "lucide-react";
 
-const ThemeSwitcher: React.FC<{ dict: any }> = ({ dict }) => {
+const LangSwitcher: React.FC<{ dict: any }> = ({ dict }) => {
   const [transDropdown, setTransDropdown] = useState(false);
 
   const pathname = usePathname();
@@ -28,8 +29,11 @@ const ThemeSwitcher: React.FC<{ dict: any }> = ({ dict }) => {
   };
 
   return (
-    <div className="relative h-fit">
-      <div className="flex items-center cursor-pointer justify-between lg:justify-normal px-2 py-1 rounded-md gap-2 border">
+    <div className="relative h-fit group ">
+      <div className="flex items-center cursor-pointer  lg:justify-between  px-2 py-1 rounded-md gap-1 lg:border">
+       
+        <Globe size={15} />
+       
         <button
           type="button"
           className="flex gap-2 items-center cursor-pointer"
@@ -47,29 +51,27 @@ const ThemeSwitcher: React.FC<{ dict: any }> = ({ dict }) => {
         </button>
       </div>
 
-      {transDropdown ? (
+      
         <div
-          onMouseLeave={() => setTransDropdown(false)}
-          className="rounded-2xl lg:p-5 lg:absolute bg-background top-5 mt-2 shadow-lg lg:w-[8em] z-50"
+
+          className="rounded-md lg:hidden group-hover:block lg:p-2 right-0 absolute bg-background top-full  shadow-lg w-[90%] lg:w-[8em]  z-50"
         >
           <ul className="px-3">
             <li className="py-2 flex lg:justify-center cursor-pointer">
-              <button onClick={() => handleSelect("fr")} className="hover:text-accent-main text-center">
+              <button onClick={() => handleSelect("fr")} className="hover:text-accent-main text-center cursor-pointer">
                 {dict.nav.french}
               </button>
             </li>
             <li className="py-2 flex lg:justify-center cursor-pointer">
-              <button onClick={() => handleSelect("en")} className="hover:text-accent-main text-center">
+              <button onClick={() => handleSelect("en")} className="hover:text-accent-main text-center cursor-pointer">
                 {dict.nav.english}
               </button>
             </li>
           </ul>
         </div>
-      ) : (
-        ""
-      )}
+      
     </div>
   );
 };
 
-export default ThemeSwitcher;
+export default LangSwitcher;

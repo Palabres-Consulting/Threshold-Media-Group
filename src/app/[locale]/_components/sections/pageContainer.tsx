@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { ReactNode } from "react";
-import { FaFacebook } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 
 const PageContainer: React.FC<{
   id: string;
@@ -16,7 +16,7 @@ const PageContainer: React.FC<{
   console.log(pathname);
 
   return (
-    <section className="lg:mx-16">
+    <section className="lg:mx-10">
       <div className="py-5 bg-foreground/5 border-sub-side px-6 border-sub-bottom flex justify-between items-center">
         <div className="flex items-center gap-4 text-sm opacity-50">
           <span className="">Home</span> <span className="">/</span>
@@ -27,7 +27,7 @@ const PageContainer: React.FC<{
             <li className="flex">
               <Link
                 href=""
-                className="rounded-full p-3 text-[1.5rem] border-sub"
+                className="rounded-full p-3 text-[1.5rem] border-sub text-accent-main"
               >
                 <FaFacebook />
               </Link>
@@ -35,25 +35,25 @@ const PageContainer: React.FC<{
             <li className="flex">
               <Link
                 href=""
-                className="rounded-full p-3 text-[1.5rem] border-sub"
+                className="rounded-full p-3 text-[1.5rem] border-sub text-accent-main"
               >
-                <FaFacebook />
+                <FaInstagram />
               </Link>
             </li>
             <li className="flex">
               <Link
                 href=""
-                className="rounded-full p-3 text-[1.5rem] border-sub"
+                className="rounded-full p-3 text-[1.5rem] border-sub text-accent-main"
               >
-                <FaFacebook />
+                <FaLinkedin />
               </Link>
             </li>
             <li className="flex">
               <Link
                 href=""
-                className="rounded-full p-3 text-[1.5rem] border-sub"
+                className="rounded-full p-3 text-[1.5rem] border-sub text-accent-main"
               >
-                <FaFacebook />
+                <FaYoutube />
               </Link>
             </li>
           </ul>

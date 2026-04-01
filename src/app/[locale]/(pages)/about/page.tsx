@@ -1,15 +1,22 @@
-"use client";
-
 import PageContainer from "@/app/[locale]/_components/sections/pageContainer";
 import Link from "next/link";
 import React from "react";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { useLocalization } from "../../context/localizationContext";
-import { useCookieSubDomain } from "../../hook/useCookieSubDomain";
 import ThresholdAboutPage from "../../_components/sections/thresholdHome/thresholdAboutPage";
+import { useServerSite } from "../../hook/useServerSite";
+import { getTranslations } from "@/app/lib/locale/i18n/getTranslations";
+import ProcessSection from "./processSection";
 
-const Aboutpage = () => {
-  const { dict, site } = useLocalization();
+const Aboutpage = async ({
+  params,
+}: {
+  params: Promise<{ locale: "en" | "fr" }>;
+}) => {
+  const site = await useServerSite();
+  const { locale } = await params;
+
+  const { main: dict } = getTranslations(locale);
+
   // if not a subdomain, render threshold about page;
 
   if (site === "main") {
@@ -82,7 +89,7 @@ const Aboutpage = () => {
             href="/about/#team"
             className="font-semibold hover:text-accent-main"
           >
-            {dict.about.nav.strengths}
+            {dict.about.nav.team}
           </Link>
           <Link
             href="/about/#service"
@@ -106,16 +113,16 @@ const Aboutpage = () => {
           <div className="flex flex-col lg:flex-row lg:justify-between mt-4 lg:gap-x-28 gap-10 py-8">
             <div className="lg:w-[45%] border-t-2 border-solid border-accent-main py-8">
               <h4 className="text-[1.8rem] font-semibold">
-                {dict.about.intro.headline}
+                {dict.about.theGroup.title}
               </h4>
             </div>
             <div className="lg:w-[50%] flex flex-col gap-5">
               <h5 className="text-[1.4rem] font-semibold">
-                {dict.about.intro.paragraph1}
+                {dict.about.theGroup.description}
               </h5>
               <div className="text-sm gap-5 flex flex-col">
-                <p>{dict.about.intro.paragraph2}</p>
-                <p>{dict.about.intro.paragraph3}</p>
+                <p>{dict.about.theGroup.description}</p>
+                <p>{dict.about.theGroup.description}</p>
               </div>
             </div>
           </div>
@@ -125,9 +132,11 @@ const Aboutpage = () => {
         <div className="py-10 border-sub-y lg:p-6 p-3" id="team">
           <div className="flex flex-col text-center mb-14">
             <h2 className="text-[3rem] font-bold mb-6">
-              {dict.about.team.title}
+              {dict.about.editorialTeam.title}
             </h2>
-            <p className="text-foreground/50">{dict.about.team.description}</p>
+            <p className="text-foreground/50">
+              {dict.about.editorialTeam.description}
+            </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-8">
             {team.map(
@@ -171,7 +180,7 @@ const Aboutpage = () => {
                     </div>
                   </div>
                 </div>
-              )
+              ),
             )}
           </div>
         </div>
@@ -180,10 +189,10 @@ const Aboutpage = () => {
         <div className="py-10 border-sub-y lg:p-6 p-3" id="service">
           <div className="flex flex-col text-center mb-14">
             <h2 className="text-[3rem] font-bold mb-6">
-              {dict.about.services.title}
+              {dict.about.pillarsOfIntelligence.title}
             </h2>
             <p className="text-foreground/50">
-              {dict.about.services.description}
+              {dict.about.pillarsOfIntelligence.p1}
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-8">
@@ -203,50 +212,7 @@ const Aboutpage = () => {
         </div>
 
         {/* PROCESS */}
-        <div className="lg:px-6 px-3 py-10 " id="process">
-          <div className="flex flex-col text-center mb-14">
-            <h2 className="text-[3rem] font-bold mb-6">
-              {dict.about.process.title}
-            </h2>
-            <p className="text-foreground/50">
-              {dict.about.process.description}
-            </p>
-          </div>
-
-          <div className="flex flex-col lg:flex-row gap-4 justify-center items-center w-full">
-            <div className="lg:w-[70%] w-full flex gap-3">
-              <div className="w-[50%] h-[53vh] rounded-2xl overflow-hidden flex items-end relative border-sub">
-                <div className="absolute h-full w-full">{/* {image} */}</div>
-                <h2 className="text-[5rem] font-black z-50 text-white absolute bottom-[-30px] left-[0px]">
-                  01
-                </h2>
-                <div className="absolute lg:h-full w-full bg-gradient-to-t from-10% from-black/20 via-black/20 via-30% to-70% to-transparent"></div>
-              </div>
-              <div className="w-[50%] flex gap-3">
-                <div className="w-[50%] h-[53vh] rounded-2xl overflow-hidden flex items-end relative border-sub">
-                  <div className="absolute lg:h-full w-full bg-gradient-to-t from-10% from-black/20 via-black/20 via-30% to-70% to-transparent"></div>
-                  <div className="absolute h-full w-full">{/* {image} */}</div>
-                  <h2 className="text-[5rem] font-black z-50 text-white absolute bottom-[-30px] left-[0px]">
-                    02
-                  </h2>
-                </div>
-                <div className="w-[50%] h-[53vh] rounded-2xl overflow-hidden flex items-end relative border-sub">
-                  <div className="absolute h-full w-full">{/* {image} */}</div>
-                  <h2 className="text-[5rem] font-black z-50 text-white absolute bottom-[-30px] left-[0px]">
-                    03
-                  </h2>
-                  <div className="absolute lg:h-full w-full bg-gradient-to-t from-10% from-black/20 via-black/20 via-30% to-70% to-transparent"></div>
-                </div>
-              </div>
-            </div>
-            <div className="lg:w-[30%] flex flex-col">
-              <h3 className="font-semibold text-[1.4rem] mb-4">
-                {dict.about.process.stepTitle}
-              </h3>
-              <p className="text-sm">{dict.about.process.stepDescription}</p>
-            </div>
-          </div>
-        </div>
+        {/* <ProcessSection dict={dict} /> */}
       </div>
     </PageContainer>
   );

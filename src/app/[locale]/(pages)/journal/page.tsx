@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 import PageContainer from "../../_components/sections/pageContainer";
 import CategoryTime from "../../_components/utilities/category&time";
+import { usePostsByDomain } from "../../hook/usePosts";
+import { useClientSite } from "../../hook/useSite";
 
 const JournalPage = () => {
   const categories = [
@@ -35,6 +39,13 @@ const JournalPage = () => {
 
   const demoPosts = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
+  const site = useClientSite();
+  console.log("Current Site:", site);
+
+  const { data, error, isLoading } = usePostsByDomain(site);
+
+  console.log("Posts Data:", data); 
+
   return (
     <PageContainer id="journalsPage" path="" title="All Journals">
       <div className="flex flex-col items-center ">
@@ -58,10 +69,10 @@ const JournalPage = () => {
         </ul>
       </div>
 
-      <div className="grid lg:grid-cols-4 gap-5 mb-5 md:grid-cols-2 grid-cols-1 lg:py-20 py-10 px-8">
-        {demoPosts.map((index) => {
+      <div className="grid lg:grid-cols-4 gap-x-5 lg:gap-y-10 gap-y-5 mb-5 md:grid-cols-2 grid-cols-1 lg:py-20 py-10 px-8">
+        {data?.map(({id, title, excerpt, categories}) => {
           return (
-            <div key={index} className="flex flex-col gap-2 w-full">
+            <div key={id} className="flex flex-col gap-2 w-full">
               <div className="rounded-lg bg-foreground/10 h-[20em]"></div>
               <div className="">
                 <CategoryTime
@@ -72,8 +83,8 @@ const JournalPage = () => {
                 />
               </div>
               <div className="">
-                <h5 className="text-[1.2rem]    ">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit...
+                <h5 className="   ">
+                  {excerpt.rendered.replace(/<[^>]+>/g, "").slice(0, 27)}...
                 </h5>
               </div>
             </div>

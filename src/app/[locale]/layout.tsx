@@ -11,6 +11,8 @@ import { getDictionary } from "../lib/dict";
 import { LocalizationProvider } from "./context/localizationContext";
 import QueryProvider from "./context/queryProvider";
 import { createSupabaseServerClient } from "../api/_lib/supabaseClient";
+import { TranslationProvider } from "../lib/locale/context/translationContext";
+import { getTranslations } from "../lib/locale/i18n/getTranslations";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +30,20 @@ export const metadata: Metadata = {
   keywords: [""],
 };
 
+const SUPPORTED_LOCALES = ["en", "fr"] as const;
+type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
+
+export interface TranslationProps {
+  locale: "en" | "fr";
+  messages: Record<string, object | Record<string, string>>;
+  params: Promise<{ locale: "en" | "fr" }>;
+}
+
 export default async function RootLayout({
   children,
-  params, // params contains { locale } from the folder structure [locale]
+  params,
+
+  // params contains { locale } from the folder structure [locale]
 }: {
   children: React.ReactNode;
   params: Promise<{ locale: "en" | "fr" }>;
@@ -45,6 +58,12 @@ export default async function RootLayout({
 
   const dict = await getDictionary(site, locale);
 
+  const userLocale = SUPPORTED_LOCALES.includes(locale as SupportedLocale)
+    ? (locale as SupportedLocale)
+    : "fr";
+
+  const messages = await getTranslations(userLocale);
+
   return (
     <html lang={locale} data-site={site}>
       <body
@@ -57,17 +76,22 @@ export default async function RootLayout({
             </div>
           }
         >
-          <LocalizationProvider locale={locale} dict={dict} site={site}>
-            <SubdomainProvider>
-              <QueryProvider>
-                <ToastProvider>
-                  <Header site={site} />
-                  {children}
-                  <Footer site={site} />
-                </ToastProvider>
-              </QueryProvider>
-            </SubdomainProvider>
-          </LocalizationProvider>
+          <TranslationProvider
+            initialMessages={messages}
+            initialLocale={locale}
+          >
+            <LocalizationProvider locale={locale} dict={dict} site={site}>
+              <SubdomainProvider>
+                <QueryProvider>
+                  <ToastProvider>
+                    <Header t={messages} site={site} />
+                    {children}
+                    <Footer dict = {messages.main} site={site} />
+                  </ToastProvider>
+                </QueryProvider>
+              </SubdomainProvider>
+            </LocalizationProvider>
+          </TranslationProvider>
         </Suspense>
       </body>
     </html>

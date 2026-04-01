@@ -1,8 +1,6 @@
 // middleware.ts
 import { NextResponse, type NextRequest } from "next/server";
-import { createServerClient } from "@supabase/ssr";
 import {
-  createSupabaseServer,
   createSupabaseServerClient,
   getBaseDomain,
 } from "./app/api/_lib/supabaseClient";
@@ -158,51 +156,6 @@ export async function middleware(req: NextRequest) {
     pathname.startsWith("/wp-admin")
   ) {
     return NextResponse.next();
-  }
-
-  const LOCAL_DOMAIN = new URL(process.env.NEXT_PUBLIC_LOCAL_BASE_URL!)
-    .hostname;
-  const PRIMARY_DOMAIN =
-    process.env.NODE_ENV === "production"
-      ? new URL(process.env.NEXT_PUBLIC_PROD_BASE_URL!).hostname
-      : LOCAL_DOMAIN;
-  const hostWithoutPort = host.split(":")[0];
-
-  console.log("local domain", LOCAL_DOMAIN);
-  const isSubdomain = hostWithoutPort !== PRIMARY_DOMAIN;
-
-  console.log("isSubDomain", isSubdomain);
-
-  console.log("HostName", hostname);
-
-  console.log("url", url);
-  console.log("host", host);
-
-  console.log("host without port", host.split(":")[0]);
-
-  if (process.env.NODE_ENV === "development" && hostWithoutPort.includes(".")) {
-    console.log("we're on a subdomain path, update isSubdomain");
-  }
-
-  const isAuthPath = path.includes("/auth");
-
-  console.log(isSubdomain, isAuthPath);
-
-  if (isSubdomain && isAuthPath) {
-    console.log("user is on subdomain, redirect");
-
-
-    const redirectUrl = new URL(
-      `${process.env.NEXT_PUBLIC_PROD_BASE_URL}${path}`
-    );
-    const redirectResponse = NextResponse.redirect(redirectUrl);
-
-    // redirectResponse.cookies.set("site", "main", {
-    //   path: "/",
-    //   maxAge: 0,
-    //   expires: new Date(0),
-    // });
-    return redirectResponse;
   }
 
   // Site detection

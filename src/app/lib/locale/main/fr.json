@@ -1,101 +1,507 @@
 {
   "nav": {
-    "aboutUs": "À propos",
-    "ourTechnology": "Notre technologie",
-    "ourTeam": "Notre équipe",
-    "services": "Services",
-    "process": "Processus",
-    "pricing": "Tarifs",
-    "contact": "Contact",
+    "aboutUs": "Vision",
+    "ourTechnology": "IA Stratégique",
+    "ourTeam": "Le Seuil Analytique",
+    "services": "Fils Éditoriaux",
+    "process": "Méthodologie",
+    "pricing": "Abonnements",
+    "media": "Média",
+    "extraction": "Extraction",
+    "asint": "Asint",
+    "gi": "Guinea Intelligence",
+    "contact": "Consultation",
     "lang": "Fr",
     "french": "Français",
     "english": "Anglais",
     "spanish": "Espagnol",
     "welcome": "Bienvenue",
-    "login": "Connexion / Inscription"
+    "login": "Connexion / Inscription",
+    "categories": [
+      {
+        "title": "Industries & Ressources",
+        "slug": "industries-resources",
+        "categories": [
+          {
+            "title": "Simandou 2040",
+            "slug": "simandou2040",
+            "subcategories": [
+              { "title": "Infrastructures", "slug": "infrastructures" },
+              { "title": "Rail", "slug": "rail" },
+              { "title": "Port", "slug": "port" },
+              {
+                "title": "Corridor logistique et étapes du projet",
+                "slug": "etapesduprojet"
+              }
+            ]
+          },
+          {
+            "title": "Ressources & Souveraineté",
+            "slug": "souveraineteressources",
+            "subcategories": [
+              { "title": "Mines (Fer, Bauxite, Or)", "slug": "mines" },
+              {
+                "title": "Hydrocarbures et stratégie de l'État",
+                "slug": "strategiedeetat"
+              },
+              { "title": "Fer", "slug": "fer" },
+              { "title": "Bauxite", "slug": "bauxite" },
+              { "title": "Or", "slug": "or" },
+              { "title": "Hydrocarbures", "slug": "hydrocarbures" }
+            ]
+          },
+          {
+            "title": "Cartographie Minière",
+            "slug": "cartographieminiere",
+            "subcategories": [
+              { "title": "SIG", "slug": "sig" },
+              { "title": "Permis miniers", "slug": "permisminiers" },
+              {
+                "title": "Localisation des gisements",
+                "slug": "localisationdesgisements"
+              },
+              {
+                "title": "Cartographie des infrastructures",
+                "slug": "infrastructures-cartographieminiere"
+              }
+            ]
+          },
+          {
+            "title": "Logistique & Infrastructures",
+            "slug": "logistiqueinfrastructures",
+            "subcategories": [
+              { "title": "Chemins de fer", "slug": "cheminsdefer" },
+              {
+                "title": "Ports en eaux profondes",
+                "slug": "portseneauxprofondes"
+              },
+              {
+                "title": "Corridors de transport",
+                "slug": "corridorsdetransport"
+              },
+              { "title": "Logistique", "slug": "logistique" }
+            ]
+          },
+          {
+            "title": "Contenu Local & ESG",
+            "slug": "contenulocalesg",
+            "subcategories": [
+              { "title": "Emploi", "slug": "emploi" },
+              {
+                "title": "Sous-traitance nationale",
+                "slug": "sous-traitancenational"
+              },
+              {
+                "title": "Impact environnemental",
+                "slug": "impactenvironnemental"
+              }
+            ]
+          },
+          {
+            "title": "Énergie & Industrie",
+            "slug": "energieindustrie",
+            "subcategories": [
+              { "title": "Mix énergétique", "slug": "mixenergetique" },
+              {
+                "title": "Barrages et alimentation",
+                "slug": "barragesetalimentation"
+              },
+              { "title": "Sites industriels", "slug": "sitesindustriels" }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Intelligence Stratégique (ASINT)",
+        "slug": "asint",
+        "categories": [
+          {
+            "title": "Finance & Institutions",
+            "slug": "finance-institutions",
+            "subcategories": [
+              { "title": "Banques", "slug": "banques" },
+              { "title": "Assurances", "slug": "assurances" },
+              {
+                "title": "Banque Centrale & Régulation Monétaire",
+                "slug": "banque-centrale-et-regulations-monetaires"
+              }
+            ]
+          },
+          {
+            "title": "Stratégie Macro",
+            "slug": "strategiemacro",
+            "subcategories": [
+              { "title": "PIB", "slug": "pib" },
+              { "title": "Inflation", "slug": "inflation" },
+              { "title": "Dette Souveraine", "slug": "dette-souveraine" },
+              { "title": "Indice de Croissance", "slug": "indice-croissance" }
+            ]
+          },
+          {
+            "title": "Géopolitique & Risques",
+            "slug": "geopolitiquerisques",
+            "subcategories": [
+              { "title": "Diplomatie", "slug": "diplomatie" },
+              {
+                "title": "Risques Sécuritaires",
+                "slug": "risques-securitaires"
+              },
+              {
+                "title": "Stabilité Régionale (CEDEAO/AES)",
+                "slug": "stabilite-regionale-cedeao-aes"
+              }
+            ]
+          },
+          {
+            "title": "Cadre Légal & OHADA",
+            "slug": "cadrelegalohada",
+            "subcategories": [
+              { "title": "Droit des Affaires", "slug": "droit-des-affaires" },
+              { "title": "Réformes Fiscales", "slug": "reformes-fiscales" },
+              {
+                "title": "Climat des Investissements",
+                "slug": "climat-des-investissements"
+              }
+            ]
+          },
+          {
+            "title": "Partenariats Public-Privé",
+            "slug": "partenariatspublic-prive",
+            "subcategories": [
+              { "title": "Concessions", "slug": "concessions" },
+              { "title": "Contrats d'État", "slug": "contrats-detat" },
+              {
+                "title": "Investissements Mixtes (PPP)",
+                "slug": "investissements-mixtes-ppp"
+              }
+            ]
+          },
+          {
+            "title": "Commerce & Douanes",
+            "slug": "commercedouanes",
+            "subcategories": [
+              {
+                "title": "Corridors Commerciaux",
+                "slug": "corridors-commerciaux"
+              },
+              { "title": "Tarifs Douaniers", "slug": "tarifs-douaniers" },
+              {
+                "title": "Accords de Libre-Échange",
+                "slug": "accords-de-libre-echange"
+              }
+            ]
+          },
+          {
+            "title": "Agrobusiness & Terre",
+            "slug": "agrobusiness-terre",
+            "subcategories": [
+              {
+                "title": "Agriculture Industrielle",
+                "slug": "agriculture-industrielle"
+              },
+              {
+                "title": "Foncier & Chaînes de Valeur Agricoles",
+                "slug": "foncier-et-chaines-de-valeur-agricoles"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Guinea Intel",
+        "slug": "guinea-intel",
+        "categories": [
+          {
+            "title": "Appels d'Offres & Appels à Projets",
+            "slug": "appelsdoffres",
+            "subcategories": [
+              {
+                "title": "Monitoring en temps réel",
+                "slug": "monitoringentempsreel"
+              },
+              {
+                "title": "Marchés publics & privés",
+                "slug": "marchespublicsetprives"
+              }
+            ]
+          },
+          {
+            "title": "Guide de l'Investisseur",
+            "slug": "guidedelinvestisseur",
+            "subcategories": [
+              {
+                "title": "Formalités administratives",
+                "slug": "formalitesadministratives"
+              },
+              { "title": "Fiscalité locale", "slug": "fiscalitelocale" },
+              { "title": "Zones économiques", "slug": "zoneseconomiques" }
+            ]
+          },
+          {
+            "title": "Annuaire des Stakeholders",
+            "slug": "annuairedesstakeholders",
+            "subcategories": [
+              {
+                "title": "Cartographie des décideurs",
+                "slug": "cartographiedesdecideurs"
+              },
+              {
+                "title": "Acteurs clés public-privé",
+                "slug": "acteursclesdusecteurpublicprive"
+              }
+            ]
+          },
+          {
+            "title": "Suivi des Projets d'État",
+            "slug": "monitoringdeprojetsdetat",
+            "subcategories": [
+              {
+                "title": "Suivi opérationnel des grands chantiers",
+                "slug": "suivi-operationnel-des-grands-chantiers-gouvernementaux"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Innovation",
+        "slug": "innovation",
+        "categories": [
+          {
+            "title": "Data & Innovation (IA)",
+            "slug": "data-innovation-ia",
+            "subcategories": [
+              {
+                "title": "Algorithmes d'aide à la décision et automatisation",
+                "slug": "algorithmes-daide-a-la-decision-et-automatisation-de-lintelligence"
+              }
+            ]
+          },
+          {
+            "title": "Analyse OSINT",
+            "slug": "analyse-osint",
+            "subcategories": [
+              {
+                "title": "Analyse des sources ouvertes et signaux faibles du web",
+                "slug": "analyse-des-sources-ouvertes-et-signaux-faibles-du-web"
+              }
+            ]
+          },
+          {
+            "title": "Fintech & Banque Digitale",
+            "slug": "fintech-digital-banking",
+            "subcategories": [
+              {
+                "title": "Inclusion financière",
+                "slug": "inclusion-financiere"
+              },
+              { "title": "Services mobiles", "slug": "services-mobiles" },
+              { "title": "Monnaies numériques", "slug": "monnaies-numeriques" }
+            ]
+          },
+          {
+            "title": "Souveraineté Numérique",
+            "slug": "souverainete-numerique",
+            "subcategories": [
+              { "title": "Data centers", "slug": "data-centers" },
+              {
+                "title": "Connectivité régionale",
+                "slug": "connectivite-regionale"
+              },
+              { "title": "Cybersécurité", "slug": "cybersecurite" }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Transverse",
+        "slug": "transverse",
+        "categories": [
+          {
+            "title": "Portraits de Décideurs",
+            "slug": "portraits-de-decideurs",
+            "subcategories": [
+              {
+                "title": "Guinea Means Business",
+                "slug": "guinea-means-business"
+              }
+            ]
+          },
+          {
+            "title": "Briefings de Direction",
+            "slug": "briefings-de-direction",
+            "subcategories": []
+          },
+          {
+            "title": "Une Ville, Un Quartier",
+            "slug": "one-city-one-quarter",
+            "subcategories": []
+          },
+          {
+            "title": "Webinaires Stratégiques",
+            "slug": "webinaires-strategiques",
+            "subcategories": []
+          },
+          {
+            "title": "Cartographie Sectorielle",
+            "slug": "cartographie-sectorielle",
+            "subcategories": []
+          }
+        ]
+      }
+    ]
   },
-
-  "footer": {
-    "siteMap": "PLAN DU SITE",
-    "socialMedia": "RÉSEAUX SOCIAUX",
-    "contactInfo": "INFOS DE CONTACT",
-    "about": "À propos",
-    "pricing": "Tarification",
-    "contact": "Contact",
-    "asint": "Asint",
-    "extraction": "Extraction",
-    "login": "Connexion",
-    "phone": "+224 629 00 69 29",
-    "email": "info@groupeibs.com",
-    "terms": "Termes & Conditions | Politique de confidentialité",
-    "rights": "Tous droits réservés - Threshold 2025"
-  },
-  "profile": {
-    "sections": {
-      "personalInfo": "Vos informations personnelles",
-      "subscription": "Votre abonnement",
-      "help": "Besoin d'aide ?",
-      "savedArticles": "Articles sauvegardés"
+  "hero": {
+    "headline": "Redéfinir l’Intelligence Stratégique en Afrique de l’Ouest",
+    "extractionText": "L'expertise au cœur des industries extractives. De Simandou 2040 aux enjeux de souveraineté minérale, nous transformons les données brutes du terrain en une lecture stratégique des actifs et des ressources qui façonnent l’économie régionale.",
+    "asintText": "L’intelligence des structures et des mouvements de fond. Analyse macroéconomique, monitoring institutionnel et géopolitique : nous décryptons la complexité des marchés pour sécuriser vos prises de décision et anticiper les mutations à venir.",
+    "spotlight": {
+      "title": "L'Innovation au service de l'Intelligence",
+      "description": "Nous ne nous contentons pas de rapporter les faits. Nous utilisons l'Intelligence Artificielle pour traiter des millions de points de données, identifier les signaux faibles et anticiper les mutations de marché avant qu'elles ne surviennent."
     },
-    "items": {
-      "title": "Nom",
-      "email": "Email",
-      "password": "Mot de passe *",
-      "subscriptionStatus": "Vous n'avez pas d'abonnement actif pour le moment",
-      "helpByMail": "Contactez notre service clientèle par email à customercare@gmail.com"
+    "pillars": {
+      "asint": {
+        "title": "Monitoring Stratégique",
+        "description": "Une veille temps réel sur les risques géopolitiques et les mouvements institutionnels. Ne subissez plus l'actualité, anticipez-la.",
+        "cta": "En savoir plus →"
+      },
+      "extraction": {
+        "title": "Rapports Sectoriels",
+        "description": "Des dossiers profonds sur les industries extractives : mines, bauxite, pétrole. L’expertise terrain au service de vos investissements.",
+        "cta": "En savoir plus →"
+      },
+      "data": {
+        "title": "Analyse Prédictive",
+        "description": "Grâce à nos modèles IA, accédez à des projections macro-économiques fiables pour sécuriser vos prises de position stratégiques.",
+        "cta": "En savoir plus →"
+      }
+    }
+  },
+  "about": {
+    "title": "À Propos",
+    "nav": {
+      "team": "Notre équipe",
+      "services": "Services",
+      "process": "Processus",
+      "strengths": "Nos forces"
+    },
+    "theGroup": {
+      "title": "L'Écosystème Threshold",
+      "description": "Un point d'ancrage entre l'information et la décision. Threshold Media Group réunit des expertises hybrides — journalisme d'investigation, analyse macro et intelligence artificielle — pour éclairer les marchés d'Afrique de l'Ouest et servir les acteurs qui y investissent, y opèrent ou y décident."
+    },
+    "mission": {
+      "title": "Rendre l’Afrique de l’Ouest lisible",
+      "description": "Produire de la clarté stratégique là où l’information est fragmentée. Nous transformons la complexité du terrain en outils d'aide à la décision pour les leaders qui façonnent l'Afrique de l'Ouest."
+    },
+    "vision": {
+      "title": "La référence analytique régionale",
+      "description": "Devenir la référence analytique incontournable sur les dynamiques économiques de la région. Nous croyons en une information sans compromis : factuelle, calibrée et directement actionnable.",
+      "subtitle": "En combinant une présence physique à Conakry et Dakar avec des technologies de pointe, nous offrons une profondeur de lecture qu'aucun média généraliste ne peut égaler."
+    },
+    "stats": {
+      "audiences": "Décideurs stratégiques accompagnés",
+      "languages": "Diffusion trilingue (Français, Anglais, Mandarin)",
+      "reach": "Marchés clés d'Afrique de l'Ouest sous monitoring permanent"
+    },
+    "editorialTeam": {
+      "title": "Le Seuil Analytique",
+      "description": "Le point de passage entre le bruit du terrain et le signal stratégique. Nos experts fusionnent l'investigation humaine et l'intelligence artificielle pour transformer la complexité en clarté décisionnelle."
+    },
+    "identity": {
+      "title": "La posture du conseiller stratégique senior",
+      "description": "Nous ne vulgarisons pas, nous révélons. Threshold Media s’exprime avec la précision d’un expert qui connaît le terrain, les chiffres et les acteurs. Nous ne commentons pas l’actualité, nous la traduisons en avantage décisionnel."
+    },
+    "pillarsOfIntelligence": {
+      "title": "Les 3 piliers de notre intelligence",
+      "p1": "Ancrage local réel (Nous sommes à Conakry et Dakar, pas à Londres ou Paris).",
+      "p2": "Exigence analytique (Des articles conçus pour être cités en réunion de direction).",
+      "p3": "Formats utiles (Lectures de 4 minutes, pensées pour l’écran et prêtes pour la décision)."
+    }
+  },
+  "technology": {
+    "title": "IA Stratégique",
+    "headline": "L'Intelligence Augmentée par la Data",
+    "subtext": "Transformer le chaos informationnel en clarté stratégique.",
+    "rightHeadline": "La technologie au service de la précision décisionnelle.",
+    "rightSubHeadline": "Un modèle propriétaire conçu pour décoder les marchés ouest-africains.",
+    "paragraph1": "Notre écosystème d'IA traite quotidiennement des millions de points de données — des flux financiers aux signaux faibles sur le web — pour isoler les tendances critiques avant qu'elles ne deviennent publiques. Nous ne nous contentons pas d'automatiser l'information ; nous en extrayons la valeur stratégique.",
+    "paragraph2": "Plus qu'un simple moteur de recherche, notre assistant intelligent permet aux abonnés TMG Pro et Guinea Intelligence d'interroger instantanément notre base de données exclusive sur les appels d'offres, les permis miniers et le cadre réglementaire régional. C'est votre expert senior, disponible 24h/24.",
+    "features": {
+      "f1": "Veille Macro en temps réel",
+      "f2": "Cartographie sectorielle et Data",
+      "f3": "Intelligence assistée par IA",
+      "f3Desc": "Interrogez notre base de données propriétaire sur l'Afrique de l'Ouest pour obtenir des insights instantanés et actionnables via notre bot dédié."
+    },
+    "editorialProcess": {
+      "title": "Notre Processus Éditorial",
+      "description": "De l'enquête de terrain à votre boîte de réception, notre processus est conçu pour un impact stratégique. Nous combinons le reportage sur site avec une analyse rigoureuse et un traitement de données assisté par l'IA pour livrer des perspectives qui ne sont pas seulement précises, mais directement exploitables par les décideurs.",
+      "subDescription": "Chaque article suit un parcours en plusieurs étapes : enquête de terrain, analyse de données, synthèse éditoriale et calibrage stratégique. Le résultat ? Un contenu qui n'est pas seulement informatif, mais conçu pour être cité en conseil d'administration et utilisé dans les discussions stratégiques."
+    },
+    "nav": {
+      "ourAi": "Notre IA",
+      "editorialProcess": "Processus Éditorial",
+      "dataInsight": "Analyses de Données"
     }
   },
   "pricing": {
-    "pageTitle": "Tarification",
-    "headline": "Choisissez le plan tarifaire",
-    "subtext": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore eaque modi adipisci esse quam ad possimus? Accusamus dicta aspernatur repellat?",
-    "plans": [
-      {
-        "title": "Basique",
-        "price": "25.34",
-        "description": "Libérez le potentiel de votre entreprise grâce à nos plans tarifaires flexibles",
-        "offers": [
-          "Lorem ipsum dolor sit,",
-          "Lorem ipsum dolor sit,",
-          "Lorem ipsum dolor sit,"
-        ]
+    "plans": {
+      "basic": {
+        "title": "Freemium",
+        "price": "Gratuit",
+        "description": "Newsletter hebdomadaire, contenus web sélectionnés et extraits d'analyses."
       },
-      {
-        "title": "Standard",
-        "price": "25.34",
-        "description": "Libérez le potentiel de votre entreprise grâce à nos plans tarifaires flexibles",
-        "offers": [
-          "Lorem ipsum dolor sit,",
-          "Lorem ipsum dolor sit,",
-          "Lorem ipsum dolor sit,"
-        ],
-        "popular": "Populaire"
+      "pro": {
+        "title": "TMG Pro Individuel",
+        "price": "250",
+        "description": "Accès complet aux fils EXTRACTION & ASINT, Briefs quotidiens, Alertes WhatsApp et Archives."
       },
-      {
-        "title": "Premium",
-        "price": "25.34",
-        "description": "Libérez le potentiel de votre entreprise grâce à nos plans tarifaires flexibles",
-        "offers": [
-          "Lorem ipsum dolor sit,",
-          "Lorem ipsum dolor sit,",
-          "Lorem ipsum dolor sit,"
-        ]
+      "enterprise": {
+        "title": "TMG Pro Business",
+        "price": "600",
+        "description": "Jusqu'à 5 accès utilisateurs, Briefs sur mesure et Rapports stratégiques trimestriels."
       }
-    ],
-    "month": "Mois",
-    "subscribe": "S'abonner"
+    }
   },
   "contact": {
-    "title": "Contactez-nous",
-    "subtitle": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore eaque modi adipisci esse quam ad possimus ? Accusamus dicta aspernatur repellat ?",
-    "faqPrompt": "Vous ne trouvez pas ce que vous cherchez ? Notre",
-    "faqLink": "FAQ",
-    "faqRest": "propose plus d’informations sur les abonnements, l’application mobile Threshold Media Group, la gestion de votre compte, et bien plus encore",
-    "email": "info@groupeibs.com",
-    "phone": "+224 629 00 69 29",
-    "address": "Nongo, commune de Ratoma - à côté du stade Petit Sory"
+    "title": "Sortez de l'angle mort informationnel",
+    "subtitle": "Que vous ayez besoin d'un rapport d'intelligence sur mesure ou d'un abonnement entreprise, nos experts sont à votre disposition.",
+    "submit": "Demander un accès stratégique",
+
+    "contactForm": {
+      "fullName": {
+        "label": "Prénom et nom *",
+        "firstNamePlaceholder": "Prénom",
+        "lastNamePlaceholder": "Nom"
+      },
+      "email": {
+        "label": "E-mail *",
+        "placeholder": "E-mail"
+      },
+      "propertyType": {
+        "label": "Quel type de bien recherchez-vous ? *",
+        "placeholder": "Quel type de bien recherchez-vous ?"
+      },
+      "message": {
+        "label": "Message *",
+        "placeholder": "Votre message"
+      },
+      "submit": "Envoyer"
+    }
   },
-  "auth": {
+  "footer": {
+    "socialMedia": "Suivez-nous sur les réseaux sociaux",
+    "siteMap": "Plan du site",
+    "tagline": "Threshold Media Group : Produire de la clarté stratégique.",
+    "rights": "© 2026 Threshold Media Group — Le média stratégique des décideurs.",
+    "about": "À Propos",
+    "pricing": "Tarifs & Abonnements",
+    "contact": "Contact & Support",
+    "asint": "Intelligence Stratégique (ASINT)",
+    "extraction": "Extraction & Ressources",
+    "login": "Connexion / Inscription",
+    "contactInfo": "Contactez-nous"
+  }, 
+   "auth": {
     "buttons": {
       "signIn": "Se connecter",
       "signUp": "Créer un compte",
@@ -127,69 +533,20 @@
       "placeholder": "Entrez votre e-mail",
       "submit": "Envoyer"
     }
-  },
-
-  "about": {
-    "title": "À propos",
-    "nav": {
-      "theGroup": "Le Groupe",
-      "ourMediaBrands": "Nos marques médias",
-      "editorialTeam": "L'équipe éditoriale"
+  }, 
+    "profile": {
+    "sections": {
+      "personalInfo": "Vos informations personnelles",
+      "subscription": "Votre abonnement",
+      "help": "Besoin d'aide ?",
+      "savedArticles": "Articles sauvegardés"
     },
-    "intro": {
-      "headline": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim eveniet tempore aut, labore iure nisi.",
-      "paragraph1": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, rerum illo at laudantium tenetur magnam!",
-      "paragraph2": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quaerat voluptate consequatur est labore obcaecati, dolores eveniet veniam itaque ipsum nisi voluptates voluptatibus commodi asperiores eius. Odio, est! Illum, illo!",
-      "paragraph3": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat mollitia cum alias recusandae doloremque. Ex vel quae doloribus rerum aut minima animi, dolor architecto cum illum? Facere sed enim et?"
-    },
-    "theGroup": {
-      "title": "Le Groupe",
-      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
-    },
-    "pressMentions": {
-      "title": "Mentions dans la presse",
-      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
-    },
-    "ourMediaBrands": {
-      "title": "Nos marques médias",
-      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
-    },
-    "editorialTeam": {
-      "title": "L'équipe éditoriale",
-      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
+    "items": {
+      "title": "Nom",
+      "email": "Email",
+      "password": "Mot de passe *",
+      "subscriptionStatus": "Vous n'avez pas d'abonnement actif pour le moment",
+      "helpByMail": "Contactez notre service clientèle par email à customercare@gmail.com"
     }
-  },
-  "technology": {
-    "title": "Technologie",
-    "nav": {
-      "ourAi": "Notre IA",
-      "editorialProcess": "Processus éditorial",
-      "dataInsight": "Données & Insights"
-    },
-    "ourAi": {
-      "title": "Notre IA",
-      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
-    },
-    "intro": {
-      "headline": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim eveniet tempore aut, labore iure nisi.",
-      "paragraph1": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, rerum illo at laudantium tenetur magnam!",
-      "paragraph2": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quaerat voluptate consequatur est labore obcaecati, dolores eveniet veniam itaque ipsum nisi voluptates voluptatibus commodi asperiores eius. Odio, est! Illum, illo!",
-      "paragraph3": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat mollitia cum alias recusandae doloremque. Ex vel quae doloribus rerum aut minima animi, dolor architecto cum illum? Facere sed enim et?"
-    },
-    "editorialProcess": {
-      "title": "Processus éditorial",
-      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
-    },
-    "dataInsight": {
-      "title": "Données & Insights",
-      "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis",
-      "insight1": "Data-Driven Decisions",
-      "insight2": "Advanced Analytics",
-      "insight3": "Real-Time Monitoring"
-    }
-  },
-  "brands": {
-    "title": "Press Mentions",
-    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit laboriosam expedita facilis"
   }
 }

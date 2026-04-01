@@ -5,6 +5,9 @@ import {
   fetchThresholdPosts,
   fetchExtractionPosts,
   fetchAsintPosts,
+  fetchTopLevelCategories,
+  fetchSubCategories,
+  fetchPostsByCategory,
 } from "../../lib/fetchLib";
 
 // Get browser language for Polylang
@@ -42,7 +45,7 @@ export const useExtractionPosts = (category?: string, limit: number = 10) => {
         categories: category,
         per_page: limit,
         lang: lang,
-      }),
+      }), 
   });
 };
 
@@ -68,5 +71,93 @@ export const usePostsByDomain = (
         per_page: limit,
         lang: lang,
       }),
+  });
+};
+
+
+
+
+
+
+/**
+ * Hook to fetch top-level categories for a specific taxonomy.
+ * Taxonomy usually follows: "categories", "asint_categories", "extraction_categories"
+ */
+export const useTopLevelCategories = (taxonomy: string = "categories", limit: number = 20) => {
+  const lang = useBrowserLanguage();
+
+  return useQuery({
+    queryKey: ["top-categories", taxonomy, lang, limit],
+    queryFn: () =>
+      fetchTopLevelCategories(taxonomy, {
+        lang: lang,
+        per_page: limit,
+      }),
+  });
+};
+
+/**
+ * Hook to fetch sub-categories for a specific parent.
+ */
+export const useSubCategories = (parentId: number, taxonomy: string = "categories") => {
+  const lang = useBrowserLanguage();
+
+  return useQuery({
+    queryKey: ["sub-categories", taxonomy, parentId, lang],
+    queryFn: () =>
+      fetchSubCategories(parentId, taxonomy, {
+        lang: lang,
+      }),
+    // Only fetch if we actually have a parentId
+    enabled: !!parentId,
+  });
+};
+
+/**
+ * Domain-aware category hook.
+ * Maps your site domains to their respective WordPress taxonomy slugs.
+ */
+export const useCategoriesByDomain = (
+  domain: "main" | "extraction" | "asint" | "transverse",
+  limit: number = 20
+) => {
+  const lang = useBrowserLanguage();
+
+  // Mapping domain to the likely WordPress taxonomy slug
+  const taxonomyMap = {
+    main: "categories",
+    extraction: "extraction_categories",
+    asint: "asint_categories",
+    transverse: "transverse_categories",
+  };
+
+  const taxonomy = taxonomyMap[domain];
+
+  return useQuery({
+    queryKey: [`${domain}-top-categories`, lang, limit],
+    queryFn: () =>
+      fetchTopLevelCategories(taxonomy, {
+        lang: lang,
+        per_page: limit,
+      }),
+  });
+};
+
+
+// hooks/usePosts.ts
+export const usePostsByCategory = (
+  postType: "posts" | "extraction" | "asint" | "guinea_intel" | "innovation" | "transverse",
+  categoryId: number,
+  limit: number = 10
+) => {
+  const lang = useBrowserLanguage();
+
+  return useQuery({
+    queryKey: ["posts-by-category", postType, categoryId, lang, limit],
+    queryFn: () => fetchPostsByCategory(postType, categoryId, {
+      lang,
+      per_page: limit
+    }),
+    enabled: !!categoryId, // Don't fetch if categoryId is missing
   });
 };

@@ -4,7 +4,7 @@ import React from "react";
 import CategoryTime from "../utilities/category&time";
 
 const Hero = () => {
-  return (
+  return ( 
     <section className="relative" id="hero">
       <div className="bg-foreground/5 border-sub-y"></div>
       <div className="flex flex-col lg:h-[85vh] lg:flex-row lg:p-5 p-3 gap-8">
@@ -57,7 +57,7 @@ const Hero = () => {
               <h2 className="font-semibold text-[1.1rem]">
                 {" "}
                 Lorem ipsum dolor sit amet consectetur...
-              </h2>
+              </h2> 
             </div>
           </div>
           <div className="lg:h-[30%] border-sub-top flex items-center gap-1 pt-6 ">

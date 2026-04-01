@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+type domain = "main" | "extraction" | "asint";
 
 export function useClientSite() {
   const [site, setSite] = useState<string>("main");
@@ -11,5 +12,5 @@ export function useClientSite() {
     if (siteAttr) setSite(siteAttr);
   }, []);
 
-  return site;
+  return site as domain;
 }

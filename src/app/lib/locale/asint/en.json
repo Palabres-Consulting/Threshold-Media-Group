@@ -8,7 +8,7 @@
     "contact": "Contact",
     "lang": "Eng",
     "french": "French",
-    "english": "English",
+    "english": "English", 
     "spanish": "Spanish",
     "welcome": "Welcome",
     "login": "Login/Sign Up"
@@ -156,4 +156,6 @@
       "stepDescription": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit odit ipsa magnam fugit a quasi saepe provident! Vero beatae aliquam obcaecati, a assumenda esse sapiente minus natus dolor? Perferendis, quo!"
     }
   }
+
+ 
 }
