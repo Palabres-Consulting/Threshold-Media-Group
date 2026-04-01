@@ -4,14 +4,14 @@ import {
   getBaseDomain,
 } from "./app/api/_lib/supabaseClient";
 import { corsResponse, getCorsHeaders } from "./lib/cors";
-import { handleI18n } from "./middleware/i18n"; // Assuming this is where it lives
+import { handleI18n } from "./middleware/i18n";
 
 const locales = ["en", "fr"];
 const defaultLocale = "en";
 const protectedRoutes = ["/profile"];
 const authRoute = "/auth";
 
-// --- Domain/Host Logic (Keeping your original logic) ---
+// --- Domain/Host Logic ---
 
 const prodDomainsString = process.env.TRUSTED_PROD_DOMAINS || "";
 const devDomainsString = process.env.TRUSTED_DEV_DOMAINS || "";
@@ -83,43 +83,44 @@ export async function middleware(req: NextRequest) {
   const safeHost = host.split(",")[0].trim();
   const resolvedSite = getSubdomain(safeHost);
 
-  // Initialize base response
-  let response = NextResponse.next();
-  response.headers.set("site", resolvedSite);
-  response.cookies.set("site", resolvedSite, { path: "/" });
-
-  // 3. I18N Logic (Replacing the old getLocale/pathnameHasLocale block)
+  // 3. I18N Logic
+  // Check locale early to prevent "language revert" bugs
   const i18nRes = handleI18n(req);
+  
+  // Determine current locale from path for consistent redirects later
+  const currentLocale = locales.find(l => pathname.startsWith(`/${l}/`) || pathname === `/${l}`) || defaultLocale;
 
   if (i18nRes) {
-    // Merge the 'site' headers and cookies into the i18n response
-    i18nRes.headers.set("site", resolvedSite);
-    i18nRes.cookies.set("site", resolvedSite, { path: "/" });
-    
-    // If handleI18n returns a redirect/rewrite, use it as our active response
-    response = i18nRes;
-    
-    // If it's a hard redirect, return immediately to prevent unnecessary Supabase calls
-    if (response.status >= 300 && response.status < 400) return response;
+    // If handleI18n returns a redirect (status 3xx), return it immediately
+    // to ensure the browser commits to the new language/cookie.
+    if (i18nRes.status >= 300 && i18nRes.status < 400) {
+      i18nRes.headers.set("site", resolvedSite);
+      i18nRes.cookies.set("site", resolvedSite, { path: "/" });
+      return i18nRes;
+    }
   }
+
+  // Use i18nRes if it exists (for rewrites), otherwise start a new next() response
+  let response = i18nRes || NextResponse.next();
+  response.headers.set("site", resolvedSite);
+  response.cookies.set("site", resolvedSite, { path: "/" });
 
   // 4. Auth Check
   const supabase = await createSupabaseServerClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  // Strip locale prefix for route matching (Matches en or fr)
   const pathWithoutLocale = pathname.replace(/^\/(en|fr)/, "");
   const isProtected = protectedRoutes.some((route) => pathWithoutLocale.startsWith(route));
 
-  // Redirect to login if protected and no user
+  // Redirect to login if protected and no user (preserving current locale)
   if (isProtected && !user) {
-    const redirectUrl = new URL(`/${defaultLocale}${authRoute}`, req.url);
+    const redirectUrl = new URL(`/${currentLocale}${authRoute}`, req.url);
     return NextResponse.redirect(redirectUrl);
   }
 
-  // Redirect away from auth page if already logged in
+  // Redirect away from auth page if already logged in (preserving current locale)
   if (user && pathWithoutLocale === authRoute) {
-    return NextResponse.redirect(new URL(`/${defaultLocale}/profile`, req.url));
+    return NextResponse.redirect(new URL(`/${currentLocale}/profile`, req.url));
   }
 
   return response;

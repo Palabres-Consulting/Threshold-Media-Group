@@ -20,21 +20,23 @@ const UserNav = ({ data, isLoading, dict, authUrl }: UserNavProps) => {
   const router = useRouter();
 
   const handleLogout = async () => {
+    const logoutAction = async () => {
+      // Ensure this matches your folder structure (usually /api/auth/logout)
+      await axios.post("/api/auth/logout", {}, { withCredentials: true });
 
-    console.log("Logout initiated");
+      // Force a full page reload to clear all React/Next state
+      window.location.href = "/";
+    };
 
-    const logoutPromise = axios.post("/auth/logout", {}, { withCredentials: true });
-
-    console.log("Logout initiated", logoutPromise);
-
-    toast.promise(logoutPromise, {
+    toast.promise(logoutAction(), {
       loading: "Logging out...",
       success: () => {
-        router.refresh(); // Refresh to clear stale user data
-        router.push("/");
+        // Use window.location instead of router.push for a clean slate
+        window.location.href = "/";
         return "Logged out successfully";
       },
-      error: "Failed to logout",
+      error: (err) =>
+        `Logout failed: ${err.response?.data?.message || "Server Error"}`,
     });
   };
 

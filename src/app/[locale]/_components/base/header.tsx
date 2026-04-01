@@ -187,10 +187,13 @@ const Header: React.FC<{ site: string; t: TranslationSchema }> = ({
   };
 
   const OtherNavItems = () => {
-    const prodUrl = `${process.env.NEXT_PUBLIC_PROD_URL!}/auth`;
-    const localUrl = `${process.env.NEXT_PUBLIC_LOCAL_BASE_URL!}/auth`;
+const baseUrl = process.env.NEXT_PUBLIC_PROD_URL || 'https://www.tresholdmediagroup.com';
+  const localBase = process.env.NEXT_PUBLIC_LOCAL_BASE_URL || 'http://localhost:3000';
 
-    const authUrl = process.env.NODE_ENV === "production" ? prodUrl : localUrl;
+const authUrl = process.env.NODE_ENV === "production" 
+    ? `${baseUrl}/auth` 
+    : `${localBase}/auth`;
+    console.log("Auth URL:", authUrl);
 
     const [transDropdown, setTransDropdown] = useState(false);
 
