@@ -8,38 +8,37 @@ import { GoTriangleDown } from "react-icons/go";
 import toast from "react-hot-toast";
 import { User } from "@/app/types/types";
 import { TranslationSchema } from "@/app/lib/locale";
+import { useUser } from "../../hook/useUser";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface UserNavProps {
-  data: User | undefined;
-  isLoading: boolean;
   dict: TranslationSchema["main"];
   authUrl: string;
 }
 
-const UserNav = ({ data, isLoading, dict, authUrl }: UserNavProps) => {
-  const router = useRouter();
+const UserNav = ({ dict, authUrl }: UserNavProps) => {
+  const queryClient = useQueryClient();
+  const { data, isLoading } = useUser();
 
   const handleLogout = async () => {
     const logoutAction = async () => {
-      // Ensure this matches your folder structure (usually /api/auth/logout)
+      queryClient.setQueryData(["user"], null); 
+      queryClient.removeQueries({ queryKey: ["user"] });
+      localStorage.clear();
+      sessionStorage.clear();
+      // 1. Kill session on server
       await axios.post("/api/auth/logout", {}, { withCredentials: true });
 
-      // Force a full page reload to clear all React/Next state
+      
       window.location.href = "/";
     };
 
     toast.promise(logoutAction(), {
       loading: "Logging out...",
-      success: () => {
-        // Use window.location instead of router.push for a clean slate
-        window.location.href = "/";
-        return "Logged out successfully";
-      },
-      error: (err) =>
-        `Logout failed: ${err.response?.data?.message || "Server Error"}`,
+      success: "Logged out!",
+      error: "Logout failed",
     });
   };
-
   if (isLoading) {
     return (
       <div className="px-1 py-1 flex items-center gap-2">

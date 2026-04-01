@@ -23,8 +23,6 @@ const Header: React.FC<{ site: string; t: TranslationSchema }> = ({
 
   // const site = useSubdomain();
 
-  const { data, isLoading } = useUser();
-  // console.log(data);
 
   const path = pathName.slice(3, pathName.length);
 
@@ -214,8 +212,6 @@ const authUrl = process.env.NODE_ENV === "production"
         {/* <LangSwitcher dict={dict} /> */}
         {/* Inside Header */}
         <UserNav
-          data={data}
-          isLoading={isLoading}
           dict={dict}
           authUrl={authUrl}
         />

@@ -1,40 +1,29 @@
 import { NextResponse } from "next/server";
-import { supabaseAnonClient, supabaseServerClient } from "../../_lib/supabaseClient";
+import { cookies } from "next/headers";
 
 export async function POST() {
-  try {
-    const supabase = supabaseServerClient();
-    const { error } = await supabase.auth.signOut();
+  const cookieStore = await cookies();
+  const allCookies = cookieStore.getAll();
+  const response = NextResponse.json({ success: true });
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
-    }
+  // 1. Identify all cookies that look like Supabase auth chunks
+  // These usually start with 'sb-' and contain 'auth-token'
+  const supabaseCookies = allCookies.filter(cookie => 
+    cookie.name.includes("auth-token") && cookie.name.startsWith("sb-")
+  );
 
-    // Create the response
-    const res = NextResponse.json({ success: true });
-
-    // Clear the access token
-    res.cookies.set("sb-access-token", "", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+  // 2. Nuke each one found
+  supabaseCookies.forEach((cookie) => {
+    // Kill it in the store
+    cookieStore.set(cookie.name, "", { path: "/", maxAge: 0 });
+    
+    // Kill it in the response header
+    response.cookies.set(cookie.name, "", {
       path: "/",
       maxAge: 0,
-      sameSite: "strict",
+      expires: new Date(0),
     });
+  });
 
-    // Recommended: Clear the refresh token as well if you use one
-    res.cookies.set("sb-refresh-token", "", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      maxAge: 0,
-      sameSite: "strict",
-    });
-
-    // IMPORTANT: You must return the response object!
-    return res; 
-
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
-  }
+  return response;
 }

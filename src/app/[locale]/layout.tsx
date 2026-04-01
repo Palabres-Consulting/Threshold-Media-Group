@@ -12,6 +12,7 @@ import { LocalizationProvider } from "./context/localizationContext";
 import QueryProvider from "./context/queryProvider";
 import { TranslationProvider } from "../lib/locale/context/translationContext";
 import { getTranslations } from "../lib/locale/i18n/getTranslations";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -83,6 +84,7 @@ export default async function RootLayout({
               <SubdomainProvider>
                 <QueryProvider>
                   <ToastProvider>
+                    <Toaster position="top-center" reverseOrder={false} />
                     <Header t={messages} site={site} />
                     {children}
                     <Footer dict = {messages.main} site={site} />

@@ -5,12 +5,13 @@ import axios from "axios";
 export const useUser = () =>
   useQuery({
     queryKey: ["user"],
-    queryFn: async () =>
-      (
-        await axios.get<User>("http://localhost:3000/api/profile/user", {
-          withCredentials: true,
-        })
-      ).data,
-    gcTime: 1000 * 60 * 60, // 1 hour: How long to keep it in the cache
-      // staleTime: 1000 * 60 * 60, // 1 hour: Data is considered fresh for this duration
+    queryFn: async () => {
+      const { data } = await axios.get<User>("/api/profile/user", {
+        withCredentials: true,
+      });
+      return data;
+    },
+    // Only keep data fresh for a short time to catch auth changes
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    gcTime: 1000 * 60 * 60, // 1 hour
   });
