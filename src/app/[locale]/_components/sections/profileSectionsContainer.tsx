@@ -33,7 +33,7 @@ export const ProfileDetails: React.FC<{
   const navLinks = [
     {
       id: 0,
-      href: "",
+      href: "your-personal-information",
       title: "Your Personal Information",
     },
     {
