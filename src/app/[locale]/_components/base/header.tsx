@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 import { GoTriangleDown } from "react-icons/go";
 import { useLocalization } from "../../context/localizationContext";
 import LangSwitcher from "../ui/LangSwitcher";
-import { useUser } from "../../hook/useUser";
 import Categories from "./Categories";
 import { TranslationSchema } from "@/app/lib/locale";
 import UserNav from "./userNav";
@@ -21,8 +20,9 @@ const Header: React.FC<{ site: string; t: TranslationSchema }> = ({
   const [hoverId, setHoverId] = useState<number | null>(null);
   const { asintLink, extractionLink } = useHomeLink(site);
 
-  // const site = useSubdomain();
+  const url = process.env.NEXT_PUBLIC_PROD_URL || "http://localhost:3000";
 
+  // const site = useSubdomain();
 
   const path = pathName.slice(3, pathName.length);
 
@@ -61,9 +61,9 @@ const Header: React.FC<{ site: string; t: TranslationSchema }> = ({
     title: dict.nav.ourTeam,
     href: "/#",
     subMenu: [
-      { id: 0, title: dict.nav.asint, href: "/about#team" },
-      { id: 1, title: dict.nav.extraction, href: "/about#team" },
-      { id: 2, title: dict.nav.gi, href: "/about#team" },
+      { id: 0, title: dict.nav.asint, href: `asint.${url}` },
+      { id: 1, title: dict.nav.extraction, href: `extraction.${url}` },
+      { id: 2, title: dict.nav.gi, href: "https://gsi-ten.vercel.app" },
     ],
   };
 
@@ -154,7 +154,7 @@ const Header: React.FC<{ site: string; t: TranslationSchema }> = ({
                           {subMenu.map(({ href, id, title }) => {
                             return (
                               <li key={id} className="">
-                                <Link href={href}>{title}</Link>
+                                <Link className="" href={href}>{title}</Link>
                               </li>
                             );
                           })}
@@ -185,12 +185,15 @@ const Header: React.FC<{ site: string; t: TranslationSchema }> = ({
   };
 
   const OtherNavItems = () => {
-const baseUrl = process.env.NEXT_PUBLIC_PROD_URL || 'https://www.tresholdmediagroup.com';
-  const localBase = process.env.NEXT_PUBLIC_LOCAL_BASE_URL || 'http://localhost:3000';
+    const baseUrl =
+      process.env.NEXT_PUBLIC_PROD_URL || "https://www.tresholdmediagroup.com";
+    const localBase =
+      process.env.NEXT_PUBLIC_LOCAL_BASE_URL || "http://localhost:3000";
 
-const authUrl = process.env.NODE_ENV === "production" 
-    ? `${baseUrl}/auth` 
-    : `${localBase}/auth`;
+    const authUrl =
+      process.env.NODE_ENV === "production"
+        ? `${baseUrl}/auth`
+        : `${localBase}/auth`;
     console.log("Auth URL:", authUrl);
 
     const [transDropdown, setTransDropdown] = useState(false);
@@ -211,10 +214,7 @@ const authUrl = process.env.NODE_ENV === "production"
 
         {/* <LangSwitcher dict={dict} /> */}
         {/* Inside Header */}
-        <UserNav
-          dict={dict}
-          authUrl={authUrl}
-        />
+        <UserNav dict={dict} authUrl={authUrl} />
       </div>
     );
   };
@@ -250,10 +250,10 @@ const authUrl = process.env.NODE_ENV === "production"
                   >
                     <ul>
                       {subMenu.map((item) => (
-                        <li key={item.id} className="py-3 flex justify-center">
+                        <li key={item.id} className="py-3 flex ">
                           <Link
                             href={item.href}
-                            className="hover:text-accent-main text-center"
+                            className="hover:text-accent-main  text-nowrap"
                           >
                             {item.title}
                           </Link>

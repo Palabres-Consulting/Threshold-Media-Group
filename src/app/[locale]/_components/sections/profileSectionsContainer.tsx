@@ -7,8 +7,15 @@ const ProfileSectionsContainer: React.FC<{
   title: string;
   children: React.ReactNode;
 }> = ({ title, children }) => {
+
+  const sectionId = title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "") 
+    .replace(/\s+/g, "-");
+
   return (
-    <section className="rounded-2xl  p-5 bg-foreground/5">
+    <section id={sectionId}  
+    className="rounded-2xl  p-5 bg-foreground/5 scroll-mt-44">
       <div className="pb-6 border-sub-bottom">
         <h1 className=" lg:text-[1.7rem] text-[1.3rem] font-bold">{title}</h1>
       </div>
@@ -70,7 +77,7 @@ export const ProfileDetails: React.FC<{
             return (
               <Link
                 key={id}
-                href={href}
+                href={`#${href}`}
                 className="text-center py-4 text-sm w-full border-sub-bottom hover:bg-foreground/5 hover:border-l-2 hover:border-l-accent-main"
               >
                 {title}

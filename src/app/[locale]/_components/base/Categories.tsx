@@ -19,7 +19,6 @@ const Categories: React.FC<CategoriesProps> = ({ dict, asintLink, extractionLink
     switch (index) {
       case 0: return extractionLink; // /fr/industries-resources
       case 1: return asintLink;      // /fr/asint
-      case 2: return "https://gsi-ten.vercel.app/"; // External
       default: return `/${categorySlug}`;
     }
   };

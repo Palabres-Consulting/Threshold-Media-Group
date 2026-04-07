@@ -411,21 +411,20 @@
       "p2": "Exigence analytique (Des articles conçus pour être cités en réunion de direction).",
       "p3": "Formats utiles (Lectures de 4 minutes, pensées pour l’écran et prêtes pour la décision)."
     },
-    
-  "nav": {
-    "team": "Notre Équipe",
-    "services": "Services",
-    "process": "Processus",
-    "strengths": "Nos Atouts",
-    "theGroup": "Le Groupe",
-    "ourMediaBrands": "Nos Marques Médias",
-    "editorialTeam": "Équipe Rédactionnelle"
-  },
-  "ourMediaBrands": {
-    "title": "Nos Marques Médias",
-    "description": "Chacune de nos marques médias est conçue pour répondre à des besoins stratégiques spécifiques. Des rapports sectoriels approfondis à la veille institutionnelle en temps réel, nous proposons une gamme de produits qui forment ensemble un écosystème d'intelligence complet."
-  }
 
+    "nav": {
+      "team": "Notre Équipe",
+      "services": "Services",
+      "process": "Processus",
+      "strengths": "Nos Atouts",
+      "theGroup": "Le Groupe",
+      "ourMediaBrands": "Nos Marques Médias",
+      "editorialTeam": "Équipe Rédactionnelle"
+    },
+    "ourMediaBrands": {
+      "title": "Nos Marques Médias",
+      "description": "Chacune de nos marques médias est conçue pour répondre à des besoins stratégiques spécifiques. Des rapports sectoriels approfondis à la veille institutionnelle en temps réel, nous proposons une gamme de produits qui forment ensemble un écosystème d'intelligence complet."
+    }
   },
   "technology": {
     "title": "IA Stratégique",
@@ -452,33 +451,57 @@
       "dataInsight": "Analyses de Données"
     }
   },
+
   "pricing": {
-    "plans": {
-      "basic": {
+    "pageTitle": "Tarification",
+    "headline": "Choisissez votre forfait",
+    "subtext": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore eaque modi adipisci esse quam ad possimus? Accusamus dicta aspernatur repellat?",
+    "plans": [
+      {
         "title": "Freemium",
         "price": "Gratuit",
-        "description": "Newsletter hebdomadaire, contenus web sélectionnés et extraits d'analyses."
+        "description": "Newsletter hebdomadaire, contenu web public et extraits sélectionnés.",
+        "offers": [
+          "Newsletter hebdomadaire",
+          "Contenu web public",
+          "Extraits sélectionnés"
+        ]
       },
-      "pro": {
+      {
         "title": "TMG Pro Individuel",
         "price": "250",
-        "description": "Accès complet aux fils EXTRACTION & ASINT, Briefs quotidiens, Alertes WhatsApp et Archives."
+        "description": "Accès complet à EXTRACTION & ASINT, briefs quotidiens, alertes WhatsApp et archives.",
+        "offers": [
+          "Accès complet à EXTRACTION & ASINT",
+          "Briefs quotidiens",
+          "Alertes WhatsApp",
+          "Archives"
+        ],
+        "popular": "Populaire"
       },
-      "enterprise": {
+      {
         "title": "TMG Pro Business",
         "price": "600",
-        "description": "Jusqu'à 5 accès utilisateurs, Briefs sur mesure et Rapports stratégiques trimestriels."
+        "description": "Jusqu'à 5 utilisateurs, briefings sur mesure et rapports stratégiques trimestriels.",
+        "offers": [
+          "Jusqu'à 5 utilisateurs",
+          "Briefings sur mesure",
+          "Rapports stratégiques trimestriels"
+        ]
       }
-    }
+    ],
+    "month": "Mois",
+    "subscribe": "S'abonner"
   },
+
   "contact": {
     "title": "Sortez de l'angle mort informationnel",
     "subtitle": "Que vous ayez besoin d'un rapport d'intelligence sur mesure ou d'un abonnement entreprise, nos experts sont à votre disposition.",
     "submit": "Demander un accès stratégique",
-
     "contactForm": {
       "fullName": {
-        "label": "Prénom et nom *",
+        "firstNameLabel": "Prénom",
+        "lastNameLabel": "Nom",
         "firstNamePlaceholder": "Prénom",
         "lastNamePlaceholder": "Nom"
       },
@@ -509,8 +532,8 @@
     "extraction": "Extraction & Ressources",
     "login": "Connexion / Inscription",
     "contactInfo": "Contactez-nous"
-  }, 
-   "auth": {
+  },
+  "auth": {
     "buttons": {
       "signIn": "Se connecter",
       "signUp": "Créer un compte",
@@ -542,8 +565,8 @@
       "placeholder": "Entrez votre e-mail",
       "submit": "Envoyer"
     }
-  }, 
-    "profile": {
+  },
+  "profile": {
     "sections": {
       "personalInfo": "Vos informations personnelles",
       "subscription": "Votre abonnement",
