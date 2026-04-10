@@ -11,6 +11,8 @@ import StatsTracker from "./statsTracker";
 import { Locale } from "@/app/[locale]/context/types";
 import Link from "next/link";
 import MediaSection from "./mediaSection";
+import Image from "next/image";
+import cloudinaryLoader from "@/app/lib/cloudinary";
 
 const ThresholdHompage = ({
   dict,
@@ -29,7 +31,7 @@ const ThresholdHompage = ({
 
       <div className="lg:p-6 p-3 flex flex-col ">
         <div className="w-full rounded-2xl h-[85vh]  relative overflow-hidden">
-          <div className="absolute  lg:h-full  w-full bg-gradient-to-t from-10% from-black/20 via-black/20 via-30% to-70% to-transparent"></div>
+          <div className="absolute  lg:h-full z-40 w-full bg-gradient-to-t from-10% from-black/20 via-black/20 via-30% to-70% to-transparent">    </div>
           <div className=" border-sub  flex items-end bg-foreground/10 overflow-hidden h-[70vh] lg:h-full">
             <div className="p-8 px- flex flex-col gap-3 z-50">
               <h1 className="lg:text-[3rem] text-[1.1rem] font-bold lg:w-[85%] z-50 text-white">
@@ -37,15 +39,15 @@ const ThresholdHompage = ({
               </h1>
             </div>
 
-            {/* <Image
+                  <Image
               loader={cloudinaryLoader}
-              src={"v1755525333/hero_image_uxpn9r.png"}
-              alt={`Partner: ${name}`}
+              src={"/images/homepage/Home.svg"}
+              alt={`Hero Image`}
               width={1000}
               height={1000}
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full absolute z-10"
               // unoptimized
-            /> */}
+            />
           </div>
         </div>
         <MediaSection dict={dict} />

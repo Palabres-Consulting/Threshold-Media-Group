@@ -29,23 +29,10 @@ const Home = async ({
 
   return (
     <main className="lg:mx-10 mx-2 border-sub-side relative ">
-      <div className="bg-[var(--background)]/50  text-[var(--foreground)]  top-0 left-0 w-full h-full z-[999] sticky">
-        <div className="w-full h-screen bg-[var(--background)]/40 backdrop-blur-xs flex items-center justify-center">
-          {/* <header className="mb-12 border-b border-[var(--foreground)]/10 pb-8">
-            <h1 className="text-4xl font-black uppercase tracking-tighter">
-              {site.toUpperCase()}
-            </h1>
-          </header> */}
+     
 
-          {/* Empty State Call */}
-         <div className="container mx-auto px-4">
-          <EmptyState locale={locale} />
-       </div>
-        </div>
-      </div>
-
-      <Hero />
-      <CyberSecurityPosts />
+      <Hero site={site} /> 
+      {/* <CyberSecurityPosts />
 
       <div className="w-full flex">
         <div className="lg:w-[70%]">
@@ -56,9 +43,25 @@ const Home = async ({
         <div className="lg:w-[30%] hidden lg:flex">
           <Sidebar />
         </div>
-      </div>
+      </div> */}
     </main>
   );
 };
 
 export default Home;
+
+
+//  <div className="bg-[var(--background)]/50  text-[var(--foreground)]  top-0 left-0 w-full h-full z-[999] sticky">
+//         <div className="w-full h-screen bg-[var(--background)]/40 backdrop-blur-xs flex items-center justify-center">
+//           {/* <header className="mb-12 border-b border-[var(--foreground)]/10 pb-8">
+//             <h1 className="text-4xl font-black uppercase tracking-tighter">
+//               {site.toUpperCase()}
+//             </h1>
+//           </header> */}
+
+//           {/* Empty State Call */}
+//          <div className="container mx-auto px-4">
+//           <EmptyState locale={locale} />
+//        </div>
+//         </div>
+//       </div>

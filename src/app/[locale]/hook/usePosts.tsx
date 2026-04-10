@@ -1,3 +1,5 @@
+"use client";
+
 // hooks/usePosts.ts
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -11,7 +13,7 @@ import {
 } from "../../lib/fetchLib";
 
 // Get browser language for Polylang
-const useBrowserLanguage = () => {
+export const useBrowserLanguage = () => {
   if (typeof window !== "undefined") {
     // Try to get browser language
     return navigator.language?.split("-")[0] || "en";
