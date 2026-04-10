@@ -10,11 +10,17 @@ import { Post } from "@/app/lib/fetchLib";
 
 export const getTitleValue = (data: Post[] | undefined, key: number) => {
   const item = data?.[key];
+  const rawTitle = typeof item?.title === "string" 
+    ? item.title 
+    : item?.title?.rendered || "Default Title";
 
-
-  return item?.title?.rendered || "Default Title";
+  // Replace common WP entities
+  return rawTitle
+    .replace(/&#8217;/g, "’")
+    .replace(/&#8216;/g, "‘")
+    .replace(/&#8211;/g, "–") // En dash
+    .replace(/&amp;/g, "&");
 };
-
 const Hero = ({ site }: { site: string }) => {
   const { data, error, isLoading } = usePostsByDomain(
     site as "main" | "extraction" | "asint",
@@ -123,7 +129,7 @@ const Hero = ({ site }: { site: string }) => {
                   bg={true}
                 />
                 <h2 className="font-semibold text-[1.1rem]">
-                  {title3.split(" ").slice(0, 10).join(" ")}...
+                  {title3.split(" ").slice(0, 8).join(" ")}...
                 </h2>
               </div>
             </div>
