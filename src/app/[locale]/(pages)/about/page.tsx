@@ -19,9 +19,9 @@ const Aboutpage = async ({
 
   // if not a subdomain, render threshold about page;
 
-  if (site === "main") {
-    return <ThresholdAboutPage dict={dict} />;
-  }
+  // if (site === "main") {
+  //   return
+  // }
 
   const team = [
     {
@@ -80,142 +80,142 @@ const Aboutpage = async ({
     },
   ];
 
-  return (
-    <PageContainer id="about" path="" title={dict.about.title}>
-      <div className="flex flex-col ">
-        {/* NAVIGATION */}
-        <div className="flex gap-6 text-xs lg:text-sm lg:px-7 lg:pt-5 p-3">
-          <Link
-            href="/about/#team"
-            className="font-semibold hover:text-accent-main"
-          >
-            {dict.about.nav.team}
-          </Link>
-          <Link
-            href="/about/#service"
-            className="font-semibold hover:text-accent-main"
-          >
-            {dict.about.nav.services}
-          </Link>
-          <Link
-            href="/about/#process"
-            className="font-semibold hover:text-accent-main"
-          >
-            {dict.about.nav.process}
-          </Link>
-        </div>
-
-        {/* INTRO */}
-        <div className="flex flex-col lg:px-6 p-3 pb-6">
-          <div className="h-[45vh] rounded-2xl overflow-hidden bg-foreground/5">
-            {/* image */}
-          </div>
-          <div className="flex flex-col lg:flex-row lg:justify-between mt-4 lg:gap-x-28 gap-10 py-8">
-            <div className="lg:w-[45%] border-t-2 border-solid border-accent-main py-8">
-              <h4 className="text-[1.8rem] font-semibold">
-                {dict.about.theGroup.title}
-              </h4>
-            </div>
-            <div className="lg:w-[50%] flex flex-col gap-5">
-              <h5 className="text-[1.4rem] font-semibold">
-                {dict.about.theGroup.description}
-              </h5>
-              <div className="text-sm gap-5 flex flex-col">
-                <p>{dict.about.theGroup.description}</p>
-                <p>{dict.about.theGroup.description}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* TEAM */}
-        <div className="py-10 border-sub-y lg:p-6 p-3" id="team">
-          <div className="flex flex-col text-center mb-14">
-            <h2 className="text-[3rem] font-bold mb-6">
-              {dict.about.editorialTeam.title}
-            </h2>
-            <p className="text-foreground/50">
-              {dict.about.editorialTeam.description}
-            </p>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-8">
-            {team.map(
-              ({ id, facebook, image, instagram, linkedIn, name, role }) => (
-                <div key={id} className="flex flex-col h-[55vh] gap-4">
-                  <div className="h-[80%] rounded-2xl bg-foreground/5">
-                    {/* {image} */}
-                  </div>
-                  <div className="h-[20%] flex justify-between">
-                    <div className="flex flex-col gap-2">
-                      <h5 className="text-sm">{name}</h5>
-                      <p className="text-xs">{role}</p>
-                    </div>
-                    <div>
-                      <ul className="flex gap-2">
-                        <li className="flex h-fit">
-                          <Link
-                            href={facebook}
-                            className="rounded-full p-2 text-[1rem] border-sub bg-foreground/5 "
-                          >
-                            <FaFacebook />
-                          </Link>
-                        </li>
-                        <li className="flex h-fit">
-                          <Link
-                            href={instagram}
-                            className="rounded-full p-2 text-[1rem] border-sub bg-foreground/5"
-                          >
-                            <FaInstagram />
-                          </Link>
-                        </li>
-                        <li className="flex h-fit">
-                          <Link
-                            href={linkedIn}
-                            className="rounded-full p-2 text-[1rem] border-sub bg-foreground/5"
-                          >
-                            <FaLinkedin />
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              ),
-            )}
-          </div>
-        </div>
-
-        {/* SERVICES */}
-        <div className="py-10 border-sub-y lg:p-6 p-3" id="service">
-          <div className="flex flex-col text-center mb-14">
-            <h2 className="text-[3rem] font-bold mb-6">
-              {dict.about.pillarsOfIntelligence.title}
-            </h2>
-            <p className="text-foreground/50">
-              {dict.about.pillarsOfIntelligence.p1}
-            </p>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-8">
-            {services.map(({ id, image, title }) => (
-              <div
-                key={id}
-                className="h-[53vh] rounded-2xl overflow-hidden flex items-end relative border-sub"
-              >
-                <div className="absolute h-full w-full">{/* {image} */}</div>
-                <div className="absolute lg:h-full w-full bg-gradient-to-t from-10% from-black/20 via-black/20 via-30% to-70% to-transparent"></div>
-                <h3 className="z-50 text-[2rem] text-white p-4 font-bold">
-                  {title.slice(0, 25)}...
-                </h3>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* PROCESS */}
-        {/* <ProcessSection dict={dict} /> */}
-      </div>
-    </PageContainer>
-  );
+  return <ThresholdAboutPage dict={dict} />;
 };
 
 export default Aboutpage;
+
+//   <PageContainer id="about" path="" title={dict.about.title}>
+//       <div className="flex flex-col ">
+//         {/* NAVIGATION */}
+//         <div className="flex gap-6 text-xs lg:text-sm lg:px-7 lg:pt-5 p-3">
+//           <Link
+//             href="/about/#team"
+//             className="font-semibold hover:text-accent-main"
+//           >
+//             {dict.about.nav.team}
+//           </Link>
+//           <Link
+//             href="/about/#service"
+//             className="font-semibold hover:text-accent-main"
+//           >
+//             {dict.about.nav.services}
+//           </Link>
+//           <Link
+//             href="/about/#process"
+//             className="font-semibold hover:text-accent-main"
+//           >
+//             {dict.about.nav.process}
+//           </Link>
+//         </div>
+
+//         {/* INTRO */}
+//         <div className="flex flex-col lg:px-6 p-3 pb-6">
+//           <div className="h-[45vh] rounded-2xl overflow-hidden bg-foreground/5">
+//             {/* image */}
+//           </div>
+//           <div className="flex flex-col lg:flex-row lg:justify-between mt-4 lg:gap-x-28 gap-10 py-8">
+//             <div className="lg:w-[45%] border-t-2 border-solid border-accent-main py-8">
+//               <h4 className="text-[1.8rem] font-semibold">
+//                 {dict.about.theGroup.title}
+//               </h4>
+//             </div>
+//             <div className="lg:w-[50%] flex flex-col gap-5">
+//               <h5 className="text-[1.4rem] font-semibold">
+//                 {dict.about.theGroup.description}
+//               </h5>
+//               <div className="text-sm gap-5 flex flex-col">
+//                 <p>{dict.about.theGroup.description}</p>
+//                 <p>{dict.about.theGroup.description}</p>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* TEAM */}
+//         <div className="py-10 border-sub-y lg:p-6 p-3" id="team">
+//           <div className="flex flex-col text-center mb-14">
+//             <h2 className="text-[3rem] font-bold mb-6">
+//               {dict.about.editorialTeam.title}
+//             </h2>
+//             <p className="text-foreground/50">
+//               {dict.about.editorialTeam.description}
+//             </p>
+//           </div>
+//           <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-8">
+//             {team.map(
+//               ({ id, facebook, image, instagram, linkedIn, name, role }) => (
+//                 <div key={id} className="flex flex-col h-[55vh] gap-4">
+//                   <div className="h-[80%] rounded-2xl bg-foreground/5">
+//                     {/* {image} */}
+//                   </div>
+//                   <div className="h-[20%] flex justify-between">
+//                     <div className="flex flex-col gap-2">
+//                       <h5 className="text-sm">{name}</h5>
+//                       <p className="text-xs">{role}</p>
+//                     </div>
+//                     <div>
+//                       <ul className="flex gap-2">
+//                         <li className="flex h-fit">
+//                           <Link
+//                             href={facebook}
+//                             className="rounded-full p-2 text-[1rem] border-sub bg-foreground/5 "
+//                           >
+//                             <FaFacebook />
+//                           </Link>
+//                         </li>
+//                         <li className="flex h-fit">
+//                           <Link
+//                             href={instagram}
+//                             className="rounded-full p-2 text-[1rem] border-sub bg-foreground/5"
+//                           >
+//                             <FaInstagram />
+//                           </Link>
+//                         </li>
+//                         <li className="flex h-fit">
+//                           <Link
+//                             href={linkedIn}
+//                             className="rounded-full p-2 text-[1rem] border-sub bg-foreground/5"
+//                           >
+//                             <FaLinkedin />
+//                           </Link>
+//                         </li>
+//                       </ul>
+//                     </div>
+//                   </div>
+//                 </div>
+//               ),
+//             )}
+//           </div>
+//         </div>
+
+//         {/* SERVICES */}
+//         <div className="py-10 border-sub-y lg:p-6 p-3" id="service">
+//           <div className="flex flex-col text-center mb-14">
+//             <h2 className="text-[3rem] font-bold mb-6">
+//               {dict.about.pillarsOfIntelligence.title}
+//             </h2>
+//             <p className="text-foreground/50">
+//               {dict.about.pillarsOfIntelligence.p1}
+//             </p>
+//           </div>
+//           <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-8">
+//             {services.map(({ id, image, title }) => (
+//               <div
+//                 key={id}
+//                 className="h-[53vh] rounded-2xl overflow-hidden flex items-end relative border-sub"
+//               >
+//                 <div className="absolute h-full w-full">{/* {image} */}</div>
+//                 <div className="absolute lg:h-full w-full bg-gradient-to-t from-10% from-black/20 via-black/20 via-30% to-70% to-transparent"></div>
+//                 <h3 className="z-50 text-[2rem] text-white p-4 font-bold">
+//                   {title.slice(0, 25)}...
+//                 </h3>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+
+//         {/* PROCESS */}
+//         {/* <ProcessSection dict={dict} /> */}
+//       </div>
+//     </PageContainer>

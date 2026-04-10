@@ -6,50 +6,54 @@ import { useState } from "react";
 import { NavLinks } from "@/app/types/types";
 import { usePathname } from "next/navigation";
 import { GoTriangleDown } from "react-icons/go";
-import { useLocalization } from "../../context/localizationContext";
+import { Site } from "../../context/localizationContext";
 import LangSwitcher from "../ui/LangSwitcher";
 import Categories from "./Categories";
 import { TranslationSchema } from "@/app/lib/locale";
 import UserNav from "./userNav";
 
-const Header: React.FC<{ site: string; t: TranslationSchema }> = ({
+const Header: React.FC<{ site: Site; t: TranslationSchema }> = ({
   site,
   t,
 }) => {
   const pathName = usePathname();
   const [hoverId, setHoverId] = useState<number | null>(null);
-  const { asintLink, extractionLink } = useHomeLink(site);
+  const { asintLink, extractionLink, mainLink } = useHomeLink(site);
 
   const url = process.env.NEXT_PUBLIC_PROD_URL || "http://localhost:3000";
 
-  // const site = useSubdomain();
-
   const path = pathName.slice(3, pathName.length);
 
-  // console.log(path);
-
-  const { dict } = useLocalization(); // localization dictionary
-
+  // navigation remains thesame accross subdomains, only the categories change based on the subdomain. (from Main)
+  const { main: dict } = t;
+  // [
+  //     { id: 0, title: dict.nav.ourTeam, href: "/about#team" },
+  //     { id: 1, title: dict.nav.services, href: "/about#services" },
+  //     { id: 2, title: dict.nav.process, href: "/about#process" },
+  //     { id: 3, title: dict.nav.pricing, href: "/pricing" },
+  //   ],
   const thresholdMainNav: NavLinks[] = [
     {
       id: 0,
-      title: dict.nav.aboutUs,
-      href: "/about",
-      subMenu: [
-        { id: 0, title: dict.nav.ourTeam, href: "/about#team" },
-        { id: 1, title: dict.nav.services, href: "/about#services" },
-        { id: 2, title: dict.nav.process, href: "/about#process" },
-        { id: 3, title: dict.nav.pricing, href: "/pricing" },
-      ],
+      title: dict.nav.home,
+      href: mainLink,
+      subMenu: null,
     },
+
     {
       id: 1,
+      title: dict.nav.aboutUs,
+      href: "/about",
+      subMenu: null,
+    },
+    {
+      id: 2,
       title: dict.nav.ourTechnology,
       href: "/technology",
       subMenu: null,
     },
     {
-      id: 2,
+      id: 3,
       title: dict.nav.contact,
       href: "/contact",
       subMenu: null,
@@ -58,41 +62,37 @@ const Header: React.FC<{ site: string; t: TranslationSchema }> = ({
 
   const ourMediaLinks = {
     // id: 3,
-    title: dict.nav.ourTeam,
+    title: dict.nav.gi,
     href: "/#",
-    subMenu: [
-      { id: 0, title: dict.nav.asint, href: `asint.${url}` },
-      { id: 1, title: dict.nav.extraction, href: `extraction.${url}` },
-      { id: 2, title: dict.nav.gi, href: "https://gsi-ten.vercel.app" },
-    ],
+    subMenu: null
   };
 
-  const navLinks: NavLinks[] = [
-    {
-      id: 0,
-      title: dict.nav.aboutUs,
-      href: "/about",
-      subMenu: [
-        { id: 0, title: dict.nav.ourTeam, href: "/about#team" },
-        { id: 1, title: dict.nav.services, href: "/about#services" },
-        { id: 2, title: dict.nav.process, href: "/about#process" },
-      ],
-    },
-    {
-      id: 1,
-      title: dict.nav.pricing,
-      href: "/pricing",
-      subMenu: null,
-    },
-    {
-      id: 2,
-      title: dict.nav.contact,
-      href: "/contact",
-      subMenu: null,
-    },
-  ];
+  // const navLinks: NavLinks[] = [
+  //   {
+  //     id: 0,
+  //     title: dict.nav.aboutUs,
+  //     href: "/about",
+  //     subMenu: [
+  //       { id: 0, title: dict.nav.ourTeam, href: "/about#team" },
+  //       { id: 1, title: dict.nav.services, href: "/about#services" },
+  //       { id: 2, title: dict.nav.process, href: "/about#process" },
+  //     ],
+  //   },
+  //   {
+  //     id: 1,
+  //     title: dict.nav.pricing,
+  //     href: "/pricing",
+  //     subMenu: null,
+  //   },
+  //   {
+  //     id: 2,
+  //     title: dict.nav.contact,
+  //     href: "/contact",
+  //     subMenu: null,
+  //   },
+  // ];
 
-  const activeNavlink = site === "main" ? thresholdMainNav : navLinks;
+  // const activeNavlink = site === "main" ? thresholdMainNav : navLinks;
 
   // console.log(site, activeNavlink);
 
@@ -120,7 +120,7 @@ const Header: React.FC<{ site: string; t: TranslationSchema }> = ({
         {navOpen ? (
           <div className="absolute gap-5  top-18 right-5 w-fit md:w-[80%] border-sub overflow-y-scroll h-[100vh]  p-8 rounded-md  bg-background z-70">
             <ul className="grid gap-7 ">
-              {activeNavlink.map(({ href, id, subMenu, title }) => {
+              {thresholdMainNav.map(({ href, id, subMenu, title }) => {
                 return (
                   <li key={id} className="relative w-fit h-fit">
                     <div className="flex items-center justify-between">
@@ -154,7 +154,9 @@ const Header: React.FC<{ site: string; t: TranslationSchema }> = ({
                           {subMenu.map(({ href, id, title }) => {
                             return (
                               <li key={id} className="">
-                                <Link className="" href={href}>{title}</Link>
+                                <Link className="" href={href}>
+                                  {title}
+                                </Link>
                               </li>
                             );
                           })}
@@ -226,7 +228,7 @@ const Header: React.FC<{ site: string; t: TranslationSchema }> = ({
           <Logo site={site} />
 
           <div className="flex justify-between gap-7 items-center  ">
-            {activeNavlink.map(({ id, title, href, subMenu }) => (
+            {thresholdMainNav.map(({ id, title, href, subMenu }) => (
               <div
                 key={id}
                 className="relative  h-fit"
@@ -282,9 +284,10 @@ const Header: React.FC<{ site: string; t: TranslationSchema }> = ({
               {
                 <div className="relative group">
                   <div className="flex  items-center  gap-1 cursor-pointer hover:text-accent-main">
-                    {ourMediaLinks.title} <GoTriangleDown className="" />
+                    {ourMediaLinks.title} 
+                    {/* <GoTriangleDown className="" /> */}
                   </div>
-                  <div className="absolute hidden shadow-lg group-hover:grid right-0 p-4 gap-4  top-[100%] bg-background">
+                  {/* <div className="absolute hidden shadow-lg group-hover:grid right-0 p-4 gap-4  top-[100%] bg-background">
                     {ourMediaLinks.subMenu?.map((item) => {
                       return (
                         <Link
@@ -296,7 +299,7 @@ const Header: React.FC<{ site: string; t: TranslationSchema }> = ({
                         </Link>
                       );
                     })}
-                  </div>
+                  </div> */}
                 </div>
               }
             </div>

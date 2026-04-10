@@ -14,14 +14,31 @@ export interface CategoriesProps {
 const Categories: React.FC<CategoriesProps> = ({ dict, asintLink, extractionLink }) => {
   const [openMobileIndex, setOpenMobileIndex] = useState<number | null>(null);
 
-  // Helper to determine the base domain/path for the 3 main sections
-  const getMainLink = (index: number, categorySlug: string) => {
-    switch (index) {
-      case 0: return extractionLink; // /fr/industries-resources
-      case 1: return asintLink;      // /fr/asint
-      default: return `/${categorySlug}`;
-    }
-  };
+  // 1. Create the map from the dictionary
+  const allCategories = dict.main.nav.categories.map((category, index) => {
+    const catSlug = category.slug || category.title.toLowerCase().replace(/\s+/g, '-');
+    
+    // Determine the base domain/path for the main sections
+    let mainLink = `/${catSlug}`;
+    if (index === 0) mainLink = extractionLink;
+    if (index === 1) mainLink = asintLink;
+
+    return {
+      ...category,
+      catSlug,
+      mainLink,
+    };
+  });
+
+  // 2. Filter or Slice to comment out the last 3 items
+  // Total items: 5. We keep the first 2, comment out index 2, 3, and 4.
+  const visibleCategories = allCategories.slice(0, 5);
+
+  /* Last 3 items (Commented out):
+    - Guinea Intel (index 2)
+    - Innovation (index 3)
+    - Transverse (index 4)
+  */
 
   const toggleMobile = (index: number) => {
     setOpenMobileIndex(openMobileIndex === index ? null : index);
@@ -29,17 +46,14 @@ const Categories: React.FC<CategoriesProps> = ({ dict, asintLink, extractionLink
 
   return (
     <div className="flex flex-col lg:flex-row lg:flex-nowrap lg:items-center lg:p-1 lg:border-[1px] border-foreground/20 rounded-lg gap-2 w-full lg:w-auto">
-      {dict.main.nav.categories.map((category, index) => {
-        // Use the slug from the dictionary, fallback to sanitized title if missing
-        const catSlug = category.slug || category.title.toLowerCase().replace(/\s+/g, '-');
-        const mainLink = getMainLink(index, catSlug);
+      {visibleCategories.map((category, index) => {
         const isMobileOpen = openMobileIndex === index;
 
         return (
           <div key={index} className="relative group w-full lg:w-auto">
             <div className="flex items-center justify-between w-fit ">
               <Link
-                href={mainLink}
+                href={category.mainLink}
                 className="block flex-grow rounded-lg py-1 lg:px-4 lg:border-sub hover:bg-foreground/10 transition-colors whitespace-nowrap"
               >
                 {category.title}
@@ -61,9 +75,8 @@ const Categories: React.FC<CategoriesProps> = ({ dict, asintLink, extractionLink
             `}>
               <div className="flex flex-col py-2">
                 {category.categories.map((sub, subIndex) => {
-                  // Use sub.slug directly from your dictionary
                   const subSlug = sub.slug || sub.title.toLowerCase().replace(/\s+/g, '-');
-                  const subLink = `${mainLink}/${subSlug}`;
+                  const subLink = `${category.mainLink}/${subSlug}`;
 
                   return (
                     <Link
@@ -71,7 +84,9 @@ const Categories: React.FC<CategoriesProps> = ({ dict, asintLink, extractionLink
                       href={subLink}
                       className="px-8 lg:px-4 py-2 text-sm hover:bg-foreground/5 whitespace-nowrap text-[var(--foreground)]"
                     >
-                      {sub.title}
+                      {category.title === "Extraction" && sub.title === "Simandou 2040" 
+                        ? "Simandou 2040" 
+                        : sub.title}
                     </Link>
                   );
                 })}

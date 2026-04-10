@@ -4,13 +4,16 @@ import PageContainer from "@/app/[locale]/_components/sections/pageContainer";
 import Sidebar from "@/app/[locale]/_components/sections/sidebar";
 import SubscribeCard from "@/app/[locale]/_components/sections/subscribeCard";
 import ThresholdOpinions from "@/app/[locale]/_components/sections/thresholdOpinions";
+import EmptyState from "@/app/[locale]/_components/ui/empty";
 import useSinglePost from "@/app/[locale]/hook/useSinglePost";
+import { useLocale } from "@/app/lib/locale/context/translationContext";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import React from "react";
 
 const UniquePost = () => {
   const params = useParams();
+  const { locale } = useLocale();
   const title = params.title;
 
   const { data: post, isLoading, error, isError } = useSinglePost(title);
@@ -31,9 +34,11 @@ const UniquePost = () => {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <div>
-          {error.response?.status === 404
-            ? "Post not found"
-            : `Error: ${error.message}`}
+          <EmptyState
+            locale={locale}
+            title="POST NOT FOUND"
+            description="This article was not found in our archives, please crosscheck the post title"
+          />
         </div>
       </div>
     );
@@ -53,7 +58,7 @@ const UniquePost = () => {
               <h1 className="lg:text-[3.5rem] text-[2rem] font-bold ">
                 Diam ultrices odio ornare sollicitudin habitant viverra ornare
                 amet cras
-              </h1>
+              </h1> 
 
               <div className="rounded-2xl h-[60vh] w-full border-sub bg-foreground/5">
                 {/* <Image
@@ -79,6 +84,9 @@ const UniquePost = () => {
                     dolorum consequatur dicta? Corporis odio officia quas
                     consectetur tenetur?
                   </p>
+
+                    {/* <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} /> */}
+                
 
                   <p className="">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.

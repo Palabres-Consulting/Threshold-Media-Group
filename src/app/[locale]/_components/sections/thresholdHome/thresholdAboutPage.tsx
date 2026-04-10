@@ -30,12 +30,12 @@ const ThresholdAboutPage: React.FC<{ dict: TranslationSchema["main"] }> = ({ dic
           >
             {dict.about.nav.ourMediaBrands}
           </Link>
-          <Link
+          {/* <Link
             href="/about/#editorialTeam"
             className="font-semibold hover:text-accent-main"
           >
             {dict.about.nav.editorialTeam}
-          </Link>
+          </Link> */}
         </div>
       </div>
       <div className="py-10 lg:px-6 px-3">
@@ -59,6 +59,7 @@ const ThresholdAboutPage: React.FC<{ dict: TranslationSchema["main"] }> = ({ dic
         id="ourMediaBrands"
         title={dict.about.ourMediaBrands.title}
         description={dict.about.ourMediaBrands.description}
+        dict={dict}
       />
 
       {/* <EditorialTeam dict={dict} id="editorialTeam" /> */}

@@ -1,6 +1,7 @@
 {
   "nav": {
-    "aboutUs": "Vision",
+    "home": "Home",
+    "aboutUs": "About Us",
     "ourTechnology": "Strategic AI",
     "ourTeam": "Intelligence Unit",
     "services": "Editorial Streams",
@@ -8,199 +9,199 @@
     "pricing": "Subscriptions",
     "media": "Media",
     "extraction": "Extraction",
-    "asint": "Asint",
-    "gi": "Guinea Intelligence",
-    "contact": "Consultation",
+    "asint": "ASINT",
+    "gi": "Guinea Intelligence Platform",
+    "contact": "Contact",
     "lang": "Eng",
     "french": "French",
     "english": "English",
     "spanish": "Spanish",
     "welcome": "Welcome",
     "login": "Login/Sign Up",
-    "categories": [
+   "categories": [
       {
-        "title": "Industries & Ressources",
+        "title": "Extraction",
         "slug": "industries-resources",
         "categories": [
           {
             "title": "Simandou 2040",
             "slug": "simandou2040",
             "subcategories": [
-              { "title": "Infrastructures", "slug": "infrastructures" },
+              { "title": "Infrastructure", "slug": "infrastructures" },
               { "title": "Rail", "slug": "rail" },
               { "title": "Port", "slug": "port" },
               {
-                "title": "Corridor logistique et étapes du projet",
+                "title": "Logistics Corridor and Project Stages",
                 "slug": "etapesduprojet"
               }
             ]
           },
           {
-            "title": "Ressources & Souveraineté",
+            "title": "Resources & Sovereignty",
             "slug": "souveraineteressources",
             "subcategories": [
-              { "title": "Mines (Fer, Bauxite, Or)", "slug": "mines" },
+              { "title": "Mining (Iron, Bauxite, Gold)", "slug": "mines" },
               {
-                "title": "Hydrocarbures et stratégie de l'État",
+                "title": "Hydrocarbons and State Strategy",
                 "slug": "strategiedeetat"
               },
-              { "title": "Fer", "slug": "fer" },
+              { "title": "Iron", "slug": "fer" },
               { "title": "Bauxite", "slug": "bauxite" },
-              { "title": "Or", "slug": "or" },
-              { "title": "Hydrocarbures", "slug": "hydrocarbures" }
+              { "title": "Gold", "slug": "or" },
+              { "title": "Hydrocarbons", "slug": "hydrocarbures" }
             ]
           },
           {
-            "title": "Cartographie Minière",
+            "title": "Mining Mapping",
             "slug": "cartographieminiere",
             "subcategories": [
-              { "title": "SIG", "slug": "sig" },
-              { "title": "Permis miniers", "slug": "permisminiers" },
+              { "title": "GIS", "slug": "sig" },
+              { "title": "Mining Permits", "slug": "permisminiers" },
               {
-                "title": "Localisation des gisements",
+                "title": "Location of Deposits",
                 "slug": "localisationdesgisements"
               },
               {
-                "title": "Cartographie des infrastructures",
+                "title": "Infrastructure Mapping",
                 "slug": "infrastructures-cartographieminiere"
               }
             ]
           },
           {
-            "title": "Logistique & Infrastructures",
+            "title": "Logistics & Infrastructure",
             "slug": "logistiqueinfrastructures",
             "subcategories": [
-              { "title": "Chemins de fer", "slug": "cheminsdefer" },
+              { "title": "Railways", "slug": "cheminsdefer" },
               {
-                "title": "Ports en eaux profondes",
+                "title": "Deepwater Ports",
                 "slug": "portseneauxprofondes"
               },
               {
-                "title": "Corridors de transport",
+                "title": "Transport Corridors",
                 "slug": "corridorsdetransport"
               },
-              { "title": "Logistique", "slug": "logistique" }
+              { "title": "Logistics", "slug": "logistique" }
             ]
           },
           {
-            "title": "Contenu Local & ESG",
+            "title": "Local Content & ESG",
             "slug": "contenulocalesg",
             "subcategories": [
-              { "title": "Emploi", "slug": "emploi" },
+              { "title": "Employment", "slug": "emploi" },
               {
-                "title": "Sous-traitance nationale",
+                "title": "National Subcontracting",
                 "slug": "sous-traitancenational"
               },
               {
-                "title": "Impact environnemental",
+                "title": "Environmental Impact",
                 "slug": "impactenvironnemental"
               }
             ]
           },
           {
-            "title": "Énergie & Industrie",
+            "title": "Energy & Industry",
             "slug": "energieindustrie",
             "subcategories": [
-              { "title": "Mix énergétique", "slug": "mixenergetique" },
+              { "title": "Energy Mix", "slug": "mixenergetique" },
               {
-                "title": "Barrages et alimentation",
+                "title": "Dams and Power Supply",
                 "slug": "barragesetalimentation"
               },
-              { "title": "Sites industriels", "slug": "sitesindustriels" }
+              { "title": "Industrial Sites", "slug": "sitesindustriels" }
             ]
           }
         ]
       },
       {
-        "title": "Intelligence Stratégique (ASINT)",
+        "title": "ASINT",
         "slug": "asint",
         "categories": [
           {
             "title": "Finance & Institutions",
             "slug": "finance-institutions",
             "subcategories": [
-              { "title": "Banques", "slug": "banques" },
-              { "title": "Assurances", "slug": "assurances" },
+              { "title": "Banks", "slug": "banques" },
+              { "title": "Insurance", "slug": "assurances" },
               {
-                "title": "Banque Centrale & Régulation Monétaire",
+                "title": "Central Bank & Monetary Regulation",
                 "slug": "banque-centrale-et-regulations-monetaires"
               }
             ]
           },
           {
-            "title": "Stratégie Macro",
+            "title": "Macro Strategy",
             "slug": "strategiemacro",
             "subcategories": [
-              { "title": "PIB", "slug": "pib" },
+              { "title": "GDP", "slug": "pib" },
               { "title": "Inflation", "slug": "inflation" },
-              { "title": "Dette Souveraine", "slug": "dette-souveraine" },
-              { "title": "Indice de Croissance", "slug": "indice-croissance" }
+              { "title": "Sovereign Debt", "slug": "dette-souveraine" },
+              { "title": "Growth Index", "slug": "indice-croissance" }
             ]
           },
           {
-            "title": "Géopolitique & Risques",
+            "title": "Geopolitics & Risks",
             "slug": "geopolitiquerisques",
             "subcategories": [
-              { "title": "Diplomatie", "slug": "diplomatie" },
+              { "title": "Diplomacy", "slug": "diplomatie" },
               {
-                "title": "Risques Sécuritaires",
+                "title": "Security Risks",
                 "slug": "risques-securitaires"
               },
               {
-                "title": "Stabilité Régionale (CEDEAO/AES)",
+                "title": "Regional Stability (ECOWAS/AES)",
                 "slug": "stabilite-regionale-cedeao-aes"
               }
             ]
           },
           {
-            "title": "Cadre Légal & OHADA",
+            "title": "Legal Framework & OHADA",
             "slug": "cadrelegalohada",
             "subcategories": [
-              { "title": "Droit des Affaires", "slug": "droit-des-affaires" },
-              { "title": "Réformes Fiscales", "slug": "reformes-fiscales" },
+              { "title": "Business Law", "slug": "droit-des-affaires" },
+              { "title": "Tax Reforms", "slug": "reformes-fiscales" },
               {
-                "title": "Climat des Investissements",
+                "title": "Investment Climate",
                 "slug": "climat-des-investissements"
               }
             ]
           },
           {
-            "title": "Partenariats Public-Privé",
+            "title": "Public-Private Partnerships",
             "slug": "partenariatspublic-prive",
             "subcategories": [
               { "title": "Concessions", "slug": "concessions" },
-              { "title": "Contrats d'État", "slug": "contrats-detat" },
+              { "title": "State Contracts", "slug": "contrats-detat" },
               {
-                "title": "Investissements Mixtes (PPP)",
+                "title": "Mixed Investments (PPP)",
                 "slug": "investissements-mixtes-ppp"
               }
             ]
           },
           {
-            "title": "Commerce & Douanes",
+            "title": "Trade & Customs",
             "slug": "commercedouanes",
             "subcategories": [
               {
-                "title": "Corridors Commerciaux",
+                "title": "Trade Corridors",
                 "slug": "corridors-commerciaux"
               },
-              { "title": "Tarifs Douaniers", "slug": "tarifs-douaniers" },
+              { "title": "Customs Tariffs", "slug": "tarifs-douaniers" },
               {
-                "title": "Accords de Libre-Échange",
+                "title": "Free Trade Agreements",
                 "slug": "accords-de-libre-echange"
               }
             ]
           },
           {
-            "title": "Agrobusiness & Terre",
+            "title": "Agribusiness & Land",
             "slug": "agrobusiness-terre",
             "subcategories": [
               {
-                "title": "Agriculture Industrielle",
+                "title": "Industrial Agriculture",
                 "slug": "agriculture-industrielle"
               },
               {
-                "title": "Foncier & Chaînes de Valeur Agricoles",
+                "title": "Land & Agricultural Value Chains",
                 "slug": "foncier-et-chaines-de-valeur-agricoles"
               }
             ]
@@ -208,55 +209,55 @@
         ]
       },
       {
-        "title": "Guinea Intel",
+        "title": "Guinea Intelligence",
         "slug": "guinea-intel",
         "categories": [
           {
-            "title": "Appels d'Offres & Appels à Projets",
+            "title": "Tenders & Project Calls",
             "slug": "appelsdoffres",
             "subcategories": [
               {
-                "title": "Monitoring en temps réel",
+                "title": "Real-time Monitoring",
                 "slug": "monitoringentempsreel"
               },
               {
-                "title": "Marchés publics & privés",
+                "title": "Public & Private Markets",
                 "slug": "marchespublicsetprives"
               }
             ]
           },
           {
-            "title": "Guide de l'Investisseur",
+            "title": "Investor Guide",
             "slug": "guidedelinvestisseur",
             "subcategories": [
               {
-                "title": "Formalités administratives",
+                "title": "Administrative Formalities",
                 "slug": "formalitesadministratives"
               },
-              { "title": "Fiscalité locale", "slug": "fiscalitelocale" },
-              { "title": "Zones économiques", "slug": "zoneseconomiques" }
+              { "title": "Local Taxation", "slug": "fiscalitelocale" },
+              { "title": "Economic Zones", "slug": "zoneseconomiques" }
             ]
           },
           {
-            "title": "Annuaire des Stakeholders",
+            "title": "Stakeholder Directory",
             "slug": "annuairedesstakeholders",
             "subcategories": [
               {
-                "title": "Cartographie des décideurs",
+                "title": "Decision-Maker Mapping",
                 "slug": "cartographiedesdecideurs"
               },
               {
-                "title": "Acteurs clés public-privé",
+                "title": "Key Public-Private Actors",
                 "slug": "acteursclesdusecteurpublicprive"
               }
             ]
           },
           {
-            "title": "Suivi des Projets d'État",
+            "title": "State Project Monitoring",
             "slug": "monitoringdeprojetsdetat",
             "subcategories": [
               {
-                "title": "Suivi opérationnel des grands chantiers",
+                "title": "Operational Monitoring of Major Projects",
                 "slug": "suivi-operationnel-des-grands-chantiers-gouvernementaux"
               }
             ]
@@ -268,47 +269,47 @@
         "slug": "innovation",
         "categories": [
           {
-            "title": "Data & Innovation (IA)",
+            "title": "Data & Innovation (AI)",
             "slug": "data-innovation-ia",
             "subcategories": [
               {
-                "title": "Algorithmes d'aide à la décision et automatisation",
+                "title": "Decision Support Algorithms and Automation",
                 "slug": "algorithmes-daide-a-la-decision-et-automatisation-de-lintelligence"
               }
             ]
           },
           {
-            "title": "Analyse OSINT",
+            "title": "OSINT Analysis",
             "slug": "analyse-osint",
             "subcategories": [
               {
-                "title": "Analyse des sources ouvertes et signaux faibles du web",
+                "title": "Open Source Analysis and Weak Web Signals",
                 "slug": "analyse-des-sources-ouvertes-et-signaux-faibles-du-web"
               }
             ]
           },
           {
-            "title": "Fintech & Banque Digitale",
+            "title": "Fintech & Digital Banking",
             "slug": "fintech-digital-banking",
             "subcategories": [
               {
-                "title": "Inclusion financière",
+                "title": "Financial Inclusion",
                 "slug": "inclusion-financiere"
               },
-              { "title": "Services mobiles", "slug": "services-mobiles" },
-              { "title": "Monnaies numériques", "slug": "monnaies-numeriques" }
+              { "title": "Mobile Services", "slug": "services-mobiles" },
+              { "title": "Digital Currencies", "slug": "monnaies-numeriques" }
             ]
           },
           {
-            "title": "Souveraineté Numérique",
+            "title": "Digital Sovereignty",
             "slug": "souverainete-numerique",
             "subcategories": [
-              { "title": "Data centers", "slug": "data-centers" },
+              { "title": "Data Centers", "slug": "data-centers" },
               {
-                "title": "Connectivité régionale",
+                "title": "Regional Connectivity",
                 "slug": "connectivite-regionale"
               },
-              { "title": "Cybersécurité", "slug": "cybersecurite" }
+              { "title": "Cybersecurity", "slug": "cybersecurite" }
             ]
           }
         ]
@@ -318,7 +319,7 @@
         "slug": "transverse",
         "categories": [
           {
-            "title": "Portraits de Décideurs",
+            "title": "Decision-Maker Portraits",
             "slug": "portraits-de-decideurs",
             "subcategories": [
               {
@@ -328,22 +329,22 @@
             ]
           },
           {
-            "title": "Briefings de Direction",
+            "title": "Executive Briefings",
             "slug": "briefings-de-direction",
             "subcategories": []
           },
           {
-            "title": "Une Ville, Un Quartier",
+            "title": "One City, One District",
             "slug": "one-city-one-quarter",
             "subcategories": []
           },
           {
-            "title": "Webinaires Stratégiques",
+            "title": "Strategic Webinars",
             "slug": "webinaires-strategiques",
             "subcategories": []
           },
           {
-            "title": "Cartographie Sectorielle",
+            "title": "Sectoral Mapping",
             "slug": "cartographie-sectorielle",
             "subcategories": []
           }

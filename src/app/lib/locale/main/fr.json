@@ -1,6 +1,7 @@
 {
   "nav": {
-    "aboutUs": "Vision",
+    "home": "Accueil",
+    "aboutUs": "À Propos",
     "ourTechnology": "IA Stratégique",
     "ourTeam": "Le Seuil Analytique",
     "services": "Fils Éditoriaux",
@@ -9,7 +10,7 @@
     "media": "Média",
     "extraction": "Extraction",
     "asint": "Asint",
-    "gi": "Guinea Intelligence",
+    "gi": "Guinea Intelligence Platform",
     "contact": "Consultation",
     "lang": "Fr",
     "french": "Français",

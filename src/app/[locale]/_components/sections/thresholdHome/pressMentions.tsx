@@ -1,6 +1,8 @@
 import cloudinaryLoader from "@/app/lib/cloudinary";
 import Image from "next/image";
 import React from "react";
+import MediaSection from "./mediaSection";
+import { TranslationSchema } from "@/app/lib/locale";
 
 const organizations = [
   {
@@ -39,60 +41,14 @@ const PressMentions: React.FC<{
   title: string;
   description: string;
   id: string;
-}> = ({ title, description, id }) => {
+  dict: TranslationSchema["main"];
+}> = ({ title, description, id, dict }) => {
   return (
     <section className="text-center flex flex-col gap-4 my-14 py-10" id={id}>
       <h1 className="text-[3rem] font-bold">{title}</h1>
       <p className="text-center">{description}</p>
 
-      <div className="flex flex-col lg:flex-row gap-6 mt-6 lg:px-6 px-3">
-        <div className="flex flex-col gap-4 rounded-2xl  h-[40vh]">
-          <div className="flex items-center justify-center rounded-2xl bg-foreground/5 h-[80%]">
-            <h1 className="font-semibold text-[2rem]">EXTRACTION</h1>
-
-            <div className="">
-              {/* <Image
-              loader={cloudinaryLoader}
-              src={"v1755525333/hero_image_uxpn9r.png"}
-              alt={`Partner: ${name}`}
-              width={1000}
-              height={1000}
-              className="object-cover w-full h-full"
-              // unoptimized
-              /> */}
-            </div>
-          </div>
-          <div className="">
-            <p className="text-sm text-left">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
-              velit reprehenderit sed neque deleniti inventore.
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-col gap-4 rounded-2xl  h-[40vh]">
-          <div className="flex items-center justify-center bg-foreground/5 rounded-2xl h-[80%]">
-            <h1 className="font-semibold text-[2rem]">ASINT</h1>
-
-            <div className="">
-              {/* <Image
-              loader={cloudinaryLoader}
-              src={"v1755525333/hero_image_uxpn9r.png"}
-              alt={`Partner: ${name}`}
-              width={1000}
-              height={1000}
-              className="object-cover w-full h-full"
-              // unoptimized
-              /> */}
-            </div>
-          </div>
-          <div className="">
-            <p className="text-sm text-left">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
-              velit reprehenderit sed neque deleniti inventore.
-            </p>
-          </div>
-        </div>
-      </div>
+      <MediaSection dict={dict} />
     </section>
   );
 };

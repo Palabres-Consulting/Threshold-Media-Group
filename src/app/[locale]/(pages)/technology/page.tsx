@@ -19,18 +19,18 @@ const TechnologyPage = async ({
   
     const { main: dict } = getTranslations(locale);
 
-  if (site !== "main") {
-    return (
-      <div className="flex justify-center min-h-screen items-center">
-        <div className="flex flex-col gap-5 text-center">
-          <h1 className="text-[3rem] font-bold">Page Unavailable</h1>{" "}
-          <Link href="/" className="">
-            Go back to Home
-          </Link>{" "}
-        </div>
-      </div>
-    );
-  }
+  // if (site !== "main") {
+  //   return (
+  //     <div className="flex justify-center min-h-screen items-center">
+  //       <div className="flex flex-col gap-5 text-center">
+  //         <h1 className="text-[3rem] font-bold">Page Unavailable</h1>{" "}
+  //         <Link href="/" className="">
+  //           Go back to Home
+  //         </Link>{" "}
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <PageContainer
@@ -47,7 +47,7 @@ const TechnologyPage = async ({
           >
             {dict.technology.nav.ourAi}
           </Link>
-          <Link
+          {/* <Link
             href="/about/#ourMediaBrands"
             className="font-semibold hover:text-accent-main"
           >
@@ -58,7 +58,7 @@ const TechnologyPage = async ({
             className="font-semibold hover:text-accent-main"
           >
             {dict.technology.nav.dataInsight}
-          </Link>
+          </Link> */}
         </div>
       </div>
 
@@ -90,13 +90,13 @@ const TechnologyPage = async ({
         </div>
       </div>
 
-      <EditorialProcess
+      {/* <EditorialProcess
         titleColor=""
         mainTitle={true}
         dict={dict}
         title={dict.technology.editorialProcess.title}
         description={dict.technology.editorialProcess.subDescription}
-      />
+      /> */}
 
       {/* <ServicesComponent dict={dict} /> */}
     </PageContainer>

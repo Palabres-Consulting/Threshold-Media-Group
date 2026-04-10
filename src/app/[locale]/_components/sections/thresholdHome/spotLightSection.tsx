@@ -59,12 +59,12 @@ const SpotLightSection = ({ t }: { t: TranslationSchema["main"]["hero"]} ) => {
               <p className="w-[90%] lg:w-[80%] text-sm">
                 {description}
               </p>
-              <Link
+              {/* <Link
                 href={`/services/${id}`}
                 className="flex gap-2 py-2 px-4 mt-2 transition-all hover:bg-gray-50 rounded-lg border border-sub items-center text-sm font-medium"
               >
                 {t.pillars[id as keyof typeof t.pillars].cta} <FaArrowRight className="text-xs" />
-              </Link>
+              </Link> */}
             </div>
           );
         })}
