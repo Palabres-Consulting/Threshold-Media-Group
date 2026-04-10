@@ -1,7 +1,7 @@
 // lib/api.ts
 import axios from "axios";
 
-const API_BASE = process.env.NEXT_PUBLIC_WORDPRESS_API_URL!;
+const API_BASE = "https://wp.tresholdmediagroup.com/wp-json/wp/v2";
 
 export interface Post {
   id: number;
