@@ -93,7 +93,7 @@ const UniquePost = () => {
 
           <div className="">{/* <ThresholdOpinions /> */}</div>
         </div>
-        <div className="lg:w-[30%] hidden lg:fle relative">
+        <div className="lg:w-[30%] hidden lg:block relative">
           <EmptyFull locale={locale} title="No Content Yet" description="" />
           <Sidebar />
         </div>
