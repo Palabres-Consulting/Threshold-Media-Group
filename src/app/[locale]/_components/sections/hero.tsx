@@ -66,7 +66,7 @@ const Hero = ({ site }: { site: string }) => {
             
             <div className="absolute bottom-0 left-0 p-8 flex flex-col gap-3 z-50">
               <CategoryTime
-                category="Smartphones"
+                category={site}
                 readTime="10 mins read"
                 back={true}
                 bg={true}
@@ -92,7 +92,7 @@ const Hero = ({ site }: { site: string }) => {
             </div>
             <div className="lg:h-[25%] flex flex-col gap-3">
               <CategoryTime
-                category="Smartphones"
+                category={site}
                 readTime="10 mins read"
                 back={false}
                 bg={true}
@@ -117,7 +117,7 @@ const Hero = ({ site }: { site: string }) => {
             <div className="w-[60%] h-full">
               <div className="flex flex-col gap-2">
                 <CategoryTime
-                  category="Smartphones"
+                  category={site}
                   readTime="10 mins read"
                   back={false}
                   bg={true}

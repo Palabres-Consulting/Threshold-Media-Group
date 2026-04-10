@@ -13,14 +13,18 @@ const PageContainer: React.FC<{
 }> = ({ id, title, path, children }) => {
   const pathname = usePathname().slice(4, usePathname().length);
 
-  console.log(pathname);
+  console.log("Pathname:", pathname);
+
+  console.log("Display Pathname:", pathname.at(0)?.toUpperCase() + pathname.slice(1))
+
+  const displayPathname = (pathname.at(0)?.toUpperCase() + pathname.slice(1)).slice(0, 30) + "...";
 
   return (
     <section className="lg:mx-10">
       <div className="py-5 bg-foreground/5 border-sub-side px-6 border-sub-bottom flex justify-between items-center">
         <div className="flex items-center gap-4 text-sm opacity-50">
           <span className="">Home</span> <span className="">/</span>
-          {pathname.at(0)?.toUpperCase() + pathname.slice(1)}
+          {displayPathname }
         </div>
         <div className="">
           <ul className="flex gap-6">
