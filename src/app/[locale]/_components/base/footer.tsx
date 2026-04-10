@@ -31,8 +31,7 @@ const Footer = ({site, dict}: {site: string, dict: TranslationSchema["main"]}) =
         <div className="flex flex-col pr-10 gap-4">
           <Logo />
           <p className="">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-            assumenda ipsam modi.
+            {dict.footer.description}
           </p>
           <div className="flex gap-3 items-center">
             {/* {the other two logos} */}
@@ -88,8 +87,7 @@ const Footer = ({site, dict}: {site: string, dict: TranslationSchema["main"]}) =
             {dict.footer.contactInfo}
           </h3>
           <p className="">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-            Necessitatibus, exercitationem!
+            {dict.footer.contactDescription}
           </p>
           <div className="flex flex-col mt-4 gap-4">
             <div className="flex gap-2 items-center">

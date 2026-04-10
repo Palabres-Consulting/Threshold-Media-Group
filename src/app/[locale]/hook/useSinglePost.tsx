@@ -1,24 +1,24 @@
-import axios from "axios";
+/* hooks/useSinglePost.ts */
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/router";
-import { ParamValue } from "next/dist/server/request/params";
+import { fetchPostBySlug } from "../../lib/fetchLib";
+import { useBrowserLanguage } from "./usePosts";
 
-// Custom hook to fetch single post
-const useSinglePost = (postId: ParamValue) => {
+const useSinglePost = (slug: string, type: string = "posts") => {
+  const lang = useBrowserLanguage();
+  
+  // Map "main" from your Hero site prop back to "posts" for the API
+  const postTypeMap: Record<string, "posts" | "extraction" | "asint"> = {
+    main: "posts",
+    extraction: "extraction",
+    asint: "asint",
+  };
+
+  const validPostType = postTypeMap[type] || "posts";
+
   return useQuery({
-    queryKey: ["post", postId],
-    queryFn: async () => {
-      const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL!}/posts/${postId}`
-      );
-      return data;
-    },
-    enabled: !!postId, // Only run if postId exists
-    retry: (failureCount, error: any) => {
-      // Don't retry on 404s
-      if (error.response?.status === 404) return false;
-      return failureCount < 3;
-    },
+    queryKey: ["single-post", validPostType, slug, lang],
+    queryFn: () => fetchPostBySlug(validPostType, slug, lang),
+    enabled: !!slug,
   });
 };
 

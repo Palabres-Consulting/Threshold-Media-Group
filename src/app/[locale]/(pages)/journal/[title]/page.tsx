@@ -5,21 +5,27 @@ import Sidebar from "@/app/[locale]/_components/sections/sidebar";
 import SubscribeCard from "@/app/[locale]/_components/sections/subscribeCard";
 import ThresholdOpinions from "@/app/[locale]/_components/sections/thresholdOpinions";
 import EmptyState from "@/app/[locale]/_components/ui/empty";
+import EmptyFull from "@/app/[locale]/_components/ui/emptyFull";
 import useSinglePost from "@/app/[locale]/hook/useSinglePost";
+import cloudinaryLoader from "@/app/lib/cloudinary";
 import { useLocale } from "@/app/lib/locale/context/translationContext";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import Image from "next/image";
+import { useParams, useSearchParams } from "next/navigation";
 import React from "react";
 
 const UniquePost = () => {
   const params = useParams();
+  const searchParams = useSearchParams();
   const { locale } = useLocale();
   const title = params.title;
 
-  const { data: post, isLoading, error, isError } = useSinglePost(title);
+  const slug = params.title as string;
+  // Get the type from the URL query ?type=extraction
+  const postType = searchParams.get("type") || "main";
+  const { data: post, isLoading, isError } = useSinglePost(slug, postType);
 
-  console.log(post);
-
+  console.log("POST", post);
   console.log(title);
 
   if (isLoading) {
@@ -30,7 +36,7 @@ const UniquePost = () => {
     );
   }
 
-  if (isError) {
+  if (isError || !post) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <div>
@@ -56,80 +62,39 @@ const UniquePost = () => {
 
             <div className="flex flex-col gap-10 mb-20">
               <h1 className="lg:text-[3.5rem] text-[2rem] font-bold ">
-                Diam ultrices odio ornare sollicitudin habitant viverra ornare
-                amet cras
-              </h1> 
+                {post?.title?.rendered || "Post Title"}
+              </h1>
 
-              <div className="rounded-2xl h-[60vh] w-full border-sub bg-foreground/5">
-                {/* <Image
-            loader={cloudinaryLoader}
-            src={"v1755525333/hero_image_uxpn9r.png"}
-            alt={`post image`}
-            width={1000}
-            height={1000}
-            className="object-cover w-full h-full"
-            // unoptimized
-          /> */}
+              {/* Image Container */}
+              <div className="rounded-2xl h-[60vh] w-full border-sub bg-foreground/5 relative overflow-hidden">
+                <Image
+                  loader={cloudinaryLoader}
+                  src={"/images/homepage/home4.png"}
+                  alt={post?.title?.rendered || "Post Image"}
+                  fill
+                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  priority
+                />
               </div>
 
-              <div className="flex flex-col gap-8">
-                <div className="flex flex-col gap-8 relative">
-                  <h5 className="font-semibold text-[1.5rem]">
-                    Sem lacus, erat venenati
-                  </h5>
-                  <p className="">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Exercitationem, voluptas. A numquam, sint repudiandae
-                    possimus minima, tempore facilis cum placeat similique,
-                    dolorum consequatur dicta? Corporis odio officia quas
-                    consectetur tenetur?
-                  </p>
-
-                    {/* <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} /> */}
-                
-
-                  <p className="">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Reprehenderit eius sapiente molestiae non, voluptatem vitae.
-                  </p>
-
-                  <div className="absolute top-0 right-0">
-                    <strong className="text-accent-main">By Henray Jay</strong>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-6 relative">
-                  <h5 className="font-semibold text-[1.5rem]">
-                    Sem lacus, erat venenati
-                  </h5>
-                  <p className="">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Exercitationem, voluptas. A numquam, sint repudiandae
-                    possimus minima, tempore facilis cum placeat similique,
-                    dolorum consequatur dicta?
-                  </p>
-
-                  <p className="">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Reprehenderit eius sapiente molestiae non, voluptatem vitae.
-                  </p>
-                  <p className="">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Reprehenderit eius sapiente molestiae non, voluptatem vitae.
-                  </p>
-                </div>
-              </div>
+              <div
+                className="max-w-4xl mx-auto
+        [&_h2]:lg:text-4xl [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mt-12 [&_h2]:mb-6
+        [&_h3]:lg:text-2xl [&_h3]:text-xl [&_h3]:font-bold [&_h3]:mt-8 [&_h3]:mb-4
+        [&_p]:text-lg [&_p]:leading-8 [&_p]:mb-6 [&_p]:text-foreground
+        [&_strong]:text-foreground
+      "
+                dangerouslySetInnerHTML={{
+                  __html: post?.content?.rendered || "",
+                }}
+              />
             </div>
           </div>
 
-          <div className="border-sub-right p-6">
-            <SubscribeCard />
-          </div>
-
-          <div className="">
-            <ThresholdOpinions />
-          </div>
+          <div className="">{/* <ThresholdOpinions /> */}</div>
         </div>
-        <div className="lg:w-[30%] hidden lg:flex">
+        <div className="lg:w-[30%] hidden lg:fle relative">
+          <EmptyFull locale={locale} title="No Content Yet" description="" />
           <Sidebar />
         </div>
       </div>

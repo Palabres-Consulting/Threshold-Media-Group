@@ -5,23 +5,78 @@ const API_BASE = "https://wp.tresholdmediagroup.com/wp-json/wp/v2";
 
 export interface Post {
   id: number;
-  title: { rendered: string };
-  content: { rendered: string };
-  excerpt: { rendered: string };
   date: string;
+  date_gmt: string;
+  guid: { rendered: string };
+  modified: string;
+  modified_gmt: string;
+  slug: string; // Used for routing
+  status: "publish" | "future" | "draft" | "pending" | "private";
+  type: "post" | "extraction" | "asint" | string; // The CPT name
+  link: string;
+  title: { rendered: string };
+  content: { rendered: string; protected: boolean };
+  excerpt: { rendered: string; protected: boolean };
+  author: number;
   featured_media: number;
-  categories: number[];
+  comment_status: "open" | "closed";
+  ping_status: "open" | "closed";
+  sticky: boolean;
+  template: string;
+  format: "standard" | "aside" | "gallery" | "link" | "image" | "quote" | "status" | "video" | "audio" | "chat";
+  meta: any;
+  
+  // Taxonomies
+  categories?: number[];
+  tags?: number[];
+  // This allows for 'extraction-category', 'asint-category', etc.
+  [key: string]: any; 
+
+  // Polylang / Multilingual
+  lang?: string;
+
+  // ACF (Advanced Custom Fields)
   acf?: {
-    reading_time?: number;
+    reading_time?: string | number;
     is_featured?: boolean;
     priority?: number;
+    [key: string]: any;
   };
+
+  // Embedded data (if using _embed=true)
+  _embedded?: {
+    author?: any[];
+    "wp:featuredmedia"?: any[];
+    "wp:term"?: any[][];
+    [key: string]: any;
+  };
+
+  _links?: Record<string, Array<{ href: string; embeddable?: boolean }>>;
 }
 
 export interface ApiResponse<T> {
   data: T;
   status: number;
 }
+
+
+export const fetchPostBySlug = async (
+  postType: "posts" | "extraction" | "asint",
+  slug: string,
+  lang: string = "en"
+): Promise<Post | null> => {
+  const { data } = await axios.get(`${API_BASE}/${postType}`, {
+    params: {
+      slug: slug,
+      lang: lang,
+      _embed: true,
+    },
+  });
+  
+  return data.length > 0 ? data[0] : null;
+};
+
+
 
 // Generic fetch function for any post type
 export const fetchPostsByType = async (

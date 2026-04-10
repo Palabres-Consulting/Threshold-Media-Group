@@ -11,9 +11,6 @@ import { Post } from "@/app/lib/fetchLib";
 export const getTitleValue = (data: Post[] | undefined, key: number) => {
   const item = data?.[key];
 
-  if (typeof item?.title === "string") {
-    return item.title;
-  }
 
   return item?.title?.rendered || "Default Title";
 };
@@ -45,14 +42,18 @@ const Hero = ({ site }: { site: string }) => {
   const title2 = getTitleValue(data, 2);
   const title3 = getTitleValue(data, 3);
 
+  const demoTitle1 = data?.[1]?.title?.rendered;
+
+  console.log( "DEMO TITLE ", demoTitle1);
+
   return (
-    <Link href={``}>
-      <section className="relative" id="hero">
-        <div className="bg-foreground/5 border-sub-y"></div>
-        <div className="flex flex-col lg:h-[85vh] lg:flex-row lg:p-5 p-3 gap-8">
-          
-          {/* Big Hero Image Container */}
-          <div className="lg:w-[70%] rounded-2xl relative overflow-hidden h-[70vh] lg:h-full">
+    <section className="relative" id="hero">
+      <div className="bg-foreground/5 border-sub-y"></div>
+      <div className="flex flex-col lg:h-[85vh] lg:flex-row lg:p-5 p-3 gap-8">
+        
+        {/* Big Hero Image Container - Post [1] */}
+        <div className="lg:w-[70%] rounded-2xl relative overflow-hidden h-[70vh] lg:h-full">
+          <Link href={`/journal/${data?.[0]?.slug || ""}?type=${site}`}>
             <Image
               loader={cloudinaryLoader}
               src={"/images/homepage/home4.png"}
@@ -61,7 +62,6 @@ const Hero = ({ site }: { site: string }) => {
               className="object-cover transition-transform duration-500 hover:scale-105"
               priority
             />
-            {/* Overlay for text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
             
             <div className="absolute bottom-0 left-0 p-8 flex flex-col gap-3 z-50">
@@ -75,21 +75,47 @@ const Hero = ({ site }: { site: string }) => {
                 {title1.split(" ").slice(0, 10).join(" ")}...
               </h1>
             </div>
-          </div>
+          </Link>
+        </div>
 
-          <div className="lg:w-[30%] w-full h-full flex flex-col gap-5">
-            {/* Top Right Post */}
-            <div className="lg:h-[70%] h-[60vh] flex flex-col gap-5 mb-5 lg:mb-0">
-              <div className="rounded-2xl h-[75%] border-sub overflow-hidden bg-foreground/10 relative">
-                <Image
-                  loader={cloudinaryLoader}
-                  src={"/images/homepage/home5.png"}
-                  alt={`Extraction Image 2`}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="lg:h-[25%] flex flex-col gap-3">
+        <div className="lg:w-[30%] w-full h-full flex flex-col gap-5">
+          {/* Top Right Post - Post [2] */}
+          <Link href={`/journal/${data?.[1]?.slug || ""}?type=${site}`} className="lg:h-[70%] h-[60vh] flex flex-col gap-5 mb-5 lg:mb-0">
+            <div className="rounded-2xl h-[75%] border-sub overflow-hidden bg-foreground/10 relative">
+              <Image
+                loader={cloudinaryLoader}
+                src={"/images/homepage/home5.png"}
+                alt={`Extraction Image 2`}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="lg:h-[25%] flex flex-col gap-3">
+              <CategoryTime
+                category="Smartphones"
+                readTime="10 mins read"
+                back={false}
+                bg={true}
+              />
+              <h2 className="font-semibold text-[1.1rem]">
+                {title2.split(" ").slice(0, 10).join(" ")}...
+              </h2>
+            </div>
+          </Link>
+
+          {/* Bottom Right Post - Post [3] */}
+          <Link href={`/journal/${data?.[2]?.slug || ""}?type=${site}`} className="lg:h-[30%] border-sub-top flex items-center gap-4 pt-6">
+            <div className="w-[40%] aspect-square lg:h-full rounded-2xl overflow-hidden bg-foreground/10 relative">
+              <Image
+                loader={cloudinaryLoader}
+                src={"/images/homepage/home6.png"}
+                alt={`Extraction Image 3`}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="w-[60%] h-full">
+              <div className="flex flex-col gap-2">
                 <CategoryTime
                   category="Smartphones"
                   readTime="10 mins read"
@@ -97,41 +123,15 @@ const Hero = ({ site }: { site: string }) => {
                   bg={true}
                 />
                 <h2 className="font-semibold text-[1.1rem]">
-                  {title2.split(" ").slice(0, 10).join(" ")}...
+                  {title3.split(" ").slice(0, 10).join(" ")}...
                 </h2>
               </div>
             </div>
+          </Link>
 
-            {/* Bottom Right Post (Horizontal Layout) */}
-            <div className="lg:h-[30%] border-sub-top flex items-center gap-4 pt-6">
-              <div className="w-[40%] aspect-square lg:h-full rounded-2xl overflow-hidden bg-foreground/10 relative">
-                <Image
-                  loader={cloudinaryLoader}
-                  src={"/images/homepage/home6.png"}
-                  alt={`Extraction Image 3`}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="w-[60%] h-full">
-                <div className="flex flex-col gap-2">
-                  <CategoryTime
-                    category="Smartphones"
-                    readTime="10 mins read"
-                    back={false}
-                    bg={true}
-                  />
-                  <h2 className="font-semibold text-[1.1rem]">
-                    {title3.split(" ").slice(0, 10).join(" ")}...
-                  </h2>
-                </div>
-              </div>
-            </div>
-
-          </div>
         </div>
-      </section>
-    </Link>
+      </div>
+    </section>
   );
 };
 

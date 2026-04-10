@@ -18,7 +18,7 @@
     "spanish": "Spanish",
     "welcome": "Welcome",
     "login": "Login/Sign Up",
-   "categories": [
+    "categories": [
       {
         "title": "Extraction",
         "slug": "industries-resources",
@@ -451,7 +451,7 @@
       "dataInsight": "Data Insights"
     }
   },
-  
+
   "pricing": {
     "pageTitle": "Pricing",
     "headline": "Choose the pricing plan",
@@ -531,7 +531,9 @@
     "asint": "Strategic Intelligence (ASINT)",
     "extraction": "Extraction & Resources",
     "login": "Login / Sign Up",
-    "contactInfo": "Contact Information"
+    "contactInfo": "Contact Information",
+    "contactDescription": "For inquiries, support, or to request a demo, please contact us at: info@tresholdmediagroup.com",
+    "description": "To become the essential analytical benchmark for the region's economic dynamics. "
   },
   "auth": {
     "buttons": {

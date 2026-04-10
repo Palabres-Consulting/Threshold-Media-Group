@@ -532,7 +532,9 @@
     "asint": "Intelligence Stratégique (ASINT)",
     "extraction": "Extraction & Ressources",
     "login": "Connexion / Inscription",
-    "contactInfo": "Contactez-nous"
+    "contactInfo": "Contactez-nous",
+    "contactDescription": "Pour toute question, assistance ou demande de démonstration, veuillez nous contacter à: info@tresholdmediagroup.com",
+    "description": "Devenir la référence analytique essentielle pour la dynamique économique de la région."
   },
   "auth": {
     "buttons": {
