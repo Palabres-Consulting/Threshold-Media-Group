@@ -32,9 +32,19 @@ export function handleI18n(req: NextRequest) {
     defaultLocale;
 
   if (hasLocale) {
+    // If the user has a cookie with a different locale, redirect them to their preferred locale.
+    // This respects the user's explicit choice from the language switcher.
+    if (cookieLocale && cookieLocale !== currentLocale) {
+      const newPath = pathname.replace(`/${currentLocale}`, `/${cookieLocale}`);
+      const url = req.nextUrl.clone();
+      url.pathname = newPath;
+      return NextResponse.redirect(url);
+    }
+
     const res = NextResponse.next();
 
-    // if cookie and path locale mismatch, update cookie
+    // If the cookie is missing or doesn't match the path, update it.
+    // This is useful if a user lands on a localized URL without a preference cookie.
     if (cookieLocale !== currentLocale) {
       res.cookies.set("NEXT_LOCALE", currentLocale, {
         path: "/",

@@ -32,7 +32,7 @@ const Home = async ({
      
 
       <Hero site={site} /> 
-      {/* <CyberSecurityPosts />
+      <CyberSecurityPosts />
 
       <div className="w-full flex">
         <div className="lg:w-[70%]">
@@ -43,7 +43,7 @@ const Home = async ({
         <div className="lg:w-[30%] hidden lg:flex">
           <Sidebar />
         </div>
-      </div> */}
+      </div>
     </main>
   );
 };
