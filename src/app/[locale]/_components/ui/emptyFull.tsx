@@ -1,15 +1,17 @@
+"use client"
 import React from "react";
 import EmptyState from "./empty";
-import { useBrowserLanguage } from "../../hook/usePosts";
+import { useLocalization } from "../../context/localizationContext";
 
 interface EmptyStateProps {
-  locale: "en" | "fr";
+  lang: "en" | "fr";
   title?: string;
   description?: string;
 }
 
-const EmptyFull = ({ locale, title, description }: EmptyStateProps) => {
-  const lang = useBrowserLanguage();
+const EmptyFull = ({ lang, title, description }: EmptyStateProps) => {
+  const { locale } = useLocalization();
+
   return (
     <div className="bg-[var(--background)]/50  text-[var(--foreground)]  top-0 left-0 w-full h-full z-[999] sticky">
       <div className="w-full h-screen bg-[var(--background)]/40 backdrop-blur-xs flex items-center justify-center">

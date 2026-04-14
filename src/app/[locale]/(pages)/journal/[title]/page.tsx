@@ -1,5 +1,6 @@
 "use client";
 
+import { getTitleValue } from "@/app/[locale]/_components/sections/hero";
 import PageContainer from "@/app/[locale]/_components/sections/pageContainer";
 import Sidebar from "@/app/[locale]/_components/sections/sidebar";
 import SubscribeCard from "@/app/[locale]/_components/sections/subscribeCard";
@@ -27,6 +28,8 @@ const UniquePost = () => {
 
   console.log("POST", post);
   console.log(title);
+
+  const formattedTitle = getTitleValue(post ? [post] : undefined, 0);  
 
   if (isLoading) {
     return (
@@ -62,7 +65,7 @@ const UniquePost = () => {
 
             <div className="flex flex-col gap-10 mb-20">
               <h1 className="lg:text-[3.5rem] text-[2rem] font-bold ">
-                {post?.title?.rendered || "Post Title"}
+                {formattedTitle || "Post Title"}
               </h1>
 
               {/* Image Container */}
@@ -94,7 +97,7 @@ const UniquePost = () => {
           <div className="">{/* <ThresholdOpinions /> */}</div>
         </div>
         <div className="lg:w-[30%] hidden lg:block relative overflow-hidden">
-          <EmptyFull locale={locale} title="No Content Yet" description="" />
+          <EmptyFull lang={locale} title="No Content Yet" description="" />
           <Sidebar />
         </div>
       </div>

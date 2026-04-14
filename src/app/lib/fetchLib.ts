@@ -91,6 +91,8 @@ export const fetchPostsByType = async (
 ): Promise<Post[]> => {
   const queryParams = new URLSearchParams();
 
+  console.log("Lang in fetchPostsByType:", params?.lang);
+
   if (params?.categories) queryParams.append("categories", params.categories);
   if (params?.per_page)
     queryParams.append("per_page", params.per_page.toString());

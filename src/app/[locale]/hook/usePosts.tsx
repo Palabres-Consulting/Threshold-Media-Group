@@ -3,6 +3,7 @@
 // hooks/usePosts.ts
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useLocalization } from "../context/localizationContext";
 import {
   fetchThresholdPosts,
   fetchExtractionPosts,
@@ -12,41 +13,32 @@ import {
   fetchPostsByCategory,
 } from "../../lib/fetchLib";
 
-// Get browser language for Polylang
-export const useBrowserLanguage = () => {
-  if (typeof window !== "undefined") {
-    // Try to get browser language
-    return navigator.language?.split("-")[0] || "en";
-  }
-  return "en";
-};
-
 // Threshold posts hook
 export const useThresholdPosts = (category?: string, limit: number = 10) => {
-  const lang = useBrowserLanguage();
+  const { locale } = useLocalization();
 
   return useQuery({
-    queryKey: ["posts", category, limit, lang],
+    queryKey: ["posts", category, limit, locale],
     queryFn: () =>
       fetchThresholdPosts({
         categories: category,
         per_page: limit,
-        lang: lang,
+        lang: locale,
       }),
   });
 };
 
 // Extraction posts hook
 export const useExtractionPosts = (category?: string, limit: number = 10) => {
-  const lang = useBrowserLanguage();
+  const { locale } = useLocalization();
 
   return useQuery({
-    queryKey: ["extraction-posts", category, limit, lang],
+    queryKey: ["extraction-posts", category, limit, locale],
     queryFn: () =>
       fetchExtractionPosts({
         categories: category,
         per_page: limit,
-        lang: lang,
+        lang: locale,
       }), 
   });
 };
@@ -57,7 +49,7 @@ export const usePostsByDomain = (
   category?: string,
   limit: number = 10
 ) => {
-  const lang = useBrowserLanguage();
+  const { locale } = useLocalization();
 
   const fetchFunction = {
     main: fetchThresholdPosts,
@@ -66,12 +58,12 @@ export const usePostsByDomain = (
   }[domain];
 
   return useQuery({
-    queryKey: [`${domain}-posts`, category, limit, lang],
+    queryKey: [`${domain}-posts`, category, limit, locale],
     queryFn: () =>
       fetchFunction({
         categories: category,
         per_page: limit,
-        lang: lang,
+        lang: locale,
       }),
   });
 };
@@ -86,13 +78,13 @@ export const usePostsByDomain = (
  * Taxonomy usually follows: "categories", "asint_categories", "extraction_categories"
  */
 export const useTopLevelCategories = (taxonomy: string = "categories", limit: number = 20) => {
-  const lang = useBrowserLanguage();
+  const { locale } = useLocalization();
 
   return useQuery({
-    queryKey: ["top-categories", taxonomy, lang, limit],
+    queryKey: ["top-categories", taxonomy, locale, limit],
     queryFn: () =>
       fetchTopLevelCategories(taxonomy, {
-        lang: lang,
+        lang: locale,
         per_page: limit,
       }),
   });
@@ -102,13 +94,13 @@ export const useTopLevelCategories = (taxonomy: string = "categories", limit: nu
  * Hook to fetch sub-categories for a specific parent.
  */
 export const useSubCategories = (parentId: number, taxonomy: string = "categories") => {
-  const lang = useBrowserLanguage();
+  const { locale } = useLocalization();
 
   return useQuery({
-    queryKey: ["sub-categories", taxonomy, parentId, lang],
+    queryKey: ["sub-categories", taxonomy, parentId, locale],
     queryFn: () =>
       fetchSubCategories(parentId, taxonomy, {
-        lang: lang,
+        lang: locale,
       }),
     // Only fetch if we actually have a parentId
     enabled: !!parentId,
@@ -123,7 +115,7 @@ export const useCategoriesByDomain = (
   domain: "main" | "extraction" | "asint" | "transverse",
   limit: number = 20
 ) => {
-  const lang = useBrowserLanguage();
+  const { locale } = useLocalization();
 
   // Mapping domain to the likely WordPress taxonomy slug
   const taxonomyMap = {
@@ -136,10 +128,10 @@ export const useCategoriesByDomain = (
   const taxonomy = taxonomyMap[domain];
 
   return useQuery({
-    queryKey: [`${domain}-top-categories`, lang, limit],
+    queryKey: [`${domain}-top-categories`, locale, limit],
     queryFn: () =>
       fetchTopLevelCategories(taxonomy, {
-        lang: lang,
+        lang: locale,
         per_page: limit,
       }),
   });
@@ -152,12 +144,12 @@ export const usePostsByCategory = (
   categoryId: number,
   limit: number = 10
 ) => {
-  const lang = useBrowserLanguage();
+  const { locale } = useLocalization();
 
   return useQuery({
-    queryKey: ["posts-by-category", postType, categoryId, lang, limit],
+    queryKey: ["posts-by-category", postType, categoryId, locale, limit],
     queryFn: () => fetchPostsByCategory(postType, categoryId, {
-      lang,
+      lang: locale,
       per_page: limit
     }),
     enabled: !!categoryId, // Don't fetch if categoryId is missing
