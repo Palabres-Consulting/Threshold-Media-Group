@@ -23,7 +23,7 @@ export const getTitleValue = (data: Post[] | undefined, key: number) => {
 const Hero = ({ site, posts }: { site: string, posts: Post[] | undefined}) => {
 const data = posts;
 
-  console.log("Posts for site:", site, data);
+  // console.log("Posts for site:", site, data);
 
 
   const title1 = getTitleValue(data, 0);
