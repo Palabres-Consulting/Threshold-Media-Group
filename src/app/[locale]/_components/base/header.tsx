@@ -118,7 +118,7 @@ const Header: React.FC<{ site: Site; t: TranslationSchema }> = ({
           </button>
         </div>{" "}
         {navOpen ? (
-          <div className="absolute gap-5  top-18 right-5 w-fit md:w-[80%] border-sub overflow-y-scroll h-[100vh]  p-8 rounded-md  bg-background z-70">
+          <div className="absolute gap-7  top-18 right-5  md:w-[80%] w-[60%] border-sub overflow-y-scroll h-[100vh]  p-8 rounded-md  bg-background z-70">
             <ul className="grid gap-7 ">
               {thresholdMainNav.map(({ href, id, subMenu, title }) => {
                 return (

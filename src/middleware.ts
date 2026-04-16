@@ -3,6 +3,7 @@ import {
   createSupabaseServerClient,
   getBaseDomain,
 } from "./app/api/_lib/supabaseClient";
+import { getBaseDomainForCookie } from "./lib/utils"; // Import the new utility
 import { corsResponse, getCorsHeaders } from "./lib/cors";
 import { handleI18n } from "./middleware/i18n";
 
@@ -84,8 +85,9 @@ export async function middleware(req: NextRequest) {
   const resolvedSite = getSubdomain(safeHost);
 
   // 3. I18N Logic
-  // Check locale early to prevent "language revert" bugs
-  const i18nRes = handleI18n(req);
+  // Determine the base domain for setting cross-subdomain cookies
+  const cookieDomain = getBaseDomainForCookie(safeHost);
+  const i18nRes = handleI18n(req, cookieDomain); // Pass cookieDomain to handleI18n
   
   // Determine current locale from path for consistent redirects later
   const currentLocale = locales.find(l => pathname.startsWith(`/${l}/`) || pathname === `/${l}`) || defaultLocale;

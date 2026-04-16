@@ -1,5 +1,6 @@
 "use client";
 
+import { socialLinks } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { ReactNode } from "react";
@@ -19,6 +20,13 @@ const PageContainer: React.FC<{
 
   const displayPathname = (pathname.at(0)?.toUpperCase() + pathname.slice(1)).slice(0, 30) + "...";
 
+  const socialMediaLinks = [
+    { href: socialLinks.facebook, icon: FaFacebook },
+    { href: socialLinks.instagram, icon: FaInstagram },
+    { href: socialLinks.linkedin, icon: FaLinkedin },
+    { href: socialLinks.youtube, icon: FaYoutube },
+  ];
+
   return (
     <section className="lg:mx-10">
       <div className="py-5 bg-foreground/5 border-sub-side px-6 border-sub-bottom flex justify-between items-center">
@@ -28,38 +36,17 @@ const PageContainer: React.FC<{
         </div>
         <div className="">
           <ul className="flex gap-6">
-            <li className="flex">
-              <Link
-                href=""
-                className="rounded-full p-3 text-[1.5rem] border-sub text-accent-main"
-              >
-                <FaFacebook />
-              </Link>
-            </li>
-            <li className="flex">
-              <Link
-                href=""
-                className="rounded-full p-3 text-[1.5rem] border-sub text-accent-main"
-              >
-                <FaInstagram />
-              </Link>
-            </li>
-            <li className="flex">
-              <Link
-                href=""
-                className="rounded-full p-3 text-[1.5rem] border-sub text-accent-main"
-              >
-                <FaLinkedin />
-              </Link>
-            </li>
-            <li className="flex">
-              <Link
-                href=""
-                className="rounded-full p-3 text-[1.5rem] border-sub text-accent-main"
-              >
-                <FaYoutube />
-              </Link>
-            </li>
+            {socialMediaLinks.map(({ href, icon: Icon }, index) => (
+              <li key={index} className="flex">
+                <Link
+                  href={href}
+                  target="_blank"
+                  className="rounded-full p-3 text-[1.5rem] border-sub text-accent-main"
+                >
+                  <Icon />
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

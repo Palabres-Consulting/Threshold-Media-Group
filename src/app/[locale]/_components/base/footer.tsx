@@ -10,6 +10,7 @@ import {
   FaLinkedin,
 } from "react-icons/fa";
 import { TranslationSchema } from "@/app/lib/locale";
+import { socialLinks } from "@/lib/utils";
 
 const Footer = ({site, dict}: {site: string, dict: TranslationSchema["main"]}) => {
   
@@ -25,8 +26,14 @@ const Footer = ({site, dict}: {site: string, dict: TranslationSchema["main"]}) =
     { id: 5, name: dict.footer.login, href: "/auth/login" },
   ];
 
+  const socialMediaLinks = [
+    { href: socialLinks.facebook, icon: FaFacebook },
+    { href: socialLinks.instagram, icon: FaInstagram },
+    { href: socialLinks.linkedin, icon: FaLinkedin },
+  ];
+
   return (
-    <footer className=" overflow-hidden lg:px-16 px-5   bg-foreground/5  ">
+    <footer className=" overflow-hidden lg:px-16 px-5 z-[999]   bg-foreground/5  ">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:py-16 py-10">
         <div className="flex flex-col pr-10 gap-4">
           <Logo />
@@ -56,30 +63,17 @@ const Footer = ({site, dict}: {site: string, dict: TranslationSchema["main"]}) =
             {dict.footer.socialMedia}
           </h3>
           <ul className="flex gap-6">
-            <li className="flex">
-              <Link
-                href=""
-                className="rounded-full p-3 text-[1.5rem] border-sub"
-              >
-                <FaFacebook />
-              </Link>
-            </li>
-            <li className="flex">
-              <Link
-                href=""
-                className="rounded-full p-3 text-[1.5rem] border-sub"
-              >
-                <FaInstagram />
-              </Link>
-            </li>
-            <li className="flex">
-              <Link
-                href=""
-                className="rounded-full p-3 text-[1.5rem] border-sub"
-              >
-                <FaLinkedin />
-              </Link>
-            </li>
+            {socialMediaLinks.map(({ href, icon: Icon }, index) => (
+              <li key={index} className="flex">
+                <Link
+                  href={href}
+                  target="_blank"
+                  className="rounded-full p-3 text-[1.5rem] border-sub"
+                >
+                  <Icon />
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="">

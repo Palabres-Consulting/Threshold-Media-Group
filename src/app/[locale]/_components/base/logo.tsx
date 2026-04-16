@@ -1,6 +1,7 @@
 "use client";
 
 import cloudinaryLoader from "@/app/lib/cloudinary";
+import { getBaseDomainForCookie } from "@/lib/utils"; // Import the new utility
 import Image from "next/image";
 import Link from "next/link";
 import { useClientSite } from "../../hook/useSite";
@@ -10,15 +11,16 @@ export const useHomeLink = (site?: string) => {
     process.env.NODE_ENV === "development" ? "http://" : "https://";
   const baseHost =
     process.env.NODE_ENV === "development"
-      ? "localHost:3000"
+      ? "localhost:3000"
       : "tresholdmediagroup.com";
 
   const mainLink = httpEnv + baseHost;
   const subDomainLink = httpEnv + `${site}.` + baseHost;
   const extractionLink = httpEnv + "extraction." + baseHost;
   const asintLink = httpEnv + "asint." + baseHost;
+  const cookieDomain = getBaseDomainForCookie(baseHost);
 
-  return { mainLink, subDomainLink, extractionLink, asintLink };
+  return { mainLink, subDomainLink, extractionLink, asintLink, cookieDomain };
 };
 
 const Logo = ({ site }: { site?: string }) => {

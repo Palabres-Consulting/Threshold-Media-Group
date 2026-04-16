@@ -2,7 +2,8 @@ import EmptyState from "@/app/[locale]/_components/ui/empty";
 import { ErrorComponent } from "@/app/[locale]/error";
 import { CATEGORY_MAP, getAllSlugs } from "@/app/lib/categoriesMap";
 import { fetchTopLevelCategories } from "@/app/lib/fetchLib";
-import { AlertCircle, StickyNote } from "lucide-react";
+import { getTranslations } from "@/app/lib/locale/i18n/getTranslations";
+import { AlertCircle } from "lucide-react";
 
 const CategoryPage = async ({
   params,
@@ -16,11 +17,39 @@ const CategoryPage = async ({
 
   // 2. Find the match
   const currentCategory = allCategories.find((cat) => cat.slug === slug);
-  
 
-  console.log("slug from params:", slug);
-  console.log(currentCategory);
+  // 3. Get the category title from translations
+  let categoryTitle = slug.replace(/-/g, " ");
+  if (currentCategory) {
+    const {main: translations} = getTranslations(locale);
+    const allTranslationCategories = translations.nav.categories;
 
+    // Search through all categories to find the title that matches the slug
+    let found = false;
+    for (const topLevel of allTranslationCategories) {
+      if (topLevel.slug === slug) {
+        categoryTitle = topLevel.title;
+        found = true;
+        break;
+      }
+      for (const subCat of topLevel.categories) {
+        if (subCat.slug === slug) {
+          categoryTitle = subCat.title;
+          found = true;
+          break;
+        }
+        for (const subSubCat of subCat.subcategories) {
+          if (subSubCat.slug === slug) {
+            categoryTitle = subSubCat.title;
+            found = true;
+            break;
+          }
+        }
+        if (found) break;
+      }
+      if (found) break;
+    }
+  }
 
   // 2. Return Error Component if not found
   if (!currentCategory) {
@@ -54,7 +83,7 @@ const CategoryPage = async ({
       <div className="container mx-auto px-4 py-10">
         <header className="mb-12 border-b border-[var(--foreground)]/10 pb-8">
           <h1 className="text-4xl font-black uppercase tracking-tighter">
-            {currentCategory.slug.replace(/-/g, " ")}
+            {categoryTitle}
           </h1>
         </header>
 

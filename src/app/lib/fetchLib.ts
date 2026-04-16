@@ -1,5 +1,5 @@
-// lib/api.ts
 import axios from "axios";
+import { QueryClient } from "@tanstack/react-query";
 
 const API_BASE = "https://wp.tresholdmediagroup.com/wp-json/wp/v2";
 
@@ -17,20 +17,30 @@ export interface Post {
   title: { rendered: string };
   content: { rendered: string; protected: boolean };
   excerpt: { rendered: string; protected: boolean };
-  author: number;
+  author: string;
   featured_media: number;
   comment_status: "open" | "closed";
   ping_status: "open" | "closed";
   sticky: boolean;
   template: string;
-  format: "standard" | "aside" | "gallery" | "link" | "image" | "quote" | "status" | "video" | "audio" | "chat";
+  format:
+    | "standard"
+    | "aside"
+    | "gallery"
+    | "link"
+    | "image"
+    | "quote"
+    | "status"
+    | "video"
+    | "audio"
+    | "chat";
   meta: any;
-  
+
   // Taxonomies
   categories?: number[];
   tags?: number[];
   // This allows for 'extraction-category', 'asint-category', etc.
-  [key: string]: any; 
+  [key: string]: any;
 
   // Polylang / Multilingual
   lang?: string;
@@ -59,12 +69,61 @@ export interface ApiResponse<T> {
   status: number;
 }
 
+export const fetchPostById = async (
+  postType: "posts" | "extraction" | "asint",
+  id: number,
+  lang: string = "en",
+): Promise<Post | null> => {
+  // Polylang pairs: English ID, French ID = English ID + 1
+  // console.log(`Fetching post by ID: ${id} for type: ${postType} and lang: ${lang}`);
+
+  // First, try the provided ID
+  try {
+    const { data } = await axios.get(`${API_BASE}/${postType}/${id}`, {
+      params: {
+        lang: lang,
+        _embed: true,
+      },
+    });
+
+    if (data && data.lang === lang) {
+      return data;
+    }
+  } catch (error) {
+    if (!axios.isAxiosError(error) || error.response?.status !== 404) {
+      // console.error(`Error fetching post by id ${id}:`, error);
+    }
+  }
+
+  // If not found or wrong language, try the paired ID
+  const pairedId = lang === 'fr' ? id + 1 : id - 1;
+
+  try {
+    const { data } = await axios.get(`${API_BASE}/${postType}/${pairedId}`, {
+      params: {
+        lang: lang,
+        _embed: true,
+      },
+    });
+
+    if (data && data.lang === lang) {
+      return data;
+    }
+  } catch (error) {
+    if (!axios.isAxiosError(error) || error.response?.status !== 404) {
+      // console.error(`Error fetching paired post by id ${pairedId}:`, error);
+    }
+  }
+
+  return null;
+};
 
 export const fetchPostBySlug = async (
   postType: "posts" | "extraction" | "asint",
   slug: string,
-  lang: string = "en"
+  lang: string = "en",
 ): Promise<Post | null> => {
+  // First, try to fetch with lang
   const { data } = await axios.get(`${API_BASE}/${postType}`, {
     params: {
       slug: slug,
@@ -72,15 +131,44 @@ export const fetchPostBySlug = async (
       _embed: true,
     },
   });
-  
-  return data.length > 0 ? data[0] : null;
+
+  if (data.length > 0) {
+    return data[0];
+  }
+
+  // If not found, try without lang to find the base post
+  const { data: baseData } = await axios.get(`${API_BASE}/${postType}`, {
+    params: {
+      slug: slug,
+      _embed: true,
+    },
+  });
+
+  if (baseData.length > 0) {
+    const basePost = baseData[0];
+    // Check if it has the desired lang
+    if (basePost.lang === lang) {
+      return basePost;
+    }
+    // Check translations
+    if (basePost.meta && basePost.meta.polylang && basePost.meta.polylang.translations && basePost.meta.polylang.translations[lang]) {
+      const translatedId = basePost.meta.polylang.translations[lang];
+      return await fetchPostById(postType, translatedId, lang);
+    }
+  }
+
+  return null;
 };
-
-
 
 // Generic fetch function for any post type
 export const fetchPostsByType = async (
-  postType: "posts" | "extraction" | "asint",
+  postType:
+    | "posts"
+    | "extraction"
+    | "asint"
+    | "guinea_intel"
+    | "innovation"
+    | "transverse",
   params?: {
     categories?: string;
     per_page?: number;
@@ -91,7 +179,7 @@ export const fetchPostsByType = async (
 ): Promise<Post[]> => {
   const queryParams = new URLSearchParams();
 
-  console.log("Lang in fetchPostsByType:", params?.lang);
+  // console.log("Lang in fetchPostsByType:", params?.lang);
 
   if (params?.categories) queryParams.append("categories", params.categories);
   if (params?.per_page)
@@ -102,8 +190,21 @@ export const fetchPostsByType = async (
 
   queryParams.append("_embed", "true");
 
-  const { data } = await axios.get(`${API_BASE}/${postType}?${queryParams}`);
-  return data;
+  try {
+    const { data }: { data: Post[] } = await axios.get(
+      `${API_BASE}/${postType}?${queryParams}`,
+    );
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
+      // console.log(
+      //   `No posts found for ${postType} with params: ${queryParams.toString()} (404).`,
+      // );
+      return [];
+    }
+    // console.error(`An error occurred while fetching ${postType}:`, error);
+    return [];
+  }
 };
 
 // Specific functions for each site
@@ -115,6 +216,15 @@ export const fetchExtractionPosts = (params?: any) =>
 
 export const fetchAsintPosts = (params?: any) =>
   fetchPostsByType("asint", params);
+
+export const fetchGuineaIntelPosts = (params?: any) =>
+  fetchPostsByType("guinea_intel", params);
+
+export const fetchInnovationPosts = (params?: any) =>
+  fetchPostsByType("innovation", params);
+
+export const fetchTransversePosts = (params?: any) =>
+  fetchPostsByType("transverse", params);
 
 export interface Category {
   id: number;
@@ -209,4 +319,35 @@ export const fetchPostsByCategory = async (
 
   const { data } = await axios.get(`${API_BASE}/${postType}?${queryParams}`);
   return data;
+};
+
+export const postKeys = {
+  all: (postType: string, locale: string) => [postType, locale] as const,
+  list: (postType: string, locale: string, category?: string, limit?: number) =>
+    [...postKeys.all(postType, locale), { category, limit }] as const,
+};
+
+export const getPosts = async (
+  postType: string,
+  locale: string,
+  limit = 10,
+  category?: string,
+) => {
+  return fetchPostsByType(postType as any, {
+    per_page: limit,
+    lang: locale,
+    categories: category,
+  });
+};
+export const prefetchUniversalPosts = async (
+  queryClient: QueryClient,
+  postType: string,
+  locale: string,
+  limit = 10,
+  category?: string,
+) => {
+  return queryClient.prefetchQuery({
+    queryKey: postKeys.list(postType, locale, category, limit),
+    queryFn: () => getPosts(postType, locale, limit, category),
+  });
 };

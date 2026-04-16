@@ -45,13 +45,13 @@ const Categories: React.FC<CategoriesProps> = ({ dict, asintLink, extractionLink
   };
 
   return (
-    <div className="flex flex-col lg:flex-row lg:flex-nowrap lg:items-center lg:p-1 lg:border-[1px] border-foreground/20 rounded-lg gap-2 w-full lg:w-auto">
+    <div className="flex flex-col lg:flex-row lg:flex-nowrap lg:items-center lg:p-1 lg:border-[1px] border-foreground/20 rounded-lg lg:gap-2 gap-5 w-full lg:w-auto">
       {visibleCategories.map((category, index) => {
         const isMobileOpen = openMobileIndex === index;
 
         return (
           <div key={index} className="relative group w-full lg:w-auto">
-            <div className="flex items-center justify-between w-fit ">
+            <div className="flex items-center justify-between md:w-fit ">
               <Link
                 href={category.mainLink}
                 className="block flex-grow rounded-lg py-1 lg:px-4 lg:border-sub hover:bg-foreground/10 transition-colors whitespace-nowrap"

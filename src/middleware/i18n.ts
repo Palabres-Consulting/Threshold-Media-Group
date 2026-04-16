@@ -18,7 +18,7 @@ function getLocale(req: NextRequest) {
   return defaultLocale;
 }
 
-export function handleI18n(req: NextRequest) {
+export function handleI18n(req: NextRequest, cookieDomain: string) {
   const { pathname } = req.nextUrl;
 
   // Checking if path already has a valid locale prefix
@@ -46,10 +46,14 @@ export function handleI18n(req: NextRequest) {
     // If the cookie is missing or doesn't match the path, update it.
     // This is useful if a user lands on a localized URL without a preference cookie.
     if (cookieLocale !== currentLocale) {
-      res.cookies.set("NEXT_LOCALE", currentLocale, {
+      const cookieOptions: any = {
         path: "/",
         maxAge: 60 * 60 * 24 * 365, // 1 year
-      });
+      };
+      if (cookieDomain) {
+        cookieOptions.domain = cookieDomain;
+      }
+      res.cookies.set("NEXT_LOCALE", currentLocale, cookieOptions);
     }
 
     return res;
@@ -61,9 +65,13 @@ export function handleI18n(req: NextRequest) {
   url.pathname = `/${locale}${pathname}`;
 
   const res = NextResponse.redirect(url);
-  res.cookies.set("NEXT_LOCALE", locale, {
+  const cookieOptions: any = {
     path: "/",
     maxAge: 60 * 60 * 24 * 365,
-  });
+  };
+  if (cookieDomain) {
+    cookieOptions.domain = cookieDomain;
+  }
+  res.cookies.set("NEXT_LOCALE", locale, cookieOptions);
   return res;
 }

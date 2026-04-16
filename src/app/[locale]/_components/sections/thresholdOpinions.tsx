@@ -3,8 +3,10 @@ import AuthorPost from "../utilities/authorPost";
 import CategoryTime from "../utilities/category&time";
 import CyberSecurityPosts from "./cyberSecurityPosts";
 import AuthorTime from "../utilities/author&time";
+import EmptyFull from "../ui/emptyFull";
+import { Locale } from "../../context/localizationContext";
 
-const ThresholdOpinions = () => {
+const ThresholdOpinions = ({ lang }: { lang: Locale }) => {
   const posts = [
     {
       id: 0,
@@ -36,16 +38,27 @@ const ThresholdOpinions = () => {
     },
   ];
 
+  const data = []; // Replace with actual data fetching logic
+
   return (
     <section className="flex flex-col bg-accent-main/5 border-sub-right">
-      <div className="px-6 pt-6  ">
-        <h2 className="text-[2rem] font-bold">Threshold Opinion</h2>
-      </div>
+          <div className="px-6 pt-6  ">
+            <h2 className="text-[2rem] font-bold">Threshold Opinion</h2>
+          </div>
+      {data.length < 1 ? (
+        <>
+          <div className="flex">
+            <EmptyFull lang={lang} />
+            <div className="border-sub-side"></div>
+          </div>
+        </>
+      ) : (
+        <>
 
-      <div className="">
-        <div className="flex flex-col lg:flex-row w-full  p-6 gap-6 justify-center items-center ">
-          <div className="rounded-2xl overflow-hidden h-[50vh] w-full lg:w-[50%] bg-foreground/10 border-sub">
-            {/* <Image
+          <div className="">
+            <div className="flex flex-col lg:flex-row w-full  p-6 gap-6 justify-center items-center ">
+              <div className="rounded-2xl overflow-hidden h-[50vh] w-full lg:w-[50%] bg-foreground/10 border-sub">
+                {/* <Image
             loader={cloudinaryLoader}
             src={"v1755525333/hero_image_uxpn9r.png"}
             alt={`post image`}
@@ -54,62 +67,66 @@ const ThresholdOpinions = () => {
             className="object-cover w-full h-full"
             // unoptimized
           /> */}
-          </div>
-          <div className="flex flex-col lg:w-[50%] gap-2 justify-between ">
-            <CategoryTime
-              back={false}
-              bg={true}
-              category="Smartphones"
-              readTime="10 mins read"
-            />
-            <div className="">
-              <h2 className="text-[1.3rem] font-semibold mb-3">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Temporibus{" "}
-              </h2>
+              </div>
+              <div className="flex flex-col lg:w-[50%] gap-2 justify-between ">
+                <CategoryTime
+                  back={false}
+                  bg={true}
+                  category="Smartphones"
+                  readTime="10 mins read"
+                />
+                <div className="">
+                  <h2 className="text-[1.3rem] font-semibold mb-3">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Temporibus{" "}
+                  </h2>
 
-              <p className="opacity-50">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-                consectetur recusandae atque, rem delectus nostrum!
-              </p>
+                  <p className="opacity-50">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Laborum consectetur recusandae atque, rem delectus nostrum!
+                  </p>
+                </div>
+
+                <div className="">
+                  <AuthorPost
+                    author="Darlene"
+                    image=""
+                    title="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id repellat"
+                    date="03 Sep 2025"
+                    readTime="10 min Read"
+                  />
+                </div>
+              </div>
             </div>
-
-            <div className="">
-              <AuthorPost
-                author="Darlene"
-                image=""
-                title="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id repellat"
-                date="03 Sep 2025"
-                readTime="10 min Read"
-              />
-            </div>
           </div>
-        </div>
-      </div>
 
-      <div className="  flex flex-col lg:flex-row gap-3 w-full items-center lg:p-5 ">
-        {posts.map(({ id, title, date, author, authorImage, customStyle }) => (
-          <div
-            className={`flex flex-col gap-3 h-[35vh] justify-center   ${customStyle}`}
-            key={id}
-          >
-            <AuthorTime
-              back={false}
-              bg={false}
-              readTime="10 min Read"
-              date={"03 Sep 2025"}
-              author={author}
-            />
-            <h2 className="text-[1.2rem] font-semibold">{title}</h2>
-            <CategoryTime
-              back={false}
-              bg={false}
-              category="Smartphones"
-              readTime="10 mins read"
-            />
+          <div className="  flex flex-col lg:flex-row gap-3 w-full items-center lg:p-5 ">
+            {posts.map(
+              ({ id, title, date, author, authorImage, customStyle }) => (
+                <div
+                  className={`flex flex-col gap-3 h-[35vh] justify-center   ${customStyle}`}
+                  key={id}
+                >
+                  <AuthorTime
+                    back={false}
+                    bg={false}
+                    readTime="10 min Read"
+                    date={"03 Sep 2025"}
+                    author={author}
+                  />
+                  <h2 className="text-[1.2rem] font-semibold">{title}</h2>
+                  <CategoryTime
+                    back={false}
+                    bg={false}
+                    category="Smartphones"
+                    readTime="10 mins read"
+                  />
+                </div>
+              ),
+            )}
           </div>
-        ))}
-      </div>
+        </>
+      )}
     </section>
   );
 };

@@ -51,7 +51,7 @@ const ThresholdAboutPage: React.FC<{ dict: TranslationSchema["main"] }> = ({ dic
         <EditorialProcess
         mainTitle={false}
         dict={dict}
-        title="Values"
+        title={dict.technology.editorialProcess.title}
         titleColor="text-accent-main"
         description={dict.technology.editorialProcess.subDescription}
       />

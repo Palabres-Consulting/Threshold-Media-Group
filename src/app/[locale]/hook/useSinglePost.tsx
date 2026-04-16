@@ -1,10 +1,10 @@
 /* hooks/useSinglePost.ts */
 import { useQuery } from "@tanstack/react-query";
-import { fetchPostBySlug } from "../../lib/fetchLib";
+import { fetchPostById, fetchPostBySlug } from "../../lib/fetchLib";
 import { useLocalization } from "../context/localizationContext";
 
 
-const useSinglePost = (slug: string, type: string = "posts") => {
+const useSinglePost = (identifier: string | number, type: string = "posts") => {
   const { locale } = useLocalization();
 
   // Map "main" from your Hero site prop back to "posts" for the API
@@ -16,10 +16,14 @@ const useSinglePost = (slug: string, type: string = "posts") => {
 
   const validPostType = postTypeMap[type] || "posts";
 
+  const queryFn = typeof identifier === 'number' 
+    ? () => fetchPostById(validPostType, identifier, locale) 
+    : () => fetchPostBySlug(validPostType, identifier, locale);
+
   return useQuery({
-    queryKey: ["single-post", validPostType, slug, locale],
-    queryFn: () => fetchPostBySlug(validPostType, slug, locale),
-    enabled: !!slug,
+    queryKey: ["single-post", validPostType, identifier, locale],
+    queryFn,
+    enabled: !!identifier,
   });
 };
 

@@ -8,28 +8,85 @@ import ThresholdOpinions from "@/app/[locale]/_components/sections/thresholdOpin
 import EmptyState from "@/app/[locale]/_components/ui/empty";
 import EmptyFull from "@/app/[locale]/_components/ui/emptyFull";
 import useSinglePost from "@/app/[locale]/hook/useSinglePost";
+import { useClientSite } from "@/app/[locale]/hook/useSite";
 import cloudinaryLoader from "@/app/lib/cloudinary";
 import { useLocale } from "@/app/lib/locale/context/translationContext";
-import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import { useParams, useSearchParams } from "next/navigation";
-import React from "react";
+import { useParams, useSearchParams, useRouter } from "next/navigation";
+import React, { useEffect, useMemo, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 const UniquePost = () => {
   const params = useParams();
   const searchParams = useSearchParams();
   const { locale } = useLocale();
-  const title = params.title;
-
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const slug = params.title as string;
-  // Get the type from the URL query ?type=extraction
   const postType = searchParams.get("type") || "main";
-  const { data: post, isLoading, isError } = useSinglePost(slug, postType);
+  const idParam = searchParams.get("id");
+  const idFromUrl = idParam && /^\d+$/.test(idParam) ? parseInt(idParam, 10) : null;
+  const [storedId, setStoredId] = useState<number | null>(null);
+  
+  const site = useClientSite();
 
-  console.log("POST", post);
-  console.log(title);
+  // Map "main" from your Hero site prop back to "posts" for the API
+  const postTypeMap: Record<string, "posts" | "extraction" | "asint"> = {
+    main: "posts",
+    extraction: "extraction",
+    asint: "asint",
+  };
 
-  const formattedTitle = getTitleValue(post ? [post] : undefined, 0);  
+  const storageKey = `post-id-${site}-${slug}`;
+  
+  console.log("Storage Key:", storageKey)
+
+  console.log("ID from URL:", idFromUrl);
+  console.log("Stored ID from localStorage:", storedId);
+
+
+
+
+
+
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (idFromUrl) return;
+
+    const savedId = window.localStorage.getItem(storageKey);
+    if (savedId && /^\d+$/.test(savedId)) {
+      setStoredId(parseInt(savedId, 10));
+    }
+  }, [idFromUrl, storageKey]);
+
+  const identifier = idFromUrl || storedId || slug;
+  const { data: post, isLoading, isError } = useSinglePost(identifier, site);
+
+  useEffect(() => {
+    if (!post) return;
+
+    // Set the query data for the ID key to prevent refetch when identifier changes
+    const validPostType = postTypeMap[site] || "posts";
+    queryClient.setQueryData(["single-post", validPostType, post.id, locale], post);
+
+    const currentSearch = new URLSearchParams(searchParams.toString());
+    currentSearch.set("type", site);
+    currentSearch.set("id", post.id.toString());
+
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(storageKey, post.id.toString());
+    }
+
+    const newPath = `/${locale}/journal/${post.slug}?${currentSearch.toString()}`;
+    const currentPath = window.location.pathname + window.location.search;
+
+    if (currentPath !== newPath) {
+      router.replace(newPath);
+    }
+  }, [post, locale, postType, router, searchParams, storageKey, queryClient, site]);
+
+  const formattedTitle = getTitleValue(post ? [post] : undefined, 0);
 
   if (isLoading) {
     return (
@@ -98,7 +155,7 @@ const UniquePost = () => {
         </div>
         <div className="lg:w-[30%] hidden lg:block relative overflow-hidden">
           <EmptyFull lang={locale} title="No Content Yet" description="" />
-          <Sidebar />
+          <Sidebar lang={locale} />
         </div>
       </div>
     </PageContainer>

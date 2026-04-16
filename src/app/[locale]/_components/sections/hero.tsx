@@ -1,9 +1,8 @@
-"use client";
+
 import cloudinaryLoader from "@/app/lib/cloudinary";
 import Image from "next/image";
 import React from "react";
 import CategoryTime from "../utilities/category&time";
-import { usePostsByDomain } from "../../hook/usePosts";
 import EmptyState from "../ui/empty";
 import Link from "next/link";
 import { Post } from "@/app/lib/fetchLib";
@@ -21,34 +20,17 @@ export const getTitleValue = (data: Post[] | undefined, key: number) => {
     .replace(/&#8211;/g, "–") // En dash
     .replace(/&amp;/g, "&");
 };
-const Hero = ({ site }: { site: string }) => {
-  const { data, error, isLoading } = usePostsByDomain(
-    site as "main" | "extraction" | "asint",
-    undefined,
-    10,
-  );
+const Hero = ({ site, posts }: { site: string, posts: Post[] | undefined}) => {
+const data = posts;
 
   console.log("Posts for site:", site, data);
 
-  if (isLoading) {
-    return <div className="text-center flex items-center justify-center h-screen">Loading...</div>;
-  }
 
-  if (error) {
-    return (
-      <EmptyState
-        title="Error"
-        description="An error occurred while fetching posts."
-        locale="fr"
-      />
-    );
-  }
+  const title1 = getTitleValue(data, 0);
+  const title2 = getTitleValue(data, 1);
+  const title3 = getTitleValue(data, 2);
 
-  const title1 = getTitleValue(data, 1);
-  const title2 = getTitleValue(data, 2);
-  const title3 = getTitleValue(data, 3);
-
-  const demoTitle1 = data?.[1]?.title?.rendered;
+  const demoTitle1 = data?.[0]?.title?.rendered;
 
   console.log( "DEMO TITLE ", demoTitle1);
 
@@ -59,7 +41,7 @@ const Hero = ({ site }: { site: string }) => {
         
         {/* Big Hero Image Container - Post [1] */}
         <div className="lg:w-[70%] rounded-2xl relative overflow-hidden h-[70vh] lg:h-full">
-          <Link href={`/journal/${data?.[0]?.slug || ""}?type=${site}`}>
+          <Link href={`/journal/${data?.[0]?.slug || ""}?id=${data?.[0]?.id || ""}&type=${site}`}>
             <Image
               loader={cloudinaryLoader}
               src={"/images/homepage/home4.png"}
@@ -71,12 +53,12 @@ const Hero = ({ site }: { site: string }) => {
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
             
             <div className="absolute bottom-0 left-0 p-8 flex flex-col gap-3 z-50">
-              <CategoryTime
+              {/* <CategoryTime
                 category={site}
                 readTime="10 mins read"
                 back={true}
                 bg={true}
-              />
+              /> */}
               <h1 className="lg:text-[2rem] text-[1.1rem] font-semibold lg:w-[85%] text-white">
                 {title1.split(" ").slice(0, 10).join(" ")}...
               </h1>
@@ -97,12 +79,12 @@ const Hero = ({ site }: { site: string }) => {
               />
             </div>
             <div className="lg:h-[25%] flex flex-col gap-3">
-              <CategoryTime
+              {/* <CategoryTime
                 category={site}
                 readTime="10 mins read"
                 back={false}
                 bg={true}
-              />
+              /> */}
               <h2 className="font-semibold text-[1.1rem]">
                 {title2.split(" ").slice(0, 10).join(" ")}...
               </h2>
@@ -122,12 +104,12 @@ const Hero = ({ site }: { site: string }) => {
             </div>
             <div className="w-[60%] h-full">
               <div className="flex flex-col gap-2">
-                <CategoryTime
+                {/* <CategoryTime
                   category={site}
                   readTime="10 mins read"
                   back={false}
                   bg={true}
-                />
+                /> */}
                 <h2 className="font-semibold text-[1.1rem]">
                   {title3.split(" ").slice(0, 8).join(" ")}...
                 </h2>

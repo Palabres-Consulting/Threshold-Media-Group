@@ -11,6 +11,8 @@ import {
   fetchTopLevelCategories,
   fetchSubCategories,
   fetchPostsByCategory,
+  postKeys,
+  getPosts,
 } from "../../lib/fetchLib";
 
 // Threshold posts hook
@@ -70,6 +72,16 @@ export const usePostsByDomain = (
 
 
 
+// hooks/useUniversalPosts.ts
+export const useUniversalPosts = (postType: string, limit = 10, category?: string) => {
+  const { locale } = useLocalization();
+
+  return useQuery({
+    queryKey: postKeys.list(postType, locale, category, limit),
+    queryFn: () => getPosts(postType, locale, limit, category),
+  });
+};
+
 
 
 
@@ -115,7 +127,7 @@ export const useCategoriesByDomain = (
   domain: "main" | "extraction" | "asint" | "transverse",
   limit: number = 20
 ) => {
-  const { locale } = useLocalization();
+  const { locale } = useLocalization(); 
 
   // Mapping domain to the likely WordPress taxonomy slug
   const taxonomyMap = {

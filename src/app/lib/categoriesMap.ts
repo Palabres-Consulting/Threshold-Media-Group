@@ -59,7 +59,7 @@ export const findCategoryBySlug = (
     if (topLevel.slug === targetSlug) {
       return topLevel;
     }
-
+ 
     // 2. Search inside the nested categories (e.g., "fintech-&-digital-banking")
     const foundSub = topLevel.categories.find(cat => cat.slug === targetSlug);
     

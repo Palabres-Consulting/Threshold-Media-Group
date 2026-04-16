@@ -11,7 +11,7 @@ const Aboutpage = async ({
   params,
 }: {
   params: Promise<{ locale: "en" | "fr" }>;
-}) => {
+}) => { 
   const site = await useServerSite();
   const { locale } = await params;
 

@@ -90,15 +90,15 @@ const TechnologyPage = async ({
         </div>
       </div>
 
-      <EditorialProcess
+      {/* <EditorialProcess
         titleColor=""
         mainTitle={true}
         dict={dict}
         title={dict.technology.editorialProcess.title}
         description={dict.technology.editorialProcess.subDescription}
-      />
+      /> */}
 
-      <ServicesComponent dict={dict} />
+      {/* <ServicesComponent dict={dict} /> */}
     </PageContainer>
   );
 };

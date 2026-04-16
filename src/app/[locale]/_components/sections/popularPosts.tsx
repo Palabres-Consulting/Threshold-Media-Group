@@ -36,22 +36,7 @@ const PopularPosts = () => {
       author: "Darlene",
       authorImage: "",
     },
-    {
-      id: 4,
-      title:
-        "lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor",
-      date: "03 Sep 2025",
-      author: "Darlene",
-      authorImage: "",
-    },
-    {
-      id: 5,
-      title:
-        "lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor",
-      date: "03 Sep 2025",
-      author: "Darlene",
-      authorImage: "",
-    },
+ 
   ];
 
   return (

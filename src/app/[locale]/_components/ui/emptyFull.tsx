@@ -13,8 +13,8 @@ const EmptyFull = ({ lang, title, description }: EmptyStateProps) => {
   const { locale } = useLocalization();
 
   return (
-    <div className="bg-[var(--background)]/50  text-[var(--foreground)]  top-0 left-0 w-full h-full z-[999] sticky">
-      <div className="w-full h-screen bg-[var(--background)]/40 backdrop-blur-xs flex items-center justify-center">
+    <div className=" text-[var(--foreground)]  top-0 left-0 w-full h-full z-[999] stick">
+      <div className="w-full py-20  backdrop-blur-xs flex items-center justify-center">
         {/* <header className="mb-12 border-b border-[var(--foreground)]/10 pb-8">
             <h1 className="text-4xl font-black uppercase tracking-tighter">
               {site.toUpperCase()}

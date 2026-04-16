@@ -50,22 +50,11 @@ const LatestArticleReads = ({ locale }: { locale: Locale }) => {
   return (
     <section className="lg:p-6 px-3 py-12 flex flex-col lg:flex-row gap-4 relative">
      
+
+
+     
       <div className="lg:w-[70%] relative overflow-hidden">
-        <div className="bg-[var(--background)]/50  text-[var(--foreground)]  top-0 left-0 w-full h-full z-[999] absolute">
-          <div className="w-full h-full bg-[var(--background)]/40 backdrop-blur-xs flex items-center justify-center">
-            {/* <header className="mb-12 border-b border-[var(--foreground)]/10 pb-8">
-            <h1 className="text-4xl font-black uppercase tracking-tighter">
-              {site.toUpperCase()}
-            </h1>
-          </header> */}
-
-            {/* Empty State Call */}
-            <div className="container mx-auto px-4">
-              <EmptyState locale={locale} />
-            </div>
-          </div>
-        </div>
-
+       
         <section className="flex flex-col  ">
           <div className="lg:px-6 pt-6  ">
             <h2 className="text-[2rem] font-bold">Latest articles feed</h2>

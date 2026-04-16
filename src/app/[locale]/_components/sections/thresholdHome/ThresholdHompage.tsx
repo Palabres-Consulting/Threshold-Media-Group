@@ -56,7 +56,7 @@ const ThresholdHompage = ({
       <AboutTheGroup dict={dict} id="aboutTheGroup" />
       <SpotLightSection t={dict.hero} />
       {/* <EditorialTeam dict={dict} id="editorialTeam" /> */}
-      <LatestArticleReads locale={locale} />
+      {/* <LatestArticleReads locale={locale} /> */}
       {/* <Brands
         title={dict.brands.title}
         description={dict.brands.description}

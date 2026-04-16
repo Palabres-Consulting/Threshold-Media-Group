@@ -36,7 +36,7 @@ const EditorialProcess: React.FC<{
               <h2 className="text-[5rem] font-black z-50 text-white absolute bottom-[-30px] left-[0px]">
                 02
               </h2>
-            </div>
+            </div>  
             <div className="w-[50%] h-[53vh] rounded-2xl overflow-hidden flex items-end relative border-sub">
               <div className="absolute h-full w-full">{/* {image} */}</div>
               <h2 className="text-[5rem] font-black z-50 text-white absolute bottom-[-30px] left-[0px]">

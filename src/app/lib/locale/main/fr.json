@@ -518,7 +518,7 @@
         "label": "Message *",
         "placeholder": "Votre message"
       },
-      "submit": "Envoyer"
+      "submit": "Envoyer" 
     }
   },
   "footer": {
