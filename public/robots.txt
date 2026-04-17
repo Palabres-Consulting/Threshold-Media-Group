@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.hclanguage360.com/sitemap.xml
+Sitemap: https://www.tresholdmediagroup.com/sitemap.xml

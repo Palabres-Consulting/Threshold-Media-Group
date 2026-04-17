@@ -7,6 +7,8 @@ import EditorialProcess from "../../_components/sections/thresholdHome/editorial
 import ServicesComponent from "../../_components/sections/thresholdHome/servicesComponent";
 import { useServerSite } from "../../hook/useServerSite";
 import { getTranslations } from "@/app/lib/locale/i18n/getTranslations";
+import Image from "next/image";
+import cloudinaryLoader from "@/app/lib/cloudinary";
 
 const TechnologyPage = async ({
   params,
@@ -68,7 +70,16 @@ const TechnologyPage = async ({
           heading={dict.technology.headline}
         />
         <div className="flex flex-col lg:flex-row gap-14 mt-6">
-          <div className="min-h-[80vh] bg-foreground/5 rounded-2xl overflow-hidden lg:w-[50%] w-full"></div>
+          <div className="min-h-[80vh] bg-foreground/5 rounded-2xl overflow-hidden lg:w-[50%] w-full">
+           <Image
+              loader={cloudinaryLoader}
+              src={"/images/homepage/aiIntelligence.png"}
+              alt={dict.technology.title}
+              width={1000}
+              height={1000}
+              className="object-cover w-full h-full"
+            />
+          </div>
           <div className="lg:w-[50%] w-full">
             <div className="flex flex-col lg:justify-between mt-4 lg:gap-x-28 gap-10 py-8">
               <div className=" border-t-2 border-solid border-accent-main py-8">

@@ -21,6 +21,7 @@ const MorePosts = ({ posts, lang }: { posts: Post[]; lang: Locale }) => {
   const post3 = posts[3];
   const post4 = posts[4];
 
+
   return (
     <section className="flex flex-col border-sub-bottom" id="morePosts">
       {posts.length < 1 ? (
@@ -30,7 +31,7 @@ const MorePosts = ({ posts, lang }: { posts: Post[]; lang: Locale }) => {
         </div>
       ) : (
         <>
-          <div className="flex flex-col lg:flex-row lg:h-[85vh] border-sub-bottom">
+          <div className="flex flex-col lg:flex-row lg:h-[95vh] border-sub-bottom">
             <div className="lg:w-[35%] w-full h-full px-4 py-6">
               {post0 && (
                 <Link
@@ -56,10 +57,12 @@ const MorePosts = ({ posts, lang }: { posts: Post[]; lang: Locale }) => {
                   <AuthorPost
                     author={post1.author || "Author"}
                     image={""}
-                    title={safeTitle(post1.title?.rendered)
-                      .split(" ")
-                      .slice(0, 15)
-                      .join(" ") + "..."}
+                    title={
+                      safeTitle(post1.title?.rendered)
+                        .split(" ")
+                        .slice(0, 15)
+                        .join(" ") + "..."
+                    }
                     date={formatAuthorDate(post1.date)}
                     readTime={`${post1.acf?.reading_time || "10"} min Read`}
                   />
@@ -101,45 +104,46 @@ const MorePosts = ({ posts, lang }: { posts: Post[]; lang: Locale }) => {
                 />
               </Link>
             )}
-            {post4 && (
-              <Link
-                href={`/journal/${post4.slug || ""}?id=${post4.id || ""}&type=${post4.type === "post" ? "main" : post4.type || "main"}`}
-                className="flex flex-col lg:w-[50%] gap-2 justify-between"
-              >
-                {/* <CategoryTime
+            <div className="flex flex-col lg:w-[50%] gap-2 justify-between">
+              {/* <CategoryTime
                 back={false}
                 bg={true}
                 category={post4?.type || "posts"}
                 readTime={`${post4.acf?.reading_time || "10"} mins read`}
-              /> */}
-                <div>
-                  <h2 className="text-[1.3rem] font-semibold mb-3">
-                    {safeTitle(post4.title?.rendered)
-                      .split(" ")
-                      .slice(0, 10)
-                      .join(" ")}
-                  </h2>
+                /> */}
+              <div>
+                <h2 className="text-[1.3rem] font-semibold mb-3">
+                  {safeTitle(post3.title?.rendered)
+                    .split(" ")
+                    .slice(0, 10)
+                    .join(" ")}
+                </h2>
 
-                  <p className="opacity-50">
-                    {safeText(post4.excerpt?.rendered)
-                      .split(" ")
-                      .slice(0, 30)
-                      .join(" ")}
-                    ...
-                  </p>
-                </div>
-
+                <p className="opacity-50">
+                  {safeText(post3.excerpt?.rendered)
+                    .split(" ")
+                    .slice(0, 30)
+                    .join(" ")}
+                  ...
+                </p>
+              </div>
+              {post4 && (
                 <div>
-                  <AuthorPost
-                    author={post4.author || "Author"}
-                    image={""}
-                    title={safeTitle(post4.title?.rendered)}
-                    date={formatAuthorDate(post4.date)}
-                    readTime={`${post4.acf?.reading_time || "10"} min Read`}
-                  />
+                  <Link
+                    href={`/journal/${post4.slug || ""}?id=${post4.id || ""}&type=${post4.type === "post" ? "main" : post4.type || "main"}`}
+                    className=""
+                  >
+                    <AuthorPost
+                      author={post4.author || "Author"}
+                      image={""}
+                      title={safeTitle(post4.title?.rendered)}
+                      date={formatAuthorDate(post4.date)}
+                      readTime={`${post4.acf?.reading_time || "10"} min Read`}
+                    />
+                  </Link>
                 </div>
-              </Link>
-            )}
+              )}
+            </div>
           </div>
         </>
       )}

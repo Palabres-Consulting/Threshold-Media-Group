@@ -14,9 +14,9 @@ const PageContainer: React.FC<{
 }> = ({ id, title, path, children }) => {
   const pathname = usePathname().slice(4, usePathname().length);
 
-  console.log("Pathname:", pathname);
+  // console.log("Pathname:", pathname);
 
-  console.log("Display Pathname:", pathname.at(0)?.toUpperCase() + pathname.slice(1))
+  // console.log("Display Pathname:", pathname.at(0)?.toUpperCase() + pathname.slice(1))
 
   const displayPathname = (pathname.at(0)?.toUpperCase() + pathname.slice(1)).slice(0, 30) + "...";
 

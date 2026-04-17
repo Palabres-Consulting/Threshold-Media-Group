@@ -32,7 +32,7 @@ const data = posts;
 
   const demoTitle1 = data?.[0]?.title?.rendered;
 
-  console.log( "DEMO TITLE ", demoTitle1);
+  // console.log( "DEMO TITLE ", demoTitle1);
 
   return (
     <section className="relative" id="hero">

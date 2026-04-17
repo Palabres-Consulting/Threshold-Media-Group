@@ -21,7 +21,8 @@ const AuthorTime: React.FC<{
               // unoptimized
             /> */}
         </div>
-        <h4 className="">{author ? author : "Unknown Author"}</h4>
+        {/* <h4 className="">{author ? author : "Anonymous Source"}</h4> */}
+        <h4></h4>
       </div>
       <div
         className={`${

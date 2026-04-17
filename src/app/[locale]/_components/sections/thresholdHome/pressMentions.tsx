@@ -44,7 +44,7 @@ const PressMentions: React.FC<{
   dict: TranslationSchema["main"];
 }> = ({ title, description, id, dict }) => {
   return (
-    <section className="text-center flex flex-col gap-4 my-14 py-10" id={id}>
+    <section className="text-center flex flex-col gap-4 my-14 py-10 px-3" id={id}>
       <h1 className="text-[3rem] font-bold">{title}</h1>
       <p className="text-center">{description}</p>
 

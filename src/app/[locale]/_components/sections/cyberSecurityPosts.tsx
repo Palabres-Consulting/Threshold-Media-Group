@@ -17,7 +17,7 @@ const CyberSecurityPosts = ({ posts, site }: { posts: Post[], site: string }) =>
     const { id, slug, _embedded } = post;
     
     return (
-      <Link key={id} href={`/journal/${slug || ""}?type=${site}`}>
+      <Link key={id}  href={`/journal/${slug || ""}?type=${site}`} className="w-full">
         <div
           className="flex flex-col gap-3 lg:h-[35vh] justify-center px-3 py-10 lg:p-0 "
           
