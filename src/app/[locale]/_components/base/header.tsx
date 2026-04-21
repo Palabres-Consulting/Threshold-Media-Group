@@ -39,7 +39,6 @@ const Header: React.FC<{ site: Site; t: TranslationSchema }> = ({
       href: mainLink,
       subMenu: null,
     },
-
     {
       id: 1,
       title: dict.nav.aboutUs,
@@ -58,6 +57,12 @@ const Header: React.FC<{ site: Site; t: TranslationSchema }> = ({
       href: "/contact",
       subMenu: null,
     },
+    {
+      id: 4, 
+      title: dict.nav.pricing,
+      href: "/pricing",
+      subMenu: null,
+    }
   ];
 
   const ourMediaLinks = {

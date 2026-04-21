@@ -25,7 +25,7 @@ const MediaSection = ({ dict }: { dict: TranslationSchema["main"] }) => {
 
             <Image
               loader={cloudinaryLoader}
-              src={"/images/homepage/home2.png"}
+              src={"/images/extraction/extraction001.png"}
               alt={`Extraction Image`}
               width={1000}
               height={1000}
