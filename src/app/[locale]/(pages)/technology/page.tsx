@@ -1,11 +1,8 @@
 
 import React from "react";
 import Link from "next/link";
-import PageContainer from "../../_components/sections/pageContainer";
-import SectionHeader from "../../_components/sections/sectionHeader";
-import EditorialProcess from "../../_components/sections/thresholdHome/editorialProcess";
-import ServicesComponent from "../../_components/sections/thresholdHome/servicesComponent";
-import { useServerSite } from "../../hook/useServerSite";
+import PageContainer from "../../_components/PostDisplaySections/pageContainer";
+import SectionHeader from "../../_components/PostDisplaySections/sectionHeader";
 import { getTranslations } from "@/app/lib/locale/i18n/getTranslations";
 import Image from "next/image";
 import cloudinaryLoader from "@/app/lib/cloudinary";
@@ -16,7 +13,6 @@ const TechnologyPage = async ({
   params: Promise<{ locale: "en" | "fr" }>;
 }) => {
 
-  const site = await useServerSite();
     const { locale } = await params;
   
     const { main: dict } = getTranslations(locale);

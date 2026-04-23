@@ -1,10 +1,8 @@
 "use client";
 
-import { getTitleValue } from "@/app/[locale]/_components/sections/hero";
-import PageContainer from "@/app/[locale]/_components/sections/pageContainer";
-import Sidebar from "@/app/[locale]/_components/sections/sidebar";
-import SubscribeCard from "@/app/[locale]/_components/sections/subscribeCard";
-import ThresholdOpinions from "@/app/[locale]/_components/sections/thresholdOpinions";
+import { getTitleValue } from "@/app/[locale]/_components/PostDisplaySections/hero";
+import PageContainer from "@/app/[locale]/_components/PostDisplaySections/pageContainer";
+import Sidebar from "@/app/[locale]/_components/PostDisplaySections/sidebar";
 import EmptyState from "@/app/[locale]/_components/ui/empty";
 import EmptyFull from "@/app/[locale]/_components/ui/emptyFull";
 import useSinglePost from "@/app/[locale]/hook/useSinglePost";
@@ -13,7 +11,7 @@ import cloudinaryLoader from "@/app/lib/cloudinary";
 import { useLocale } from "@/app/lib/locale/context/translationContext";
 import Image from "next/image";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect,  useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
 const UniquePost = () => {
@@ -39,14 +37,10 @@ const UniquePost = () => {
 
   const storageKey = `post-id-${site}-${slug}`;
   
-  console.log("Storage Key:", storageKey)
-
-  console.log("ID from URL:", idFromUrl);
-  console.log("Stored ID from localStorage:", storedId);
-
-
-
-
+  
+  // console.log("Storage Key:", storageKey)
+  // console.log("ID from URL:", idFromUrl);
+  // console.log("Stored ID from localStorage:", storedId);
 
 
 
@@ -62,6 +56,8 @@ const UniquePost = () => {
 
   const identifier = idFromUrl || storedId || slug;
   const { data: post, isLoading, isError } = useSinglePost(identifier, site);
+
+  console.log(post);
 
   useEffect(() => {
     if (!post) return;

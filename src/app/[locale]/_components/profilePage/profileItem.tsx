@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { useToast } from "./toasters";
+import { useToast } from "../ui/toasters";
 
 const getSchema = (field: string) =>
   z.object({
@@ -47,7 +47,7 @@ export const ProfileItem: React.FC<{
   const [editActive, setEditActive] = useState(false);
   const queryClient = useQueryClient();
 
-  const { setSuccess, toast, removeToast, setError } = useToast();
+  const { setSuccess,  setError } = useToast();
 
   const form = useForm<{ oldValue: string; newValue: string }>({
     resolver: zodResolver(getSchema(title)),

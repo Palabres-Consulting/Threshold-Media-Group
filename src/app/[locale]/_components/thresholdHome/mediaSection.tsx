@@ -3,7 +3,7 @@
 import { TranslationSchema } from "@/app/lib/locale";
 import Link from "next/link";
 import React from "react";
-import { useHomeLink } from "../../base/logo";
+import { useHomeLink } from "../base/logo";
 import Image from "next/image";
 import cloudinaryLoader from "@/app/lib/cloudinary";
 

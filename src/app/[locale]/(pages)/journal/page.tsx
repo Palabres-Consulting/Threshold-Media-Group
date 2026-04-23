@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import React from "react";
-import PageContainer from "../../_components/sections/pageContainer";
+import PageContainer from "../../_components/PostDisplaySections/pageContainer";
 import CategoryTime from "../../_components/utilities/category&time";
 import { usePostsByDomain } from "../../hook/usePosts";
 import { useClientSite } from "../../hook/useSite";
@@ -37,12 +36,11 @@ const JournalPage = () => {
     },
   ];
 
-  const demoPosts = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
   const site = useClientSite();
   console.log("Current Site:", site);
 
-  const { data, error, isLoading } = usePostsByDomain(site);
+  const { data, } = usePostsByDomain(site);
 
   console.log("Posts Data:", data); 
 
@@ -70,7 +68,7 @@ const JournalPage = () => {
       </div>
 
       <div className="grid lg:grid-cols-4 gap-x-5 lg:gap-y-10 gap-y-5 mb-5 md:grid-cols-2 grid-cols-1 lg:py-20 py-10 px-8">
-        {data?.map(({id, title, excerpt, categories}) => {
+        {data?.map(({id,  excerpt, }) => {
           return (
             <div key={id} className="flex flex-col gap-2 w-full">
               <div className="rounded-lg bg-foreground/10 h-[20em]"></div>

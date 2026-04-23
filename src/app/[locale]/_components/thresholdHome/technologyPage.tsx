@@ -2,7 +2,7 @@
 
 import { useLocalization } from "@/app/[locale]/context/localizationContext";
 import React from "react";
-import PageContainer from "../pageContainer";
+import PageContainer from "../PostDisplaySections/pageContainer";
 import Link from "next/link";
 
 const TechnologyPage = () => {

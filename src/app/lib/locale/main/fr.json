@@ -18,247 +18,453 @@
     "spanish": "Espagnol",
     "welcome": "Bienvenue",
     "login": "Connexion / Inscription",
+
     "categories": [
       {
-        "title": "Industries & Ressources",
+        "title": "Extraction",
         "slug": "industries-resources",
+        "taxonomy": "extraction-category",
+        "en_id": null,
+        "fr_id": null,
         "categories": [
           {
             "title": "Simandou 2040",
-            "slug": "simandou2040",
+            "slug": "simandou2040-fr",
+            "en_id": 45,
+            "fr_id": 286,
             "subcategories": [
-              { "title": "Infrastructures", "slug": "infrastructures" },
-              { "title": "Rail", "slug": "rail" },
-              { "title": "Port", "slug": "port" },
+              {
+                "title": "Infrastructures",
+                "slug": "infrastructures-fr",
+                "en_id": 166,
+                "fr_id": 298
+              },
+              { "title": "Rail", "slug": "rail-fr", "en_id": 56, "fr_id": 293 },
+              { "title": "Port", "slug": "port-fr", "en_id": 168, "fr_id": 57 },
               {
                 "title": "Corridor logistique et étapes du projet",
-                "slug": "etapesduprojet"
+                "slug": "etapes-du-projet",
+                "en_id": 172,
+                "fr_id": 291
               }
             ]
           },
           {
             "title": "Ressources & Souveraineté",
-            "slug": "souveraineteressources",
+            "slug": "souveraineteressources-fr",
+            "en_id": 174,
+            "fr_id": 46,
             "subcategories": [
-              { "title": "Mines (Fer, Bauxite, Or)", "slug": "mines" },
+              {
+                "title": "Mines (Fer, Bauxite, Or)",
+                "slug": "mines",
+                "en_id": 136,
+                "fr_id": 136
+              },
               {
                 "title": "Hydrocarbures et stratégie de l'État",
-                "slug": "strategiedeetat"
+                "slug": "strategiedeetat-fr",
+                "en_id": 182,
+                "fr_id": 63
               },
-              { "title": "Fer", "slug": "fer" },
-              { "title": "Bauxite", "slug": "bauxite" },
-              { "title": "Or", "slug": "or" },
-              { "title": "Hydrocarbures", "slug": "hydrocarbures" }
+              {
+                "title": "Fer",
+                "slug": "mining-fer",
+                "en_id": 176,
+                "fr_id": 310
+              },
+              {
+                "title": "Bauxite",
+                "slug": "mines-bauxite",
+                "en_id": 178,
+                "fr_id": 314
+              },
+              { "title": "Or", "slug": "mines-or", "en_id": 180, "fr_id": 312 },
+              {
+                "title": "Hydrocarbures",
+                "slug": "hydrocarbures-fr",
+                "en_id": 301,
+                "fr_id": 62
+              }
             ]
           },
           {
             "title": "Cartographie Minière",
-            "slug": "cartographieminiere",
+            "slug": "cartographieminiere-fr",
+            "en_id": 272,
+            "fr_id": 67,
             "subcategories": [
-              { "title": "SIG", "slug": "sig" },
-              { "title": "Permis miniers", "slug": "permisminiers" },
+              { "title": "SIG", "slug": "sig-fr", "en_id": 288, "fr_id": 68 },
+              {
+                "title": "Permis miniers",
+                "slug": "permisminiers-fr-fr",
+                "en_id": 284,
+                "fr_id": 69
+              },
               {
                 "title": "Localisation des gisements",
-                "slug": "localisationdesgisements"
+                "slug": "localisationdesgisements-fr-fr",
+                "en_id": 278,
+                "fr_id": 70
               },
               {
                 "title": "Cartographie des infrastructures",
-                "slug": "infrastructures-cartographieminiere"
+                "slug": "infrastructures-minerie-fr",
+                "en_id": 282,
+                "fr_id": 71
               }
             ]
           },
           {
             "title": "Logistique & Infrastructures",
-            "slug": "logistiqueinfrastructures",
+            "slug": "logistiqueinfrastructures-fr",
+            "en_id": 190,
+            "fr_id": 72,
             "subcategories": [
-              { "title": "Chemins de fer", "slug": "cheminsdefer" },
+              {
+                "title": "Chemins de fer",
+                "slug": "cheminsdefer-fr",
+                "en_id": 264,
+                "fr_id": 73
+              },
               {
                 "title": "Ports en eaux profondes",
-                "slug": "portseneauxprofondes"
+                "slug": "portseneauxprofondes-fr",
+                "en_id": 192,
+                "fr_id": 74
               },
               {
                 "title": "Corridors de transport",
-                "slug": "corridorsdetransport"
+                "slug": "corridorsdetransport-fr",
+                "en_id": 267,
+                "fr_id": 75
               },
-              { "title": "Logistique", "slug": "logistique" }
+              {
+                "title": "Logistique",
+                "slug": "logistique",
+                "en_id": 517,
+                "fr_id": null
+              }
             ]
           },
           {
             "title": "Contenu Local & ESG",
-            "slug": "contenulocalesg",
+            "slug": "contenulocalesg-fr",
+            "en_id": 274,
+            "fr_id": 76,
             "subcategories": [
-              { "title": "Emploi", "slug": "emploi" },
+              {
+                "title": "Emploi",
+                "slug": "emploi-fr-fr",
+                "en_id": 276,
+                "fr_id": 77
+              },
               {
                 "title": "Sous-traitance nationale",
-                "slug": "sous-traitancenational"
+                "slug": "sous-traitancenational-fr-fr",
+                "en_id": 296,
+                "fr_id": 79
               },
               {
                 "title": "Impact environnemental",
-                "slug": "impactenvironnemental"
+                "slug": "impactenvironnemental-fr-fr",
+                "en_id": 280,
+                "fr_id": 78
               }
             ]
           },
           {
             "title": "Énergie & Industrie",
-            "slug": "energieindustrie",
+            "slug": "energieindustrie-fr",
+            "en_id": 138,
+            "fr_id": 80,
             "subcategories": [
-              { "title": "Mix énergétique", "slug": "mixenergetique" },
+              {
+                "title": "Mix énergétique",
+                "slug": "mixenergetique-fr",
+                "en_id": 258,
+                "fr_id": 81
+              },
               {
                 "title": "Barrages et alimentation",
-                "slug": "barragesetalimentation"
+                "slug": "barrages-et-alimentation-fr",
+                "en_id": 254,
+                "fr_id": 82
               },
-              { "title": "Sites industriels", "slug": "sitesindustriels" }
+              {
+                "title": "Sites industriels",
+                "slug": "sitesindustriels-fr",
+                "en_id": 261,
+                "fr_id": 83
+              }
             ]
           }
         ]
       },
       {
-        "title": "Intelligence Stratégique (ASINT)",
+        "title": "ASINT",
         "slug": "asint",
+        "taxonomy": "asint-categories",
+        "en_id": null,
+        "fr_id": null,
         "categories": [
           {
             "title": "Finance & Institutions",
             "slug": "finance-institutions",
+            "en_id": 208,
+            "fr_id": 228,
             "subcategories": [
-              { "title": "Banques", "slug": "banques" },
-              { "title": "Assurances", "slug": "assurances" },
+              {
+                "title": "Banques",
+                "slug": "banques",
+                "en_id": 148,
+                "fr_id": 230
+              },
+              {
+                "title": "Assurances",
+                "slug": "assurances-fr",
+                "en_id": 152,
+                "fr_id": 115
+              },
               {
                 "title": "Banque Centrale & Régulation Monétaire",
-                "slug": "banque-centrale-et-regulations-monetaires"
+                "slug": "central-bank-bceao-fr",
+                "en_id": 235,
+                "fr_id": 150
               }
             ]
           },
           {
             "title": "Stratégie Macro",
-            "slug": "strategiemacro",
+            "slug": "strategie-macro",
+            "en_id": 210,
+            "fr_id": 226,
             "subcategories": [
-              { "title": "PIB", "slug": "pib" },
-              { "title": "Inflation", "slug": "inflation" },
-              { "title": "Dette Souveraine", "slug": "dette-souveraine" },
-              { "title": "Indice de Croissance", "slug": "indice-croissance" }
+              { "title": "PIB", "slug": "gdp-fr", "en_id": 156, "fr_id": 237 },
+              {
+                "title": "Inflation",
+                "slug": "inflation-fr",
+                "en_id": 158,
+                "fr_id": 241
+              },
+              {
+                "title": "Dette Souveraine",
+                "slug": "dette-souveraine",
+                "en_id": 154,
+                "fr_id": 243
+              },
+              {
+                "title": "Indice de Croissance",
+                "slug": "indice-croissance",
+                "en_id": 160,
+                "fr_id": 239
+              }
             ]
           },
           {
             "title": "Géopolitique & Risques",
-            "slug": "geopolitiquerisques",
+            "slug": "geopolitiquerisques-fr",
+            "en_id": 146,
+            "fr_id": 51,
             "subcategories": [
-              { "title": "Diplomatie", "slug": "diplomatie" },
+              {
+                "title": "Diplomatie",
+                "slug": "diplomatie",
+                "en_id": 162,
+                "fr_id": 232
+              },
               {
                 "title": "Risques Sécuritaires",
-                "slug": "risques-securitaires"
+                "slug": "risques-securitaires",
+                "en_id": null,
+                "fr_id": null
               },
               {
                 "title": "Stabilité Régionale (CEDEAO/AES)",
-                "slug": "stabilite-regionale-cedeao-aes"
+                "slug": "stabilite-regionale",
+                "en_id": 164,
+                "fr_id": 316
               }
             ]
           },
           {
             "title": "Cadre Légal & OHADA",
-            "slug": "cadrelegalohada",
+            "slug": "cadre-legal-ohada",
+            "en_id": 212,
+            "fr_id": 224,
             "subcategories": [
-              { "title": "Droit des Affaires", "slug": "droit-des-affaires" },
-              { "title": "Réformes Fiscales", "slug": "reformes-fiscales" },
+              {
+                "title": "Droit des Affaires",
+                "slug": "droit-des-affaires",
+                "en_id": 673,
+                "fr_id": 637
+              },
+              {
+                "title": "Réformes Fiscales",
+                "slug": "reformes-fiscales",
+                "en_id": 677,
+                "fr_id": 675
+              },
               {
                 "title": "Climat des Investissements",
-                "slug": "climat-des-investissements"
+                "slug": "climat-des-investissements",
+                "en_id": 679,
+                "fr_id": 681
               }
             ]
           },
           {
             "title": "Partenariats Public-Privé",
-            "slug": "partenariatspublic-prive",
+            "slug": "partenariats-public-prive",
+            "en_id": 214,
+            "fr_id": 222,
             "subcategories": [
-              { "title": "Concessions", "slug": "concessions" },
-              { "title": "Contrats d'État", "slug": "contrats-detat" },
+              {
+                "title": "Concessions",
+                "slug": "concessions",
+                "en_id": null,
+                "fr_id": null
+              },
+              {
+                "title": "Contrats d'État",
+                "slug": "contrats-detat",
+                "en_id": null,
+                "fr_id": null
+              },
               {
                 "title": "Investissements Mixtes (PPP)",
-                "slug": "investissements-mixtes-ppp"
+                "slug": "investissements-mixtes-ppp",
+                "en_id": null,
+                "fr_id": null
               }
             ]
           },
           {
             "title": "Commerce & Douanes",
-            "slug": "commercedouanes",
+            "slug": "commerce-douanes",
+            "en_id": 216,
+            "fr_id": 218,
             "subcategories": [
               {
                 "title": "Corridors Commerciaux",
-                "slug": "corridors-commerciaux"
+                "slug": "corridors-commerciaux",
+                "en_id": null,
+                "fr_id": null
               },
-              { "title": "Tarifs Douaniers", "slug": "tarifs-douaniers" },
+              {
+                "title": "Tarifs Douaniers",
+                "slug": "tarifs-douaniers",
+                "en_id": null,
+                "fr_id": null
+              },
               {
                 "title": "Accords de Libre-Échange",
-                "slug": "accords-de-libre-echange"
+                "slug": "accords-de-libre-echange",
+                "en_id": null,
+                "fr_id": null
               }
             ]
           },
           {
             "title": "Agrobusiness & Terre",
-            "slug": "agrobusiness-terre",
+            "slug": "agrobusiness-terre-fr",
+            "en_id": 205,
+            "fr_id": 133,
             "subcategories": [
               {
                 "title": "Agriculture Industrielle",
-                "slug": "agriculture-industrielle"
+                "slug": "agriculture-industrielle",
+                "en_id": null,
+                "fr_id": null
               },
               {
                 "title": "Foncier & Chaînes de Valeur Agricoles",
-                "slug": "foncier-et-chaines-de-valeur-agricoles"
+                "slug": "foncier-et-chaines-de-valeur-agricoles",
+                "en_id": null,
+                "fr_id": null
               }
             ]
           }
         ]
       },
       {
-        "title": "Guinea Intel",
+        "title": "Guinée Intelligence",
         "slug": "guinea-intel",
+        "taxonomy": "guinea-intel-categories",
+        "en_id": null,
+        "fr_id": null,
         "categories": [
           {
             "title": "Appels d'Offres & Appels à Projets",
-            "slug": "appelsdoffres",
+            "slug": "appels-doffres",
+            "en_id": 369,
+            "fr_id": 367,
             "subcategories": [
               {
                 "title": "Monitoring en temps réel",
-                "slug": "monitoringentempsreel"
+                "slug": "monitoring-en-temps-reel",
+                "en_id": 374,
+                "fr_id": 372
               },
               {
                 "title": "Marchés publics & privés",
-                "slug": "marchespublicsetprives"
+                "slug": "marches-publics-et-prives",
+                "en_id": 378,
+                "fr_id": 376
               }
             ]
           },
           {
             "title": "Guide de l'Investisseur",
-            "slug": "guidedelinvestisseur",
+            "slug": "guide-de-linvestisseur",
+            "en_id": 382,
+            "fr_id": 380,
             "subcategories": [
               {
                 "title": "Formalités administratives",
-                "slug": "formalitesadministratives"
+                "slug": "formalites-administratives",
+                "en_id": 387,
+                "fr_id": 385
               },
-              { "title": "Fiscalité locale", "slug": "fiscalitelocale" },
-              { "title": "Zones économiques", "slug": "zoneseconomiques" }
+              {
+              "title": "Fiscalité locale et zones économiques",
+                "slug": "fiscalite-locale-et-zones-economiques",
+                "en_id": 391,
+                "fr_id": 389
+              }
             ]
           },
           {
             "title": "Annuaire des Stakeholders",
-            "slug": "annuairedesstakeholders",
+            "slug": "annuaire-des-stakeholders",
+            "en_id": 395,
+            "fr_id": 393,
             "subcategories": [
               {
                 "title": "Cartographie des décideurs",
-                "slug": "cartographiedesdecideurs"
+                "slug": "cartographie-des-decideurs",
+                "en_id": 400,
+                "fr_id": 398 
               },
               {
                 "title": "Acteurs clés public-privé",
-                "slug": "acteursclesdusecteurpublicprive"
+                "slug": "acteurs-cles-du-secteur-public-prive",
+                "en_id": 404,
+                "fr_id": 402
               }
             ]
           },
           {
             "title": "Suivi des Projets d'État",
-            "slug": "monitoringdeprojetsdetat",
+            "slug": "monitoring-de-projets-detat",
+            "en_id": 408,
+            "fr_id": 406,
             "subcategories": [
               {
                 "title": "Suivi opérationnel des grands chantiers",
-                "slug": "suivi-operationnel-des-grands-chantiers-gouvernementaux"
+                "slug": "suivi-operationnel-des-grands-chantiers-gouvernementaux",
+                "en_id": 413,
+                "fr_id": 411
               }
             ]
           }
@@ -267,49 +473,76 @@
       {
         "title": "Innovation",
         "slug": "innovation",
+        "taxonomy": "innovation-categories",
+        "en_id": null,
+        "fr_id": null,
         "categories": [
           {
             "title": "Data & Innovation (IA)",
             "slug": "data-innovation-ia",
+            "en_id": 462,
+            "fr_id": 460,
             "subcategories": [
               {
                 "title": "Algorithmes d'aide à la décision et automatisation",
-                "slug": "algorithmes-daide-a-la-decision-et-automatisation-de-lintelligence"
+                "slug": "algorithmes-daide-a-la-decision-et-automatisation-de-lintelligence",
+                "en_id": 467,
+                "fr_id": 465
               }
             ]
           },
           {
             "title": "Analyse OSINT",
             "slug": "analyse-osint",
+            "en_id": 471,
+            "fr_id": 469,
             "subcategories": [
               {
                 "title": "Analyse des sources ouvertes et signaux faibles du web",
-                "slug": "analyse-des-sources-ouvertes-et-signaux-faibles-du-web"
+                "slug": "analyse-des-sources-ouvertes-et-signaux-faibles-du-web",
+                "en_id": 476,
+                "fr_id": 474
               }
             ]
           },
           {
             "title": "Fintech & Banque Digitale",
             "slug": "fintech-digital-banking",
+            "en_id": 478,
+            "fr_id": 478,
             "subcategories": [
               {
                 "title": "Inclusion financière",
-                "slug": "inclusion-financiere"
+                "slug": "inclusion-financiere",
+                "en_id": 484,
+                "fr_id": 482
               },
-              { "title": "Services mobiles", "slug": "services-mobiles" },
-              { "title": "Monnaies numériques", "slug": "monnaies-numeriques" }
+              {
+              "title": "Services mobiles et monnaies numériques",
+                "slug": "services-mobiles-et-monnaies-numeriques",
+                "en_id": 489,
+                "fr_id": 487
+              }
             ]
           },
           {
             "title": "Souveraineté Numérique",
             "slug": "souverainete-numerique",
+            "en_id": 494,
+            "fr_id": 492,
             "subcategories": [
-              { "title": "Data centers", "slug": "data-centers" },
               {
-                "title": "Connectivité régionale",
-                "slug": "connectivite-regionale"
+                "title": "Data centers",
+                "slug": "data-centers",
+                "en_id": 499,
+                "fr_id": 497
               },
-              { "title": "Cybersécurité", "slug": "cybersecurite" }
+              {
+              "title": "Connectivité régionale et cybersécurité",
+                "slug": "connectivite-regionale-et-cybersecurite",
+                "en_id": 503,
+                "fr_id": 501
+              }
             ]
           }
         ]
@@ -317,36 +550,79 @@
       {
         "title": "Transverse",
         "slug": "transverse",
+        "taxonomy": "transverse-categories",
+        "en_id": null,
+        "fr_id": null,
         "categories": [
           {
             "title": "Portraits de Décideurs",
             "slug": "portraits-de-decideurs",
+            "en_id": 417,
+            "fr_id": 415,
             "subcategories": [
               {
                 "title": "Guinea Means Business",
-                "slug": "guinea-means-business"
+                "slug": "serie-guinea-means-business-trajectoires-des-leaders-de-leconomie",
+                "en_id": 422,
+                "fr_id": 420
               }
             ]
           },
           {
             "title": "Briefings de Direction",
             "slug": "briefings-de-direction",
-            "subcategories": []
+            "en_id": 435,
+            "fr_id": 433,
+            "subcategories": [
+              {
+                "title": "Rapports de synthèse exclusifs",
+                "slug": "rapports-de-synthese-exclusifs-pour-les-abonnes-entreprise",
+                "en_id": 440,
+                "fr_id": 438
+              }
+            ]
           },
           {
             "title": "Une Ville, Un Quartier",
             "slug": "one-city-one-quarter",
-            "subcategories": []
+            "en_id": 424,
+            "fr_id": 424,
+            "subcategories": [
+              {
+                "title": "Événements physiques trimestriels",
+                "slug": "evenements-physiques-trimestriels-et-rapports-de-networking",
+                "en_id": 430,
+                "fr_id": 428
+              }
+            ]
           },
           {
             "title": "Webinaires Stratégiques",
             "slug": "webinaires-strategiques",
-            "subcategories": []
+            "en_id": 444,
+            "fr_id": 442,
+            "subcategories": [
+              {
+                "title": "Conférences en ligne",
+                "slug": "conferences-en-ligne-et-extensions-digitales-des-rencontres",
+                "en_id": 449,
+                "fr_id": 447
+              }
+            ]
           },
           {
             "title": "Cartographie Sectorielle",
             "slug": "cartographie-sectorielle",
-            "subcategories": []
+            "en_id": 453,
+            "fr_id": 451,
+            "subcategories": [
+              {
+                "title": "Datavisualisation et graphiques d'analyse de marché",
+                "slug": "datavisualisation-et-graphiques-danalyse-de-marche",
+                "en_id": 458,
+                "fr_id": 456
+              }
+            ]
           }
         ]
       }
@@ -518,7 +794,7 @@
         "label": "Message *",
         "placeholder": "Votre message"
       },
-      "submit": "Envoyer" 
+      "submit": "Envoyer"
     }
   },
   "footer": {

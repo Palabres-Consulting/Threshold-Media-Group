@@ -4,7 +4,6 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 // import en from "@/app/lib/locale/en.json";
 // import "@/app/lib/locale/fr.json";
-import { useSubdomain } from "./subDomainContext";
 
 export type Site = "main" | "extraction" | "asint";
 export type Locale = "en" | "fr";

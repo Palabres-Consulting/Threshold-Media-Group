@@ -1,6 +1,6 @@
 "use client";
 
-import { LucideProps, StickyNote } from "lucide-react";
+import { LucideProps } from "lucide-react";
 import React from "react";
 
 const ErrorPage = () => {

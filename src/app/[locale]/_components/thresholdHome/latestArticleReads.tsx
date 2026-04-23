@@ -1,9 +1,9 @@
 import React from "react";
-import CategoryTime from "../../utilities/category&time";
-import AuthorTime from "../../utilities/author&time";
-import AuthorPost from "../../utilities/authorPost";
-import Subscribe from "../../forms/subscribe";
-import EmptyState from "../../ui/empty";
+import CategoryTime from "../utilities/category&time";
+import AuthorTime from "../utilities/author&time";
+import AuthorPost from "../utilities/authorPost";
+import Subscribe from "../forms/subscribe";
+import EmptyState from "../ui/empty";
 import { Locale } from "@/app/[locale]/context/types";
 
 const LatestArticleReads = ({ locale }: { locale: Locale }) => {

@@ -9,19 +9,33 @@ export interface CategoriesProps {
   dict: TranslationSchema;
   asintLink: string;
   extractionLink: string;
+  mainDomainLink: string; // <-- NEW: Pass your base main domain here (e.g., "http://localhost:3000" or "https://tresholdmediagroup.com")
 }
 
-const Categories: React.FC<CategoriesProps> = ({ dict, asintLink, extractionLink }) => {
+const Categories: React.FC<CategoriesProps> = ({ dict, asintLink, extractionLink, mainDomainLink }) => {
   const [openMobileIndex, setOpenMobileIndex] = useState<number | null>(null);
 
   // 1. Create the map from the dictionary
   const allCategories = dict.main.nav.categories.map((category, index) => {
     const catSlug = category.slug || category.title.toLowerCase().replace(/\s+/g, '-');
     
-    // Determine the base domain/path for the main sections
-    let mainLink = `/${catSlug}`;
-    if (index === 0) mainLink = extractionLink;
-    if (index === 1) mainLink = asintLink;
+    let mainLink = "";
+
+    // Route Subdomains explicitly
+    if (index === 0) {
+      mainLink = extractionLink;
+    } else if (index === 1) {
+      mainLink = asintLink;
+    } 
+    // Force the rest back to the absolute Main Domain URL
+    else {
+      // Make sure we don't end up with double slashes
+      const cleanMainDomain = mainDomainLink.replace(/\/$/, "");
+      mainLink = `${cleanMainDomain}/${catSlug}`;
+    }
+
+    // Clean trailing slashes
+    mainLink = mainLink.replace(/\/$/, "");
 
     return {
       ...category,
@@ -30,15 +44,8 @@ const Categories: React.FC<CategoriesProps> = ({ dict, asintLink, extractionLink
     };
   });
 
-  // 2. Filter or Slice to comment out the last 3 items
-  // Total items: 5. We keep the first 2, comment out index 2, 3, and 4.
+  // Keep the first 5 categories visible
   const visibleCategories = allCategories.slice(0, 5);
-
-  /* Last 3 items (Commented out):
-    - Guinea Intel (index 2)
-    - Innovation (index 3)
-    - Transverse (index 4)
-  */
 
   const toggleMobile = (index: number) => {
     setOpenMobileIndex(openMobileIndex === index ? null : index);
@@ -74,10 +81,20 @@ const Categories: React.FC<CategoriesProps> = ({ dict, asintLink, extractionLink
               relative bg-foreground/5 lg:bg-[var(--background)] rounded-md mt-1 lg:mt-0
             `}>
               <div className="flex flex-col py-2">
-                {category.categories.map((sub, subIndex) => {
+                {category.categories?.map((sub, subIndex) => {
                   const subSlug = sub.slug || sub.title.toLowerCase().replace(/\s+/g, '-');
-                  const subLink = `${category.mainLink}/${subSlug}`;
-
+                  
+                  let subLink = "";
+                  
+                  // For Extraction (0) and ASINT (1), use the query parameter logic
+                  if (index === 0 || index === 1) {
+                    subLink = `${category.mainLink}?category=${subSlug}`;
+                  } else {
+                    // For the main site post types, use standard path routing
+                    // (Change this to query params too if your main site uses ?category= logic)
+                    subLink = `${category.mainLink}/${subSlug}`;
+                  }
+                  
                   return (
                     <Link
                       key={subIndex}

@@ -1,7 +1,7 @@
 import React from "react";
 import CategoryTime from "../utilities/category&time";
 import { FaBookmark } from "react-icons/fa";
-import { customPosts } from "./featuredPosts";
+import { customPosts } from "../PostDisplaySections/featuredPosts";
 
 const SavedArticles = () => {
   const articles = [];

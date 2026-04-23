@@ -2,7 +2,6 @@
 
 // hooks/usePosts.ts
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { useLocalization } from "../context/localizationContext";
 import {
   fetchThresholdPosts,
@@ -10,7 +9,6 @@ import {
   fetchAsintPosts,
   fetchTopLevelCategories,
   fetchSubCategories,
-  fetchPostsByCategory,
   postKeys,
   getPosts,
 } from "../../lib/fetchLib";
@@ -69,20 +67,6 @@ export const usePostsByDomain = (
       }),
   });
 };
-
-
-
-// hooks/useUniversalPosts.ts
-export const useUniversalPosts = (postType: string, limit = 10, category?: string) => {
-  const { locale } = useLocalization();
-
-  return useQuery({
-    queryKey: postKeys.list(postType, locale, category, limit),
-    queryFn: () => getPosts(postType, locale, limit, category),
-  });
-};
-
-
 
 
 /**
@@ -150,20 +134,3 @@ export const useCategoriesByDomain = (
 };
 
 
-// hooks/usePosts.ts
-export const usePostsByCategory = (
-  postType: "posts" | "extraction" | "asint" | "guinea_intel" | "innovation" | "transverse",
-  categoryId: number,
-  limit: number = 10
-) => {
-  const { locale } = useLocalization();
-
-  return useQuery({
-    queryKey: ["posts-by-category", postType, categoryId, locale, limit],
-    queryFn: () => fetchPostsByCategory(postType, categoryId, {
-      lang: locale,
-      per_page: limit
-    }),
-    enabled: !!categoryId, // Don't fetch if categoryId is missing
-  });
-};

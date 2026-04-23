@@ -18,96 +18,185 @@
     "spanish": "Spanish",
     "welcome": "Welcome",
     "login": "Login/Sign Up",
+
     "categories": [
       {
         "title": "Extraction",
         "slug": "industries-resources",
+        "taxonomy": "extraction-category",
+        "en_id": null,
+        "fr_id": null,
         "categories": [
           {
             "title": "Simandou 2040",
-            "slug": "simandou2040",
+            "slug": "simandou2040-en",
+            "en_id": 45,
+            "fr_id": 286,
             "subcategories": [
-              { "title": "Infrastructure", "slug": "infrastructures" },
-              { "title": "Rail", "slug": "rail" },
-              { "title": "Port", "slug": "port" },
+              {
+                "title": "Infrastructure",
+                "slug": "infrastructure",
+                "en_id": 166,
+                "fr_id": 298
+              },
+              { "title": "Rail", "slug": "rail-en", "en_id": 56, "fr_id": 293 },
+              { "title": "Port", "slug": "port", "en_id": 168, "fr_id": 57 },
               {
                 "title": "Logistics Corridor and Project Stages",
-                "slug": "etapesduprojet"
+                "slug": "project-stages",
+                "en_id": 172,
+                "fr_id": 291
               }
             ]
           },
           {
             "title": "Resources & Sovereignty",
-            "slug": "souveraineteressources",
+            "slug": "sovereignty-resources",
+            "en_id": 174,
+            "fr_id": 46,
             "subcategories": [
-              { "title": "Mining (Iron, Bauxite, Gold)", "slug": "mines" },
+              {
+                "title": "Mining (Iron, Bauxite, Gold)",
+                "slug": "mining",
+                "en_id": 136,
+                "fr_id": 136
+              },
               {
                 "title": "Hydrocarbons and State Strategy",
-                "slug": "strategiedeetat"
+                "slug": "state-strategy",
+                "en_id": 182,
+                "fr_id": 63
               },
-              { "title": "Iron", "slug": "fer" },
-              { "title": "Bauxite", "slug": "bauxite" },
-              { "title": "Gold", "slug": "or" },
-              { "title": "Hydrocarbons", "slug": "hydrocarbures" }
+              {
+                "title": "Iron",
+                "slug": "mining-iron",
+                "en_id": 176,
+                "fr_id": 310
+              },
+              {
+                "title": "Bauxite",
+                "slug": "bauxite-sovereignty-resources",
+                "en_id": 178,
+                "fr_id": 314
+              },
+              { "title": "Gold", "slug": "gold", "en_id": 180, "fr_id": 312 },
+              {
+                "title": "Hydrocarbons",
+                "slug": "hydrocarbons",
+                "en_id": 301,
+                "fr_id": 62
+              }
             ]
           },
           {
             "title": "Mining Mapping",
-            "slug": "cartographieminiere",
+            "slug": "mining-mapping",
+            "en_id": 272,
+            "fr_id": 67,
             "subcategories": [
-              { "title": "GIS", "slug": "sig" },
-              { "title": "Mining Permits", "slug": "permisminiers" },
+              { "title": "GIS", "slug": "sig-en", "en_id": 288, "fr_id": 68 },
+              {
+                "title": "Mining Permits",
+                "slug": "mining-permits",
+                "en_id": 284,
+                "fr_id": 69
+              },
               {
                 "title": "Location of Deposits",
-                "slug": "localisationdesgisements"
+                "slug": "location-of-deposits",
+                "en_id": 278,
+                "fr_id": 70
               },
               {
                 "title": "Infrastructure Mapping",
-                "slug": "infrastructures-cartographieminiere"
+                "slug": "mining-infrastructures",
+                "en_id": 282,
+                "fr_id": 71
               }
             ]
           },
           {
             "title": "Logistics & Infrastructure",
-            "slug": "logistiqueinfrastructures",
+            "slug": "logistics-infrastructure",
+            "en_id": 190,
+            "fr_id": 72,
             "subcategories": [
-              { "title": "Railways", "slug": "cheminsdefer" },
+              {
+                "title": "Railways",
+                "slug": "railways",
+                "en_id": 264,
+                "fr_id": 73
+              },
               {
                 "title": "Deepwater Ports",
-                "slug": "portseneauxprofondes"
+                "slug": "deep-water-port",
+                "en_id": 192,
+                "fr_id": 74
               },
               {
                 "title": "Transport Corridors",
-                "slug": "corridorsdetransport"
+                "slug": "transport-corridors",
+                "en_id": 267,
+                "fr_id": 75
               },
-              { "title": "Logistics", "slug": "logistique" }
+              {
+                "title": "Logistics",
+                "slug": "chemins-de-fer-ports-en-eaux-profondes-et-corridors-de-transport",
+                "en_id": 517,
+                "fr_id": null
+              }
             ]
           },
           {
             "title": "Local Content & ESG",
-            "slug": "contenulocalesg",
+            "slug": "local-content-esg",
+            "en_id": 274,
+            "fr_id": 76,
             "subcategories": [
-              { "title": "Employment", "slug": "emploi" },
+              {
+                "title": "Employment",
+                "slug": "employment",
+                "en_id": 276,
+                "fr_id": 77
+              },
               {
                 "title": "National Subcontracting",
-                "slug": "sous-traitancenational"
+                "slug": "national-subcontracting",
+                "en_id": 296,
+                "fr_id": 79
               },
               {
                 "title": "Environmental Impact",
-                "slug": "impactenvironnemental"
+                "slug": "environmental-impact",
+                "en_id": 280,
+                "fr_id": 78
               }
             ]
           },
           {
             "title": "Energy & Industry",
-            "slug": "energieindustrie",
+            "slug": "power-and-industry",
+            "en_id": 138,
+            "fr_id": 80,
             "subcategories": [
-              { "title": "Energy Mix", "slug": "mixenergetique" },
+              {
+                "title": "Energy Mix",
+                "slug": "energy-mix",
+                "en_id": 258,
+                "fr_id": 81
+              },
               {
                 "title": "Dams and Power Supply",
-                "slug": "barragesetalimentation"
+                "slug": "dams-and-water-supply",
+                "en_id": 254,
+                "fr_id": 82
               },
-              { "title": "Industrial Sites", "slug": "sitesindustriels" }
+              {
+                "title": "Industrial Sites",
+                "slug": "industrial-sites",
+                "en_id": 261,
+                "fr_id": 83
+              }
             ]
           }
         ]
@@ -115,94 +204,184 @@
       {
         "title": "ASINT",
         "slug": "asint",
+        "taxonomy": "asint-categories",
+        "en_id": null,
+        "fr_id": null,
         "categories": [
           {
             "title": "Finance & Institutions",
-            "slug": "finance-institutions",
+            "slug": "finance-and-institutions",
+            "en_id": 208,
+            "fr_id": 228,
             "subcategories": [
-              { "title": "Banks", "slug": "banques" },
-              { "title": "Insurance", "slug": "assurances" },
+              {
+                "title": "Banks",
+                "slug": "banks-en",
+                "en_id": 148,
+                "fr_id": 230
+              },
+              {
+                "title": "Insurance",
+                "slug": "insurance-en",
+                "en_id": 152,
+                "fr_id": 115
+              },
               {
                 "title": "Central Bank & Monetary Regulation",
-                "slug": "banque-centrale-et-regulations-monetaires"
+                "slug": "central-bank-and-monetary-regulations",
+                "en_id": 235,
+                "fr_id": 150
               }
             ]
           },
           {
             "title": "Macro Strategy",
-            "slug": "strategiemacro",
+            "slug": "macro-strategy",
+            "en_id": 210,
+            "fr_id": 226,
             "subcategories": [
-              { "title": "GDP", "slug": "pib" },
-              { "title": "Inflation", "slug": "inflation" },
-              { "title": "Sovereign Debt", "slug": "dette-souveraine" },
-              { "title": "Growth Index", "slug": "indice-croissance" }
+              { "title": "GDP", "slug": "gdp-en", "en_id": 156, "fr_id": 237 },
+              {
+                "title": "Inflation",
+                "slug": "inflation-en",
+                "en_id": 158,
+                "fr_id": 241
+              },
+              {
+                "title": "Sovereign Debt",
+                "slug": "sovereign-debt-en",
+                "en_id": 154,
+                "fr_id": 243
+              },
+              {
+                "title": "Growth Index",
+                "slug": "growth-index-en",
+                "en_id": 160,
+                "fr_id": 239
+              }
             ]
           },
           {
             "title": "Geopolitics & Risks",
-            "slug": "geopolitiquerisques",
+            "slug": "geopolitics-and-risk",
+            "en_id": 146,
+            "fr_id": 51,
             "subcategories": [
-              { "title": "Diplomacy", "slug": "diplomatie" },
+              {
+                "title": "Diplomacy",
+                "slug": "diplomacy-en",
+                "en_id": 162,
+                "fr_id": 232
+              },
               {
                 "title": "Security Risks",
-                "slug": "risques-securitaires"
+                "slug": "security-risks",
+                "en_id": null,
+                "fr_id": null
               },
               {
                 "title": "Regional Stability (ECOWAS/AES)",
-                "slug": "stabilite-regionale-cedeao-aes"
+                "slug": "regional-stability-en",
+                "en_id": 164,
+                "fr_id": 316
               }
             ]
           },
           {
             "title": "Legal Framework & OHADA",
-            "slug": "cadrelegalohada",
+            "slug": "legal-regulatory",
+            "en_id": 212,
+            "fr_id": 224,
             "subcategories": [
-              { "title": "Business Law", "slug": "droit-des-affaires" },
-              { "title": "Tax Reforms", "slug": "reformes-fiscales" },
+              {
+                "title": "Business Law",
+                "slug": "business-law",
+                "en_id": 673,
+                "fr_id": 637
+              },
+              {
+                "title": "Tax Reforms",
+                "slug": "tax-reforms",
+                "en_id": 677,
+                "fr_id": 675
+              },
               {
                 "title": "Investment Climate",
-                "slug": "climat-des-investissements"
+                "slug": "investment-climate",
+                "en_id": 679,
+                "fr_id": 681
               }
             ]
           },
           {
             "title": "Public-Private Partnerships",
-            "slug": "partenariatspublic-prive",
+            "slug": "public-private-partnerships",
+            "en_id": 214,
+            "fr_id": 222,
             "subcategories": [
-              { "title": "Concessions", "slug": "concessions" },
-              { "title": "State Contracts", "slug": "contrats-detat" },
+              {
+                "title": "Concessions",
+                "slug": "concessions",
+                "en_id": null,
+                "fr_id": null
+              },
+              {
+                "title": "State Contracts",
+                "slug": "state-contracts",
+                "en_id": null,
+                "fr_id": null
+              },
               {
                 "title": "Mixed Investments (PPP)",
-                "slug": "investissements-mixtes-ppp"
+                "slug": "mixed-investments-ppp",
+                "en_id": null,
+                "fr_id": null
               }
             ]
           },
           {
             "title": "Trade & Customs",
-            "slug": "commercedouanes",
+            "slug": "trade-and-customs",
+            "en_id": 216,
+            "fr_id": 218,
             "subcategories": [
               {
                 "title": "Trade Corridors",
-                "slug": "corridors-commerciaux"
+                "slug": "trade-corridors",
+                "en_id": null,
+                "fr_id": null
               },
-              { "title": "Customs Tariffs", "slug": "tarifs-douaniers" },
+              {
+                "title": "Customs Tariffs",
+                "slug": "customs-tariffs",
+                "en_id": null,
+                "fr_id": null
+              },
               {
                 "title": "Free Trade Agreements",
-                "slug": "accords-de-libre-echange"
+                "slug": "free-trade-agreements",
+                "en_id": null,
+                "fr_id": null
               }
             ]
           },
           {
             "title": "Agribusiness & Land",
-            "slug": "agrobusiness-terre",
+            "slug": "agribusiness-land",
+            "en_id": 205,
+            "fr_id": 133,
             "subcategories": [
               {
                 "title": "Industrial Agriculture",
-                "slug": "agriculture-industrielle"
+                "slug": "industrial-agriculture",
+                "en_id": null,
+                "fr_id": null
               },
               {
                 "title": "Land & Agricultural Value Chains",
-                "slug": "foncier-et-chaines-de-valeur-agricoles"
+                "slug": "land-agricultural-value-chains",
+                "en_id": null,
+                "fr_id": null
               }
             ]
           }
@@ -211,54 +390,81 @@
       {
         "title": "Guinea Intelligence",
         "slug": "guinea-intel",
+        "taxonomy": "guinea-intel-categories",
+        "en_id": null,
+        "fr_id": null,
         "categories": [
           {
             "title": "Tenders & Project Calls",
-            "slug": "appelsdoffres",
+            "slug": "tenders-procurement",
+            "en_id": 369,
+            "fr_id": 367,
             "subcategories": [
               {
                 "title": "Real-time Monitoring",
-                "slug": "monitoringentempsreel"
+                "slug": "real-time-monitoring",
+                "en_id": 374,
+                "fr_id": 372
               },
               {
                 "title": "Public & Private Markets",
-                "slug": "marchespublicsetprives"
+                "slug": "public-and-private-contracts",
+                "en_id": 378,
+                "fr_id": 376
               }
             ]
           },
           {
             "title": "Investor Guide",
-            "slug": "guidedelinvestisseur",
+            "slug": "investors-guide",
+            "en_id": 382,
+            "fr_id": 380,
             "subcategories": [
               {
                 "title": "Administrative Formalities",
-                "slug": "formalitesadministratives"
+                "slug": "administrative-formalities",
+                "en_id": 387,
+                "fr_id": 385
               },
-              { "title": "Local Taxation", "slug": "fiscalitelocale" },
-              { "title": "Economic Zones", "slug": "zoneseconomiques" }
+              {
+              "title": "Local Taxation & Economic Zones",
+                "slug": "local-taxation-and-economic-zones",
+                "en_id": 391,
+                "fr_id": 389
+              }
             ]
           },
           {
             "title": "Stakeholder Directory",
-            "slug": "annuairedesstakeholders",
+            "slug": "stakeholders-directory",
+            "en_id": 395,
+            "fr_id": 393,
             "subcategories": [
               {
                 "title": "Decision-Maker Mapping",
-                "slug": "cartographiedesdecideurs"
+                "slug": "mapping-of-decision-makers",
+                "en_id": 400,
+                "fr_id": 398
               },
               {
                 "title": "Key Public-Private Actors",
-                "slug": "acteursclesdusecteurpublicprive"
+                "slug": "key-public-private-sector-actors",
+                "en_id": 404,
+                "fr_id": 402
               }
             ]
           },
           {
             "title": "State Project Monitoring",
-            "slug": "monitoringdeprojetsdetat",
+            "slug": "state-project-tracker",
+            "en_id": 408,
+            "fr_id": 406,
             "subcategories": [
               {
                 "title": "Operational Monitoring of Major Projects",
-                "slug": "suivi-operationnel-des-grands-chantiers-gouvernementaux"
+                "slug": "operational-tracking-of-major-government-projects",
+                "en_id": 413,
+                "fr_id": 411
               }
             ]
           }
@@ -267,49 +473,76 @@
       {
         "title": "Innovation",
         "slug": "innovation",
+        "taxonomy": "innovation-categories",
+        "en_id": null,
+        "fr_id": null,
         "categories": [
           {
             "title": "Data & Innovation (AI)",
-            "slug": "data-innovation-ia",
+            "slug": "data-innovation-ai",
+            "en_id": 462,
+            "fr_id": 460,
             "subcategories": [
               {
                 "title": "Decision Support Algorithms and Automation",
-                "slug": "algorithmes-daide-a-la-decision-et-automatisation-de-lintelligence"
+                "slug": "decision-support-algorithms-and-intelligence-automation",
+                "en_id": 467,
+                "fr_id": 465
               }
             ]
           },
           {
             "title": "OSINT Analysis",
-            "slug": "analyse-osint",
+            "slug": "osint-analysis",
+            "en_id": 471,
+            "fr_id": 469,
             "subcategories": [
               {
                 "title": "Open Source Analysis and Weak Web Signals",
-                "slug": "analyse-des-sources-ouvertes-et-signaux-faibles-du-web"
+                "slug": "analysis-of-open-sources-and-weak-web-signals",
+                "en_id": 476,
+                "fr_id": 474
               }
             ]
           },
           {
             "title": "Fintech & Digital Banking",
             "slug": "fintech-digital-banking",
+            "en_id": 478,
+            "fr_id": 478,
             "subcategories": [
               {
                 "title": "Financial Inclusion",
-                "slug": "inclusion-financiere"
+                "slug": "financial-inclusion",
+                "en_id": 484,
+                "fr_id": 482
               },
-              { "title": "Mobile Services", "slug": "services-mobiles" },
-              { "title": "Digital Currencies", "slug": "monnaies-numeriques" }
+              {
+              "title": "Mobile Services & Digital Currencies",
+                "slug": "mobile-services-and-digital-currencies",
+                "en_id": 489,
+                "fr_id": 487
+              }
             ]
           },
           {
             "title": "Digital Sovereignty",
-            "slug": "souverainete-numerique",
-            "subcategories": [
-              { "title": "Data Centers", "slug": "data-centers" },
+            "slug": "digital-sovereignty",
+            "en_id": 494,
+            "fr_id": 492,
+            "subcategories": [ 
               {
-                "title": "Regional Connectivity",
-                "slug": "connectivite-regionale"
+                "title": "Data Centers",
+                "slug": "data-centers-digital-sovereignty",
+                "en_id": 499,
+                "fr_id": 497
               },
-              { "title": "Cybersecurity", "slug": "cybersecurite" }
+              {
+              "title": "Regional Connectivity & Cybersecurity",
+                "slug": "regional-connectivity-and-cybersecurity",
+                "en_id": 503,
+                "fr_id": 501
+              }
             ]
           }
         ]
@@ -317,36 +550,79 @@
       {
         "title": "Transverse",
         "slug": "transverse",
+        "taxonomy": "transverse-categories",
+        "en_id": null,
+        "fr_id": null,
         "categories": [
           {
             "title": "Decision-Maker Portraits",
-            "slug": "portraits-de-decideurs",
+            "slug": "decision-maker-portraits",
+            "en_id": 417,
+            "fr_id": 415,
             "subcategories": [
               {
                 "title": "Guinea Means Business",
-                "slug": "guinea-means-business"
+                "slug": "guinea-means-business-series-trajectories-of-economic-leaders",
+                "en_id": 422,
+                "fr_id": 420
               }
             ]
           },
           {
             "title": "Executive Briefings",
-            "slug": "briefings-de-direction",
-            "subcategories": []
+            "slug": "executive-briefings",
+            "en_id": 435,
+            "fr_id": 433,
+            "subcategories": [
+              {
+                "title": "Exclusive Summary Reports",
+                "slug": "exclusive-summary-reports-for-enterprise-subscribers",
+                "en_id": 440,
+                "fr_id": 438
+              }
+            ]
           },
           {
             "title": "One City, One District",
             "slug": "one-city-one-quarter",
-            "subcategories": []
+            "en_id": 424,
+            "fr_id": 424,
+            "subcategories": [
+              {
+                "title": "Quarterly Physical Events",
+                "slug": "quarterly-physical-events-and-networking-reports",
+                "en_id": 430,
+                "fr_id": 428
+              }
+            ]
           },
           {
             "title": "Strategic Webinars",
-            "slug": "webinaires-strategiques",
-            "subcategories": []
+            "slug": "strategic-webinars",
+            "en_id": 444,
+            "fr_id": 442,
+            "subcategories": [
+              {
+                "title": "Online Conferences",
+                "slug": "online-conferences-and-digital-extensions-of-meetings",
+                "en_id": 449,
+                "fr_id": 447
+              }
+            ]
           },
           {
             "title": "Sectoral Mapping",
-            "slug": "cartographie-sectorielle",
-            "subcategories": []
+            "slug": "sectoral-mapping",
+            "en_id": 453,
+            "fr_id": 451,
+            "subcategories": [
+              {
+                "title": "Data Visualization & Charts",
+                "slug": "data-visualization-and-market-analysis-charts",
+                "en_id": 458,
+                "fr_id": 456
+              }
+            ]
           }
         ]
       }

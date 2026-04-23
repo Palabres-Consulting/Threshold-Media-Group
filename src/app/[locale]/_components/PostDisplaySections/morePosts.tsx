@@ -4,7 +4,6 @@ import AuthorPost from "../utilities/authorPost";
 import Image from "next/image";
 import cloudinaryLoader from "@/app/lib/cloudinary";
 import Link from "next/link";
-import { Post } from "@/app/lib/fetchLib";
 import EmptyFull from "../ui/emptyFull";
 import { Locale } from "@/app/lib/locale/i18n/types";
 import {
@@ -13,6 +12,7 @@ import {
   safeTitle,
   truncateText,
 } from "@/app/lib/textHelpers";
+import { Post } from "@/app/types/apiResponse";
 
 const MorePosts = ({ posts, lang }: { posts: Post[]; lang: Locale }) => {
   const post0 = posts[0];

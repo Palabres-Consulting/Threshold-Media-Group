@@ -2,13 +2,12 @@
 
 import ProfileSectionsContainer, {
   ProfileDetails,
-} from "@/app/[locale]/_components/sections/profileSectionsContainer";
+} from "@/app/[locale]/_components/profilePage/profileSectionsContainer";
 
-import SavedArticles from "@/app/[locale]/_components/sections/savedArticles";
+import SavedArticles from "@/app/[locale]/_components/profilePage/savedArticles";
 import React from "react";
-import { getDictionary } from "@/app/lib/dict";
 import { useLocalization } from "../../context/localizationContext";
-import { ProfileItem } from "../../_components/sections/profileItem";
+import { ProfileItem } from "../../_components/profilePage/profileItem";
 import { useUser } from "../../hook/useUser";
 
 const ProfilePage = () => {

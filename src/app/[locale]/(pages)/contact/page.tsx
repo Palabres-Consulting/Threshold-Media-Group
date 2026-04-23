@@ -1,12 +1,6 @@
-
-
-
 import ContactForm from "@/app/[locale]/_components/forms/contactForm";
-import PageContainer from "@/app/[locale]/_components/sections/pageContainer";
-import Link from "next/link";
+import PageContainer from "@/app/[locale]/_components/PostDisplaySections/pageContainer";
 import React from "react";
-import { FaLocationArrow, FaMailBulk, FaPhoneAlt } from "react-icons/fa";
-import { getDictionary } from "@/app/lib/dict";
 import { Locale } from "../../context/types";
 import { getTranslations } from "@/app/lib/locale/i18n/getTranslations";
 import { Mapbox } from "./MapContainer";

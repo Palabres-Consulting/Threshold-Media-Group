@@ -1,10 +1,9 @@
 import React from "react";
 import AuthorTime from "../utilities/author&time";
-import CategoryTime from "../utilities/category&time";
-import { Post } from "@/app/lib/fetchLib";
 import Link from "next/link";
 import { getTitleValue } from "./hero";
 import { formatAuthorDate } from "@/app/lib/textHelpers";
+import { Post } from "@/app/types/apiResponse";
 
 const CyberSecurityPosts = ({ posts, site }: { posts: Post[], site: string }) => {
  

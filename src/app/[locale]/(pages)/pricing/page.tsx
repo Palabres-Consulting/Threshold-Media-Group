@@ -1,6 +1,5 @@
-import PageContainer from "@/app/[locale]/_components/sections/pageContainer";
+import PageContainer from "@/app/[locale]/_components/PostDisplaySections/pageContainer";
 import React from "react";
-import { FaCheckCircle } from "react-icons/fa";
 import Plans from "./plans";
 import { getTranslations } from "@/app/lib/locale/i18n/getTranslations";
 
