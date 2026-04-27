@@ -1,4 +1,3 @@
-
 import cloudinaryLoader from "@/app/lib/cloudinary";
 import Image from "next/image";
 import React from "react";
@@ -6,6 +5,7 @@ import CategoryTime from "../utilities/category&time";
 import Link from "next/link";
 import { getTopLevelCategory } from "@/app/lib/categoriesMap";
 import { Post } from "@/app/types/apiResponse";
+import SaveArticleButton from "../utilities/saveArticleButton"; // <-- Import added
 
 export const getTitleValue = (data: Post[] | undefined, key: number) => {
   const item = data?.[key];
@@ -20,36 +20,23 @@ export const getTitleValue = (data: Post[] | undefined, key: number) => {
     .replace(/&#8211;/g, "–") // En dash
     .replace(/&amp;/g, "&");
 };
-const Hero = ({ site, posts }: { site: string, posts: Post[] }) => {
-const data = posts;
 
-  // console.log("Posts for site:", site, data);
+const Hero = ({ site, posts }: { site: string, posts: Post[] }) => {
+  const data = posts;
 
   const taxonomy = site === "extraction" ? "extraction-category" : `${site}-categories`;
-
 
   const title1 = getTitleValue(data, 0);
   const title2 = getTitleValue(data, 1);
   const title3 = getTitleValue(data, 2);
 
-
-
-  const demoTitle1 = data?.[0]?.title?.rendered;
-
-
   const post1 = data?.[0];
   const post2 = data?.[1];
   const post3 = data?.[2];
 
-
   const topCategory1 = post1 ? getTopLevelCategory(post1) : ({} as any);
   const topCategory2 = post2 ? getTopLevelCategory(post2) : ({} as any);
   const topCategory3 = post3 ? getTopLevelCategory(post3) : ({} as any);
-
-  console.log(topCategory1)
-
-
-  // console.log("Post 1:", post1);
 
   return (
     <section className="relative" id="hero">
@@ -60,6 +47,13 @@ const data = posts;
         {post1 && (
         <div className="lg:w-[70%] rounded-2xl relative overflow-hidden h-[70vh] lg:h-full">
           <Link href={`/journal/${data?.[0]?.slug || ""}?id=${data?.[0]?.id || ""}&type=${site}`}>
+            {/* --- SAVE BUTTON ADDED HERE --- */}
+            <SaveArticleButton 
+              url={`/journal/${data?.[0]?.slug || ""}?id=${data?.[0]?.id || ""}&type=${site}`}
+              title={title1}
+              excerpt={post1.excerpt?.rendered?.replace(/(<([^>]+)>)/gi, "")} // Stripping HTML tags for clean save
+            />
+            
             <Image
               loader={cloudinaryLoader}
               src={"/images/homepage/home4.png"}
@@ -88,7 +82,14 @@ const data = posts;
         <div className="lg:w-[30%] w-full h-full flex flex-col gap-5">
           {/* Top Right Post - Post [2] */}
           {post2 && (
-          <Link href={`/journal/${data?.[1]?.slug || ""}?type=${site}`} className="lg:h-[70%] h-[60vh] flex flex-col gap-5 mb-5 lg:mb-0">
+          <Link href={`/journal/${data?.[1]?.slug || ""}?type=${site}`} className="lg:h-[70%] h-[60vh] flex flex-col gap-5 mb-5 lg:mb-0 relative group">
+            {/* --- SAVE BUTTON ADDED HERE --- */}
+            <SaveArticleButton 
+              url={`/journal/${data?.[1]?.slug || ""}?type=${site}`}
+              title={title2}
+              excerpt={post2.excerpt?.rendered?.replace(/(<([^>]+)>)/gi, "")}
+            />
+
             <div className="rounded-2xl h-[75%] border-sub overflow-hidden bg-foreground/10 relative">
               <Image
                 loader={cloudinaryLoader}
@@ -114,7 +115,14 @@ const data = posts;
 
           {/* Bottom Right Post - Post [3] */}
           {post3 && (
-          <Link href={`/journal/${data?.[2]?.slug || ""}?type=${site}`} className="lg:h-[30%] border-sub-top flex items-center gap-4 pt-6">
+          <Link href={`/journal/${data?.[2]?.slug || ""}?type=${site}`} className="lg:h-[30%] border-sub-top flex items-center gap-4 pt-6 relative group">
+            {/* --- SAVE BUTTON ADDED HERE --- */}
+            <SaveArticleButton 
+              url={`/journal/${data?.[2]?.slug || ""}?type=${site}`}
+              title={title3}
+              excerpt={post3.excerpt?.rendered?.replace(/(<([^>]+)>)/gi, "")}
+            />
+
             <div className="w-[40%] aspect-square lg:h-full rounded-2xl overflow-hidden bg-foreground/10 relative">
               <Image
                 loader={cloudinaryLoader}
@@ -139,7 +147,6 @@ const data = posts;
             </div>
           </Link>
           )}
-
         </div>
       </div>
     </section>

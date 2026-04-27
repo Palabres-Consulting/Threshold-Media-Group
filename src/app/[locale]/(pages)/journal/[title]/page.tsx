@@ -11,8 +11,9 @@ import cloudinaryLoader from "@/app/lib/cloudinary";
 import { useLocale } from "@/app/lib/locale/context/translationContext";
 import Image from "next/image";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
-import React, { useEffect,  useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useArticleSave } from "@/app/[locale]/hook/useArticles"; // <-- Import added
 
 const UniquePost = () => {
   const params = useParams();
@@ -28,7 +29,6 @@ const UniquePost = () => {
   
   const site = useClientSite();
 
-  // Map "main" from your Hero site prop back to "posts" for the API
   const postTypeMap: Record<string, "posts" | "extraction" | "asint"> = {
     main: "posts",
     extraction: "extraction",
@@ -37,13 +37,6 @@ const UniquePost = () => {
 
   const storageKey = `post-id-${site}-${slug}`;
   
-  
-  // console.log("Storage Key:", storageKey)
-  // console.log("ID from URL:", idFromUrl);
-  // console.log("Stored ID from localStorage:", storedId);
-
-
-
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (idFromUrl) return;
@@ -57,12 +50,9 @@ const UniquePost = () => {
   const identifier = idFromUrl || storedId || slug;
   const { data: post, isLoading, isError } = useSinglePost(identifier, site);
 
-  console.log(post);
-
   useEffect(() => {
     if (!post) return;
 
-    // Set the query data for the ID key to prevent refetch when identifier changes
     const validPostType = postTypeMap[site] || "posts";
     queryClient.setQueryData(["single-post", validPostType, post.id, locale], post);
 
@@ -83,6 +73,14 @@ const UniquePost = () => {
   }, [post, locale, postType, router, searchParams, storageKey, queryClient, site]);
 
   const formattedTitle = getTitleValue(post ? [post] : undefined, 0);
+
+  // --- SAVE HOOK INTEGRATION ---
+  const postUrl = `/${locale}/journal/${post?.slug}?type=${site}&id=${post?.id}`;
+  const { isSaved, isLoading: isSaving, message, toggleSave } = useArticleSave({
+    url: postUrl,
+    title: formattedTitle || "",
+    excerpt: post?.excerpt?.rendered?.replace(/(<([^>]+)>)/gi, "") || "",
+  });
 
   if (isLoading) {
     return (
@@ -111,12 +109,30 @@ const UniquePost = () => {
       <div className="w-full flex">
         <div className="lg:w-[70%] ">
           <div className="border-sub p-6">
-            <div className="flex gap-6 py-2 text-foreground/50 items-center">
-              <p className="text-sm">Product</p>
-              <div className="h-[5px] w-[5px] bg-foreground/50 rounded-full"></div>
+            <div className="flex justify-between items-center py-2">
+              <div className="flex gap-6 text-foreground/50 items-center">
+                <p className="text-sm">Product</p>
+                <div className="h-[5px] w-[5px] bg-foreground/50 rounded-full"></div>
+              </div>
+
+              {/* --- SAVE BUTTON ADDED HERE --- */}
+              <div className="flex items-center gap-2">
+                {message && <span className="text-xs text-foreground/60">{message}</span>}
+                <button
+                  onClick={toggleSave}
+                  disabled={isSaving}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm transition-colors ${
+                    isSaved 
+                      ? "bg-foreground text-background border-foreground" 
+                      : "bg-transparent text-foreground border-foreground/30 hover:border-foreground"
+                  }`}
+                >
+                  {isSaving ? "Saving..." : isSaved ? "★ Saved" : "☆ Save Article"}
+                </button>
+              </div>
             </div>
 
-            <div className="flex flex-col gap-10 mb-20">
+            <div className="flex flex-col gap-10 mb-20 mt-4">
               <h1 className="lg:text-[3.5rem] text-[2rem] font-bold ">
                 {formattedTitle || "Post Title"}
               </h1>
@@ -146,7 +162,6 @@ const UniquePost = () => {
               />
             </div>
           </div>
-
           <div className="">{/* <ThresholdOpinions /> */}</div>
         </div>
         <div className="lg:w-[30%] hidden lg:block relative overflow-hidden">
