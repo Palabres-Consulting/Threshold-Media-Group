@@ -6,18 +6,25 @@ import { formatAuthorDate } from "@/app/lib/textHelpers";
 import { Post } from "@/app/types/apiResponse";
 import SaveArticleButton from "../utilities/saveArticleButton"; // <-- Import added
 
-const CyberSecurityPosts = ({ posts, site }: { posts: Post[], site: string }) => {
+const CyberSecurityPosts = ({
+  posts,
+  site,
+}: {
+  posts: Post[];
+  site: string;
+}) => {
   return (
     <section className="bg-accent-main/5 flex flex-col lg:flex-row gap-8 w-full items-center lg:p-5 lg:my-0 my-14">
       {posts.map((post, index) => {
         const titleValue = getTitleValue(posts, index);
         const { id, slug, _embedded } = post;
         const postUrl = `/journal/${slug || ""}?type=${site}`;
-        
+
         return (
           <Link key={id} href={postUrl} className="w-full relative group">
             {/* --- SAVE BUTTON ADDED HERE --- */}
-            <SaveArticleButton 
+            <SaveArticleButton
+              postId={post.id}
               url={postUrl}
               title={titleValue}
               excerpt={post.excerpt?.rendered?.replace(/(<([^>]+)>)/gi, "")}

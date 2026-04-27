@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
   try {
     // 2. Extract article details from the request body
-    const { wp_url, title, excerpt } = await req.json();
+    const { wp_url, title, excerpt, post_id } = await req.json();
 
     // Basic validation to ensure required fields are present
     if (!wp_url || !title) {
@@ -29,15 +29,7 @@ export async function POST(req: Request) {
     // 3. Insert into the saved_articles table
     const { data, error: insertError } = await supabase
       .from("saved_articles")
-      .insert([
-        {
-          user_id: user.id, // Securely grabbed from the authenticated session
-          wp_url,
-          title,
-          excerpt,
-          // saved_at and created_at should default to now() in Supabase
-        },
-      ])
+      .insert([{ user_id: user.id, wp_url, title, excerpt, post_id }])
       .select()
       .single();
 

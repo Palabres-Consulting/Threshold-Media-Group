@@ -5,6 +5,8 @@ import PageContainer from "../../_components/PostDisplaySections/pageContainer";
 import CategoryTime from "../../_components/utilities/category&time";
 import { usePostsByDomain } from "../../hook/usePosts";
 import { useClientSite } from "../../hook/useSite";
+import SaveArticleButton from "../../_components/utilities/saveArticleButton";
+import { getTitleValue } from "../../_components/PostDisplaySections/hero";
 
 const JournalPage = () => {
   const categories = [
@@ -36,13 +38,12 @@ const JournalPage = () => {
     },
   ];
 
-
   const site = useClientSite();
   console.log("Current Site:", site);
 
-  const { data, } = usePostsByDomain(site);
+  const { data } = usePostsByDomain("extraction");
 
-  console.log("Posts Data:", data); 
+  console.log("Posts Data:", data);
 
   return (
     <PageContainer id="journalsPage" path="" title="All Journals">
@@ -68,9 +69,17 @@ const JournalPage = () => {
       </div>
 
       <div className="grid lg:grid-cols-4 gap-x-5 lg:gap-y-10 gap-y-5 mb-5 md:grid-cols-2 grid-cols-1 lg:py-20 py-10 px-8">
-        {data?.map(({id,  excerpt, }) => {
+        {data?.map(({ id, excerpt, title, _embedded, slug }, index) => {
+          const titleValue = getTitleValue(data, index);
+          const postUrl = `/journal/${slug || ""}?type=${site}`;
           return (
-            <div key={id} className="flex flex-col gap-2 w-full">
+            <div key={id} className="flex flex-col gap-2 w-full relative">
+              <SaveArticleButton
+                postId={id}
+                url={postUrl}
+                title={titleValue}
+                excerpt={excerpt?.rendered?.replace(/(<([^>]+)>)/gi, "")}
+              />
               <div className="rounded-lg bg-foreground/10 h-[20em]"></div>
               <div className="">
                 <CategoryTime
@@ -81,9 +90,7 @@ const JournalPage = () => {
                 />
               </div>
               <div className="">
-                <h5 className="   ">
-                  {excerpt.rendered.replace(/<[^>]+>/g, "").slice(0, 27)}...
-                </h5>
+                <h5 className="   ">{title.rendered}</h5>
               </div>
             </div>
           );

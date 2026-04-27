@@ -1,82 +1,107 @@
+// app/[locale]/hook/useArticles.ts
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { removeArticleFromDb, saveArticleToDb } from "@/lib/actions/articles";
 
+export const useSavedArticleIds = () => {
+  return useQuery({
+    queryKey: ["saved-article-ids"], // Changed key name
+    queryFn: async () => {
+      const res = await fetch("/api/articles/saved_urls"); // Or rename endpoint if you want
+      if (!res.ok) throw new Error("Failed to fetch saved articles");
+      const data = await res.json();
+      
+      return data.savedIds as number[]; // Now returning numbers!
+    },
+    staleTime: 1000 * 60 * 5, 
+  });
+};
+
 interface UseArticleSaveProps {
+  postId: number; // ADDED THIS
   url: string;
   title: string;
   excerpt?: string;
 }
 
-export function useArticleSave({ url, title, excerpt = "" }: UseArticleSaveProps) {
+export function useArticleSave({ postId, url, title, excerpt = "" }: UseArticleSaveProps) {
   const queryClient = useQueryClient();
   
-  // 1. Fetch the global list of saved URLs
-  const { data: savedUrls = [], isLoading: isFetchingStatus } = useSavedArticleUrls();
+  const { data: savedIds = [], isLoading: isInitializing } = useSavedArticleIds();
 
-  // 2. Derive the saved status dynamically (No useState needed for isSaved!)
-  const isSaved = savedUrls.includes(url);
+
+  console.log(savedIds);
+  // Match strictly by ID now, completely immune to URL variations!
+  const isSaved = savedIds.includes(postId); 
   
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState("");
 
   const toggleSave = async () => {
-    setIsProcessing(true);
+    setIsSaving(true);
     setMessage("");
 
-    // OPTIMISTIC UI UPDATE: Instantly change the cache before the DB finishes
-    const previousUrls = queryClient.getQueryData<string[]>(["saved-article-urls"]) || [];
+    const previousIds = queryClient.getQueryData<number[]>(["saved-article-ids"]) || [];
 
     if (isSaved) {
-      // Optimistically remove from UI
-      queryClient.setQueryData(["saved-article-urls"], previousUrls.filter((u) => u !== url));
-      
-      const result = await removeArticleFromDb(url);
+      queryClient.setQueryData(["saved-article-ids"], previousIds.filter((id) => id !== postId));
+      const result = await removeArticleFromDb(postId); // Ensure remove function takes postId now
       if (!result.success) {
-        // Rollback if DB fails
-        queryClient.setQueryData(["saved-article-urls"], previousUrls);
+        queryClient.setQueryData(["saved-article-ids"], previousIds);
         setMessage(result.error || "Failed to remove");
       }
     } else {
-      // Optimistically add to UI
-      queryClient.setQueryData(["saved-article-urls"], [...previousUrls, url]);
-      
-      const result = await saveArticleToDb({ wp_url: url, title, excerpt });
+      queryClient.setQueryData(["saved-article-ids"], [...previousIds, postId]);
+      const result = await saveArticleToDb({ post_id: postId, wp_url: url, title, excerpt });
       if (!result.success) {
-         // Rollback if DB fails
-        queryClient.setQueryData(["saved-article-urls"], previousUrls);
+        queryClient.setQueryData(["saved-article-ids"], previousIds);
         setMessage(result.error || "Failed to save");
       }
     }
 
-    setIsProcessing(false);
+    setIsSaving(false);
     setTimeout(() => setMessage(""), 3000);
   };
 
   return {
     isSaved,
-    // It's "loading" if the button is clicked OR if the initial fetch is still happening
-    isLoading: isProcessing || isFetchingStatus, 
+    isInitializing, // True when page first loads
+    isSaving,       // True ONLY when button is clicked
     message,
     toggleSave,
   };
+  
 }
 
 
 
 
 
-export const useSavedArticleUrls = () => {
+
+
+
+
+
+export type SavedArticle = {
+  id: string; 
+  post_id: number;
+  wp_url: string;
+  title: string;
+  excerpt: string | null;
+  saved_at: string;
+};
+
+export const useSavedArticles = () => {
   return useQuery({
-    queryKey: ["saved-article-urls"],
+    queryKey: ["saved-articles-full"],
     queryFn: async () => {
-      const res = await fetch("/api/articles/saved-urls");
+      const res = await fetch("/api/articles/saved_articles");
       if (!res.ok) throw new Error("Failed to fetch saved articles");
+      
       const data = await res.json();
-      return data.savedUrls as string[]; 
+      return data.articles as SavedArticle[];
     },
-    // Cache the list for 5 minutes. If a user opens 10 articles, 
-    // it still only makes 1 API call!
-    staleTime: 1000 * 60 * 5, 
+    // Cache the list for a little bit to avoid spamming the DB
+    staleTime: 1000 * 60 * 2, 
   });
 };

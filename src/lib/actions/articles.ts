@@ -1,8 +1,9 @@
 
 export interface SaveArticlePayload {
-  wp_url: string;
+  wp_url?: string;
   title: string;
   excerpt?: string | null;
+  post_id: number;
 }
 
 export const saveArticleToDb = async (article: SaveArticlePayload) => {
@@ -29,18 +30,28 @@ export const saveArticleToDb = async (article: SaveArticlePayload) => {
 };
 
 
-export const removeArticleFromDb = async (wp_url: string) => {
+
+export const removeArticleFromDb = async (postId: number) => {
   try {
-    const response = await fetch("/api/articles/unsave", {
-      method: "DELETE", // Note the DELETE method
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ wp_url }),
+    // PASS ID IN THE URL DIRECTLY
+    const response = await fetch(`/api/articles/remove?post_id=${postId}`, {
+      method: "DELETE",
     });
 
-    const data = await response.json();
+    // 1. Grab the raw response text NO MATTER WHAT
+    const textResponse = await response.text();
 
+    // 2. Try to parse it as JSON
+    let data;
+    try {
+      data = JSON.parse(textResponse);
+    } catch (parseError) {
+      // IF IT FAILS TO PARSE, PRINT THE HTML TO THE CONSOLE!
+      console.error("🚨 SERVER CRASHED WITH HTML:", textResponse);
+      throw new Error(`Server returned HTML instead of JSON (Status: ${response.status})`);
+    }
+
+    // 3. Normal error handling
     if (!response.ok) {
       throw new Error(data.error || "Something went wrong removing the article");
     }

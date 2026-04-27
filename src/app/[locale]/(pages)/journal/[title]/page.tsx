@@ -24,9 +24,10 @@ const UniquePost = () => {
   const slug = params.title as string;
   const postType = searchParams.get("type") || "main";
   const idParam = searchParams.get("id");
-  const idFromUrl = idParam && /^\d+$/.test(idParam) ? parseInt(idParam, 10) : null;
+  const idFromUrl =
+    idParam && /^\d+$/.test(idParam) ? parseInt(idParam, 10) : null;
   const [storedId, setStoredId] = useState<number | null>(null);
-  
+
   const site = useClientSite();
 
   const postTypeMap: Record<string, "posts" | "extraction" | "asint"> = {
@@ -36,7 +37,7 @@ const UniquePost = () => {
   };
 
   const storageKey = `post-id-${site}-${slug}`;
-  
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (idFromUrl) return;
@@ -54,7 +55,10 @@ const UniquePost = () => {
     if (!post) return;
 
     const validPostType = postTypeMap[site] || "posts";
-    queryClient.setQueryData(["single-post", validPostType, post.id, locale], post);
+    queryClient.setQueryData(
+      ["single-post", validPostType, post.id, locale],
+      post,
+    );
 
     const currentSearch = new URLSearchParams(searchParams.toString());
     currentSearch.set("type", site);
@@ -70,17 +74,28 @@ const UniquePost = () => {
     if (currentPath !== newPath) {
       router.replace(newPath);
     }
-  }, [post, locale, postType, router, searchParams, storageKey, queryClient, site]);
+  }, [
+    post,
+    locale,
+    postType,
+    router,
+    searchParams,
+    storageKey,
+    queryClient,
+    site,
+  ]);
 
   const formattedTitle = getTitleValue(post ? [post] : undefined, 0);
 
   // --- SAVE HOOK INTEGRATION ---
   const postUrl = `/${locale}/journal/${post?.slug}?type=${site}&id=${post?.id}`;
-  const { isSaved, isLoading: isSaving, message, toggleSave } = useArticleSave({
-    url: postUrl,
-    title: formattedTitle || "",
-    excerpt: post?.excerpt?.rendered?.replace(/(<([^>]+)>)/gi, "") || "",
-  });
+  const { isSaved, isInitializing, isSaving, message, toggleSave } =
+    useArticleSave({
+      postId: post?.id as number,
+      url: postUrl,
+      title: formattedTitle || "",
+      excerpt: post?.excerpt?.rendered?.replace(/(<([^>]+)>)/gi, "") || "",
+    });
 
   if (isLoading) {
     return (
@@ -117,17 +132,25 @@ const UniquePost = () => {
 
               {/* --- SAVE BUTTON ADDED HERE --- */}
               <div className="flex items-center gap-2">
-                {message && <span className="text-xs text-foreground/60">{message}</span>}
+                {message && (
+                  <span className="text-xs text-foreground/60">{message}</span>
+                )}
                 <button
                   onClick={toggleSave}
-                  disabled={isSaving}
+                  disabled={isSaving || isInitializing}
                   className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm transition-colors ${
-                    isSaved 
-                      ? "bg-foreground text-background border-foreground" 
+                    isSaved
+                      ? "bg-foreground text-background border-foreground"
                       : "bg-transparent text-foreground border-foreground/30 hover:border-foreground"
                   }`}
                 >
-                  {isSaving ? "Saving..." : isSaved ? "★ Saved" : "☆ Save Article"}
+                  {isInitializing
+                    ? "Checking..." // Or an empty state, or a spinner
+                    : isSaving
+                      ? "Saving..."
+                      : isSaved
+                        ? "★ Saved"
+                        : "☆ Save Article"}
                 </button>
               </div>
             </div>

@@ -1,38 +1,37 @@
-import { NextResponse } from "next/server";
-import { createSupabaseServerClient } from "../../_lib/supabaseClient"; // Adjust path as needed
+// 1. IMPORT NextRequest
+import { NextRequest, NextResponse } from "next/server";
+import { createSupabaseServerClient } from "../../_lib/supabaseClient";
 
-export async function DELETE(req: Request) {
-  const supabase = await createSupabaseServerClient();
-
-  // 1. Authenticate the user
-  const {
-    data: { user },
-    error: authError,
-  } = await supabase.auth.getUser();
-
-  if (authError || !user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
+// 2. USE NextRequest here
+export async function DELETE(req: NextRequest) {
   try {
-    // 2. Extract the identifier (wp_url) from the request
-    const { wp_url } = await req.json();
+    const supabase = await createSupabaseServerClient();
 
-    if (!wp_url) {
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // 3. SAFELY GET PARAMS USING nextUrl (No new URL() needed)
+    const post_id = req.nextUrl.searchParams.get("post_id");
+
+    console.log("POST ID:", post_id)
+
+
+    if (!post_id || post_id === "undefined") {
       return NextResponse.json(
-        { error: "Article URL is required to unsave" },
+        { error: "Valid Post ID is required to unsave" },
         { status: 400 }
       );
     }
 
-    // 3. Delete from the saved_articles table
-    // Using .match() ensures we only delete the row if BOTH the user_id and wp_url match
     const { error: deleteError } = await supabase
       .from("saved_articles")
       .delete()
       .match({ 
         user_id: user.id, 
-        wp_url: wp_url 
+        post_id: Number(post_id) 
       });
 
     if (deleteError) {
@@ -44,10 +43,12 @@ export async function DELETE(req: Request) {
     }
 
     return NextResponse.json({ message: "Article removed successfully" });
+    
   } catch (err) {
+    console.error("FATAL UNSAVE ERROR:", err); 
     return NextResponse.json(
-      { error: "Invalid request payload" },
-      { status: 400 }
+      { error: "Internal Server Error" },
+      { status: 500 }
     );
   }
 }
