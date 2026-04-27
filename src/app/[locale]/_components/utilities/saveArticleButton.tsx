@@ -20,7 +20,6 @@ export default function SaveArticleButton({
     url,
     title,
     excerpt,
-    isSavedInitially,
   });
 
   const handleClick = (e: React.MouseEvent) => {
