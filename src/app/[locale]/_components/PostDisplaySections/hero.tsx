@@ -92,7 +92,7 @@ const Hero = ({ site, posts }: { site: string; posts: Post[] }) => {
             >
               {/* --- SAVE BUTTON ADDED HERE --- */}
               <SaveArticleButton
-                postId={post1.id}
+                postId={post2.id}
                 url={`/journal/${data?.[1]?.slug || ""}?type=${site}`}
                 title={title2}
                 excerpt={post2.excerpt?.rendered?.replace(/(<([^>]+)>)/gi, "")}
@@ -129,7 +129,7 @@ const Hero = ({ site, posts }: { site: string; posts: Post[] }) => {
             >
               {/* --- SAVE BUTTON ADDED HERE --- */}
               <SaveArticleButton
-                postId={post1.id}
+                postId={post3.id}
                 url={`/journal/${data?.[2]?.slug || ""}?type=${site}`}
                 title={title3}
                 excerpt={post3.excerpt?.rendered?.replace(/(<([^>]+)>)/gi, "")}
