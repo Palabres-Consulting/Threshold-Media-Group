@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     if (!wp_url || !title) {
       return NextResponse.json(
         { error: "URL and Title are required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -44,8 +44,13 @@ export async function POST(req: Request) {
     if (insertError) {
       console.error("Supabase insert error:", insertError);
       return NextResponse.json(
-        { error: "Failed to save the article" },
-        { status: 500 }
+        {
+          error: "Failed to save the article",
+          details: insertError.message,
+          hint: insertError.hint,
+          code: insertError.code,
+        },
+        { status: 500 },
       );
     }
 
@@ -53,7 +58,7 @@ export async function POST(req: Request) {
   } catch (err) {
     return NextResponse.json(
       { error: "Invalid request payload" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }
