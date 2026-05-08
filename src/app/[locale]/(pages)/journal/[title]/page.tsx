@@ -1,14 +1,14 @@
 "use client";
 
-import { getTitleValue } from "@/app/[locale]/_components/PostDisplaySections/hero";
-import PageContainer from "@/app/[locale]/_components/PostDisplaySections/pageContainer";
-import Sidebar from "@/app/[locale]/_components/PostDisplaySections/sidebar";
-import EmptyState from "@/app/[locale]/_components/ui/empty";
-import EmptyFull from "@/app/[locale]/_components/ui/emptyFull";
+import { getTitleValue } from "@/components/PostDisplaySections/hero";
+import PageContainer from "@/components/PostDisplaySections/pageContainer";
+import Sidebar from "@/components/PostDisplaySections/sidebar";
+import EmptyState from "@/components/ui/empty";
+import EmptyFull from "@/components/ui/emptyFull";
 import useSinglePost from "@/app/[locale]/hook/useSinglePost";
 import { useClientSite } from "@/app/[locale]/hook/useSite";
-import cloudinaryLoader from "@/app/lib/cloudinary";
-import { useLocale } from "@/app/lib/locale/context/translationContext";
+import cloudinaryLoader from "@/app/helpers/cloudinary";
+import { useLocale } from "@/lib/locale/context/translationContext";
 import Image from "next/image";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -50,6 +50,18 @@ const UniquePost = () => {
 
   const identifier = idFromUrl || storedId || slug;
   const { data: post, isLoading, isError } = useSinglePost(identifier, site);
+
+  // console.log("Fetched post:", post);
+
+  // Option A: Get the original, uncompressed full-size image (Best for large hero sections)
+  const imageUrl = post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+
+  // Option B: Get the 'large' optimized size (Typically capped at 1024px wide, good balance of quality and speed)
+  // const imageUrl = post?._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes?.large?.source_url;
+
+  // Fallback in case 'large' doesn't exist on older images
+  const finalImageUrl =
+    imageUrl || post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
 
   useEffect(() => {
     if (!post) return;
@@ -164,11 +176,12 @@ const UniquePost = () => {
               <div className="rounded-2xl h-[60vh] w-full border-sub bg-foreground/5 relative overflow-hidden">
                 <Image
                   loader={cloudinaryLoader}
-                  src={"/images/homepage/home4.png"}
+                  src={finalImageUrl || "/images/homepage/home4.png"}
                   alt={post?.title?.rendered || "Post Image"}
-                  fill
                   className="object-cover transition-transform duration-500 hover:scale-105"
                   priority
+                  width={1000}
+                  height={1000}
                 />
               </div>
 

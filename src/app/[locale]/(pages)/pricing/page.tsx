@@ -1,7 +1,7 @@
-import PageContainer from "@/app/[locale]/_components/PostDisplaySections/pageContainer";
+import PageContainer from "@/components/PostDisplaySections/pageContainer";
 import React from "react";
 import Plans from "./plans";
-import { getTranslations } from "@/app/lib/locale/i18n/getTranslations";
+import { getTranslations } from "@/lib/locale/i18n/getTranslations";
 
 const PricingPage = async ({
   params,

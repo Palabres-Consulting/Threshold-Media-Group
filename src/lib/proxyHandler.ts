@@ -1,4 +1,4 @@
-// middleware.ts (top)
+
 import { NextResponse, type NextRequest } from "next/server";
 
 const ROOT_API_ORIGIN = process.env.ROOT_API_ORIGIN || "http://localhost:3000";

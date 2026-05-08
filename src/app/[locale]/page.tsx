@@ -1,17 +1,18 @@
-import { fetchPostsByType } from "../lib/fetchLib";
-import { getTranslations } from "../lib/locale/i18n/getTranslations";
-import CyberSecurityPosts from "./_components/PostDisplaySections/cyberSecurityPosts";
-import GreatReads from "./_components/PostDisplaySections/greatReads";
-import Hero from "./_components/PostDisplaySections/hero";
-import MorePosts from "./_components/PostDisplaySections/morePosts";
-import Sidebar from "./_components/PostDisplaySections/sidebar";
-import ThresholdHompage from "./_components/thresholdHome/ThresholdHompage";
-import ThresholdOpinions from "./_components/PostDisplaySections/thresholdOpinions";
-import EmptyState from "./_components/ui/empty";
-import EmptyFull from "./_components/ui/emptyFull";
+import { fetchPostsByType } from "../helpers/fetchLib";
+import { getTranslations } from "../../lib/locale/i18n/getTranslations";
+import CyberSecurityPosts from "../../components/PostDisplaySections/cyberSecurityPosts";
+import GreatReads from "../../components/PostDisplaySections/greatReads";
+import Hero from "../../components/PostDisplaySections/hero";
+import MorePosts from "../../components/PostDisplaySections/morePosts";
+import Sidebar from "../../components/PostDisplaySections/sidebar";
+import ThresholdHompage from "../../components/thresholdHome/ThresholdHompage";
+import ThresholdOpinions from "../../components/PostDisplaySections/thresholdOpinions";
+import EmptyState from "../../components/ui/empty";
+import EmptyFull from "../../components/ui/emptyFull";
 import { useServerSite } from "./hook/useServerSite";
-import { CategoriesMap, getCategoryContext } from "../lib/categoriesMap";
-import SharedHeader from "./_components/categories/sharedHeader";
+import { CategoriesMap, getCategoryContext } from "../helpers/categoriesMap";
+import SharedHeader from "../../components/categories/sharedHeader";
+import { normalizePosts } from "../helpers/normalizeData";
 
 const Home = async (props: {
   params: Promise<{ locale: "en" | "fr" }>;
@@ -23,7 +24,10 @@ const Home = async (props: {
   const site = await useServerSite();
 
   // Extract the active category from the URL search parameters
-  const activeCategory = typeof searchParams.category === "string" ? searchParams.category : undefined;
+  const activeCategory =
+    typeof searchParams.category === "string"
+      ? searchParams.category
+      : undefined;
 
   const wpPostType = (site === "main" ? "posts" : site) as
     | "posts"
@@ -47,7 +51,9 @@ const Home = async (props: {
     transverse: 4,
   };
 
-  let topLevelCategory = slugifiedNav.find((cat) => cat.slug === siteSlug || cat.slug === site);
+  let topLevelCategory = slugifiedNav.find(
+    (cat) => cat.slug === siteSlug || cat.slug === site,
+  );
   if (!topLevelCategory && siteIndexMap[site] !== undefined) {
     topLevelCategory = slugifiedNav[siteIndexMap[site]];
   }
@@ -64,13 +70,21 @@ const Home = async (props: {
 
   // 3. Fetch Logic
   if (activeCategory) {
-    categoryContext = getCategoryContext(activeCategory, navTranslations, locale);
-    
+    categoryContext = getCategoryContext(
+      activeCategory,
+      navTranslations,
+      locale,
+    );
+
     // Only fetch if this category has a valid mapped WordPress ID
-    if (categoryContext && categoryContext.categoryId && categoryContext.taxonomy) {
+    if (
+      categoryContext &&
+      categoryContext.categoryId &&
+      categoryContext.taxonomy
+    ) {
       queryParams[categoryContext.taxonomy] = categoryContext.categoryId;
       allArticles = await fetchPostsByType(wpPostType, queryParams);
-    } 
+    }
   } else {
     // If no category is selected, fetch all posts for the subdomain
     allArticles = await fetchPostsByType(wpPostType, queryParams);
@@ -78,11 +92,12 @@ const Home = async (props: {
 
   hasArticles = allArticles && allArticles.length > 0;
 
+  // Normalize all articles immediately after fetching
+  const cleanArticles = normalizePosts(allArticles, site);
   // 4. Slice data safely
-  const heroPosts = hasArticles ? allArticles.slice(0, 3) : [];
-  const cyberPosts = hasArticles ? allArticles.slice(3, 6) : [];
-  const morePosts = hasArticles ? allArticles.slice(6, 11) : [];
-
+  const heroPosts = hasArticles ? cleanArticles.slice(0, 3) : [];
+  const cyberPosts = hasArticles ? cleanArticles.slice(3, 6) : [];
+  const morePosts = hasArticles ? cleanArticles.slice(6, 11) : [];
   // Main Homepage Return
   if (site === "main") {
     return (
@@ -99,10 +114,13 @@ const Home = async (props: {
 
   return (
     <main className="lg:mx-10 mx-2 border-sub-side relative ">
-      
       {/* 1. Universal Header (Always renders) */}
-      <SharedHeader 
-        title={activeCategory && categoryContext ? categoryContext.title : topLevelCategory?.title}
+      <SharedHeader
+        title={
+          activeCategory && categoryContext
+            ? categoryContext.title
+            : topLevelCategory?.title
+        }
         locale={locale}
         activeCategory={activeCategory}
         context={categoryContext}
@@ -113,14 +131,14 @@ const Home = async (props: {
       {/* 2. Content Render */}
       {activeCategory && !hasArticles ? (
         <div className="flex items-center justify-center min-h-[60vh] z-[999]">
-           <div className="container mx-auto px-4">
-             <EmptyState locale={locale} />
-           </div>
+          <div className="container mx-auto px-4">
+            <EmptyState locale={locale} />
+          </div>
         </div>
       ) : (
         <>
           <Hero site={site} posts={heroPosts} />
-          <CyberSecurityPosts site={site} posts={cyberPosts} />
+          <CyberSecurityPosts  posts={cyberPosts} />
 
           <div className="w-full flex">
             <div className="lg:w-[70%] w-full">

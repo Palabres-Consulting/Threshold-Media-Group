@@ -1,6 +1,6 @@
 /* hooks/useSinglePost.ts */
 import { useQuery } from "@tanstack/react-query";
-import { fetchPostById, fetchPostBySlug } from "../../lib/fetchLib";
+import { fetchPostById, fetchPostBySlug } from "../../helpers/fetchLib";
 import { useLocalization } from "../context/localizationContext";
 
 

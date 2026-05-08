@@ -164,7 +164,7 @@ body {
 }
 
 p {
-  @apply text-foreground/50;
+  @apply text-foreground/60;
 }
 
 .input {

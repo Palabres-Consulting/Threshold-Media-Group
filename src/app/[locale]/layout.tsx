@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "./_components/base/header";
-import Footer from "./_components/base/footer";
-import { ToastProvider } from "./_components/ui/toasters";
+import Header from "../../components/base/header";
+import Footer from "../../components/base/footer";
+import { ToastProvider } from "../../components/ui/toasters";
 import { SubdomainProvider } from "./context/subDomainContext";
 import { Suspense } from "react";
 import { cookies } from "next/headers";
-import { getDictionary } from "../lib/dict";
+import { getDictionary } from "../helpers/dict";
 import { LocalizationProvider } from "./context/localizationContext";
 import QueryProvider from "./context/queryProvider";
-import { TranslationProvider } from "../lib/locale/context/translationContext";
-import { getTranslations } from "../lib/locale/i18n/getTranslations";
+import { TranslationProvider } from "../../lib/locale/context/translationContext";
+import { getTranslations } from "../../lib/locale/i18n/getTranslations";
 import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({

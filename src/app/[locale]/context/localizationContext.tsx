@@ -44,7 +44,7 @@ export function LocalizationProvider({
   const setLocale = async (newLocale: Locale) => {
     if (newLocale === currentLocale) return;
     const newDict = await import(
-      `@/app/lib/locale/${site}/${newLocale}.json`
+      `@/lib/locale/${site}/${newLocale}.json`
     ).then((m) => m.default);
     setCurrentLocale(newLocale);
     setCurrentDict(newDict);

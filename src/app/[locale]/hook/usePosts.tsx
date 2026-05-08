@@ -11,7 +11,7 @@ import {
   fetchSubCategories,
   postKeys,
   getPosts,
-} from "../../lib/fetchLib";
+} from "../../helpers/fetchLib";
 
 // Threshold posts hook
 export const useThresholdPosts = (category?: string, limit: number = 10) => {

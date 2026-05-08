@@ -1,11 +1,11 @@
 
 import React from "react";
 import Link from "next/link";
-import PageContainer from "../../_components/PostDisplaySections/pageContainer";
-import SectionHeader from "../../_components/PostDisplaySections/sectionHeader";
-import { getTranslations } from "@/app/lib/locale/i18n/getTranslations";
+import PageContainer from "../../../../components/PostDisplaySections/pageContainer";
+import SectionHeader from "../../../../components/PostDisplaySections/sectionHeader";
+import { getTranslations } from "@/lib/locale/i18n/getTranslations";
 import Image from "next/image";
-import cloudinaryLoader from "@/app/lib/cloudinary";
+import cloudinaryLoader from "@/app/helpers/cloudinary";
 
 const TechnologyPage = async ({
   params,

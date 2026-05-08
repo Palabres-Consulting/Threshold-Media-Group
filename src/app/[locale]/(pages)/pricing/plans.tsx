@@ -1,6 +1,6 @@
 "use client";
 
-import { TranslationSchema } from "@/app/lib/locale";
+import { TranslationSchema } from "@/lib/locale";
 import { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 

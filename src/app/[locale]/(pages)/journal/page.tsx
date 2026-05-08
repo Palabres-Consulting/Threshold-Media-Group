@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import PageContainer from "../../_components/PostDisplaySections/pageContainer";
-import CategoryTime from "../../_components/utilities/category&time";
+import PageContainer from "../../../../components/PostDisplaySections/pageContainer";
+import CategoryTime from "../../../../components/utilities/category&time";
 import { usePostsByDomain } from "../../hook/usePosts";
 import { useClientSite } from "../../hook/useSite";
-import SaveArticleButton from "../../_components/utilities/saveArticleButton";
-import { getTitleValue } from "../../_components/PostDisplaySections/hero";
+import SaveArticleButton from "../../../../components/utilities/saveArticleButton";
+import { getTitleValue } from "../../../../components/PostDisplaySections/hero";
 
 const JournalPage = () => {
   const categories = [

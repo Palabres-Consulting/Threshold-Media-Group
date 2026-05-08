@@ -1,8 +1,8 @@
-import ContactForm from "@/app/[locale]/_components/forms/contactForm";
-import PageContainer from "@/app/[locale]/_components/PostDisplaySections/pageContainer";
+import ContactForm from "@/components/forms/contactForm";
+import PageContainer from "@/components/PostDisplaySections/pageContainer";
 import React from "react";
 import { Locale } from "../../context/types";
-import { getTranslations } from "@/app/lib/locale/i18n/getTranslations";
+import { getTranslations } from "@/lib/locale/i18n/getTranslations";
 import { Mapbox } from "./MapContainer";
 
 const ContactPage = async ({params}: {params: Promise<{ locale: Locale }>}) => {

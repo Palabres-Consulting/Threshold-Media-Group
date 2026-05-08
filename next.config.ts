@@ -9,9 +9,14 @@ const nextConfig: NextConfig = {
         hostname: "res.cloudinary.com",
         pathname: "/dv7vjs0s0/image/upload/**",
       },
+      {
+        protocol: "https",
+        hostname: "wp.tresholdmediagroup.com",
+        pathname: "/**", 
+      },
     ],
     loader: "custom",
-    loaderFile: "./src/app/lib/cloudinary.ts", // no `loader: "custom"`
+    loaderFile: "./src/app/helpers/cloudinary.ts", 
   },
 
   async rewrites() {

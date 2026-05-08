@@ -1,11 +1,11 @@
-import PageContainer from "@/app/[locale]/_components/PostDisplaySections/pageContainer";
+import PageContainer from "@/components/PostDisplaySections/pageContainer";
 import Link from "next/link";
 import React from "react";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
-import ThresholdAboutPage from "../../_components/thresholdHome/thresholdAboutPage";
+import ThresholdAboutPage from "../../../../components/thresholdHome/thresholdAboutPage";
 import { useServerSite } from "../../hook/useServerSite";
-import { getTranslations } from "@/app/lib/locale/i18n/getTranslations";
-import ProcessSection from "../../_components/PostDisplaySections/processSection";
+import { getTranslations } from "@/lib/locale/i18n/getTranslations";
+import ProcessSection from "../../../../components/PostDisplaySections/processSection";
 
 const Aboutpage = async ({
   params,

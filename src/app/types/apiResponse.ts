@@ -13,7 +13,7 @@ export interface Post {
   content: { rendered: string; protected: boolean };
   excerpt: { rendered: string; protected: boolean };
   author: string;
-  featured_media: number;
+  featured_media: number; 
   comment_status: "open" | "closed";
   ping_status: "open" | "closed";
   sticky: boolean;
@@ -42,4 +42,21 @@ export interface Post {
 export interface ApiResponse<T> {
   data: T;
   status: number;
+}
+
+
+
+
+export interface NormalizedPost {
+  id: number;
+  slug: string;
+  title: string;          // Cleaned of HTML entities
+  excerpt: string;        // Stripped of HTML tags
+  content: string;        // Raw HTML for detail pages
+  imageUrl: string;       // The extracted Cloudinary/WP URL or fallback
+  authorName: string;
+  date: string;           // ISO date string
+  readTimeLabel: string;  // e.g., "4 mins read"
+  topCategory: string;    // Extracted top-level category name
+  postUrl: string;        // Pre-computed internal Next.js routing link
 }

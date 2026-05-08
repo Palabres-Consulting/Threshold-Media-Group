@@ -1,4 +1,4 @@
-import SharedCategoryLayout from "@/app/[locale]/_components/categories/sharedCategoryLayout";
+import SharedCategoryLayout from "@/components/categories/sharedCategoryLayout";
 
 const CategoryPage = async ({
   params,

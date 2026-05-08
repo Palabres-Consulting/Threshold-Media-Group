@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getTranslatedSlug } from "../app/lib/translateSlug"; // Adjust the import path
+import { getTranslatedSlug } from "../app/helpers/translateSlug"; // Adjust the import path
 
 const locales = ["en", "fr"];
 const defaultLocale = "en";

@@ -1,10 +1,10 @@
-import AuthContainer from "@/app/[locale]/_components/forms/authForm";
+import AuthContainer from "@/components/forms/authForm";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import React from "react";
 import { Locale } from "../../context/types";
-import { getTranslations } from "@/app/lib/locale/i18n/getTranslations";
+import { getTranslations } from "@/lib/locale/i18n/getTranslations";
 
 function getIsSubdomain(hostname: string, primaryDomain: string) {
   const host = hostname.toLowerCase();
