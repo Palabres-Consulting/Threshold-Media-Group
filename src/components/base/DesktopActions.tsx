@@ -7,7 +7,7 @@ interface DesktopActionsProps {
 }
 
 export default function DesktopActions({ dict }: DesktopActionsProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_PROD_URL || "https://www.tresholdmediagroup.com";
+  const baseUrl = process.env.NEXT_PUBLIC_PROD_URL || "https://www.thresholdmedia.group";
   const localBase = process.env.NEXT_PUBLIC_LOCAL_BASE_URL || "http://localhost:3000";
 
   const authUrl = process.env.NODE_ENV === "production" ? `${baseUrl}/auth` : `${localBase}/auth`;

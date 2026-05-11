@@ -26,7 +26,7 @@ export function LocalizationProvider({
   children,
 }: {
   locale: Locale;
-  dict: Dict;
+  dict: Dict; 
   site: string;
   children: React.ReactNode;
 }) {

@@ -30,7 +30,8 @@ const UniquePost = () => {
 
   const site = useClientSite();
 
-  const postTypeMap: Record<string, "posts" | "extraction" | "asint"> = {
+  const postTypeMap: Record<string, "innovation" | "posts" | "extraction" | "asint"> = {
+    innovation: "innovation",
     main: "posts",
     extraction: "extraction",
     asint: "asint",
@@ -49,9 +50,12 @@ const UniquePost = () => {
   }, [idFromUrl, storageKey]);
 
   const identifier = idFromUrl || storedId || slug;
-  const { data: post, isLoading, isError } = useSinglePost(identifier, site);
+  console.log("Using identifier:", identifier, "for postType:", postType);
+  const { data: post, isLoading, isError } = useSinglePost(identifier, postType);
 
-  // console.log("Fetched post:", post);
+  
+
+  console.log("Fetched post:", post); 
 
   // Option A: Get the original, uncompressed full-size image (Best for large hero sections)
   const imageUrl = post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
@@ -73,7 +77,7 @@ const UniquePost = () => {
     );
 
     const currentSearch = new URLSearchParams(searchParams.toString());
-    currentSearch.set("type", site);
+    currentSearch.set("type", postType);
     currentSearch.set("id", post.id.toString());
 
     if (typeof window !== "undefined") {
@@ -100,7 +104,7 @@ const UniquePost = () => {
   const formattedTitle = getTitleValue(post ? [post] : undefined, 0);
 
   // --- SAVE HOOK INTEGRATION ---
-  const postUrl = `/${locale}/journal/${post?.slug}?type=${site}&id=${post?.id}`;
+  const postUrl = `/${locale}/journal/${post?.slug}?type=${postType}&id=${post?.id}`;
   const { isSaved, isInitializing, isSaving, message, toggleSave } =
     useArticleSave({
       postId: post?.id as number,
@@ -173,12 +177,12 @@ const UniquePost = () => {
               </h1>
 
               {/* Image Container */}
-              <div className="rounded-2xl h-[60vh] w-full border-sub bg-foreground/5 relative overflow-hidden">
+              <div className="rounded-2xl lg:h-[60vh] h-[40vh]  w-full border-sub bg-foreground/5 relative overflow-hidden">
                 <Image
                   loader={cloudinaryLoader}
                   src={finalImageUrl || "/images/homepage/home4.png"}
                   alt={post?.title?.rendered || "Post Image"}
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="object-cover h-full w-full transition-transform duration-500 hover:scale-105"
                   priority
                   width={1000}
                   height={1000}

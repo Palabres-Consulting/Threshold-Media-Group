@@ -33,7 +33,7 @@ const Header: React.FC<{ site: Site; t: TranslationSchema }> = ({ site, t }) => 
 
   const ourMediaLinks = {
     title: dict.nav.gi,
-    href: "/#",
+    href: "https://gsi-ten.vercel.app/",
     subMenu: null,
   };
 

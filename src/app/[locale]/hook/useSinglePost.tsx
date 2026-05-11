@@ -8,7 +8,8 @@ const useSinglePost = (identifier: string | number, type: string = "posts") => {
   const { locale } = useLocalization();
 
   // Map "main" from your Hero site prop back to "posts" for the API
-  const postTypeMap: Record<string, "posts" | "extraction" | "asint"> = {
+  const postTypeMap: Record<string, "innovation" | "posts" | "extraction" | "asint"> = {
+    innovation: "innovation",
     main: "posts",
     extraction: "extraction",
     asint: "asint",

@@ -14,6 +14,7 @@ import ThresholdOpinions from "../PostDisplaySections/thresholdOpinions";
 import GreatReads from "../PostDisplaySections/greatReads";
 import Sidebar from "../PostDisplaySections/sidebar";
 import { normalizePosts } from "@/app/helpers/normalizeData";
+import AdDisplay from "../PostDisplaySections/adDisplay";
 
 interface SharedCategoryLayoutProps {
   locale: "en" | "fr";
@@ -109,8 +110,10 @@ export default async function SharedCategoryLayout({ locale, slug }: SharedCateg
       <div className="w-full flex">
         <div className="lg:w-[70%] w-full">
           <MorePosts lang={locale} posts={morePosts} />
-          <ThresholdOpinions lang={locale} />
-          <GreatReads lang={locale} />
+          
+          {/* <ThresholdOpinions lang={locale} /> */}
+          <AdDisplay />
+          {/* <GreatReads lang={locale} /> */}
         </div>
         <div className="lg:w-[30%] hidden lg:flex">
           <Sidebar lang={locale} />

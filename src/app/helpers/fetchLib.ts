@@ -5,7 +5,7 @@ const API_BASE = "https://wp.tresholdmediagroup.com/wp-json/wp/v2";
 
 
 export const fetchPostById = async (
-  postType: "posts" | "extraction" | "asint",
+  postType: "innovation" | "posts" | "extraction" | "asint",
   id: number,
   lang: string = "en",
 ): Promise<Post | null> => {
@@ -13,9 +13,14 @@ export const fetchPostById = async (
     const { data } = await axios.get(`${API_BASE}/${postType}/${id}`, {
       params: { lang: lang, _embed: true },
     });
+
+    console.log(`Fetched post by ID ${id} with lang ${lang}:`, data);
     if (data && data.lang === lang) return data;
+
+
   } catch (error) {
     // Ignore error
+    console.error("Error fetching post by ID:", error);
   }
 
   const pairedId = lang === 'fr' ? id + 1 : id - 1;
@@ -32,7 +37,7 @@ export const fetchPostById = async (
 };
 
 export const fetchPostBySlug = async (
-  postType: "posts" | "extraction" | "asint",
+  postType: "innovation" | "posts" | "extraction" | "asint",
   slug: string,
   lang: string = "en",
 ): Promise<Post | null> => {

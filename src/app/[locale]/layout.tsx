@@ -12,7 +12,7 @@ import { LocalizationProvider } from "./context/localizationContext";
 import QueryProvider from "./context/queryProvider";
 import { TranslationProvider } from "../../lib/locale/context/translationContext";
 import { getTranslations } from "../../lib/locale/i18n/getTranslations";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast"; 
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -86,7 +86,8 @@ export default async function RootLayout({
                   <ToastProvider>
                     <Toaster position="top-center" reverseOrder={false} />
                     <Header t={messages} site={site} />
-                    {children}
+                    <div className="max-w-[1440px] mx-auto px-4">{children}</div>
+
                     <Footer dict = {messages.main} site={site} />
                   </ToastProvider>
                 </QueryProvider>
