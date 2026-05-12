@@ -59,8 +59,8 @@ const Categories: React.FC<CategoriesProps> = ({ dict, asintLink, extractionLink
   
   const transverseSubCategories = [
     { title: "AI or Die", slug: "ai-or-die" },
-    { title: "Guinea Means Business", slug: "guinea-means-business" },
-    { title: "One Quarter, One City", slug: "one-quarter-one-city" },
+    // { title: "Guinea Means Business", slug: "guinea-means-business" },
+    // { title: "One Quarter, One City", slug: "one-quarter-one-city" },
   ];
 
   return (

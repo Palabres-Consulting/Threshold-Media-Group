@@ -6,7 +6,6 @@ export default async function TransversePage() {
   const videos = await getLatestChannelVideos("ALL_HIGHLIGHTS_DUMMY_ID", 4);
   const featuredVideo = videos[0];
   const listVideos = videos.slice(1);
-
   return (
     <div className="flex flex-col">
       {/* Hero Video Iframe */}
@@ -14,7 +13,7 @@ export default async function TransversePage() {
         <div className="w-full aspect-video rounded-2xl overflow-hidden bg-foreground/5 mb-16 shadow-lg">
           <iframe
             className="w-full h-full"
-            src={`https://www.youtube.com/embed/${featuredVideo.id}?rel=0`}
+            src={`https://www.youtube.com/embed/${"MUinz989FSE"}?rel=0`}
             title={featuredVideo.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
@@ -23,7 +22,7 @@ export default async function TransversePage() {
       )}
 
       {/* Video List */}
-      <div className="flex flex-col">
+      {/* <div className="flex flex-col">
         {listVideos.map((video, index) => {
           const displayNum = String(listVideos.length - index).padStart(2, '0');
 
@@ -31,7 +30,7 @@ export default async function TransversePage() {
             <div key={video.id} className="flex flex-col md:flex-row items-start md:items-center py-8 border-b border-foreground/20 gap-6 md:gap-12">
               <span className="text-2xl md:text-3xl font-bold w-8 text-foreground/80">{displayNum}</span>
               <div className="relative w-32 h-32 md:w-40 md:h-40 shrink-0 bg-foreground/10 rounded-md overflow-hidden group">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
+                
                 <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 <div className="absolute top-2 left-2 bg-background/80 backdrop-blur-sm px-2 py-1 text-[10px] font-bold uppercase tracking-wider rounded">
                   {video.channelName}
@@ -49,7 +48,7 @@ export default async function TransversePage() {
             </div>
           );
         })}
-      </div>
+      </div> */}
     </div>
   );
 }
