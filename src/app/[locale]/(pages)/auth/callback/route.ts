@@ -29,6 +29,8 @@ export async function GET(request: Request) {
         ? forwardedHost 
         : new URL(origin).host 
 
+        // console.log(finalHost)
+
       return NextResponse.redirect(`${protocol}://${finalHost}${next}`)
     }
   }

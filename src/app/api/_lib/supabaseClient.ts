@@ -97,7 +97,7 @@ export async function createSupabaseServer() {
               cookieStore.set(name, value, {
                 ...options,
                 domain: cookieDomain, // 👈 This is the key!
-                sameSite: "none", // Important for subdomain sharing
+                sameSite: "lax", // Important for subdomain sharing
                 secure: true,
               });
             });
