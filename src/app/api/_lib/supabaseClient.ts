@@ -36,9 +36,9 @@ export async function createSupabaseServerClient() {
             cookiesToSet.forEach(({ name, value, options }) => {
               cookieStore.set(name, value, {
                 ...options,
-                domain: cookieDomain, // 👈 This is the key!
-                sameSite: "none", // Important for subdomain sharing
-                secure: true,
+                domain: cookieDomain === "localhost" ? "" : cookieDomain,
+                sameSite: "lax", 
+                secure: process.env.NODE_ENV === "production",
               });
             });
           } catch {
@@ -68,9 +68,9 @@ export async function createSupabaseServer() {
             cookiesToSet.forEach(({ name, value, options }) => {
               cookieStore.set(name, value, {
                 ...options,
-                domain: cookieDomain, // 👈 This is the key!
-                sameSite: "none", // Important for subdomain sharing
-                secure: true,
+                domain: cookieDomain === "localhost" ? "" : cookieDomain,
+                sameSite: "lax", 
+                secure: process.env.NODE_ENV === "production",
               });
             });
           } catch {
@@ -82,6 +82,3 @@ export async function createSupabaseServer() {
     }
   );
 }
-
-
-

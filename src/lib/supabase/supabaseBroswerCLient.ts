@@ -16,7 +16,7 @@ export function createClient() {
         domain: cookieDomain === "localhost" ? "" : cookieDomain,
         path: "/",
         sameSite: "lax",
-        secure: true,
+        secure: process.env.NODE_ENV === "production",
       },
       auth: {
         flowType: "pkce",
