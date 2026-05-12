@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.tresholdmediagroup.com/sitemap.xml
+Sitemap: https://www.thresholdmedia.group/sitemap.xml
