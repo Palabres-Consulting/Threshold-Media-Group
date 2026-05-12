@@ -2,9 +2,9 @@
 import { NextResponse, type NextRequest } from "next/server";
 import {
   createSupabaseServerClient,
-  getBaseDomain,
 } from "../app/api/_lib/supabaseClient";
 import { corsResponse, getCorsHeaders } from "../lib/cors";
+import { getBaseDomain } from "@/lib/utils";
 
 const locales = ["en", "fr"];
 const defaultLocale = "en";

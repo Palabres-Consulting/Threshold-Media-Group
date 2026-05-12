@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import {
   createSupabaseServerClient,
-  getBaseDomain,
+  
 } from "./app/api/_lib/supabaseClient";
 import { getBaseDomainForCookie } from "./lib/utils"; // Import the new utility
 import { corsResponse, getCorsHeaders } from "./lib/cors";
