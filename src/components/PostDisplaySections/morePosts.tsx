@@ -23,7 +23,7 @@ const MorePosts = ({ posts, lang }: { posts: NormalizedPost[]; lang: Locale }) =
         </div>
       ) : (
         <>
-          <div className="flex flex-col lg:flex-row lg:h-[95vh] border-sub-bottom">
+          <div className="flex flex-col lg:flex-row  border-sub-bottom">
             <div className="lg:w-[35%] w-full h-full px-4 py-6">
               
               {/* Post 0 - Top Left */}
@@ -41,7 +41,7 @@ const MorePosts = ({ posts, lang }: { posts: NormalizedPost[]; lang: Locale }) =
                       excerpt={truncateText(post0.excerpt, 18)}
                       title={post0.title}
                       readTime={post0.readTimeLabel}
-                      imageHeight="lg:h-[60%] h-[50vh]"
+                      imageHeight="aspect-video h-full"
                       imageSrc={post0.imageUrl}
                       imageAlt={post0.title}
                     />
@@ -86,7 +86,7 @@ const MorePosts = ({ posts, lang }: { posts: NormalizedPost[]; lang: Locale }) =
                     excerpt={truncateText(post2.excerpt, 18)}
                     title={post2.title}
                     readTime={post2.readTimeLabel}
-                    imageHeight="lg:h-[80%] h-[50vh]"
+                    imageHeight="aspect-video h-full"
                     imageSrc={post2.imageUrl}
                     imageAlt={post2.title}
                   />
@@ -98,7 +98,7 @@ const MorePosts = ({ posts, lang }: { posts: NormalizedPost[]; lang: Locale }) =
           {/* Bottom Row - Post 3 & 4 */}
           <div className="flex flex-col lg:flex-row w-full p-6 gap-6 justify-center items-center border-sub-right">
             {post3 && (
-              <div className="relative block rounded-2xl overflow-hidden h-[50vh] w-full lg:w-[50%] bg-foreground/10 border-sub">
+              <div className="relative block rounded-2xl overflow-hidden aspect-video w-full lg:w-[50%] bg-foreground/10 border-sub">
                 <SaveArticleButton
                   postId={post3.id}
                   url={post3.postUrl}

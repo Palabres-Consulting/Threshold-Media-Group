@@ -54,7 +54,7 @@ const Sidebar = ({ lang }: { lang: Locale }) => {
           </div>
           <div className="p-6">
             <FeaturedPosts />
-            <div className="h-[55vh] py-6 border-sub-top">
+            <div className=" py-6 border-sub-top">
               <div className="rounded-2xl h-full relative flex flex-col justify-center items-center overflow-hidden">
                 <div className="z-50 px-6">
                   <h3 className="text-[1.2rem] text-center font-semibold text-white mb-4">

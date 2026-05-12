@@ -139,17 +139,21 @@ const Home = async (props: {
       ) : (
         <>
           <Hero site={site} posts={heroPosts} />
-          <CyberSecurityPosts  posts={cyberPosts} />
+          <CyberSecurityPosts posts={cyberPosts} />
 
           <div className="w-full flex">
             <div className="lg:w-[70%] w-full">
               <MorePosts lang={locale} posts={morePosts} />
               {/* <ThresholdOpinions lang={locale} /> */}
-              <AdDisplay />
+              {/* <MorePosts lang={locale} posts={morePosts} /> */}
+              
               {/* <GreatReads lang={locale} /> */}
             </div>
             <div className="lg:w-[30%] hidden lg:flex">
-              <Sidebar lang={locale} />
+              <div className="w-full py-10 relative overflow-hidden">
+                <AdDisplay />
+              </div>
+              {/* <Sidebar lang={locale} /> */}
             </div>
           </div>
         </>

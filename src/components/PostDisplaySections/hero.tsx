@@ -33,12 +33,12 @@ const [mainPost, topSidePost, bottomSidePost] = posts;
   // console.log("post1:", mainPost);
 
   return (
-    <section className="relative" id="hero">
+    <section className="relative " id="hero">
       <div className="bg-foreground/5 border-sub-y"></div>
-      <div className="flex flex-col lg:h-[85vh] lg:flex-row lg:p-5 p-3 gap-8">
+      <div className="flex flex-col  lg:flex-row lg:p-5 p-3 gap-8  relative">
         {/* Big Hero Image Container - Post [1] */}
         {mainPost && (
-          <div className="lg:w-[70%] rounded-2xl relative overflow-hidden h-[70vh] lg:h-full">
+          <div className="lg:w-[70%] aspect-video rounded-2xl relative h-full  overflow-hidden  lg:h-full">
             <Link
               href={`/journal/${mainPost.slug || ""}?id=${mainPost.id || ""}&type=${site}`}
             >
@@ -75,12 +75,12 @@ const [mainPost, topSidePost, bottomSidePost] = posts;
           </div>
         )}
 
-        <div className="lg:w-[30%] w-full h-full flex flex-col gap-5">
+        <div className="lg:w-[30%] w-full h-full flex flex-col gap-8">
           {/* Top Right Post - Post [2] */}
           {topSidePost && (
             <Link
               href={`/journal/${topSidePost.slug || ""}?type=${site}`}
-              className="lg:h-[70%] h-[60vh] flex flex-col gap-5 mb-5 lg:mb-0 relative group"
+              className="lg:h-[70%] h-full  flex flex-col gap-5 mb-5 lg:mb-0 relative group"
             >
               {/* --- SAVE BUTTON ADDED HERE --- */}
               <SaveArticleButton
@@ -90,7 +90,7 @@ const [mainPost, topSidePost, bottomSidePost] = posts;
                 excerpt={topSidePost.excerpt}
               />
 
-              <div className="rounded-2xl h-[75%] border-sub overflow-hidden bg-foreground/10 relative">
+              <div className="rounded-2xl aspect-video  h-[75%] border-sub overflow-hidden bg-foreground/10 relative">
                 <Image
                   loader={cloudinaryLoader}
                   src={topSidePost.imageUrl || "/images/homepage/home5.png"}
@@ -117,7 +117,7 @@ const [mainPost, topSidePost, bottomSidePost] = posts;
           {bottomSidePost && (
             <Link
               href={`/journal/${bottomSidePost.slug || ""}?type=${site}`}
-              className="lg:h-[30%] border-sub-top flex items-center gap-4 pt-6 relative group"
+              className="lg:h-[30%] h-full border-sub-top flex items-center gap-4 pt-6 relative group "
             >
               {/* --- SAVE BUTTON ADDED HERE --- */}
               <SaveArticleButton
@@ -127,7 +127,7 @@ const [mainPost, topSidePost, bottomSidePost] = posts;
                 excerpt={bottomSidePost.excerpt}
               />
 
-              <div className="w-[40%] aspect-square lg:h-full rounded-2xl overflow-hidden bg-foreground/10 relative">
+              <div className="w-[40%] aspect-[4/3]  h-full rounded-2xl overflow-hidden bg-foreground/10 relative">
                 <Image
                   loader={cloudinaryLoader}
                   src={bottomSidePost.imageUrl || "/images/homepage/home6.png"}

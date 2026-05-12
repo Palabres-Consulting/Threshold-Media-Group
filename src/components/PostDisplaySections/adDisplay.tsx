@@ -4,15 +4,14 @@ import React from "react";
 
 const AdDisplay = () => {
   return (
-    <section className=" w-full overflow-hidden relative">
+    <section className=" w-full h-fit aspect-square overflow-hidden relative ">
       <Image
         loader={cloudinaryLoader}
         src="/images/ads/simandou2040.webp"
         alt="Simandou 2040 Ad"
-        className="object-cover h-full w-full transition-transform duration-500 hover:scale-105"
+        className="object-cover w-full transition-transform duration-500 hover:scale-105"
+        fill
         priority
-        width={1000}
-        height={1000}
       />
     </section>
   );

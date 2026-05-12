@@ -21,7 +21,10 @@ interface SharedCategoryLayoutProps {
   slug: string;
 }
 
-export default async function SharedCategoryLayout({ locale, slug }: SharedCategoryLayoutProps) {
+export default async function SharedCategoryLayout({
+  locale,
+  slug,
+}: SharedCategoryLayoutProps) {
   const { main: dict } = getTranslations(locale);
   const navTranslations = dict.nav.categories;
 
@@ -33,7 +36,11 @@ export default async function SharedCategoryLayout({ locale, slug }: SharedCateg
       <div className="flex items-center justify-center min-h-[60vh]">
         <ErrorComponent
           errorTitle={locale === "fr" ? "Page non trouvée" : "Page Not Found"}
-          errorMessage={locale === "fr" ? "Cette catégorie n'existe pas." : "Category not found."}
+          errorMessage={
+            locale === "fr"
+              ? "Cette catégorie n'existe pas."
+              : "Category not found."
+          }
         >
           <AlertCircle size={40} strokeWidth={1.5} />
         </ErrorComponent>
@@ -44,19 +51,23 @@ export default async function SharedCategoryLayout({ locale, slug }: SharedCateg
   // 2. Identify the base Post Type
   let wpPostType: any = "posts";
   const identifier = context.taxonomy || slug;
-  
-  if (identifier.includes("extraction") || identifier === "industries-resources") wpPostType = "extraction";
+
+  if (
+    identifier.includes("extraction") ||
+    identifier === "industries-resources"
+  )
+    wpPostType = "extraction";
   else if (identifier.includes("asint")) wpPostType = "asint";
   else if (identifier.includes("guinea-intel")) wpPostType = "guinea_intel";
   else if (identifier.includes("innovation")) wpPostType = "innovation";
   else if (identifier.includes("transverse")) wpPostType = "transverse";
-  
+
   // 3. Create a dynamic query parameter
   const queryParams: any = {
     per_page: 15,
     lang: locale,
   };
-  
+
   // If we have a categoryId, filter by it. If null (top-level), it fetches everything.
   if (context.categoryId && context.taxonomy) {
     queryParams[context.taxonomy] = context.categoryId;
@@ -65,36 +76,37 @@ export default async function SharedCategoryLayout({ locale, slug }: SharedCateg
   const allArticles = await fetchPostsByType(wpPostType, queryParams);
 
   // Figure out the base path for non-query routing
-  const rootCategorySlug = context.taxonomy ? context.taxonomy.replace("-categories", "").replace("-category", "") : slug;
-  const basePath = `/${locale}/${wpPostType === 'guinea_intel' ? 'guinea-intel' : wpPostType === 'extraction' ? 'industries-resources' : wpPostType}`;
+  const rootCategorySlug = context.taxonomy
+    ? context.taxonomy.replace("-categories", "").replace("-category", "")
+    : slug;
+  const basePath = `/${locale}/${wpPostType === "guinea_intel" ? "guinea-intel" : wpPostType === "extraction" ? "industries-resources" : wpPostType}`;
 
   if (!allArticles?.length) {
     return (
-       <div className="flex flex-col mx-10 border-sub-side">
-          <SharedHeader 
-            title={context.title}
-            locale={locale}
-            activeCategory={slug}
-            context={context}
-            isQueryRouting={false} // Tells header to use /slug
-            basePath={basePath}
-            rootCategorySlug={rootCategorySlug}
-          />
-          <EmptyFull lang={locale} />
-       </div>
+      <div className="flex flex-col mx-10 border-sub-side">
+        <SharedHeader
+          title={context.title}
+          locale={locale}
+          activeCategory={slug}
+          context={context}
+          isQueryRouting={false} // Tells header to use /slug
+          basePath={basePath}
+          rootCategorySlug={rootCategorySlug}
+        />
+        <EmptyFull lang={locale} />
+      </div>
     );
   }
 
   const cleanArticles = normalizePosts(allArticles, locale);
   // 4. Slice data safely
   const heroPosts = cleanArticles.slice(0, 3);
-  const cyberPosts = cleanArticles.slice(3, 6) ;
-  const morePosts = cleanArticles.slice(6, 11) ;
+  const cyberPosts = cleanArticles.slice(3, 6);
+  const morePosts = cleanArticles.slice(6, 11);
 
   return (
     <main className="lg:mx-10 mx-2 border-sub-side relative">
-      
-      <SharedHeader 
+      <SharedHeader
         title={context.title}
         locale={locale}
         activeCategory={slug}
@@ -105,21 +117,23 @@ export default async function SharedCategoryLayout({ locale, slug }: SharedCateg
       />
 
       <Hero site={wpPostType} posts={heroPosts} />
-      <CyberSecurityPosts  posts={cyberPosts} />
+      <CyberSecurityPosts posts={cyberPosts} />
 
       <div className="w-full flex">
         <div className="lg:w-[70%] w-full">
           <MorePosts lang={locale} posts={morePosts} />
-          
+
           {/* <ThresholdOpinions lang={locale} /> */}
-          <AdDisplay />
+          {/* <AdDisplay /> */}
           {/* <GreatReads lang={locale} /> */}
         </div>
         <div className="lg:w-[30%] hidden lg:flex">
-          <Sidebar lang={locale} />
+          <div className=" w-full relative overflow-hidden">
+            <AdDisplay />
+          </div>
+          {/* <Sidebar lang={locale} /> */}
         </div>
       </div>
-
     </main>
   );
 }
