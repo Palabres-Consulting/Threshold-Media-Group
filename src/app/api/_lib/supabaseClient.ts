@@ -2,6 +2,31 @@ import { createServerClient } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
 import { cookies, headers } from "next/headers";
 
+
+export const supabaseServerClient = () =>
+
+  createClient(
+
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+
+    process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY! // server-side
+
+  );
+
+
+
+export const supabaseAnonClient = () =>
+
+  createClient(
+
+    process.env.SUPABASE_URL!,
+
+    process.env.SUPABASE_ANON_KEY! // general use
+
+  );
+
+
+
 export function getBaseDomain(host: string): string {
   const hostWithoutPort = host.split(":")[0];
 
