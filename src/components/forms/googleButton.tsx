@@ -16,7 +16,7 @@ const GoogleAuthButton = ({
   isLoading = false,
   disabled = false,
 }: GoogleAuthButtonProps) => {
-  return (
+  return ( 
     <button
       type="button"
       onClick={onClick}

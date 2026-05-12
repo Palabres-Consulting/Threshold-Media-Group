@@ -50,3 +50,28 @@ export const socialLinks = {
   tiktok: "https://www.tiktok.com/@thresholdmediagroup?"
 
 };
+
+
+
+export function getBaseDomain(host: string): string {
+  const hostWithoutPort = host.split(":")[0];
+
+  // Development: localhost
+  if (
+    hostWithoutPort.endsWith(".localhost") ||
+    hostWithoutPort === "localhost"
+  ) {
+    return ".localhost"; // Note the leading dot!
+  }
+
+  // Production: extract base domain
+  const parts = hostWithoutPort.split(".");
+  if (parts.length >= 2) {
+    // For app.example.com -> .example.com
+    return `.${parts.slice(-2).join(".")}`;
+
+  
+  }
+
+  return hostWithoutPort;
+}

@@ -1,29 +1,9 @@
+import { getBaseDomain } from "@/lib/utils";
 import { createServerClient } from "@supabase/ssr";
 import { createClient } from "@supabase/supabase-js";
 import { cookies, headers } from "next/headers";
 
-export function getBaseDomain(host: string): string {
-  const hostWithoutPort = host.split(":")[0];
 
-  // Development: localhost
-  if (
-    hostWithoutPort.endsWith(".localhost") ||
-    hostWithoutPort === "localhost"
-  ) {
-    return ".localhost"; // Note the leading dot!
-  }
-
-  // Production: extract base domain
-  const parts = hostWithoutPort.split(".");
-  if (parts.length >= 2) {
-    // For app.example.com -> .example.com
-    return `.${parts.slice(-2).join(".")}`;
-
-  
-  }
-
-  return hostWithoutPort;
-}
 
 export const supabaseServerClient = () =>
   createClient(
