@@ -4,7 +4,7 @@ import React from "react";
 
 const AdDisplay = () => {
   return (
-    <section className=" w-full">
+    <section className=" w-full overflow-hidden relative">
       <Image
         loader={cloudinaryLoader}
         src="/images/ads/simandou2040.webp"

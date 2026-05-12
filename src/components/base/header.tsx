@@ -38,7 +38,7 @@ const Header: React.FC<{ site: Site; t: TranslationSchema }> = ({ site, t }) => 
   };
 
   return (
-    <header className="flex justify-center items-center lg:px-10 shadow-xs shadow-foreground/5 px-3 sticky top-0 backdrop-blur-sm bg-transparent z-[1000]">
+    <header className="flex justify-center items-center lg:px-10  w-full shadow-xs shadow-foreground/5 px-3 sticky top-0 backdrop-blur-sm bg-transparent z-[1000]">
       
       {/* DESKTOP NAV */}
       <nav className="lg:flex flex-col gap-7 justify-between hidden w-full py-5 px-5 text-sm border-sub-side">

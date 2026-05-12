@@ -85,10 +85,12 @@ export default async function RootLayout({
                 <QueryProvider>
                   <ToastProvider>
                     <Toaster position="top-center" reverseOrder={false} />
+                    <div className="max-w-[1640px] mx-auto  border-sub-side">
                     <Header t={messages} site={site} />
-                    <div className="max-w-[1440px] mx-auto px-4">{children}</div>
+                    <div className="">{children}</div>
 
                     <Footer dict = {messages.main} site={site} />
+                    </div>
                   </ToastProvider>
                 </QueryProvider>
               </SubdomainProvider>
