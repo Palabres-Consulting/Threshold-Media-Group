@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -19,6 +19,22 @@ interface UserNavProps {
 const UserNav = ({ dict, authUrl }: UserNavProps) => {
   const queryClient = useQueryClient();
   const { data, isLoading } = useUser();
+  
+  // State and ref for handling click logic on touch devices
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleLogout = async () => {
     const logoutAction = async () => {
@@ -29,7 +45,6 @@ const UserNav = ({ dict, authUrl }: UserNavProps) => {
       // 1. Kill session on server
       await axios.post("/api/auth/logout", {}, { withCredentials: true });
 
-      
       window.location.href = "/";
     };
 
@@ -39,6 +54,7 @@ const UserNav = ({ dict, authUrl }: UserNavProps) => {
       error: "Logout failed",
     });
   };
+
   if (isLoading) {
     return (
       <div className="px-1 py-1 flex items-center gap-2">
@@ -50,26 +66,43 @@ const UserNav = ({ dict, authUrl }: UserNavProps) => {
 
   if (data) {
     return (
-      <div className="relative group h-full flex items-center">
+      <div className="relative group h-full flex items-center" ref={dropdownRef}>
         {/* User Trigger */}
-        <div className="px-2 py-1 flex items-center gap-2 cursor-pointer group-hover:text-accent-main transition-colors">
+        <div 
+          onClick={() => setIsOpen(!isOpen)}
+          className={`px-2 py-1 flex items-center gap-2 cursor-pointer transition-colors ${
+            isOpen ? "text-accent-main" : "group-hover:text-accent-main"
+          }`}
+        >
           <div className="h-[25px] w-[25px] rounded-full bg-foreground/10" />
           <h5 className="text-sm">
             {dict.nav.welcome}, {data.title.slice(0, 4)}
           </h5>
-          <GoTriangleDown className="group-hover:rotate-180 transition-transform" />
+          <GoTriangleDown 
+            className={`transition-transform ${
+              isOpen ? "rotate-180" : "group-hover:rotate-180"
+            }`} 
+          />
         </div>
 
         {/* Dropdown Menu */}
-        <div className="absolute hidden group-hover:flex flex-col top-[100%] right-0 w-40 bg-background border border-sub shadow-xl rounded-md overflow-hidden z-50">
+        <div 
+          className={`absolute flex-col top-[100%] right-0 w-40 bg-background border border-sub shadow-xl rounded-md overflow-hidden z-50 ${
+            isOpen ? "flex" : "hidden group-hover:flex"
+          }`}
+        >
           <Link
             href="/profile"
+            onClick={() => setIsOpen(false)}
             className="px-4 py-3 text-sm hover:bg-foreground/5 hover:text-accent-main transition-colors"
           >
             Profile
           </Link>
           <button
-            onClick={handleLogout}
+            onClick={() => {
+              setIsOpen(false);
+              handleLogout();
+            }}
             className="px-4 py-3 text-sm text-left hover:bg-foreground/5 hover:text-red-500 transition-colors border-t border-sub"
           >
             Logout

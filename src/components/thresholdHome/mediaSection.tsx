@@ -13,7 +13,7 @@ const MediaSection = ({ dict }: { dict: TranslationSchema["main"] }) => {
   return (
     <div className="flex flex-col lg:flex-row gap-6 mt-6">
       <Link href={extractionLink}>
-        <div className="flex flex-col gap-4 rounded-2xl  h-[40vh]">
+        <div className="flex flex-col gap-4 rounded-2xl  aspect-video">
           <div className="flex items-center justify-center rounded-2xl overflow-hidden relative bg-foreground/5 h-[80%]">
             <div className="absolute  lg:h-full z-40 w-full bg-gradient-to-t from-10% from-black/20 via-black/20 via-30% to-70% to-black/50">
               {" "}
@@ -27,8 +27,7 @@ const MediaSection = ({ dict }: { dict: TranslationSchema["main"] }) => {
               loader={cloudinaryLoader}
               src={"/images/extraction/extraction001.png"}
               alt={`Extraction Image`}
-              width={1000}
-              height={1000}
+              fill
               className="object-cover w-full h-full absolute"
               // unoptimized
             />
@@ -39,7 +38,7 @@ const MediaSection = ({ dict }: { dict: TranslationSchema["main"] }) => {
         </div>
       </Link>
       <Link href={asintLink}>
-        <div className="flex flex-col gap-4 rounded-2xl  h-[40vh]">
+        <div className="flex flex-col gap-4 rounded-2xl  aspect-video">
           <div className="flex items-center justify-center relative overflow-hidden bg-foreground/5 rounded-2xl h-[80%]">
             <div className="absolute  lg:h-full z-40 w-full bg-gradient-to-t from-10% from-black/20 via-black/20 via-30% to-70% to-black/50">
               {" "}
@@ -51,8 +50,7 @@ const MediaSection = ({ dict }: { dict: TranslationSchema["main"] }) => {
               loader={cloudinaryLoader}
               src={"/images/homepage/home3.png"}
               alt={`ASINT Image`}
-              width={1000}
-              height={1000}
+              fill
               className="object-cover w-full h-full absolute"
               // unoptimized
             />

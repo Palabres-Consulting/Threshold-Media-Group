@@ -2,7 +2,7 @@ import cloudinaryLoader from "@/app/helpers/cloudinary";
 import { TranslationSchema } from "@/lib/locale";
 import Image from "next/image";
 import React from "react";
-
+ 
 
 const AboutTheGroup: React.FC<{ dict: TranslationSchema["main"]; id: string }> = ({ dict, id }) => {
   return (

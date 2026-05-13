@@ -49,7 +49,7 @@ const ContactPage = async ({params}: {params: Promise<{ locale: Locale }>}) => {
           </div> */}
         </div>
 
-        <div className="h-[80vh] w-full p-3 py-10">
+        <div className="h-fit w-full p-3 py-10">
           <div className="rounded-2xl h-full w-full bg-foreground/5">
             {/* {map} */}
             <Mapbox />

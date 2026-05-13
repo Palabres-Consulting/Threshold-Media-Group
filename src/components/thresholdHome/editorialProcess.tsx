@@ -24,7 +24,7 @@ const EditorialProcess: React.FC<{
 
       <div className="flex flex-col lg:flex-row gap-4 justify-center items-center w-full">
         <div className="lg:w-[70%] w-full flex gap-3">
-          <div className="w-full lg:h-[53vh] rounded-2xl overflow-hidden flex items-end relative border-sub">
+          <div className="w-full aspect-video rounded-2xl overflow-hidden flex items-end relative border-sub">
             <Image
               loader={cloudinaryLoader}
               src={"/images/homepage/editorialProcess.png"}

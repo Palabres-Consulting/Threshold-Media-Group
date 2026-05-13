@@ -24,9 +24,9 @@ const ThresholdHompage = ({
       {/* HERO */}
 
       <div className="lg:p-6 p-3 flex flex-col ">
-        <div className="w-full rounded-2xl h-[85vh]  relative overflow-hidden">
+        <div className="w-full rounded-2xl  relative overflow-hidden">
           <div className="absolute  lg:h-full z-40 w-full bg-gradient-to-t from-10% from-black/20 via-black/20 via-30% to-70% to-transparent">    </div>
-          <div className=" border-sub  flex items-end bg-foreground/10 overflow-hidden h-[70vh] lg:h-full">
+          <div className=" border-sub  flex items-end bg-foreground/10 overflow-hidden aspect-video lg:h-full ">
             <div className="p-8 px- flex flex-col gap-3 z-50">
               <h1 className="lg:text-[3rem] text-[1.1rem] font-bold lg:w-[85%] z-50 text-white">
                 {dict.hero.headline}
@@ -37,8 +37,7 @@ const ThresholdHompage = ({
               loader={cloudinaryLoader}
               src={"/images/homepage/Home.svg"}
               alt={`Hero Image`}
-              width={1000}
-              height={1000}
+              fill
               className="object-cover w-full h-full absolute z-10"
               // unoptimized
             />

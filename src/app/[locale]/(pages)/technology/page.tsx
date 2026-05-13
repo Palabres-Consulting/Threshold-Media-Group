@@ -66,7 +66,7 @@ const TechnologyPage = async ({
           heading={dict.technology.headline}
         />
         <div className="flex flex-col lg:flex-row gap-14 mt-6">
-          <div className="min-h-[80vh] bg-foreground/5 rounded-2xl overflow-hidden lg:w-[50%] w-full">
+          <div className="aspect-video bg-foreground/5 rounded-2xl overflow-hidden lg:w-[50%] w-full">
            <Image
               loader={cloudinaryLoader}
               src={"/images/homepage/aiIntelligence.png"}
