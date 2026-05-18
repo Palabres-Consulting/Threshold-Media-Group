@@ -1,48 +1,51 @@
-// app/api/auth/signup/route.ts
 import { NextResponse } from "next/server";
 import { createSupabaseServer } from "../../_lib/supabaseClient";
 
 export async function POST(req: Request) {
-  const { email, password, title } = await req.json();
-  const supabase = await createSupabaseServer();
+  try {
+    const { email, password, title } = await req.json();
+    const supabase = await createSupabaseServer();
 
-  // creating user with supabase auth
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-  });
+    // 1. Create user with supabase auth
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
 
-  if (error || !data.user) {
+    if (error || !data.user) {
+      return NextResponse.json(
+        { message: error?.message ?? "Failed to create user" }, // Changed to 'message' to match your toast logic
+        { status: 400 }
+      );
+    }
+
+    const user = data.user;
+
+    // 2. Insert profile row
+    const { error: profileError } = await supabase.from("profiles").insert({
+      id: user.id,
+      title,
+      avatar_url: null,
+    });
+
+    if (profileError) {
+      console.error("Profile creation error:", profileError);
+      // We log the error, but we don't stop the flow. The user is already created in Auth!
+    }
+
+    // 3. THE FIX: We stop here! 
+    // We do NOT try to log them in because their email isn't verified yet.
+    // We return a 200 status so Axios knows it was successful, 
+    // the toast turns green, and Next.js redirects to the holding room!
     return NextResponse.json(
-      { error: error?.message ?? "Failed to create user" },
-      { status: 400 }
+      { message: "Account created! Please check your email." },
+      { status: 200 }
+    );
+
+  } catch (err: any) {
+    return NextResponse.json(
+      { message: err.message ?? "Internal Server Error" },
+      { status: 500 }
     );
   }
-
-  const user = data.user;
-
-  // inserting profile row
-  const insertProfileResponse = await supabase.from("profiles").insert({
-    id: user.id,
-    title,
-    avatar_url: null, 
-  });
-
-  console.log(insertProfileResponse);
-
-  // logging them in immediately (so they get session cookie)
-  const { data: loginData, error: loginError } =
-    await supabase.auth.signInWithPassword({ email, password });
-
-  if (loginError || !loginData.session) {
-    return NextResponse.json(
-      { error: "User created but login failed" },
-      { status: 400 }
-    );
-  }
-
-  // Set session cookie
-  const res = NextResponse.json({ user: loginData.user });
-
-  return res;
 }
