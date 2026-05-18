@@ -61,8 +61,8 @@ const AuthContainer = ({ dict }: { dict: TranslationSchema["main"] }) => {
         }
       } else {
         await axios.post("/api/auth/signUp", data);
-        setFormState("signIn"); // Switch to login after success
-        return "Account created! Please sign in.";
+        router.push(`/auth/verify-request?email=${encodeURIComponent(data.email)}`);
+        return "Verification email sent!";
       }
     };
 
@@ -70,8 +70,8 @@ const AuthContainer = ({ dict }: { dict: TranslationSchema["main"] }) => {
       loading: 'Authenticating...',
       success: (msg) => <b>{msg}</b>,
       error: (err) => {
-        const message = err.response?.data?.message || "Something went wrong";
-        return <b>{message}</b>;
+      const message = err.response?.data?.error || err.response?.data?.message || "Something went wrong";
+      return <b>{message}</b>;
       },
     });
   };

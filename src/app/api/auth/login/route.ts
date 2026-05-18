@@ -17,6 +17,12 @@ export async function POST(req: Request) {
     });
 
     if (error) {
+      if (error.message.includes("Email not confirmed")) {
+        return NextResponse.json(
+          { message: "Please verify your email before logging in." },
+          { status: 401 },
+        );
+      }
       return NextResponse.json({ error: error.message }, { status: 401 });
     }
 
