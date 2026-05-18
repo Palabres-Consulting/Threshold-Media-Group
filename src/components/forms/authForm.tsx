@@ -61,7 +61,7 @@ const AuthContainer = ({ dict }: { dict: TranslationSchema["main"] }) => {
         }
       } else {
         await axios.post("/api/auth/signUp", data);
-        router.push(`/auth/verify-request?email=${encodeURIComponent(data.email)}`);
+        router.push(`/auth/verify-auth?email=${encodeURIComponent(data.email)}`);
         return "Verification email sent!";
       }
     };
