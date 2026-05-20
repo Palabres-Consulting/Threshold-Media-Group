@@ -1,9 +1,9 @@
 "use client";
+import { useTranslations } from "@/lib/locale/context/translationContext";
 import React from "react";
-import { useLocalization } from "../../app/[locale]/context/localizationContext";
 
 const ForgotPasswordForm = () => {
-  const { dict } = useLocalization();
+  const dict  = useTranslations("main");
 
   return (
     <form className="rounded-2xl p-6 flex flex-col gap-5 lg:w-[35vw] border-sub">

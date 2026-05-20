@@ -1,8 +1,5 @@
-import { NextResponse, type NextRequest } from "next/server";
-import {
-  createSupabaseServerClient,
-  
-} from "./app/api/_lib/supabaseClient";
+import { type NextRequest, NextResponse } from "next/server";
+import { createSupabaseServerClient } from "./app/api/_lib/supabaseClient";
 import { getBaseDomainForCookie } from "./lib/utils"; // Import the new utility
 import { corsResponse, getCorsHeaders } from "./lib/cors";
 import { handleI18n } from "./middleware/i18n";
@@ -11,6 +8,7 @@ const locales = ["en", "fr"];
 const defaultLocale = "en";
 const protectedRoutes = ["/profile"];
 const authRoute = "/auth";
+const onBoardingRoute = "/onboarding";
 
 // --- Domain/Host Logic ---
 
@@ -18,8 +16,12 @@ const prodDomainsString = process.env.TRUSTED_PROD_DOMAINS || "";
 const devDomainsString = process.env.TRUSTED_DEV_DOMAINS || "";
 
 const trustedDomains = {
-  production: prodDomainsString.split(",").map((d) => d.trim()).filter((d) => d.length > 0),
-  development: devDomainsString.split(",").map((d) => d.trim()).filter((d) => d.length > 0),
+  production: prodDomainsString.split(",").map((d) => d.trim()).filter((d) =>
+    d.length > 0
+  ),
+  development: devDomainsString.split(",").map((d) => d.trim()).filter((d) =>
+    d.length > 0
+  ),
 };
 
 function isValidHost(host: string): boolean {
@@ -63,7 +65,9 @@ export async function middleware(req: NextRequest) {
     const apiRes = NextResponse.next();
     const corsHeaders = getCorsHeaders(req);
     if (corsHeaders) {
-      Object.entries(corsHeaders).forEach(([key, value]) => apiRes.headers.set(key, value));
+      Object.entries(corsHeaders).forEach(([key, value]) =>
+        apiRes.headers.set(key, value)
+      );
     }
     return apiRes;
   }
@@ -88,9 +92,12 @@ export async function middleware(req: NextRequest) {
   // Determine the base domain for setting cross-subdomain cookies
   const cookieDomain = getBaseDomainForCookie(safeHost);
   const i18nRes = handleI18n(req, cookieDomain); // Pass cookieDomain to handleI18n
-  
+
   // Determine current locale from path for consistent redirects later
-  const currentLocale = locales.find(l => pathname.startsWith(`/${l}/`) || pathname === `/${l}`) || defaultLocale;
+  const currentLocale =
+    locales.find((l) =>
+      pathname.startsWith(`/${l}/`) || pathname === `/${l}`
+    ) || defaultLocale;
 
   if (i18nRes) {
     // If handleI18n returns a redirect (status 3xx), return it immediately
@@ -112,7 +119,9 @@ export async function middleware(req: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
 
   const pathWithoutLocale = pathname.replace(/^\/(en|fr)/, "");
-  const isProtected = protectedRoutes.some((route) => pathWithoutLocale.startsWith(route));
+  const isProtected = protectedRoutes.some((route) =>
+    pathWithoutLocale.startsWith(route)
+  );
 
   // Redirect to login if protected and no user (preserving current locale)
   if (isProtected && !user) {
@@ -125,11 +134,23 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL(`/${currentLocale}/profile`, req.url));
   }
 
+  if (user && pathWithoutLocale === onBoardingRoute) {
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("onboarding_status")
+      .eq("id", user?.id)
+      .single();
+
+    if (profile?.onboarding_status === "completed") {
+      return NextResponse.redirect(new URL(`/${currentLocale}/`, req.url));
+    }
+  }
+
   return response;
 }
 
 export const config = {
   matcher: [
-  "/((?!api/auth/logout|_next/static|_next/image|favicon.ico|locales|.*\\.(?:svg|png|jpg|jpeg|gif|webp|json)$).*)",  
+    "/((?!api/auth/logout|_next/static|_next/image|favicon.ico|locales|.*\\.(?:svg|png|jpg|jpeg|gif|webp|json)$).*)",
   ],
 };

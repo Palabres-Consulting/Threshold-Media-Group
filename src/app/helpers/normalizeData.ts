@@ -13,7 +13,10 @@ const cleanTitle = (titleData: any): string => {
     .replace(/&#8217;/g, "’")
     .replace(/&#8216;/g, "‘")
     .replace(/&#8211;/g, "–")
-    .replace(/&amp;/g, "&");
+    .replace(/&amp;/g, "&")
+    .replace(/&#8220;/g, "“")
+    .replace(/&#8221;/g, "”"); 
+
 };
 
 // Internal helper for excerpt HTML stripping

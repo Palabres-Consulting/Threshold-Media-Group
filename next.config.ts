@@ -14,6 +14,12 @@ const nextConfig: NextConfig = {
         hostname: "wp.tresholdmediagroup.com",
         pathname: "/**", 
       },
+      {
+        protocol: "https",
+        hostname: "hwudgwuoqvrjutlgtxhv.supabase.co",
+        port: "",
+        pathname: "/**",
+      },
     ],
     loader: "custom",
     loaderFile: "./src/app/helpers/cloudinary.ts", 

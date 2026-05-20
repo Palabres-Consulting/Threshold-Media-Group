@@ -1,5 +1,5 @@
 import { namespaceLoaders } from "./loaders";
-import { TranslationSchema } from "./schema";
+import { TranslationSchema } from "../index";
 
 export async function loadNamespaces<
   T extends keyof TranslationSchema, 

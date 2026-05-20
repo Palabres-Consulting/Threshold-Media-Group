@@ -7,11 +7,11 @@ import Logo from "./logo";
 import Categories from "./Categories";
 import LangSwitcher from "./LangSwitcher";
 import { NavLinks } from "@/app/types/types";
-import { Site } from "../../app/[locale]/context/localizationContext";
 import { TranslationSchema } from "@/lib/locale";
+import { SiteName } from "@/lib/utils";
 
 interface MobileMenuProps {
-  site: Site;
+  site: SiteName;
   t: TranslationSchema;
   dict: any;
   path: string;

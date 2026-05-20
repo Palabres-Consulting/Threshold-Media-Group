@@ -15,37 +15,40 @@ export async function POST(req: Request) {
     if (error || !data.user) {
       return NextResponse.json(
         { message: error?.message ?? "Failed to create user" }, // Changed to 'message' to match your toast logic
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     const user = data.user;
 
     // 2. Insert profile row
-    const { error: profileError } = await supabase.from("profiles").insert({
-      id: user.id,
-      title,
-      avatar_url: null,
-    });
+    const { error: profileError } = await supabase
+      .from("profiles")
+      .upsert({
+        id: user.id,
+        title: title || "New User",
+        avatar_url: null,
+      }, {
+        onConflict: "id", // Tells Postgres to update the row if the ID match already exists
+      });
 
     if (profileError) {
       console.error("Profile creation error:", profileError);
-      // We log the error, but we don't stop the flow. The user is already created in Auth!
+      // We log the error, but don't halt the user flow since auth succeeded
     }
 
-    // 3. THE FIX: We stop here! 
+    // 3. THE FIX: We stop here!
     // We do NOT try to log them in because their email isn't verified yet.
-    // We return a 200 status so Axios knows it was successful, 
+    // We return a 200 status so Axios knows it was successful,
     // the toast turns green, and Next.js redirects to the holding room!
     return NextResponse.json(
       { message: "Account created! Please check your email." },
-      { status: 200 }
+      { status: 200 },
     );
-
   } catch (err: any) {
     return NextResponse.json(
       { message: err.message ?? "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

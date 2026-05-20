@@ -1,5 +1,7 @@
 "use client";
 
+import cloudinaryLoader from "@/app/helpers/cloudinary";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -27,9 +29,10 @@ const ProfileSectionsContainer: React.FC<{
 export default ProfileSectionsContainer;
 
 export const ProfileDetails: React.FC<{
+  avatar_url: string;
   username?: string;
   subscriber: boolean;
-}> = ({ username, subscriber }) => {
+}> = ({ avatar_url, username, subscriber }) => {
   const navLinks = [
     {
       id: 0,
@@ -57,8 +60,16 @@ export const ProfileDetails: React.FC<{
     <div className="w-full min-h-[100vh] relative">
       <div className="sticky top-30">
         <div className="py-5 flex flex-col gap-3 items-center justify-center">
-          <div className="rounded-full h-15 w-15 bg-foreground/5">
+          <div className="rounded-full h-15 w-15 bg-foreground/5 overflow-hidden relative">
             {/* Image */}
+            <Image
+              loader = {cloudinaryLoader}
+              src = {avatar_url || "/images/profile/avatar-placeholder.png"}
+              alt = "Profile Avatar"
+              fill
+              className="object-cover"
+
+            />
           </div>
 
           {/* Profile name */}

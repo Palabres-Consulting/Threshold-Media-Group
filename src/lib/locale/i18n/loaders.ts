@@ -1,5 +1,5 @@
 
-import type { TranslationSchema } from "./schema";
+import type { TranslationSchema } from "../index";
 import { Locale } from "./types";
 
 

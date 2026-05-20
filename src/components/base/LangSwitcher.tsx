@@ -4,11 +4,11 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { GoTriangleDown } from "react-icons/go";
-import { useLocalization } from "../../app/[locale]/context/localizationContext";
 import { useHomeLink } from "../base/logo"; // Import useHomeLink to get cookieDomain
 import { Locale } from "../../app/[locale]/context/types";
 import { Globe } from "lucide-react";
 import { getTranslatedSlug } from "@/app/helpers/translateSlug";
+import { useLocale, useTranslations } from "@/lib/locale/context/translationContext";
 
 const LangSwitcher: React.FC<{ dict: any }> = ({ dict }) => {
   const [transDropdown, setTransDropdown] = useState(false);
@@ -16,7 +16,7 @@ const LangSwitcher: React.FC<{ dict: any }> = ({ dict }) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const { locale, setLocale } = useLocalization();
+  const { locale, setLocale } = useLocale();
   const { cookieDomain } = useHomeLink(); // Get the cookie domain
 
   const handleSelect = (newLocale: Locale) => {

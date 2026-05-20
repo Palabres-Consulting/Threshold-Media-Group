@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import EmptyState from "./empty";
-import { useLocalization } from "../../app/[locale]/context/localizationContext";
+import { useLocale, useTranslations } from "@/lib/locale/context/translationContext";
 
 interface EmptyStateProps {
   lang: "en" | "fr";
@@ -10,7 +10,7 @@ interface EmptyStateProps {
 }
 
 const EmptyFull = ({ lang, title, description }: EmptyStateProps) => {
-  const { locale } = useLocalization();
+  const { locale } = useLocale();
 
   return (
     <div className=" text-[var(--foreground)]  top-0 left-0 w-full h-full z-[999] stick">

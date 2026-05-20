@@ -89,4 +89,6 @@ export interface User {
   avatar_url: string, 
   email: string, 
   password: string
+  interests: string[]
+  avatar_type: string
 }

@@ -4,7 +4,7 @@ import CategoryTime from "../utilities/category&time";
 import CyberSecurityPosts from "./cyberSecurityPosts";
 import AuthorTime from "../utilities/author&time";
 import EmptyFull from "../ui/emptyFull";
-import { Locale } from "../../app/[locale]/context/localizationContext";
+import { Locale } from "@/lib/locale/i18n/types";
 
 const ThresholdOpinions = ({ lang }: { lang: Locale }) => {
   const posts = [

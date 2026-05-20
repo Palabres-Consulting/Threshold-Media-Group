@@ -10,6 +10,8 @@ import { User } from "@/app/types/types";
 import { TranslationSchema } from "@/lib/locale";
 import { useUser } from "../../app/[locale]/hook/useUser";
 import { useQueryClient } from "@tanstack/react-query";
+import Image from "next/image";
+import cloudinaryLoader from "@/app/helpers/cloudinary";
 
 interface UserNavProps {
   dict: TranslationSchema["main"];
@@ -19,7 +21,7 @@ interface UserNavProps {
 const UserNav = ({ dict, authUrl }: UserNavProps) => {
   const queryClient = useQueryClient();
   const { data, isLoading } = useUser();
-  
+
   // State and ref for handling click logic on touch devices
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -27,7 +29,10 @@ const UserNav = ({ dict, authUrl }: UserNavProps) => {
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -38,7 +43,7 @@ const UserNav = ({ dict, authUrl }: UserNavProps) => {
 
   const handleLogout = async () => {
     const logoutAction = async () => {
-      queryClient.setQueryData(["user"], null); 
+      queryClient.setQueryData(["user"], null);
       queryClient.removeQueries({ queryKey: ["user"] });
       localStorage.clear();
       sessionStorage.clear();
@@ -66,27 +71,38 @@ const UserNav = ({ dict, authUrl }: UserNavProps) => {
 
   if (data) {
     return (
-      <div className="relative group h-full flex items-center" ref={dropdownRef}>
+      <div
+        className="relative group h-full flex items-center"
+        ref={dropdownRef}
+      >
         {/* User Trigger */}
-        <div 
+        <div
           onClick={() => setIsOpen(!isOpen)}
           className={`px-2 py-1 flex items-center gap-2 cursor-pointer transition-colors ${
             isOpen ? "text-accent-main" : "group-hover:text-accent-main"
           }`}
         >
-          <div className="h-[25px] w-[25px] rounded-full bg-foreground/10" />
+          <div className="h-[25px] w-[25px] rounded-full bg-foreground/10 relative overflow-hidden">
+            <Image
+              loader={cloudinaryLoader}
+              src={data.avatar_url || "/images/profile/avatar-placeholder.png"}
+              alt="Profile Avatar"
+              fill
+              className="object-cover"
+            />
+          </div>
           <h5 className="text-sm">
             {dict.nav.welcome}, {data.title.slice(0, 4)}
           </h5>
-          <GoTriangleDown 
+          <GoTriangleDown
             className={`transition-transform ${
               isOpen ? "rotate-180" : "group-hover:rotate-180"
-            }`} 
+            }`}
           />
         </div>
 
         {/* Dropdown Menu */}
-        <div 
+        <div
           className={`absolute flex-col top-[100%] right-0 w-40 bg-background border border-sub shadow-xl rounded-md overflow-hidden z-50 ${
             isOpen ? "flex" : "hidden group-hover:flex"
           }`}

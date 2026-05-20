@@ -2,7 +2,6 @@
 
 // hooks/usePosts.ts
 import { useQuery } from "@tanstack/react-query";
-import { useLocalization } from "../context/localizationContext";
 import {
   fetchThresholdPosts,
   fetchExtractionPosts,
@@ -12,10 +11,11 @@ import {
   postKeys,
   getPosts,
 } from "../../helpers/fetchLib";
+import { useLocale } from "@/lib/locale/context/translationContext";
 
 // Threshold posts hook
 export const useThresholdPosts = (category?: string, limit: number = 10) => {
-  const { locale } = useLocalization();
+  const { locale } = useLocale();
 
   return useQuery({
     queryKey: ["posts", category, limit, locale],
@@ -30,7 +30,7 @@ export const useThresholdPosts = (category?: string, limit: number = 10) => {
 
 // Extraction posts hook
 export const useExtractionPosts = (category?: string, limit: number = 10) => {
-  const { locale } = useLocalization();
+  const { locale } = useLocale();
 
   return useQuery({
     queryKey: ["extraction-posts", category, limit, locale],
@@ -49,7 +49,7 @@ export const usePostsByDomain = (
   category?: string,
   limit: number = 10
 ) => {
-  const { locale } = useLocalization();
+  const { locale } = useLocale();
 
   const fetchFunction = {
     main: fetchThresholdPosts,
@@ -74,7 +74,7 @@ export const usePostsByDomain = (
  * Taxonomy usually follows: "categories", "asint_categories", "extraction_categories"
  */
 export const useTopLevelCategories = (taxonomy: string = "categories", limit: number = 20) => {
-  const { locale } = useLocalization();
+  const { locale } = useLocale();
 
   return useQuery({
     queryKey: ["top-categories", taxonomy, locale, limit],
@@ -90,7 +90,7 @@ export const useTopLevelCategories = (taxonomy: string = "categories", limit: nu
  * Hook to fetch sub-categories for a specific parent.
  */
 export const useSubCategories = (parentId: number, taxonomy: string = "categories") => {
-  const { locale } = useLocalization();
+  const { locale } = useLocale();
 
   return useQuery({
     queryKey: ["sub-categories", taxonomy, parentId, locale],
@@ -111,7 +111,7 @@ export const useCategoriesByDomain = (
   domain: "main" | "extraction" | "asint" | "transverse",
   limit: number = 20
 ) => {
-  const { locale } = useLocalization(); 
+  const { locale } = useLocale(); 
 
   // Mapping domain to the likely WordPress taxonomy slug
   const taxonomyMap = {

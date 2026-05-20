@@ -1,7 +1,7 @@
 import React from "react";
 import CategoryTime from "../utilities/category&time";
 import EmptyFull from "../ui/emptyFull";
-import { Locale } from "../../app/[locale]/context/localizationContext";
+import { Locale } from "@/lib/locale/i18n/types";
 
 const GreatReads = ({ lang }: { lang: Locale }) => {
   const posts = [

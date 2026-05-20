@@ -3,7 +3,7 @@ import FeaturedPosts from "./featuredPosts";
 import PopularPosts from "./popularPosts";
 import Subscribe from "../forms/subscribe";
 import EmptyFull from "../ui/emptyFull";
-import { Locale } from "../../app/[locale]/context/localizationContext";
+import { Locale } from "@/lib/locale/i18n/types";
 
 const Sidebar = ({ lang }: { lang: Locale }) => {
   const focuses = [

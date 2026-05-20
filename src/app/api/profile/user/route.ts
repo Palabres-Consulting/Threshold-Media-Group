@@ -18,11 +18,13 @@ async function handler(req: NextRequest) {
   // Try to fetch profile
   const { data: profile, error: profileErr } = await supabase
     .from("profiles")
-    .select("title, avatar_url")
+    .select("title, avatar_url, interests, avatar_type")
     .eq("id", user.id)
     .maybeSingle(); // safer than .single()
 
   // Build fallback profile
+
+
   const fallbackProfile = {
     title: user.user_metadata.full_name ?? "New User",
     avatar_url: user.user_metadata.avatar_url ?? null,
@@ -36,6 +38,8 @@ async function handler(req: NextRequest) {
       user.app_metadata.provider === "google"
         ? `oauth:${user.app_metadata.provider}`
         : "********",
+    interests: profile?.interests ?? [],
+    avatar_type: profile?.avatar_type ?? null,
   };
 
   console.log(userProfile);

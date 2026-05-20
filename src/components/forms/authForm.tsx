@@ -56,7 +56,7 @@ const AuthContainer = ({ dict }: { dict: TranslationSchema["main"] }) => {
           withCredentials: true,
         });
         if (response.status === 200) {
-          router.push("/profile");
+          router.push("/onboarding");
           return "Welcome back!";
         }
       } else {

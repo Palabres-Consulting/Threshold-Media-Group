@@ -1,6 +1,6 @@
 "use client";
 import { loadNamespaces } from "../i18n/loadNamespace";
-import { TranslationSchema } from "../i18n/schema";
+import { TranslationSchema } from "../index";
 import { Locale } from "../i18n/types";
 import {
   createContext,
@@ -11,7 +11,6 @@ import {
   Dispatch,
 } from "react";
 
-type MessageNamespace = Record<string, string>;
 
 type Messages = Partial<TranslationSchema>;
 

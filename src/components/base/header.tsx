@@ -7,15 +7,15 @@ import { GoTriangleDown } from "react-icons/go";
 
 import Logo, { useHomeLink } from "./logo";
 import { NavLinks } from "@/app/types/types";
-import { Site } from "../../app/[locale]/context/localizationContext";
 import { TranslationSchema } from "@/lib/locale";
 
 import LangSwitcher from "./LangSwitcher";
 import Categories from "./Categories";
 import MobileMenu from "./mobileMenu";
 import DesktopActions from "./DesktopActions";
+import { SiteName } from "@/lib/utils";
 
-const Header: React.FC<{ site: Site; t: TranslationSchema }> = ({ site, t }) => {
+const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({ site, t }) => {
   const pathName = usePathname();
   const [hoverId, setHoverId] = useState<number | null>(null);
   
