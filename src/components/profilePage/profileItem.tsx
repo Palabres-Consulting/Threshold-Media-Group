@@ -25,7 +25,7 @@ const getSchema = (field: string) =>
 const updateProfileField = async (
   title: string,
   newValue: string | string[],
-  oldValue: string | string[] | undefined
+  oldValue: string | string[] | undefined,
 ) => {
   if (title === "Password") {
     const response = await axios.post("/api/profile/update_password", {
@@ -63,12 +63,17 @@ export const ProfileItem: React.FC<{
   const form = useForm<{ oldValue: string; newValue: string }>({
     resolver: zodResolver(getSchema(title)),
     // Only pass string values to the standard form
-    defaultValues: { oldValue: typeof value === "string" ? value : "", newValue: "" },
+    defaultValues: {
+      oldValue: typeof value === "string" ? value : "",
+      newValue: "",
+    },
   });
 
   const mutation = useMutation({
-    mutationFn: (data: { newValue: string | string[]; oldValue?: string | string[] }) =>
-      updateProfileField(title, data.newValue, data.oldValue),
+    mutationFn: (data: {
+      newValue: string | string[];
+      oldValue?: string | string[];
+    }) => updateProfileField(title, data.newValue, data.oldValue),
     onMutate: async (data) => {
       await queryClient.cancelQueries({ queryKey: ["user"] });
       const prevUser = queryClient.getQueryData<any>(["user"]);
@@ -104,9 +109,21 @@ export const ProfileItem: React.FC<{
   };
 
   // Helper to display the current value cleanly
-  const renderDisplayValue = () => {
+  const renderDisplayValue = (title: string) => {
+    if (title === "Password") {
+      return <p>********</p>;
+    }
+
+    if (title.toLocaleLowerCase() === "email") {
+      return <p className="">{value}</p>;
+    }
+
     if (!value || (Array.isArray(value) && value.length === 0)) {
-      return <p className="blur-sm opacity-50">Not set</p>;
+      return (
+        <p className="blur- animate-pulse  rounded-full bg-accent-main/50 px-2 text-foreground/80 font-semibold text-sm">
+          Set your {title}
+        </p>
+      );
     }
     if (Array.isArray(value)) {
       return <p>{value.join(", ")}</p>;
@@ -120,16 +137,18 @@ export const ProfileItem: React.FC<{
         <div className={`flex flex-col ${editButton ? "gap-5" : "gap-2"}`}>
           <h6>{title}</h6>
 
-          {title === "Password" && typeof value === "string" && value.startsWith("oauth:") ? (
+          {title === "Password" &&
+          typeof value === "string" &&
+          value.startsWith("oauth:") ? (
             <p className="text-sm text-gray-500">
               Signed up with {value.split("oauth:")[1] || "an OAuth provider"}.
               Password is managed by the provider and can't be changed here.
             </p>
           ) : (
-            <div>{renderDisplayValue()}</div>
+            <div>{renderDisplayValue(title)}</div>
           )}
         </div>
-        
+
         {editButton && (
           <div className="">
             <button
@@ -146,23 +165,28 @@ export const ProfileItem: React.FC<{
       {/* 3. Conditional Rendering based on Title */}
       {editActive && (
         <div className="py-4 transition-all duration-300">
-          
           {title === "Interests" ? (
             <InterestsSelector
               currentValues={Array.isArray(value) ? value : []}
-              onSave={(newInterests) => mutation.mutate({ newValue: newInterests, oldValue: value })}
+              onSave={(newInterests) =>
+                mutation.mutate({ newValue: newInterests, oldValue: value })
+              }
               onClose={() => setEditActive(false)}
               isPending={mutation.status === "pending"}
             />
           ) : title === "Persona" ? (
             <PersonaSelector
               currentValue={typeof value === "string" ? value : ""}
-              onSave={(newPersona) => mutation.mutate({ newValue: newPersona, oldValue: value })}
+              onSave={(newPersona) =>
+                mutation.mutate({ newValue: newPersona, oldValue: value })
+              }
               isPending={mutation.status === "pending"}
             />
           ) : (
-            
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="flex flex-col gap-3"
+            >
               {title === "Password" && (
                 <input
                   type="password"
@@ -176,7 +200,8 @@ export const ProfileItem: React.FC<{
                   {form.formState.errors.oldValue?.message}
                 </p>
               )}
-              
+
+              {/* Render a text input for other fields - avatar, title */}
               <input
                 type={title === "Password" ? "password" : "text"}
                 className="input"
@@ -188,7 +213,7 @@ export const ProfileItem: React.FC<{
                   {form.formState.errors.newValue?.message}
                 </p>
               )}
-              
+
               <div className="lg:w-[20%]">
                 <button
                   type="submit"

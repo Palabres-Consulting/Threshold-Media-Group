@@ -91,7 +91,7 @@ export async function POST(req: Request) {
     }
 
     // 5. Update the profile record already created inside your signup execution
-    const { error: updateError } = await supabase
+    const { data: profile, error: updateError } = await supabase
       .from("profiles")
       .update({
         title,
@@ -101,6 +101,8 @@ export async function POST(req: Request) {
         interests: interestsArray,
       })
       .eq("id", user.id);
+
+      console.log("Profile update result:", { profile, updateError });
 
     if (updateError) {
       throw new Error(updateError.message);

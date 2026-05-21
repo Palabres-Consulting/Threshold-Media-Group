@@ -1,14 +1,14 @@
 "use client";
 
-import ProfileSectionsContainer, {
-  ProfileDetails,
-} from "@/components/profilePage/profileSectionsContainer";
+import ProfileSectionsContainer from "@/components/profilePage/profileSectionsContainer";
 
 import SavedArticles from "@/components/profilePage/savedArticles";
 import React from "react";
 import { ProfileItem } from "../../../../components/profilePage/profileItem";
 import { useUser } from "../../hook/useUser";
 import { useTranslations } from "@/lib/locale/context/translationContext";
+import { personas } from "@/components/profilePage/profileSelector";
+import { ProfileDetails } from "@/components/profilePage/profileDetails";
 
 const ProfilePage = () => {
   const dict = useTranslations("main");
@@ -47,21 +47,27 @@ const ProfilePage = () => {
             value={user?.interests || []}
           />
 
-          {user?.avatar_type === "persona" && (
+          <ProfileItem
+            editButton={true}
+            title={"Persona"}
+            value={
+              Array.from(personas[0].name).includes(user?.avatar_url || "")
+                ? user?.avatar_url
+                : ""
+            }
+          />
+
+          {user?.password.startsWith("oauth:") ? null : (
             <ProfileItem
-              editButton={true}
-              title="Persona"
-              value={user?.avatar_url}
+              editButton={
+                user?.password && user?.password.startsWith("oauth:")
+                  ? false
+                  : true
+              }
+              title={dict.profile.items.password}
+              value={user?.password || "********"}
             />
           )}
-
-          <ProfileItem
-            editButton={
-              (user?.password && !user?.password.startsWith("oauth:")) || true
-            }
-            title={dict.profile.items.password}
-            value={user?.password || "********"}
-          />
         </ProfileSectionsContainer>
 
         <ProfileSectionsContainer title={dict.profile.sections.subscription}>

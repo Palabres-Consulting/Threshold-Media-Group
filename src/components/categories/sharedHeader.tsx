@@ -1,3 +1,6 @@
+"use client"; // 💡 Added to allow client-side DOM layout tracking
+
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 
 interface SharedHeaderProps {
@@ -26,6 +29,28 @@ export default function SharedHeader({
   rootCategorySlug = "",
 }: SharedHeaderProps) {
   
+  // 💡 References hooked to target horizontal scroll wrappers
+  const layer12NavRef = useRef<HTMLElement>(null);
+  const layer3NavRef = useRef<HTMLElement>(null);
+
+  // 💡 Automatically center the active tabs inside viewport boundaries
+  useEffect(() => {
+    const scrollToActive = (container: HTMLElement | null) => {
+      if (!container) return;
+      const activeEl = container.querySelector("[data-active='true']");
+      if (activeEl) {
+        activeEl.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center", // Keeps the chosen item neatly centered on screen
+        });
+      }
+    };
+
+    scrollToActive(layer12NavRef.current);
+    scrollToActive(layer3NavRef.current);
+  }, [activeCategory, context]); // Fires instantly when categories or contexts refresh
+
   // Helper to cleanly generate URLs based on the routing strategy
   const getHref = (targetSlug?: string, isParentLink = false) => {
     if (isQueryRouting) {
@@ -40,37 +65,24 @@ export default function SharedHeader({
     }
   };
 
-
   return (
     <header className="px-3 border-b border-[var(--foreground)]/10 pb-4 pt-10 ">
       <h1 className="text-4xl lg:text-3xl font-black uppercase tracking-tighter mb-6">
         {title}
       </h1>
 
-      <div className="flex flex-col gap-3 mb-2">
+      <div className="flex flex-col gap-3 mb-2 w-full overflow-hidden">
         {/* --- LEVEL 1 & 2 ROW (Main Navigation) --- */}
-        <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm md:text-base">
-          
-          {/* === HOME.TSX SPECIFIC: Overview Link === */}
-          {/* {isQueryRouting && topLevelCategory && (
-            <Link
-              href={getHref()}
-              className={`pb-1 transition-colors ${
-                !activeCategory 
-                  ? "font-bold border-b-2 border-[var(--foreground)] text-[var(--foreground)]" 
-                  : "text-[var(--foreground)]/70 hover:text-[var(--foreground)]"
-              }`}
-            >
-              {overviewText}
-            </Link>
-          )} */}
-
+        <nav 
+          ref={layer12NavRef} // 💡 Ref added
+          className="flex flex-nowrap items-center gap-x-6 overflow-x-auto whitespace-nowrap pb-2 text-sm md:text-base [scrollbar-width:thin] [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-[var(--foreground)]/10 [&::-webkit-scrollbar-track]:bg-transparent"
+        >
           {/* === HOME.TSX SPECIFIC: Top-Level Children (When no category is active) === */}
           {isQueryRouting && !activeCategory && topLevelCategory?.categories?.map((link: any) => (
             <Link
               key={link.slug}
               href={getHref(link.slug)}
-              className="text-[var(--foreground)]/70 hover:text-[var(--foreground)] transition-colors pb-1"
+              className="text-[var(--foreground)]/70 hover:text-[var(--foreground)] transition-colors pb-1 shrink-0"
             >
               {link.title}
             </Link>
@@ -82,7 +94,7 @@ export default function SharedHeader({
               {context.parentLink && (
                 <Link 
                   href={getHref(context.parentLink.slug, true)} 
-                  className="font-bold border-b-2 border-[var(--foreground)] text-accent-main pb-1"
+                  className="font-bold border-b-2 border-[var(--foreground)] text-accent-main pb-1 shrink-0"
                 >
                   {context.parentLink.title}
                 </Link>
@@ -95,9 +107,10 @@ export default function SharedHeader({
                   <Link 
                     key={link.slug} 
                     href={getHref(link.slug)} 
-                    className={`pb-1 transition-colors ${
+                    data-active={isActive ? "true" : "false"} // 💡 Target tag added
+                    className={`pb-1 transition-colors shrink-0 ${
                       isActive 
-                        ? "font-bold border-b- border-[var(--foreground)] text-[var(--foreground)]" 
+                        ? "font-bold border-b-2 border-[var(--foreground)] text-[var(--foreground)]" 
                         : "text-[var(--foreground)]/70 hover:text-[var(--foreground)]"
                     }`}
                   >
@@ -111,14 +124,18 @@ export default function SharedHeader({
 
         {/* --- LEVEL 3 ROW (Subcategories rendered as pills) --- */}
         {context?.childLinks?.length > 0 && (
-          <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs md:text-sm pt-2 border-t border-[var(--foreground)]/5">
+          <nav 
+            ref={layer3NavRef} // 💡 Ref added
+            className="flex flex-nowrap items-center gap-x-4 overflow-x-auto whitespace-nowrap pt-2 pb-2 border-t border-[var(--foreground)]/5 [scrollbar-width:thin] [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-[var(--foreground)]/10 [&::-webkit-scrollbar-track]:bg-transparent"
+          >
             {context.childLinks.map((child: any) => {
               const isChildActive = activeCategory === child.slug;
               return (
                 <Link
                   key={child.slug}
                   href={getHref(child.slug)}
-                  className={`transition-colors px-3 py-1 rounded-full ${
+                  data-active={isChildActive ? "true" : "false"} // 💡 Target tag added
+                  className={`transition-colors px-3 py-1 rounded-full shrink-0 ${
                     isChildActive
                       ? "bg-[var(--foreground)] text-[var(--background)] font-medium"
                       : "bg-[var(--foreground)]/5 text-[var(--foreground)]/80 hover:bg-[var(--foreground)]/10"

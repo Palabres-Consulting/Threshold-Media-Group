@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // --- PERSONA SELECTOR ---
-const personas = [
+export const personas = [
   { name: "Mory", role: "Governance", color: "#1a2744" },
   { name: "Kadiatou", role: "Mining", color: "#7c3a1e" },
   // ... add the rest from spec

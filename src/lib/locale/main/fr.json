@@ -694,7 +694,7 @@
     "items": {
       "title": "Nom",
       "email": "Email",
-      "password": "Mot de passe *",
+      "password": "Mot de passe",
       "subscriptionStatus": "Vous n'avez pas d'abonnement actif pour le moment",
       "helpByMail": "Contactez notre service clientèle par email à customercare@gmail.com"
     }

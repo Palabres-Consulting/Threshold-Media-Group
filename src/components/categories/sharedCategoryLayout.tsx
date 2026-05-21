@@ -121,7 +121,7 @@ export default async function SharedCategoryLayout({
 
       <div className="w-full flex">
         <div className="lg:w-[70%] w-full">
-          <MorePosts lang={locale} posts={morePosts} />
+          <MorePosts lang={locale} posts={morePosts} site={wpPostType} />
 
           {/* <ThresholdOpinions lang={locale} /> */}
           {/* <AdDisplay /> */}

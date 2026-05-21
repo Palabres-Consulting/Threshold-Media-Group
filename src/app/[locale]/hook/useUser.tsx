@@ -14,4 +14,6 @@ export const useUser = () =>
     // Only keep data fresh for a short time to catch auth changes
     staleTime: 1000 * 60 * 5, // 5 minutes
     gcTime: 1000 * 60 * 60, // 1 hour
+    retry: false, // Do not retry on failure (stops the 401 spam)
+    refetchOnWindowFocus: false, // Do not fetch when swapping tabs
   });

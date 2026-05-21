@@ -7,6 +7,7 @@ import { getTopLevelCategory } from "@/app/helpers/categoriesMap";
 import { NormalizedPost, Post } from "@/app/types/apiResponse";
 import SaveArticleButton from "../utilities/saveArticleButton"; // <-- Import added
 import { calculateReadTime } from "@/app/helpers/readTime";
+import ShareArticleButton from "../utilities/shareArticleButton";
 
 export const getTitleValue = (data: Post[] | undefined, key: number) => {
   const item = data?.[key];
@@ -26,11 +27,9 @@ export const getTitleValue = (data: Post[] | undefined, key: number) => {
 };
 
 const Hero = ({ site, posts }: { site: string; posts: NormalizedPost[] }) => {
-
-const [mainPost, topSidePost, bottomSidePost] = posts;
+  const [mainPost, topSidePost, bottomSidePost] = posts;
   const taxonomy =
     site === "extraction" ? "extraction-category" : `${site}-categories`;
-
 
   // console.log("post1:", mainPost);
 
@@ -50,6 +49,11 @@ const [mainPost, topSidePost, bottomSidePost] = posts;
                 url={`/journal/${mainPost.slug || ""}?id=${mainPost.id || ""}&type=${site}`}
                 title={mainPost.title}
                 excerpt={mainPost.excerpt} // Stripping HTML tags for clean save
+              />
+              <ShareArticleButton
+                url={`/journal/${mainPost.slug || ""}?id=${mainPost.id || ""}&type=${site}`}
+                title={mainPost.title}
+                customRightStyle="right-16" // 👈 Sits to the left of the Save Button
               />
 
               <Image
@@ -91,6 +95,11 @@ const [mainPost, topSidePost, bottomSidePost] = posts;
                 title={topSidePost.title}
                 excerpt={topSidePost.excerpt}
               />
+              <ShareArticleButton
+                url={`/journal/${mainPost.slug || ""}?id=${mainPost.id || ""}&type=${site}`}
+                title={mainPost.title}
+                customRightStyle="right-16" // 👈 Sits to the left of the Save Button
+              />
 
               <div className="rounded-2xl aspect-video  h-[75%] border-sub overflow-hidden bg-foreground/10 relative">
                 <Image
@@ -122,14 +131,24 @@ const [mainPost, topSidePost, bottomSidePost] = posts;
               className="lg:h-[30%] h-full border-sub-top flex items-center gap-4 pt-6 relative group "
             >
               {/* --- SAVE BUTTON ADDED HERE --- */}
-              <SaveArticleButton
-                postId={bottomSidePost.id}
-                url={`/journal/${bottomSidePost.slug || ""}?type=${site}`}
-                title={bottomSidePost.title}
-                excerpt={bottomSidePost.excerpt}
-              />
-
               <div className="w-[40%] aspect-[4/3]  h-full rounded-2xl overflow-hidden bg-foreground/10 relative">
+              <div className=" relative h-full w-full text-xs">
+                <div className="border z-[10000] bg-accent-main">
+
+                <SaveArticleButton
+                  postId={bottomSidePost.id}
+                  url={`/journal/${bottomSidePost.slug || ""}?type=${site}`}
+                  title={bottomSidePost.title}
+                  excerpt={bottomSidePost.excerpt}
+                />
+
+                <ShareArticleButton
+                  url={`/journal/${mainPost.slug || ""}?id=${mainPost.id || ""}&type=${site}`}
+                  title={mainPost.title}
+                  customRightStyle="right-16" // 👈 Sits to the left of the Save Button
+                />
+                  </div>
+              </div>{" "}
                 <Image
                   loader={cloudinaryLoader}
                   src={bottomSidePost.imageUrl || "/images/homepage/home6.png"}

@@ -57,7 +57,7 @@ export async function createSupabaseServer() {
   const cookieDomain = getBaseDomain(host);
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY!, // server-side
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, // server-side
     {
       cookies: {
         getAll() {

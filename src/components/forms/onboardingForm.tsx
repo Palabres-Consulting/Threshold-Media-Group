@@ -2,12 +2,13 @@
 
 import React, { useState } from "react";
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { Upload, UserCircle, ArrowRight, Check } from "lucide-react";
+import { Upload, ArrowRight, Check } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 
 type FlowType = "custom" | "persona";
 
@@ -25,35 +26,62 @@ const INTERESTS = [
   "Finance", "Geopolitics", "Trade & Customs"
 ];
 
-// Step 1 Validation
-const titleSchema = z.object({
+// Single Unified Schema for the entire Multi-step Flow
+const onboardingSchema = z.object({
   title: z.string().min(2, { message: "Please enter your professional title" }),
+  flowType: z.enum(["custom", "persona"]),
+  selectedPersona: z.string().optional(),
+  selectedInterests: z.array(z.string()),
+  photoFile: z.any().optional(),
+}).refine((data) => {
+  // Conditional validation rule for step 2 details
+  if (data.flowType === "persona" && !data.selectedPersona) return false;
+  if (data.flowType === "custom" && data.selectedInterests.length === 0) return false;
+  return true;
+}, {
+  message: "Please complete your selections before finishing",
+  path: ["selectedPersona"]
 });
-type TitleSchema = z.infer<typeof titleSchema>;
+
+type OnboardingFormData = z.infer<typeof onboardingSchema>;
 
 export default function OnboardingClientForm() {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const [step, setStep] = useState<1 | 2>(1);
-  const [flowType, setFlowType] = useState<FlowType>("custom");
-  
-  // Form state for Step 2
-  const [selectedPersona, setSelectedPersona] = useState<string>("");
-  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
-  const [photoFile, setPhotoFile] = useState<File | null>(null);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<TitleSchema>({
-    resolver: zodResolver(titleSchema),
+  // Single form control orchestrating all sub-elements
+  const { register, handleSubmit, control, trigger, watch, setValue, formState: { errors, isSubmitting } } = useForm<OnboardingFormData>({
+    resolver: zodResolver(onboardingSchema),
+    defaultValues: {
+      title: "",
+      flowType: "custom",
+      selectedPersona: "",
+      selectedInterests: [],
+      photoFile: null,
+    }
   });
 
-  // Handle Title Submission (Moving to Step 2)
-  const onTitleSubmit = (data: TitleSchema) => {
-    setStep(2);
-  };
+  // Watch fields reactively to update UI presentation smoothly
+  const currentFlowType = watch("flowType");
+  const currentPersona = watch("selectedPersona");
+  const currentInterests = watch("selectedInterests");
+  const currentPhotoFile = watch("photoFile");
 
+  // Step 1 check routine 
+const proceedToStepTwo = async () => {
+  // 💡 Force React Hook Form to validate ONLY the 'title' field
+  const isTitleValid = await trigger("title");
+
+  if (isTitleValid) {
+    setStep(2);
+  }
+};
   const toggleInterest = (interest: string) => {
-    setSelectedInterests((prev) =>
-      prev.includes(interest) ? prev.filter((i) => i !== interest) : [...prev, interest]
-    );
+    const updated = currentInterests.includes(interest)
+      ? currentInterests.filter((i) => i !== interest)
+      : [...currentInterests, interest];
+    setValue("selectedInterests", updated);
   };
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,28 +91,26 @@ export default function OnboardingClientForm() {
         toast.error("File must be less than 2MB");
         return;
       }
-      setPhotoFile(file);
+      setValue("photoFile", file);
     }
   };
 
-  // Final Submission to API
-  const completeOnboarding = async (action: "complete" | "skip") => {
-    const titleValue = (document.getElementById("title-input") as HTMLInputElement)?.value || "";
-
+  // Execution pipeline for submission
+  const onSubmitData = async (data: OnboardingFormData, isSkipping: boolean = false) => {
     const submitPromise = async () => {
       const formData = new FormData();
-      formData.append("action", action);
-      formData.append("title", titleValue);
+      formData.append("action", isSkipping ? "skip" : "complete");
+      formData.append("title", data.title); // Retained safely in form memory!
 
-      if (action === "complete") {
-        formData.append("flowType", flowType);
-        if (flowType === "persona") {
-          if (!selectedPersona) throw new Error("Please select a persona");
-          formData.append("avatarValue", selectedPersona);
+      if (!isSkipping) {
+        formData.append("flowType", data.flowType);
+        if (data.flowType === "persona") {
+          if (!data.selectedPersona) throw new Error("Please select a persona");
+          formData.append("avatarValue", data.selectedPersona);
         } else {
-          if (selectedInterests.length === 0) throw new Error("Please select at least one interest");
-          if (photoFile) formData.append("file", photoFile);
-          formData.append("interests", JSON.stringify(selectedInterests));
+          if (data.selectedInterests.length === 0) throw new Error("Please select at least one interest");
+          if (data.photoFile) formData.append("file", data.photoFile);
+          formData.append("interests", JSON.stringify(data.selectedInterests));
         }
       }
 
@@ -94,8 +120,10 @@ export default function OnboardingClientForm() {
 
       if (response.status === 200) {
         router.push("/");
+        queryClient.invalidateQueries({ queryKey: ["user"] });
         router.refresh();
-        return action === "skip" ? "Skipped for now" : "Profile configured!";
+
+        return isSkipping ? "Skipped for now" : "Profile configured!";
       }
     };
 
@@ -108,7 +136,6 @@ export default function OnboardingClientForm() {
 
   return (
     <div className="rounded-2xl lg:p-6 p-3 flex flex-col gap-6 lg:w-[35em] w-full mx-auto border-sub bg-background">
-      {/* Header */}
       <div className="flex flex-col gap-2 text-center">
         <h2 className="text-2xl font-bold">
           {step === 1 ? "What do you call yourself?" : "Customize your identity"}
@@ -119,9 +146,9 @@ export default function OnboardingClientForm() {
       </div>
 
       {step === 1 ? (
-        <form onSubmit={handleSubmit(onTitleSubmit)} className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6">
           <div>
-            <label htmlFor="title-input">Username</label>
+            <label htmlFor="title-input" className="text-sm font-medium">Username / Professional Title</label>
             <input
               id="title-input"
               {...register("title")}
@@ -131,42 +158,50 @@ export default function OnboardingClientForm() {
             />
             {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
           </div>
-          <button type="submit" className="btn-var1 flex items-center justify-center gap-2">
+          <button 
+            type="button" 
+            onClick={proceedToStepTwo} 
+            className="btn-var1 flex items-center justify-center gap-2"
+          >
             Continue <ArrowRight size={18} />
           </button>
-        </form>
+        </div>
       ) : (
-        <div className="flex flex-col gap-6">
-          {/* Flow Toggle (Matches your Auth pill design) */}
+        <form onSubmit={handleSubmit((data) => onSubmitData(data, false))} className="flex flex-col gap-6">
+          {/* Flow Toggle */}
           <div className="rounded-[2em] flex w-full p-1 border-sub">
             <button
               type="button"
               className={`rounded-[2em] cursor-pointer w-full py-3 transition-all duration-400 text-sm font-medium ${
-                flowType === "custom" ? "bg-accent-main text-white" : "hover:bg-foreground/5"
+                currentFlowType === "custom" ? "bg-accent-main text-white" : "hover:bg-foreground/5"
               }`}
-              onClick={() => setFlowType("custom")}
+              onClick={() => setValue("flowType", "custom")}
             >
               My Photo & Interests
             </button>
             <button
               type="button"
               className={`rounded-[2em] cursor-pointer w-full py-3 transition-all duration-400 text-sm font-medium ${
-                flowType === "persona" ? "bg-accent-main text-white" : "hover:bg-foreground/5"
+                currentFlowType === "persona" ? "bg-accent-main text-white" : "hover:bg-foreground/5"
               }`}
-              onClick={() => setFlowType("persona")}
+              onClick={() => setValue("flowType", "persona")}
             >
               TMG Persona
             </button>
           </div>
 
-          {/* Conditional UI based on Flow */}
-          {flowType === "custom" ? (
+          {/* Conditional UI Subsections */}
+          {currentFlowType === "custom" ? (
             <div className="space-y-6">
               <div className="p-4 border-sub rounded-xl bg-foreground/5 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-background border-sub flex items-center justify-center overflow-hidden">
-                    {photoFile ? (
-                      <img src={URL.createObjectURL(photoFile)} alt="Preview" className="w-full h-full object-cover" />
+                    {currentPhotoFile ? (
+                      <img 
+                        src={URL.createObjectURL(currentPhotoFile)} 
+                        alt="Preview" 
+                        className="w-full h-full object-cover" 
+                      />
                     ) : (
                       <Upload size={20} className="text-foreground/40" />
                     )}
@@ -176,7 +211,12 @@ export default function OnboardingClientForm() {
                     <p className="text-xs text-foreground/60">JPG/PNG, max 2MB</p>
                   </div>
                 </div>
-                <input type="file" accept=".jpg,.jpeg,.png" onChange={handlePhotoUpload} className="text-sm" />
+                <input 
+                  type="file" 
+                  accept=".jpg,.jpeg,.png" 
+                  onChange={handlePhotoUpload} 
+                  className="text-sm max-w-[180px]" 
+                />
               </div>
 
               <div>
@@ -184,10 +224,11 @@ export default function OnboardingClientForm() {
                 <div className="flex flex-wrap gap-2">
                   {INTERESTS.map((interest) => (
                     <button
+                      type="button"
                       key={interest}
                       onClick={() => toggleInterest(interest)}
                       className={`px-4 py-2 rounded-full text-xs font-medium border transition-colors ${
-                        selectedInterests.includes(interest)
+                        currentInterests.includes(interest)
                           ? "bg-accent-main text-white border-accent-main"
                           : "bg-background border-sub text-foreground/60 hover:border-accent-main/50"
                       }`}
@@ -205,9 +246,9 @@ export default function OnboardingClientForm() {
                 {PERSONAS.map((persona) => (
                   <div
                     key={persona.id}
-                    onClick={() => setSelectedPersona(persona.id)}
+                    onClick={() => setValue("selectedPersona", persona.id)}
                     className={`flex flex-col items-center gap-2 p-3 rounded-xl border-sub cursor-pointer transition-all ${
-                      selectedPersona === persona.id ? "border-accent-main bg-accent-main/5" : "hover:bg-foreground/5"
+                      currentPersona === persona.id ? "border-accent-main bg-accent-main/5" : "hover:bg-foreground/5"
                     }`}
                   >
                     <div
@@ -215,7 +256,7 @@ export default function OnboardingClientForm() {
                       style={{ backgroundColor: persona.color }}
                     >
                       <span className="text-lg">{persona.initial}</span>
-                      {selectedPersona === persona.id && (
+                      {currentPersona === persona.id && (
                         <div className="absolute -bottom-1 -right-1 bg-accent-main rounded-full p-1 border-2 border-background">
                           <Check size={10} />
                         </div>
@@ -231,19 +272,25 @@ export default function OnboardingClientForm() {
             </div>
           )}
 
-          {/* Action Footer */}
+          {/* Action Buttons */}
           <div className="flex flex-col gap-3 mt-4">
-            <button onClick={() => completeOnboarding("complete")} className="btn-var1 w-full">
+            <button 
+              type="submit" 
+              disabled={isSubmitting} 
+              className="btn-var1 w-full disabled:opacity-50"
+            >
               Complete Profile
             </button>
             <button
-              onClick={() => completeOnboarding("skip")}
-              className="text-xs text-foreground/40 hover:text-foreground transition-colors py-2"
+              type="button"
+              disabled={isSubmitting}
+              onClick={() => onSubmitData(watch(), true)}
+              className="text-xs text-foreground/40 hover:text-foreground transition-colors py-2 disabled:opacity-50"
             >
               Skip for now
             </button>
           </div>
-        </div>
+        </form>
       )}
     </div>
   );
