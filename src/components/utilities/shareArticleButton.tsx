@@ -53,7 +53,7 @@ export default function ShareArticleButton({
   };
 
   return (
-    <div className={`absolute top-4 ${customRightStyle} z-[60] flex flex-col items-end gap-1`}>
+    <div className={`top-4 ${customRightStyle} z-[60] flex flex-col items-end gap-1`}>
       <button
         onClick={handleShareClick}
         type="button"

@@ -14,6 +14,9 @@ import { CategoriesMap, getCategoryContext } from "../helpers/categoriesMap";
 import SharedHeader from "../../components/categories/sharedHeader";
 import { normalizePosts } from "../helpers/normalizeData";
 import AdDisplay from "@/components/PostDisplaySections/adDisplay";
+import AdDisplayLandscape from "@/components/PostDisplaySections/adDisplayLandscape";
+import cloudinaryLoader from "../helpers/cloudinary";
+import Image from "next/image";
 
 const Home = async (props: {
   params: Promise<{ locale: "en" | "fr" }>;
@@ -139,14 +142,21 @@ const Home = async (props: {
       ) : (
         <>
           <Hero site={site} posts={heroPosts} />
-          <CyberSecurityPosts posts={cyberPosts} />
+
+
+
+          <section className="flex justify-center ">
+             <div className="w-[85%] lg:h-[20em] rounded-2xl overflow-hidden relative">
+                <AdDisplayLandscape />
+              </div>
+          </section>
 
           <div className="w-full flex">
             <div className="lg:w-[70%] w-full">
-              <MorePosts lang={locale} posts={morePosts} site={site}/>
+              <MorePosts lang={locale} posts={morePosts} site={site} />
               {/* <ThresholdOpinions lang={locale} /> */}
               {/* <MorePosts lang={locale} posts={morePosts} /> */}
-              
+
               {/* <GreatReads lang={locale} /> */}
             </div>
             <div className="lg:w-[30%] hidden lg:flex">

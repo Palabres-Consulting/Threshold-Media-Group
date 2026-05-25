@@ -46,7 +46,7 @@ const MorePosts = ({
                   <ShareArticleButton
                     url={`/journal/${post0.slug || ""}?id=${post0.id || ""}&type=${site}`}
                     title={post0.title}
-                    customRightStyle="right-16" // 👈 Sits to the left of the Save Button
+                    customRightStyle="right-16 absolute" // 👈 Sits to the left of the Save Button
                   />
                   <Link href={post0.postUrl} className="block w-full h-full">
                     <PostCard
@@ -74,7 +74,7 @@ const MorePosts = ({
                   <ShareArticleButton
                     url={`/journal/${post1.slug || ""}?id=${post1.id || ""}&type=${site}`}
                     title={post1.title}
-                    customRightStyle="right-16" // 👈 Sits to the left of the Save Button
+                    customRightStyle="right-16 absolute" // 👈 Sits to the left of the Save Button
                   />
                   <Link href={post1.postUrl} className="block w-full h-full">
                     <AuthorPost
@@ -106,7 +106,7 @@ const MorePosts = ({
                 <ShareArticleButton
                   url={`/journal/${post2.slug || ""}?id=${post2.id || ""}&type=${site}`}
                   title={post2.title}
-                  customRightStyle="right-16" // 👈 Sits to the left of the Save Button
+                  customRightStyle="right-16 absolute" // 👈 Sits to the left of the Save Button
                   />
                 
                 <Link href={post2.postUrl} className="block w-full h-full">
@@ -138,7 +138,7 @@ const MorePosts = ({
                 <ShareArticleButton
                   url={`/journal/${post3.slug || ""}?id=${post3.id || ""}&type=${site}`}
                   title={post3.title}
-                  customRightStyle="right-16" // 👈 Sits to the left of the Save Button
+                  customRightStyle="right-16 absolute" // 👈 Sits to the left of the Save Button
                 />
                 <Link href={post3.postUrl} className="block w-full h-full">
                   <Image
@@ -177,7 +177,7 @@ const MorePosts = ({
                   <ShareArticleButton
                     url={`/journal/${post4.slug || ""}?id=${post4.id || ""}&type=${site}`}
                     title={post4.title}
-                    customRightStyle="right-16" // 👈 Sits to the left of the Save Button
+                    customRightStyle="right-16 absolute" // 👈 Sits to the left of the Save Button
                   />
                   <Link href={post4.postUrl}>
                     <AuthorPost

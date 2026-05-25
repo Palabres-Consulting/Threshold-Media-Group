@@ -53,7 +53,7 @@ const Hero = ({ site, posts }: { site: string; posts: NormalizedPost[] }) => {
               <ShareArticleButton
                 url={`/journal/${mainPost.slug || ""}?id=${mainPost.id || ""}&type=${site}`}
                 title={mainPost.title}
-                customRightStyle="right-16" // 👈 Sits to the left of the Save Button
+                customRightStyle="right-16 absolute" // 👈 Sits to the left of the Save Button
               />
 
               <Image
@@ -98,7 +98,7 @@ const Hero = ({ site, posts }: { site: string; posts: NormalizedPost[] }) => {
               <ShareArticleButton
                 url={`/journal/${mainPost.slug || ""}?id=${mainPost.id || ""}&type=${site}`}
                 title={mainPost.title}
-                customRightStyle="right-16" // 👈 Sits to the left of the Save Button
+                customRightStyle="right-16 absolute" // 👈 Sits to the left of the Save Button
               />
 
               <div className="rounded-2xl aspect-video  h-[75%] border-sub overflow-hidden bg-foreground/10 relative">
@@ -145,7 +145,7 @@ const Hero = ({ site, posts }: { site: string; posts: NormalizedPost[] }) => {
                 <ShareArticleButton
                   url={`/journal/${mainPost.slug || ""}?id=${mainPost.id || ""}&type=${site}`}
                   title={mainPost.title}
-                  customRightStyle="right-16" // 👈 Sits to the left of the Save Button
+                  customRightStyle="right-16 absolute" // 👈 Sits to the left of the Save Button
                 />
                   </div>
               </div>{" "}

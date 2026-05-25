@@ -1,53 +1,29 @@
+// components/PostDisplaySections/popularPosts.tsx
 import React from "react";
-import { customPosts } from "./featuredPosts";
 import ListCard from "../utilities/ListCard";
+import { NormalizedPost } from "@/app/types/apiResponse";
 
-const PopularPosts = () => {
-  const posts = [
-    {
-      id: 0,
-      title:
-        "lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor",
-      date: "03 Sep 2025",
-      author: "Darlene",
-      authorImage: "",
-    },
-    {
-      id: 1,
-      title:
-        "lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor",
-      date: "03 Sep 2025",
-      author: "Darlene",
-      authorImage: "",
-    },
-    {
-      id: 2,
-      title:
-        "lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor",
-      date: "03 Sep 2025",
-      author: "Darlene",
-      authorImage: "",
-    },
-    {
-      id: 3,
-      title:
-        "lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor",
-      date: "03 Sep 2025",
-      author: "Darlene",
-      authorImage: "",
-    },
- 
-  ];
+interface PopularPostsProps {
+  posts: NormalizedPost[];
+  lang: string;
+}
+
+const PopularPosts = ({ posts }: PopularPostsProps) => {
+  if (!posts || posts.length === 0) return null;
 
   return (
-    <div>
-      <h2 className="text-[1.3rem]  lg:text-[1.5rem] font-bold mb-4">
-        Most Popular
+    <div className="flex flex-col mt-2">
+      <h2 className="text-[1.3rem] lg:text-[1.5rem] font-bold mb-2">
+        
       </h2>
-      <div className="">
-        {posts.map(({ id }) => {
-          return <ListCard key={id} index={id} />;
-        })}
+      <div className="flex flex-col">
+        {posts.map((post, index) => (
+          <ListCard 
+            key={post.id} 
+            post={post} 
+            // rank={index + 1} 
+          />
+        ))}
       </div>
     </div>
   );

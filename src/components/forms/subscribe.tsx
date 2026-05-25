@@ -2,7 +2,7 @@ import React from "react";
 
 const Subscribe = () => {
   return (
-    <form className="bg-white w-full p-2 rounded-md flex items-center gap-2 justify-between">
+    <form className="bg-white w-full py-1 px-2 rounded-md flex items-center gap-2 justify-between">
       <div className="w-[65%]">
         <input
           className="w-full outline-none border-none p-1"

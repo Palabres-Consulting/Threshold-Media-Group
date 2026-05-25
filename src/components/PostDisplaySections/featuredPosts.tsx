@@ -1,43 +1,25 @@
+// components/PostDisplaySections/featuredPosts.tsx
 import React from "react";
 import ListCard from "../utilities/ListCard";
+import { NormalizedPost } from "@/app/types/apiResponse";
 
-export const customPosts = [
-  {
-    id: 0,
-    title:
-      "lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor",
-    date: "03 Sep 2025",
-    author: "Darlene",
-    authorImage: "",
-  },
-  {
-    id: 1,
-    title:
-      "lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor",
-    date: "03 Sep 2025",
-    author: "Darlene",
-    authorImage: "",
-  },
-  {
-    id: 2,
-    title:
-      "lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor",
-    date: "03 Sep 2025",
-    author: "Darlene",
-    authorImage: "",
-  },
-];
+interface FeaturedPostsProps {
+  posts: NormalizedPost[];
+  lang: string;
+}
 
-const FeaturedPosts = () => {
+const FeaturedPosts = ({ posts }: FeaturedPostsProps) => {
+  if (!posts || posts.length === 0) return null;
+
   return (
-    <div>
-      <h2 className="text-[1.3rem]  lg:text-[1.5rem] font-bold mb-4">
-        Featured
+    <div className="flex flex-col mb-4">
+      <h2 className="text-[1.3rem] lg:text-[1.5rem] font-bold mb-2">
+        Recent
       </h2>
-      <div className="">
-        {customPosts.map(({ id }) => {
-          return <ListCard key={id} index={null} />;
-        })}
+      <div className="flex flex-col">
+        {posts.map((post) => (
+          <ListCard key={post.id} post={post} rank={null} />
+        ))}
       </div>
     </div>
   );

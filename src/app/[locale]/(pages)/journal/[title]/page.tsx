@@ -14,6 +14,7 @@ import { useParams, useSearchParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useArticleSave } from "@/app/[locale]/hook/useArticles"; // <-- Import added
+import ShareArticleButton from "@/components/utilities/shareArticleButton";
 
 const UniquePost = () => {
   const params = useParams();
@@ -30,7 +31,10 @@ const UniquePost = () => {
 
   const site = useClientSite();
 
-  const postTypeMap: Record<string, "innovation" | "posts" | "extraction" | "asint"> = {
+  const postTypeMap: Record<
+    string,
+    "innovation" | "posts" | "extraction" | "asint"
+  > = {
     innovation: "innovation",
     main: "posts",
     extraction: "extraction",
@@ -51,11 +55,13 @@ const UniquePost = () => {
 
   const identifier = idFromUrl || storedId || slug;
   console.log("Using identifier:", identifier, "for postType:", postType);
-  const { data: post, isLoading, isError } = useSinglePost(identifier, postType);
+  const {
+    data: post,
+    isLoading,
+    isError,
+  } = useSinglePost(identifier, postType);
 
-  
-
-  console.log("Fetched post:", post); 
+  console.log("Fetched post:", post);
 
   // Option A: Get the original, uncompressed full-size image (Best for large hero sections)
   const imageUrl = post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
@@ -144,6 +150,12 @@ const UniquePost = () => {
               <div className="flex gap-6 text-foreground/50 items-center">
                 <p className="text-sm">Product</p>
                 <div className="h-[5px] w-[5px] bg-foreground/50 rounded-full"></div>
+                <div className="relative">
+                  <ShareArticleButton
+                    title={formattedTitle || "Post Title"}
+                    url={postUrl}
+                  />
+                </div>
               </div>
 
               {/* --- SAVE BUTTON ADDED HERE --- */}
@@ -205,8 +217,8 @@ const UniquePost = () => {
           <div className="">{/* <ThresholdOpinions /> */}</div>
         </div>
         <div className="lg:w-[30%] hidden lg:block relative overflow-hidden">
-          <EmptyFull lang={locale} title="No Content Yet" description="" />
-          <Sidebar lang={locale} />
+          {/* <EmptyFull lang={locale} title="No Content Yet" description="" /> */}
+          <Sidebar site={site} lang={locale} />
         </div>
       </div>
     </PageContainer>
