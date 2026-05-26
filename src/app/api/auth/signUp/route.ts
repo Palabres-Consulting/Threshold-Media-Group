@@ -6,11 +6,31 @@ export async function POST(req: Request) {
     const { email, password, title } = await req.json();
     const supabase = await createSupabaseServer();
 
+
+
+    // check if user already exists
+    const { data: existingUser, error: existingUserError } = await supabase
+      .from("profiles")
+      .select("id")
+      .eq("email", email)
+      .single();
+
+
+    if (existingUser) {
+      return NextResponse.json(
+        { message: "User already exists" },
+        { status: 400 },
+      );
+    }
+
     // 1. Create user with supabase auth
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
     });
+
+    
+
 
     if (error || !data.user) {
       return NextResponse.json(
