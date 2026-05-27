@@ -29,7 +29,7 @@ const CyberSecurityPosts = ({
                 bg={false}
                 readTime={post.readTimeLabel} // Dynamically calculated instead of hardcoded!
                 date={formatAuthorDate(post.date)}
-                author={post.authorName} // No more digging through _embedded!
+                category={post.topCategory}
               />
               <h2 className="text-[1.2rem] font-semibold">{post.title}</h2>
             </div>

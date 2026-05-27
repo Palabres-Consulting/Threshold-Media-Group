@@ -1,130 +1,128 @@
+// components/sections/ThresholdOpinions.tsx
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import AuthorPost from "../utilities/authorPost";
 import CategoryTime from "../utilities/category&time";
-import CyberSecurityPosts from "./cyberSecurityPosts";
 import AuthorTime from "../utilities/author&time";
 import EmptyFull from "../ui/emptyFull";
+import SaveArticleButton from "../utilities/saveArticleButton";
+import ShareArticleButton from "../utilities/shareArticleButton";
+import cloudinaryLoader from "@/app/helpers/cloudinary";
 import { Locale } from "@/lib/locale/i18n/types";
+import { formatAuthorDate, truncateText } from "@/app/helpers/textHelpers";
+import { NormalizedPost } from "@/app/types/apiResponse";
+import OpinionFeedGrid from "./opinionFeedGrid";
 
-const ThresholdOpinions = ({ lang }: { lang: Locale }) => {
-  const posts = [
-    {
-      id: 0,
-      title:
-        "lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor",
-      date: "03 Sep 2025",
-      author: "Darlene",
-      authorImage: "",
-      customStyle: "px-3 lg:px-0",
-    },
-    {
-      id: 1,
-      title:
-        "lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor",
-      date: "03 Sep 2025",
-      author: "Darlene",
-      authorImage: "",
-      customStyle:
-        "lg:border-l-[1px] lg:border-r-[1px] lg:border-t-[0px] lg:border-b-[0px] border-b-[1px] border-t-[1px] py-4 lg:py-0  border-foreground/10 hover:border-foreground/20 transition-all duration-300; lg:px-5 px-3",
-    },
-    {
-      id: 2,
-      title:
-        "lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor",
-      date: "03 Sep 2025",
-      author: "Darlene",
-      authorImage: "",
-      customStyle: "px-3 lg:px-0",
-    },
-  ];
+interface ThresholdOpinionsProps {
+  posts: NormalizedPost[];
+  lang: Locale;
+  site: string;
+}
 
-  const data = []; // Replace with actual data fetching logic
+const ThresholdOpinions = ({
+  posts = [],
+  lang,
+  site,
+}: ThresholdOpinionsProps) => {
+  // Destructure content slots safely
+  const [featuredPost, ...subPosts] = posts;
+  // Limit bottom feed strictly to 3 tracking column instances
+  const opinionFeed = subPosts.slice(0, 3);
+  const opinionFeed2 = subPosts.slice(3, 6); 
 
   return (
-    <section className="flex flex-col bg-accent-main/5 border-sub-right">
-          <div className="px-6 pt-6  ">
-            <h2 className="text-[2rem] font-bold">Threshold Opinion</h2>
-          </div>
-      {data.length < 1 ? (
-        <>
-          <div className="flex">
-            <EmptyFull lang={lang} />
-            <div className="border-sub-side"></div>
-          </div>
-        </>
+    <section
+      className="flex flex-col bg-accent-main/5 border-sub-right"
+      id="thresholdOpinions"
+    >
+      <div className="px-6 pt-6">
+        {/* <h2 className="text-[2rem] font-bold">Threshold Opinion</h2> */}
+      </div>
+
+      {posts.length < 1 ? (
+        <div className="flex">
+          <EmptyFull lang={lang} />
+          <div className="border-sub-side"></div>
+        </div>
       ) : (
         <>
 
-          <div className="">
-            <div className="flex flex-col lg:flex-row w-full  p-6 gap-6 justify-center items-center ">
-              <div className="rounded-2xl overflow-hidden h-[50vh] w-full lg:w-[50%] bg-foreground/10 border-sub">
-                {/* <Image
-            loader={cloudinaryLoader}
-            src={"v1755525333/hero_image_uxpn9r.png"}
-            alt={`post image`}
-            width={1000}
-            height={1000}
-            className="object-cover w-full h-full"
-            // unoptimized
-          /> */}
+         {opinionFeed.length > 0 && (
+            <OpinionFeedGrid opinionFeed={opinionFeed} />
+          )}
+          {/* Top Featured Split Row */}
+          {featuredPost && (
+            <div className="flex flex-col lg:flex-row w-full p-6 gap-6 justify-center items-center">
+              {/* Media Asset Wrapper Container */}
+              <div className="relative rounded-2xl overflow-hidden aspect-video w-full lg:w-[50%] bg-foreground/10 border-sub">
+                <SaveArticleButton
+                  postId={featuredPost.id}
+                  url={featuredPost.postUrl}
+                  title={featuredPost.title}
+                  excerpt={truncateText(featuredPost.excerpt, 18)}
+                />
+                <ShareArticleButton
+                  url={`/journal/${featuredPost.slug || ""}?id=${featuredPost.id || ""}&type=${site}`}
+                  title={featuredPost.title}
+                  customRightStyle="right-16 absolute"
+                />
+                <Link
+                  href={featuredPost.postUrl}
+                  className="block w-full h-full"
+                >
+                  <Image
+                    loader={cloudinaryLoader}
+                    src={featuredPost.imageUrl}
+                    alt={featuredPost.title}
+                    width={1000}
+                    height={1000}
+                    className="object-cover w-full h-full"
+                  />
+                </Link>
               </div>
-              <div className="flex flex-col lg:w-[50%] gap-2 justify-between ">
+
+              {/* Text Block Analytics Wrapper */}
+              <div className="flex flex-col lg:w-[50%] gap-2 justify-between h-full ">
                 <CategoryTime
                   back={false}
                   bg={true}
-                  category="Smartphones"
-                  readTime="10 mins read"
+                  category={featuredPost.topCategory}
+                  readTime={featuredPost.readTimeLabel}
                 />
-                <div className="">
-                  <h2 className="text-[1.3rem] font-semibold mb-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Temporibus{" "}
-                  </h2>
-
-                  <p className="opacity-50">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Laborum consectetur recusandae atque, rem delectus nostrum!
+                <div>
+                  <Link
+                    href={featuredPost.postUrl}
+                    className="hover:opacity-80 transition-opacity"
+                  >
+                    <h2 className="text-[1.3rem] font-semibold mb-3">
+                      {truncateText(featuredPost.title, 15)}
+                    </h2>
+                  </Link>
+                  <p className="opacity-70 text-sm leading-relaxed">
+                    {truncateText(featuredPost.excerpt, 35)}
                   </p>
                 </div>
 
-                <div className="">
-                  <AuthorPost
-                    author="Darlene"
-                    image=""
-                    title="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id repellat"
-                    date="03 Sep 2025"
-                    readTime="10 min Read"
-                  />
+                <div className="relative pt-4 ">
+                  <Link href={featuredPost.postUrl}>
+                    <AuthorPost
+                      category={featuredPost.topCategory}
+                      image={""}
+                      title={truncateText(featuredPost.title, 12)}
+                      date={formatAuthorDate(featuredPost.date)}
+                      readTime={featuredPost.readTimeLabel}
+                    />
+                  </Link>
                 </div>
               </div>
             </div>
-          </div>
+          )}
 
-          <div className="  flex flex-col lg:flex-row gap-3 w-full items-center lg:p-5 ">
-            {posts.map(
-              ({ id, title, date, author, authorImage, customStyle }) => (
-                <div
-                  className={`flex flex-col gap-3 h-[35vh] justify-center   ${customStyle}`}
-                  key={id}
-                >
-                  <AuthorTime
-                    back={false}
-                    bg={false}
-                    readTime="10 min Read"
-                    date={"03 Sep 2025"}
-                    author={author}
-                  />
-                  <h2 className="text-[1.2rem] font-semibold">{title}</h2>
-                  <CategoryTime
-                    back={false}
-                    bg={false}
-                    category="Smartphones"
-                    readTime="10 mins read"
-                  />
-                </div>
-              ),
-            )}
-          </div>
+          {/* Bottom Layer Variable Column Feed */}
+          {opinionFeed2.length > 0 && (
+            <OpinionFeedGrid opinionFeed={opinionFeed2} />
+          )}
         </>
       )}
     </section>

@@ -107,7 +107,7 @@ const LatestArticleReads = ({ locale }: { locale: Locale }) => {
 
                 <div className="">
                   <AuthorPost
-                    author="Darlene"
+                    category=""
                     image=""
                     title="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id repellat"
                     date="03 Sep 2025"
@@ -130,7 +130,7 @@ const LatestArticleReads = ({ locale }: { locale: Locale }) => {
                     bg={false}
                     readTime="10 min Read"
                     date={"03 Sep 2025"}
-                    author={author}
+                    category={""}
                   />
                   <h2 className="text-[1.2rem] font-semibold">{title}</h2>
                   <CategoryTime

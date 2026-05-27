@@ -98,10 +98,14 @@ const Home = async (props: {
 
   // Normalize all articles immediately after fetching
   const cleanArticles = normalizePosts(allArticles, site);
+  console.log("Normalized Articles:", cleanArticles.length);
+
   // 4. Slice data safely
   const heroPosts = hasArticles ? cleanArticles.slice(0, 3) : [];
-  const cyberPosts = hasArticles ? cleanArticles.slice(3, 6) : [];
-  const morePosts = hasArticles ? cleanArticles.slice(6, 11) : [];
+  // const cyberPosts = hasArticles ? cleanArticles.slice(3, 6) : [];
+  const morePosts = hasArticles ? cleanArticles.slice(3, 8) : [];
+  const opinionPosts = hasArticles ? cleanArticles.slice(8, 16) : [];
+  const greatReadsPosts = hasArticles ? cleanArticles.slice(16, 24) : [];
   // Main Homepage Return
   if (site === "main") {
     return (
@@ -117,7 +121,7 @@ const Home = async (props: {
   }
 
   return (
-    <main className="lg:mx-10 mx-2 border-sub-side relative ">
+    <main className="mx-2 border-sub-side lg:mx-10 relative overflow-hidden 2xl:mx-auto ">
       {/* 1. Universal Header (Always renders) */}
       <SharedHeader
         title={
@@ -143,21 +147,23 @@ const Home = async (props: {
         <>
           <Hero site={site} posts={heroPosts} />
 
-
-
           <section className="flex justify-center ">
-             <div className="w-[85%] lg:h-[20em] rounded-2xl overflow-hidden relative">
-                <AdDisplayLandscape />
-              </div>
+            <div className="w-[85%] lg:h-[20em] rounded-2xl overflow-hidden relative">
+              <AdDisplayLandscape />
+            </div>
           </section>
 
           <div className="w-full flex">
             <div className="lg:w-[70%] w-full">
               <MorePosts lang={locale} posts={morePosts} site={site} />
-              {/* <ThresholdOpinions lang={locale} /> */}
+              <ThresholdOpinions
+                site={site}
+                posts={opinionPosts}
+                lang={locale}
+              />
               {/* <MorePosts lang={locale} posts={morePosts} /> */}
 
-              {/* <GreatReads lang={locale} /> */}
+              {/* <GreatReads lang={locale} posts={greatReadsPosts} site={site} /> */}
             </div>
             <div className="lg:w-[30%] hidden lg:flex">
               <div className="w-full py-10 relative overflow-hidden">

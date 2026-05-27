@@ -1,63 +1,78 @@
+// components/sections/GreatReads.tsx
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import CategoryTime from "../utilities/category&time";
 import EmptyFull from "../ui/emptyFull";
+import SaveArticleButton from "../utilities/saveArticleButton";
+import ShareArticleButton from "../utilities/shareArticleButton";
+import cloudinaryLoader from "@/app/helpers/cloudinary";
 import { Locale } from "@/lib/locale/i18n/types";
+import { truncateText } from "@/app/helpers/textHelpers";
+import { NormalizedPost } from "@/app/types/apiResponse";
 
-const GreatReads = ({ lang }: { lang: Locale }) => {
-  const posts = [
-    {
-      id: 0,
-      title: "A guide to choosing smartphones with good camera",
-      category: "Smartphone",
-      readTime: "10 min read",
-      image: "",
-    },
-    {
-      id: 1,
-      title: "A guide to choosing smartphones with good camera",
-      category: "Smartphone",
-      readTime: "10 min read",
-      image: "",
-    },
-  ];
+interface GreatReadsProps {
+  posts: NormalizedPost[];
+  lang: Locale;
+  site: string;
+}
 
-  const data = []; // Replace with actual data fetching logic
-
+const GreatReads = ({ posts = [], lang, site }: GreatReadsProps) => {
   return (
-    <section className="lg:p-6 p-3 border-sub-right">
+    <section className="lg:p-6 p-3 border-sub-right" id="greatReads">
       <h2 className="text-[1.5rem] font-bold mb-8">Great Reads</h2>
-      {data.length < 1 ? (
+      
+      {posts.length < 1 ? (
         <EmptyFull lang={lang} />
       ) : (
         <div className="grid gap-6 lg:grid-cols-2 grid-cols-1">
-          {posts.map(({ title, id, category, image, readTime }) => {
+          {posts.map((post) => {
             return (
               <div
-                key={id}
-                className="rounded-2xl h-[60vh] flex items-end bg-foreground/5 relative overflow-hidden"
+                key={post.id}
+                className="group rounded-2xl h-[60vh] flex items-end relative overflow-hidden bg-foreground/5 border border-sub shadow-sm hover:shadow-md transition-shadow duration-300"
               >
-                <div className="p-5 z-50">
-                  <CategoryTime
-                    back={true}
-                    bg={true}
-                    category={category}
-                    readTime={readTime}
+                {/* Action Controls Header Overlay Layer */}
+                <div className="absolute top-4 right-4 z-50 flex items-center gap-2">
+                  <ShareArticleButton
+                    url={`/journal/${post.slug || ""}?id=${post.id || ""}&type=${site}`}
+                    title={post.title}
+                    customRightStyle="relative right-0"
                   />
-                  <h2 className="font-semibold lg:text-[1.5rem] text-[1.1rem] mt-4 text-white">
-                    {title}
-                  </h2>
+                  <SaveArticleButton
+                    postId={post.id}
+                    url={post.postUrl}
+                    title={post.title}
+                    excerpt={truncateText(post.excerpt, 15)}
+                    // customRightStyle="relative right-0 top-0"
+                  />
                 </div>
-                <div className="absolute  lg:h-full  w-full bg-gradient-to-t from-10% from-black/20 via-black/20 via-30% to-70% to-transparent"></div>
-                <div className="h-full absolute w-full overflow-hidden ">
-                  {/* <Image
-            loader={cloudinaryLoader}
-            src={"v1755525333/hero_image_uxpn9r.png"}
-            alt={`Partner: ${name}`}
-            width={1000}
-            height={1000}
-            className="object-cover w-full h-full"
-            // unoptimized
-          /> */}
+
+                {/* Typography Information Panel Base */}
+                <div className="p-6 z-40 w-full bg-gradient-to-t from-black/90 via-black/60 to-transparent pt-24 text-white">
+                  <CategoryTime
+                    back={false}
+                    bg={true}
+                    category={post.topCategory}
+                    readTime={post.readTimeLabel}
+                  />
+                  <Link href={post.postUrl} className="block group-hover:underline mt-3">
+                    <h2 className="font-semibold lg:text-[1.4rem] text-[1.1rem] leading-snug drop-shadow-sm text-white">
+                      {post.title}
+                    </h2>
+                  </Link>
+                </div>
+
+                {/* Background Backdrop Structural Layer */}
+                <div className="absolute inset-0 h-full w-full overflow-hidden z-10">
+                  <Image
+                    loader={cloudinaryLoader}
+                    src={post.imageUrl}
+                    alt={post.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                  />
                 </div>
               </div>
             );

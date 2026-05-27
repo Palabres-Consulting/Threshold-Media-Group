@@ -86,7 +86,7 @@ export default async function RootLayout({
                   <Toaster position="top-center" reverseOrder={false} />
                   <div className=" mx-auto   border-sub-side">
                     <Header t={messages} site={site} />
-                    <div className="max-w-[1640px] lg:mx-auto">{children}</div>
+                    <div className="max-w-[1340px] lg:mx-auto">{children}</div>
 
                     <Footer dict={messages.main} site={site} />
 

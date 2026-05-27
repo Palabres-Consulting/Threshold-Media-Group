@@ -19,7 +19,7 @@ const CategoryTime: React.FC<{
         className={`${
           back ? "bg-white" : "bg-black"
         } rounded-full border-sub h-[6px] w-[6px]`}
-      ></div>
+      ></div> 
       <div className={`${back && "text-white"} text-xs font-light`}>
         {readTime}
       </div>

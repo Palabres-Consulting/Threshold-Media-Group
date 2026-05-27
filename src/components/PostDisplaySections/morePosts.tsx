@@ -78,7 +78,7 @@ const MorePosts = ({
                   />
                   <Link href={post1.postUrl} className="block w-full h-full">
                     <AuthorPost
-                      author={post1.authorName}
+                      category={post1.topCategory}
                       image={""}
                       title={
                         post1.title.split(" ").slice(0, 15).join(" ") + "..."
@@ -181,7 +181,7 @@ const MorePosts = ({
                   />
                   <Link href={post4.postUrl}>
                     <AuthorPost
-                      author={post4.authorName}
+                      category={post4.topCategory}
                       image={""}
                       title={post4.title}
                       date={formatAuthorDate(post4.date)}

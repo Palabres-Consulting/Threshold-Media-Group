@@ -34,7 +34,7 @@ const Footer = ({site, dict}: {site: string, dict: TranslationSchema["main"]}) =
 
   return (
     <footer className=" overflow-hidden lg:px-16 px-5 z-[999]   bg-foreground/5  ">
-      <div className="max-w-[1640px] lg:mx-auto">
+      <div className="max-w-[1340px] lg:mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:py-16 py-10">
         <div className="flex flex-col pr-10 gap-4">
           <Logo />
