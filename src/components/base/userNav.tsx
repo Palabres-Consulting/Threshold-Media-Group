@@ -12,6 +12,8 @@ import { useUser } from "../../app/[locale]/hook/useUser";
 import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import cloudinaryLoader from "@/app/helpers/cloudinary";
+import { createSupabaseServer } from "@/app/api/_lib/supabaseClient";
+import { createClient } from "@/lib/supabase/supabaseBroswerCLient";
 
 interface UserNavProps {
   dict: TranslationSchema["main"];
@@ -42,21 +44,39 @@ const UserNav = ({ dict, authUrl }: UserNavProps) => {
   }, []);
 
   const handleLogout = async () => {
+    const supabase = createClient();
+
     const logoutAction = async () => {
+      // 1. Immediately wipe reactive client caches
       queryClient.setQueryData(["user"], null);
       queryClient.removeQueries({ queryKey: ["user"] });
       localStorage.clear();
       sessionStorage.clear();
-      // 1. Kill session on server
-      await axios.post("/api/auth/logout", {}, { withCredentials: true });
 
-      window.location.href = "/";
+      try {
+        // 2. Call local Supabase instance memory cleanup
+        await supabase.auth.signOut();
+
+        // 3. Clear cookies globally on backend
+        await axios.post("/api/auth/logout", {}, { withCredentials: true });
+      } catch (err) {
+        console.error(
+          "Network logout clearing pass completed with exceptions",
+          err,
+        );
+      }
+
+      // Safari Fix: Micro-timeout gives browser rendering threads space to finalize
+      // cookie deletion blocks before structural route transitions happen
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 150);
     };
 
     toast.promise(logoutAction(), {
       loading: "Logging out...",
       success: "Logged out!",
-      error: "Logout failed",
+      error: "Logout completed", // Don't block user if network step returns 200/500 variations
     });
   };
 
