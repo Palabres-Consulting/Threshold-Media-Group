@@ -16,7 +16,7 @@ const ThresholdHompage = ({
   locale: Locale;
 }) => {
   return (
-    <section className="">
+    <section className=" mx-2 border-sub-side lg:mx-10 relative overflow-hidden 2xl:mx-auto">
       {/* TOP STATISTICS */}
 
       <StatsTracker />

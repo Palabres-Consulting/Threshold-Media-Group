@@ -41,7 +41,7 @@ const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({ site, t })
     <header className="flex justify-center items-center lg:px-10  w-full shadow-xs shadow-foreground/5 px-3 sticky top-0 backdrop-blur-sm bg-transparent z-[1000]">
       
       {/* DESKTOP NAV */}
-      <nav className="lg:flex flex-col gap-7 justify-between hidden w-full py-5 px-5 text-sm border-sub-side">
+      <nav className="lg:flex max-w-[1640px] flex-col gap-7 justify-between hidden w-full py-5 px-5 text-sm border-sub-side">
         <div className="flex justify-between">
           <Logo site={site} />
 

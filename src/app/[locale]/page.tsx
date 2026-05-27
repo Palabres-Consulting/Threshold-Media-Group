@@ -105,7 +105,7 @@ const Home = async (props: {
   // Main Homepage Return
   if (site === "main") {
     return (
-      <main className="lg:mx-10 mx-2 border-sub-side">
+      <main className="">
         <ThresholdHompage locale={locale} dict={dict} />
       </main>
     );

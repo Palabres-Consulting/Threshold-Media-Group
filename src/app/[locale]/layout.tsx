@@ -12,6 +12,7 @@ import QueryProvider from "./context/queryProvider";
 import { TranslationProvider } from "../../lib/locale/context/translationContext";
 import { getTranslations } from "../../lib/locale/i18n/getTranslations";
 import { Toaster } from "react-hot-toast";
+import CookieConsent from "@/components/analytics/cookiesConsent";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -83,11 +84,13 @@ export default async function RootLayout({
               <QueryProvider>
                 <ToastProvider>
                   <Toaster position="top-center" reverseOrder={false} />
-                  <div className="max-w-[1640px] mx-auto  border-sub-side">
+                  <div className=" mx-auto   border-sub-side">
                     <Header t={messages} site={site} />
-                    <div className="">{children}</div>
+                    <div className="max-w-[1640px] lg:mx-auto">{children}</div>
 
                     <Footer dict={messages.main} site={site} />
+
+                    <CookieConsent />
                   </div>
                 </ToastProvider>
               </QueryProvider>
