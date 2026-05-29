@@ -647,7 +647,7 @@
     "extraction": "Extraction & Ressources",
     "login": "Connexion / Inscription",
     "contactInfo": "Contactez-nous",
-    "contactDescription": "Pour toute question, assistance ou demande de démonstration, veuillez nous contacter à: info@tresholdmediagroup.com",
+    "contactDescription": "Pour toute question, assistance ou demande de démonstration, veuillez nous contacter à: contact@thresholdmedia.group",
     "description": "Devenir la référence analytique essentielle pour la dynamique économique de la région."
   },
   "auth": {
@@ -695,7 +695,7 @@
       "email": "Email",
       "password": "Mot de passe",
       "subscriptionStatus": "Vous n'avez pas d'abonnement actif pour le moment",
-      "helpByMail": "Contactez notre service clientèle par email à customercare@gmail.com"
+      "helpByMail": "Contactez notre service clientèle par email à contact@thresholdmedia.group"
     }
   }
 }

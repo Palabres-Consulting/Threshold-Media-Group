@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     // 2. Push to Resend exactly as planned
     await resend.contacts.create({
       email: email,
-      audienceId: process.env.RESEND_AUDIENCE_ID!,
+      audienceId: process.env.NEXT_PUBLIC_RESEND_AUDIENCE_ID!,
       unsubscribed: false,
       properties: {
         persona: persona || "Unassigned",
