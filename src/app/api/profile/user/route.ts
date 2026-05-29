@@ -18,7 +18,7 @@ async function handler(req: NextRequest) {
   // Try to fetch profile
   const { data: profile, error: profileErr } = await supabase
     .from("profiles")
-    .select("title, avatar_url, interests, avatar_type")
+    .select("title, avatar_url, interests, avatar_type, persona")
     .eq("id", user.id)
     .maybeSingle(); // safer than .single()
 

@@ -435,7 +435,7 @@
                 "fr_id": 482
               },
               {
-              "title": "Services mobiles et monnaies numériques",
+                "title": "Services mobiles et monnaies numériques",
                 "slug": "services-mobiles-et-monnaies-numeriques",
                 "en_id": 489,
                 "fr_id": 487
@@ -455,7 +455,7 @@
                 "fr_id": 497
               },
               {
-              "title": "Connectivité régionale et cybersécurité",
+                "title": "Connectivité régionale et cybersécurité",
                 "slug": "connectivite-regionale-et-cybersecurite",
                 "en_id": 503,
                 "fr_id": 501
@@ -464,7 +464,6 @@
           }
         ]
       }
-      
     ]
   },
   "hero": {
@@ -571,7 +570,7 @@
   "pricing": {
     "pageTitle": "Tarification",
     "headline": "Choisissez votre forfait",
-    "subtext": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore eaque modi adipisci esse quam ad possimus? Accusamus dicta aspernatur repellat?",
+    "subtext": "Que vous soyez un investisseur individuel ou une entreprise, nous avons un plan d'abonnement adapté à vos besoins. Nos tarifs sont conçus pour offrir une valeur maximale et des insights stratégiques à chaque niveau d'accès.",
     "plans": [
       {
         "title": "Freemium",
@@ -590,7 +589,7 @@
         "offers": [
           "Accès complet à EXTRACTION & ASINT",
           "Briefs quotidiens",
-          "Alertes WhatsApp",
+
           "Archives"
         ],
         "popular": "Populaire"

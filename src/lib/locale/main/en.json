@@ -571,7 +571,7 @@
   "pricing": {
     "pageTitle": "Pricing",
     "headline": "Choose the pricing plan",
-    "subtext": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore eaque modi adipisci esse quam ad possimus? Accusamus dicta aspernatur repellat?",
+    "subtext": "Whether you're an individual investor or a business, we have a subscription plan tailored to your needs. Our pricing is designed to provide maximum value and strategic insight at every level of access.",
     "plans": [
       {
         "title": "Freemium",
@@ -590,7 +590,7 @@
         "offers": [
           "Full access to EXTRACTION & ASINT",
           "Daily Briefs",
-          "WhatsApp Alerts",
+          
           "Archives"
         ],
         "popular": "Popular"
