@@ -10,7 +10,7 @@ import { useClientSite } from "@/app/[locale]/hook/useSite";
 import cloudinaryLoader from "@/app/helpers/cloudinary";
 import { useLocale } from "@/lib/locale/context/translationContext";
 import Image from "next/image";
-import { useParams, useSearchParams, useRouter } from "next/navigation";
+import { useParams, useSearchParams, useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useArticleSave } from "@/app/[locale]/hook/useArticles"; // <-- Import added
@@ -22,6 +22,7 @@ const UniquePost = () => {
   const { locale } = useLocale();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const pathname = usePathname();
   const slug = params.title as string;
   const postType = searchParams.get("type") || "main";
   const idParam = searchParams.get("id");
@@ -93,9 +94,9 @@ const UniquePost = () => {
     const newPath = `/${locale}/journal/${post.slug}?${currentSearch.toString()}`;
     const currentPath = window.location.pathname + window.location.search;
 
-    if (currentPath !== newPath) {
-      router.replace(newPath);
-    }
+    if (currentPath !== newPath && pathname.startsWith(`/${locale}`)) {
+    router.replace(newPath);
+  }
   }, [
     post,
     locale,
@@ -138,7 +139,7 @@ const UniquePost = () => {
           />
         </div>
       </div>
-    );
+    ); 
   }
 
   return (

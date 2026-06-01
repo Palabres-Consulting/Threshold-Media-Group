@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { GoTriangleDown } from "react-icons/go";
@@ -11,50 +11,51 @@ import { getTranslatedSlug } from "@/app/helpers/translateSlug";
 import { useLocale, useTranslations } from "@/lib/locale/context/translationContext";
 
 const LangSwitcher: React.FC<{ dict: any }> = ({ dict }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const { cookieDomain } = useHomeLink(); // Get the cookie domain
+  const searchParams = useSearchParams();
+  const { locale, setLocale } = useLocale();
   const [transDropdown, setTransDropdown] = useState(false);
 
-  const pathname = usePathname();
-  const router = useRouter();
 
-  const { locale, setLocale } = useLocale();
-  const { cookieDomain } = useHomeLink(); // Get the cookie domain
 
-  const handleSelect = (newLocale: Locale) => {
+ const handleSelect = (newLocale: Locale) => {
     if (newLocale === locale) return;
 
-    // 1. Split the pathname (e.g., "/fr/strategie-macro" -> ["", "fr", "strategie-macro"])
+    // Split the pathname (e.g., "/fr/journal/slug" -> ["", "fr", "journal", "slug"])
     const segments = pathname.split("/");
+
     const currentUrlLocale = segments[1]; // "en", "fr", or "ar"
 
-    // 2. Map over the segments and translate the actual category slugs
+    // Map over the segments and translate the actual category slugs
     const translatedSegments = segments.map((segment, index) => {
-      // Skip the empty string [0] and the locale string [1]
       if (index < 2) return segment;
-
-      // Translate the slug using our utility
       return getTranslatedSlug(segment, currentUrlLocale, newLocale);
     });
 
-    // 3. Swap the locale segment in the array to the new locale
+    // Swap the locale segment in the array to the new locale
     translatedSegments[1] = newLocale;
 
-    // 4. Rebuild the full translated path
-    const newPath = translatedSegments.join("/");
+    // Rebuild the path base
+    const basePath = translatedSegments.join("/");
 
-    // 5. Update state and cookies as you had them
+    // --- FIX IS HERE: Append existing search params if they exist ---
+    const currentQueries = searchParams.toString();
+    const newPath = currentQueries ? `${basePath}?${currentQueries}` : basePath;
+
+    // Update state and cookies
     setLocale(newLocale);
     if (typeof document === "undefined") return;
 
-    // Set the cookie with the correct domain for cross-subdomain access
     const isProd = process.env.NODE_ENV === "production";
     const cookieString = `NEXT_LOCALE=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}${cookieDomain ? `; domain=${cookieDomain}` : ""} ${isProd ? "; Secure" : ""}`;
     document.cookie = cookieString;
 
-    // 6. Push the fully translated URL
+    // Push the fully translated URL containing its dynamic params
     router.push(newPath);
-    setTransDropdown(false); // Optionally close the dropdown after selection
+    setTransDropdown(false); 
   };
-
   return (
     <div 
       className="relative h-fit group "
