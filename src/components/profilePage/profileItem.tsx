@@ -83,7 +83,7 @@ export const ProfileItem: React.FC<{
         if (!old) return old;
         if (title === "Title") return { ...old, title: data.newValue };
         if (title === "Interests") return { ...old, interests: data.newValue };
-        if (title === "Persona") return { ...old, avatar_type: data.newValue };
+        if (title === "Persona") return { ...old, persona: data.newValue };
         return old;
       });
 

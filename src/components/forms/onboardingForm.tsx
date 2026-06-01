@@ -12,36 +12,84 @@ import { useQueryClient } from "@tanstack/react-query";
 
 type FlowType = "custom" | "persona";
 
-const PERSONAS = [
-  { id: "mory", name: "Mory", domain: "Governance", color: "#1a2744", initial: "M" },
-  { id: "kadiatou", name: "Kadiatou", domain: "Mining", color: "#7c3a1e", initial: "K" },
-  { id: "ousmane", name: "Ousmane", domain: "Finance", color: "#2c4a2e", initial: "O" },
-  { id: "fatoumata", name: "Fatoumata", domain: "Society", color: "#3d1a4a", initial: "F" },
-  { id: "sekou", name: "Sekou", domain: "Data", color: "#1e3a4a", initial: "S" },
-  { id: "aicha", name: "Aïcha", domain: "Diplomacy", color: "#4a3010", initial: "A" },
+export const PERSONAS = [
+  {
+    id: "mory",
+    name: "Mory",
+    domain: "Governance",
+    color: "#1a2744",
+    avatarPath: "/avatars/Mory Doumbouya.svg",
+  },
+  {
+    id: "kadiatou",
+    name: "Kadiatou",
+    domain: "Mining",
+    color: "#7c3a1e",
+    avatarPath: "/avatars/Kadiatou.svg",
+  },
+  {
+    id: "ousmane",
+    name: "Ousmane",
+    domain: "Finance",
+    color: "#2c4a2e",
+    avatarPath: "/avatars/Ousmane Diallo.svg",
+  },
+  {
+    id: "fatoumata",
+    name: "Fatoumata",
+    domain: "Society",
+    color: "#3d1a4a",
+    avatarPath: "/avatars/Fatoumata Sylla.svg",
+  },
+  {
+    id: "sekou",
+    name: "Sekou",
+    domain: "Data",
+    color: "#1e3a4a",
+    avatarPath: "/avatars/Sekou Camara.svg",
+  },
+  {
+    id: "aicha",
+    name: "Aïcha",
+    domain: "Diplomacy",
+    color: "#4a3010",
+    avatarPath: "/avatars/Aicha.svg",
+  },
 ];
 
 const INTERESTS = [
-  "Extraction", "Macro strategy", "AI & Innovation", 
-  "Finance", "Geopolitics", "Trade & Customs"
+  "Extraction",
+  "Macro strategy",
+  "AI & Innovation",
+  "Finance",
+  "Geopolitics",
+  "Trade & Customs",
 ];
 
 // Single Unified Schema for the entire Multi-step Flow
-const onboardingSchema = z.object({
-  title: z.string().min(2, { message: "Please enter your professional title" }),
-  flowType: z.enum(["custom", "persona"]),
-  selectedPersona: z.string().optional(),
-  selectedInterests: z.array(z.string()),
-  photoFile: z.any().optional(),
-}).refine((data) => {
-  // Conditional validation rule for step 2 details
-  if (data.flowType === "persona" && !data.selectedPersona) return false;
-  if (data.flowType === "custom" && data.selectedInterests.length === 0) return false;
-  return true;
-}, {
-  message: "Please complete your selections before finishing",
-  path: ["selectedPersona"]
-});
+const onboardingSchema = z
+  .object({
+    title: z
+      .string()
+      .min(2, { message: "Please enter your professional title" }),
+    flowType: z.enum(["custom", "persona"]),
+    selectedPersona: z.string().optional(),
+    selectedInterests: z.array(z.string()),
+    photoFile: z.any().optional(),
+  })
+  .refine(
+    (data) => {
+      // Conditional validation rule for step 2 details
+      if (data.flowType === "persona" && !data.selectedPersona) return false;
+      if (data.flowType === "custom" && data.selectedInterests.length === 0)
+        return false;
+      return true;
+    },
+    {
+      message: "Please complete your selections before finishing",
+      path: ["selectedPersona"],
+    },
+  );
 
 type OnboardingFormData = z.infer<typeof onboardingSchema>;
 
@@ -51,7 +99,15 @@ export default function OnboardingClientForm() {
   const [step, setStep] = useState<1 | 2>(1);
 
   // Single form control orchestrating all sub-elements
-  const { register, handleSubmit, control, trigger, watch, setValue, formState: { errors, isSubmitting } } = useForm<OnboardingFormData>({
+  const {
+    register,
+    handleSubmit,
+    control,
+    trigger,
+    watch,
+    setValue,
+    formState: { errors, isSubmitting },
+  } = useForm<OnboardingFormData>({
     resolver: zodResolver(onboardingSchema),
     defaultValues: {
       title: "",
@@ -59,7 +115,7 @@ export default function OnboardingClientForm() {
       selectedPersona: "",
       selectedInterests: [],
       photoFile: null,
-    }
+    },
   });
 
   // Watch fields reactively to update UI presentation smoothly
@@ -68,15 +124,15 @@ export default function OnboardingClientForm() {
   const currentInterests = watch("selectedInterests");
   const currentPhotoFile = watch("photoFile");
 
-  // Step 1 check routine 
-const proceedToStepTwo = async () => {
-  // 💡 Force React Hook Form to validate ONLY the 'title' field
-  const isTitleValid = await trigger("title");
+  // Step 1 check routine
+  const proceedToStepTwo = async () => {
+    // 💡 Force React Hook Form to validate ONLY the 'title' field
+    const isTitleValid = await trigger("title");
 
-  if (isTitleValid) {
-    setStep(2);
-  }
-};
+    if (isTitleValid) {
+      setStep(2);
+    }
+  };
   const toggleInterest = (interest: string) => {
     const updated = currentInterests.includes(interest)
       ? currentInterests.filter((i) => i !== interest)
@@ -96,7 +152,10 @@ const proceedToStepTwo = async () => {
   };
 
   // Execution pipeline for submission
-  const onSubmitData = async (data: OnboardingFormData, isSkipping: boolean = false) => {
+  const onSubmitData = async (
+    data: OnboardingFormData,
+    isSkipping: boolean = false,
+  ) => {
     const submitPromise = async () => {
       const formData = new FormData();
       formData.append("action", isSkipping ? "skip" : "complete");
@@ -108,7 +167,8 @@ const proceedToStepTwo = async () => {
           if (!data.selectedPersona) throw new Error("Please select a persona");
           formData.append("avatarValue", data.selectedPersona);
         } else {
-          if (data.selectedInterests.length === 0) throw new Error("Please select at least one interest");
+          if (data.selectedInterests.length === 0)
+            throw new Error("Please select at least one interest");
           if (data.photoFile) formData.append("file", data.photoFile);
           formData.append("interests", JSON.stringify(data.selectedInterests));
         }
@@ -138,17 +198,23 @@ const proceedToStepTwo = async () => {
     <div className="rounded-2xl lg:p-6 p-3 flex flex-col gap-6 lg:w-[35em] w-full mx-auto border-sub bg-background">
       <div className="flex flex-col gap-2 text-center">
         <h2 className="text-2xl font-bold">
-          {step === 1 ? "What do you call yourself?" : "Customize your identity"}
+          {step === 1
+            ? "What do you call yourself?"
+            : "Customize your identity"}
         </h2>
         <p className="text-sm text-foreground/60">
-          {step === 1 ? "Let's personalize your TMG experience." : "Choose how you appear in the community."}
+          {step === 1
+            ? "Let's personalize your TMG experience."
+            : "Choose how you appear in the community."}
         </p>
       </div>
 
       {step === 1 ? (
         <div className="flex flex-col gap-6">
           <div>
-            <label htmlFor="title-input" className="text-sm font-medium">Username / Professional Title</label>
+            <label htmlFor="title-input" className="text-sm font-medium">
+              Username / Professional Title
+            </label>
             <input
               id="title-input"
               {...register("title")}
@@ -156,24 +222,33 @@ const proceedToStepTwo = async () => {
               type="text"
               placeholder="e.g. Senior Data Analyst"
             />
-            {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
+            {errors.title && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.title.message}
+              </p>
+            )}
           </div>
-          <button 
-            type="button" 
-            onClick={proceedToStepTwo} 
+          <button
+            type="button"
+            onClick={proceedToStepTwo}
             className="btn-var1 flex items-center justify-center gap-2"
           >
             Continue <ArrowRight size={18} />
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit((data) => onSubmitData(data, false))} className="flex flex-col gap-6">
+        <form
+          onSubmit={handleSubmit((data) => onSubmitData(data, false))}
+          className="flex flex-col gap-6"
+        >
           {/* Flow Toggle */}
           <div className="rounded-[2em] flex w-full p-1 border-sub">
             <button
               type="button"
               className={`rounded-[2em] cursor-pointer w-full py-3 transition-all duration-400 text-sm font-medium ${
-                currentFlowType === "custom" ? "bg-accent-main text-white" : "hover:bg-foreground/5"
+                currentFlowType === "custom"
+                  ? "bg-accent-main text-white"
+                  : "hover:bg-foreground/5"
               }`}
               onClick={() => setValue("flowType", "custom")}
             >
@@ -182,7 +257,9 @@ const proceedToStepTwo = async () => {
             <button
               type="button"
               className={`rounded-[2em] cursor-pointer w-full py-3 transition-all duration-400 text-sm font-medium ${
-                currentFlowType === "persona" ? "bg-accent-main text-white" : "hover:bg-foreground/5"
+                currentFlowType === "persona"
+                  ? "bg-accent-main text-white"
+                  : "hover:bg-foreground/5"
               }`}
               onClick={() => setValue("flowType", "persona")}
             >
@@ -197,10 +274,10 @@ const proceedToStepTwo = async () => {
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-background border-sub flex items-center justify-center overflow-hidden">
                     {currentPhotoFile ? (
-                      <img 
-                        src={URL.createObjectURL(currentPhotoFile)} 
-                        alt="Preview" 
-                        className="w-full h-full object-cover" 
+                      <img
+                        src={URL.createObjectURL(currentPhotoFile)}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
                       />
                     ) : (
                       <Upload size={20} className="text-foreground/40" />
@@ -208,19 +285,23 @@ const proceedToStepTwo = async () => {
                   </div>
                   <div>
                     <p className="font-medium text-sm">Upload Photo</p>
-                    <p className="text-xs text-foreground/60">JPG/PNG, max 2MB</p>
+                    <p className="text-xs text-foreground/60">
+                      JPG/PNG, max 2MB
+                    </p>
                   </div>
                 </div>
-                <input 
-                  type="file" 
-                  accept=".jpg,.jpeg,.png" 
-                  onChange={handlePhotoUpload} 
-                  className="text-sm max-w-[180px]" 
+                <input
+                  type="file"
+                  accept=".jpg,.jpeg,.png"
+                  onChange={handlePhotoUpload}
+                  className="text-sm max-w-[180px]"
                 />
               </div>
 
               <div>
-                <p className="font-medium text-sm mb-3">Topics of Interest (Select at least 1)</p>
+                <p className="font-medium text-sm mb-3">
+                  Topics of Interest (Select at least 1)
+                </p>
                 <div className="flex flex-wrap gap-2">
                   {INTERESTS.map((interest) => (
                     <button
@@ -240,43 +321,47 @@ const proceedToStepTwo = async () => {
               </div>
             </div>
           ) : (
-            <div className="space-y-4">
-              <p className="font-medium text-sm text-center">Select your TMG Persona</p>
-              <div className="grid grid-cols-3 gap-4">
-                {PERSONAS.map((persona) => (
-                  <div
-                    key={persona.id}
-                    onClick={() => setValue("selectedPersona", persona.id)}
-                    className={`flex flex-col items-center gap-2 p-3 rounded-xl border-sub cursor-pointer transition-all ${
-                      currentPersona === persona.id ? "border-accent-main bg-accent-main/5" : "hover:bg-foreground/5"
-                    }`}
-                  >
-                    <div
-                      className="w-12 h-12 rounded-full flex items-center justify-center text-white relative"
-                      style={{ backgroundColor: persona.color }}
-                    >
-                      <span className="text-lg">{persona.initial}</span>
-                      {currentPersona === persona.id && (
-                        <div className="absolute -bottom-1 -right-1 bg-accent-main rounded-full p-1 border-2 border-background">
-                          <Check size={10} />
-                        </div>
-                      )}
-                    </div>
-                    <div className="text-center">
-                      <p className="text-xs font-semibold">{persona.name}</p>
-                      <p className="text-[10px] text-foreground/60">{persona.domain}</p>
-                    </div>
+            <div className="grid grid-cols-3 gap-4">
+              {PERSONAS.map((persona) => (
+                <div
+                  key={persona.id}
+                  onClick={() => setValue("selectedPersona", persona.id)}
+                  className={`flex flex-col items-center gap-2 p-3 rounded-xl border-sub cursor-pointer transition-all ${
+                    currentPersona === persona.id
+                      ? "border-accent-main bg-accent-main/5"
+                      : "hover:bg-foreground/5"
+                  }`}
+                >
+                  {/* Updated Avatar Wrapper */}
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center relative overflow-hidden bg-foreground/5">
+                    <img
+                      src={persona.avatarPath}
+                      alt={`${persona.name} avatar`}
+                      className="w-full h-full object-cover"
+                    />
+                    {currentPersona === persona.id && (
+                      <div className="absolute bottom-0 right-0 bg-accent-main rounded-full p-1 border-2 border-background z-10">
+                        <Check size={10} className="text-white" />
+                      </div>
+                    )}
                   </div>
-                ))}
-              </div>
+
+                  <div className="text-center">
+                    <p className="text-xs font-semibold">{persona.name}</p>
+                    <p className="text-[10px] text-foreground/60">
+                      {persona.domain}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           )}
 
           {/* Action Buttons */}
           <div className="flex flex-col gap-3 mt-4">
-            <button 
-              type="submit" 
-              disabled={isSubmitting} 
+            <button
+              type="submit"
+              disabled={isSubmitting}
               className="btn-var1 w-full disabled:opacity-50"
             >
               Complete Profile

@@ -17,6 +17,12 @@ export default async function OnboardingPage() {
 
     console.log("OnboardingPage - Supabase Auth Check:", { user, error });
 
+  // If no active session, redirect to home (or login) page
+  if (error || !user) {
+    console.warn("No active session found. Redirecting to home.");
+    redirect("/"); // Or your login route
+  }
+
 
   // 2. Fetch their corresponding database profile status
   const { data: profile, error: profileError } = await supabase

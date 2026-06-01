@@ -15,6 +15,7 @@ import GreatReads from "../PostDisplaySections/greatReads";
 import Sidebar from "../PostDisplaySections/sidebar";
 import { normalizePosts } from "@/app/helpers/normalizeData";
 import AdDisplay from "../PostDisplaySections/adDisplay";
+import AdDisplayLandscape from "../PostDisplaySections/adDisplayLandscape";
 
 interface SharedCategoryLayoutProps {
   locale: "en" | "fr";
@@ -100,12 +101,14 @@ export default async function SharedCategoryLayout({
 
   const cleanArticles = normalizePosts(allArticles, locale);
   // 4. Slice data safely
-  const heroPosts = cleanArticles.slice(0, 3);
-  const cyberPosts = cleanArticles.slice(3, 6);
-  const morePosts = cleanArticles.slice(6, 11);
+
+   const heroPosts = cleanArticles.slice(0, 3) ;
+  const morePosts = cleanArticles.slice(3, 8) ;
+  const opinionPosts = cleanArticles.slice(8, 16) ;
+  const greatReadsPosts = cleanArticles.slice(16, 24) ;
 
   return (
-    <main className="lg:mx-10 mx-2 border-sub-side relative">
+    <main className="mx-2 border-sub-side lg:mx-10 relative overflow-hidden 2xl:mx-auto">
       <SharedHeader
         title={context.title}
         locale={locale}
@@ -116,24 +119,33 @@ export default async function SharedCategoryLayout({
         rootCategorySlug={rootCategorySlug}
       />
 
-      <Hero site={wpPostType} posts={heroPosts} />
-      <CyberSecurityPosts posts={cyberPosts} />
+       <Hero site={wpPostType} posts={heroPosts} />
 
-      <div className="w-full flex">
-        <div className="lg:w-[70%] w-full">
-          <MorePosts lang={locale} posts={morePosts} site={wpPostType} />
+          <section className="flex justify-center ">
+            <div className="w-[85%] lg:h-[20em] rounded-2xl overflow-hidden relative">
+              <AdDisplayLandscape />
+            </div>
+          </section>
 
-          {/* <ThresholdOpinions lang={locale} /> */}
-          {/* <AdDisplay /> */}
-          {/* <GreatReads lang={locale} /> */}
-        </div>
-        <div className="lg:w-[30%] hidden lg:flex">
-          <div className=" w-full relative overflow-hidden">
-            <AdDisplay />
+          <div className="w-full flex">
+            <div className="lg:w-[70%] w-full">
+              <MorePosts lang={locale} posts={morePosts} site={wpPostType} />
+              <ThresholdOpinions
+                site={wpPostType} 
+                posts={opinionPosts}
+                lang={locale}
+              />
+              {/* <MorePosts lang={locale} posts={morePosts} /> */}
+
+              {/* <GreatReads lang={locale} posts={greatReadsPosts} site={wpPostType} /> */}
+            </div>
+            <div className="lg:w-[30%] hidden lg:flex">
+              <div className="w-full py-10 relative overflow-hidden">
+                <AdDisplay />
+              </div>
+              {/* <Sidebar lang={locale} /> */}
+            </div>
           </div>
-          {/* <Sidebar lang={locale} /> */}
-        </div>
-      </div>
     </main>
   );
 }

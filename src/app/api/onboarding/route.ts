@@ -42,14 +42,14 @@ export async function POST(req: Request) {
 
     // 4. Handle 'complete' Flow Scenario
     const flowType = formData.get("flowType"); // 'custom' or 'persona'
-    let avatarType = null;
-    let finalAvatarUrl = null;
+    let avatarType: "persona" | "upload" | null = null;
+    let selectedPersona: string | null = null;
+    let finalAvatarUrl: string | null = null;
     let interestsArray: string[] = [];
 
     if (flowType === "persona") {
       avatarType = "persona";
-      // Save the persona ID string (e.g. 'mory', 'kadiatou') directly as the target identifier
-      finalAvatarUrl = formData.get("avatarValue"); 
+      selectedPersona = formData.get("avatarValue") as string; // E.g., 'mory', 'kadiatou'
     } else if (flowType === "custom") {
       avatarType = "upload";
       
@@ -67,7 +67,6 @@ export async function POST(req: Request) {
       const file = formData.get("file") as File | null;
       if (file) {
         const fileExt = file.name.split(".").pop();
-        // Generate clean, deterministic unique naming per profile profile space
         const fileName = `${user.id}-${Date.now()}.${fileExt}`;
         
         const { error: uploadError } = await supabase.storage
@@ -81,7 +80,6 @@ export async function POST(req: Request) {
           throw new Error(`Avatar storage upload failed: ${uploadError.message}`);
         }
 
-        // Generate the structural asset path URL string
         const { data: { publicUrl } } = supabase.storage
           .from("avatars")
           .getPublicUrl(fileName);
@@ -90,19 +88,18 @@ export async function POST(req: Request) {
       }
     }
 
-    // 5. Update the profile record already created inside your signup execution
+    // 5. Update the profile record
     const { data: profile, error: updateError } = await supabase
       .from("profiles")
       .update({
         title,
         onboarding_status: "completed",
         avatar_type: avatarType,
-        avatar_url: finalAvatarUrl, // Reuses your established column mapping patterns cleanly
+        avatar_url: finalAvatarUrl, 
+        persona: selectedPersona, // Correctly targeting the explicit persona column
         interests: interestsArray,
       })
       .eq("id", user.id);
-
-      console.log("Profile update result:", { profile, updateError });
 
     if (updateError) {
       throw new Error(updateError.message);

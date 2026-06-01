@@ -157,7 +157,7 @@ const Home = async (props: {
             <div className="lg:w-[70%] w-full">
               <MorePosts lang={locale} posts={morePosts} site={site} />
               <ThresholdOpinions
-                site={site}
+                site={site} 
                 posts={opinionPosts}
                 lang={locale}
               />

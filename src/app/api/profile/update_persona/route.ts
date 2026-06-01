@@ -10,11 +10,14 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { avatar_type } = await req.json();
+  const { persona } = await req.json(); // Accept persona parameter directly from client side
 
-  const { error: updateError, data } = await supabase
+  const { error: updateError } = await supabase
     .from("profiles")
-    .update({ avatar_type })
+    .update({ 
+      persona,             // Assigning target identity (e.g. 'mory')
+      avatar_type: "persona" // Enforces type switch sync in case they had a custom upload before
+    })
     .eq("id", user.id);
 
   if (updateError) {
@@ -23,3 +26,5 @@ export async function PATCH(req: Request) {
 
   return NextResponse.json({ message: "Persona updated successfully" });
 }
+
+export const dynamic = "force-dynamic";

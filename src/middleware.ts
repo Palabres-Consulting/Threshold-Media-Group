@@ -146,6 +146,10 @@ export async function middleware(req: NextRequest) {
     }
   }
 
+  if (!user && pathWithoutLocale === onBoardingRoute) {
+    return NextResponse.redirect(new URL(`/${currentLocale}/auth`, req.url));
+  }
+
   return response;
 }
 

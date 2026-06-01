@@ -1,23 +1,16 @@
 "use client";
 
 import ProfileSectionsContainer from "@/components/profilePage/profileSectionsContainer";
-
 import SavedArticles from "@/components/profilePage/savedArticles";
 import React from "react";
 import { ProfileItem } from "../../../../components/profilePage/profileItem";
 import { useUser } from "../../hook/useUser";
 import { useTranslations } from "@/lib/locale/context/translationContext";
-import { personas } from "@/components/profilePage/profileSelector";
 import { ProfileDetails } from "@/components/profilePage/profileDetails";
 
 const ProfilePage = () => {
   const dict = useTranslations("main");
-
   const { data: user } = useUser();
-
-  console.log(user);
-
-  console.log("Avatar type:", user?.avatar_type);
 
   return (
     <section className="flex lg:mx-10 mx-3 py-10 lg:py-0">
@@ -47,14 +40,11 @@ const ProfilePage = () => {
             value={user?.interests || []}
           />
 
+          {/* Cleaned up Row to map explicitly to user.persona */}
           <ProfileItem
             editButton={true}
-            title={"Persona"}
-            value={
-              Array.from(personas[0].name).includes(user?.avatar_url || "")
-                ? user?.avatar_url
-                : ""
-            }
+            title="Persona"
+            value={user?.persona ? user.persona.toUpperCase() : "None"}
           />
 
           {user?.password.startsWith("oauth:") ? null : (

@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServer } from "../../_lib/supabaseClient";
 import { withCors } from "../../_lib/apiHandler";
@@ -7,23 +5,17 @@ import { withCors } from "../../_lib/apiHandler";
 async function handler(req: NextRequest) {
   const supabase = await createSupabaseServer();
 
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
+  const { data: { user }, error } = await supabase.auth.getUser();
 
   if (error || !user)
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
 
-  // Try to fetch profile
-  const { data: profile, error: profileErr } = await supabase
+  // Fetch updated properties explicitly
+  const { data: profile } = await supabase
     .from("profiles")
     .select("title, avatar_url, interests, avatar_type, persona")
     .eq("id", user.id)
-    .maybeSingle(); // safer than .single()
-
-  // Build fallback profile
-
+    .maybeSingle();
 
   const fallbackProfile = {
     title: user.user_metadata.full_name ?? "New User",
@@ -40,9 +32,8 @@ async function handler(req: NextRequest) {
         : "********",
     interests: profile?.interests ?? [],
     avatar_type: profile?.avatar_type ?? null,
+    persona: profile?.persona ?? null, // Exposing clean raw state to UI client context
   };
-
-  console.log(userProfile);
 
   return NextResponse.json(userProfile, { status: 200 });
 }
