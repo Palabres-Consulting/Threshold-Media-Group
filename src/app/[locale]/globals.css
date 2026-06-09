@@ -111,7 +111,7 @@ body {
   background-color: var(--background);
   /* background-image: repeating-radial-gradient(
     circle,
-    rgba(255, 255, 255, 0.05) 0,
+    rgba(255, 255, 255, 0.05) 0, 
     rgba(255, 255, 255, 0.05) 1px,
     transparent 1px,
     transparent 100%
@@ -172,7 +172,7 @@ p {
 }
 
 .btn-var1 {
-  @apply w-full py-2 bg-accent-main text-white px-4 rounded-lg;
+  @apply w-full py-1 bg-accent-main text-white px-4 rounded-full;
 }
 
 button {

@@ -71,9 +71,9 @@ const Plans = ({ dict }: { dict: TranslationSchema["main"] }) => {
     <Toaster position="top-center" reverseOrder={false} />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 relative">
         {dict.pricing.plans.map(
-          ({ title, price, description, offers, popular }, id: number) => {
+          ({ title, monthlyPrice, annualPrice, description, offers, popular }, id: number) => {
             const active = id === activePlan;
-
+ 
             return (
               <div
                 key={id}
@@ -100,7 +100,7 @@ const Plans = ({ dict }: { dict: TranslationSchema["main"] }) => {
                         active ? "text-black" : "text-foreground"
                       }`}
                     >
-                      {price}
+                      {monthlyPrice}
                     </span>
                     <span>/</span>
                     <span className={`${active ? "text-white/80" : ""}`}>

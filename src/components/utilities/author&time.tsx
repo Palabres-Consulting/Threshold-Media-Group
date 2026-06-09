@@ -12,7 +12,7 @@ const AuthorTime: React.FC<{
       <div className={` rounded-md py-1 flex gap-2 items-center`}>
         <div
         className={`${
-          bg ? "bg-accent-main text-white px-2" : "text-accent-main"
+          bg ? "bg-accent-main text-white px-2" : "text-accent-main" 
         }  rounded-md  py-1 text-xs font-light text-nowrap`}
       >
         {category.replace("&amp;", "&").replace("&quot;", '"').slice(0, 20)}

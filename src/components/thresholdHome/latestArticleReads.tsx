@@ -106,13 +106,14 @@ const LatestArticleReads = ({ locale }: { locale: Locale }) => {
                 </div>
 
                 <div className="">
-                  <AuthorPost
+                  {/* <AuthorPost
+
                     category=""
                     image=""
                     title="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id repellat"
                     date="03 Sep 2025"
                     readTime="10 min Read"
-                  />
+                  /> */}
                 </div>
               </div>
             </div>

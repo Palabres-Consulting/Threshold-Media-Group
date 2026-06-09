@@ -14,15 +14,36 @@ import Image from "next/image";
 import cloudinaryLoader from "@/app/helpers/cloudinary";
 import { createSupabaseServer } from "@/app/api/_lib/supabaseClient";
 import { createClient } from "@/lib/supabase/supabaseBroswerCLient";
+import { PERSONAS } from "../forms/onboardingForm";
 
 interface UserNavProps {
   dict: TranslationSchema["main"];
   authUrl: string;
 }
 
+export const getAvatarSrc = (
+  avatar_type: string | undefined,
+  avatar_url: string | undefined,
+): string => {
+  if (avatar_url) {
+    return avatar_url;
+  }
+
+  if (avatar_type) {
+    const matchedPersona = PERSONAS.find((p) => p.id === avatar_type);
+    if (matchedPersona?.avatarPath) {
+      return matchedPersona.avatarPath;
+    }
+  }
+
+  return "/images/profile/avatar-placeholder.png";
+};
+
 const UserNav = ({ dict, authUrl }: UserNavProps) => {
   const queryClient = useQueryClient();
   const { data, isLoading } = useUser();
+
+  const userAvatar = getAvatarSrc(data?.avatar_type, data?.avatar_url);
 
   // State and ref for handling click logic on touch devices
   const [isOpen, setIsOpen] = useState(false);
@@ -98,22 +119,22 @@ const UserNav = ({ dict, authUrl }: UserNavProps) => {
         {/* User Trigger */}
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className={`px-2 py-1 flex items-center gap-2 cursor-pointer transition-colors ${
+          className={`px-2 py-1 flex items-center gap- cursor-pointer transition-colors ${
             isOpen ? "text-accent-main" : "group-hover:text-accent-main"
           }`}
         >
-          <div className="h-[25px] w-[25px] rounded-full bg-foreground/10 relative overflow-hidden">
+          <div className="h-[30px] w-[30px] rounded-full bg-foreground/10 relative overflow-hidden">
             <Image
               loader={cloudinaryLoader}
-              src={data.avatar_url || "/images/profile/avatar-placeholder.png"}
+              src={userAvatar || "/images/profile/avatar-placeholder.png"}
               alt="Profile Avatar"
               fill
               className="object-cover"
             />
           </div>
-          <h5 className="text-sm">
+          {/* <h5 className="text-sm">
             {dict.nav.welcome}, {data.title.slice(0, 4)}
-          </h5>
+          </h5> */}
           <GoTriangleDown
             className={`transition-transform ${
               isOpen ? "rotate-180" : "group-hover:rotate-180"
@@ -149,7 +170,10 @@ const UserNav = ({ dict, authUrl }: UserNavProps) => {
   }
 
   return (
-    <Link href={authUrl} className="hover:text-accent-main transition-colors">
+    <Link
+      href={authUrl}
+      className="hover:text-accent-main transition-colors text-nowrap btn-var1"
+    >
       {dict.nav.login}
     </Link>
   );

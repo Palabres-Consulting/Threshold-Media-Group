@@ -1,12 +1,11 @@
-
 import { NormalizedPost, Post } from "@/app/types/apiResponse";
 import { calculateReadTime } from "./readTime";
 import { getTopLevelCategory } from "./categoriesMap";
 
 // Internal helper for title cleaning
 const cleanTitle = (titleData: any): string => {
-  const rawTitle = typeof titleData === "string" 
-    ? titleData 
+  const rawTitle = typeof titleData === "string"
+    ? titleData
     : titleData?.rendered || "Untitled Post";
 
   return rawTitle
@@ -15,14 +14,32 @@ const cleanTitle = (titleData: any): string => {
     .replace(/&#8211;/g, "–")
     .replace(/&amp;/g, "&")
     .replace(/&#8220;/g, "“")
-    .replace(/&#8221;/g, "”"); 
+    .replace(/&#8221;/g, "”");
+};
 
+const cleanCategory = (category: string) => {
+  return category
+    .replace(/&#8217;/g, "’")
+    .replace(/&#8216;/g, "‘")
+    .replace(/&#8211;/g, "–")
+    .replace(/&amp;/g, "&")
+    .replace(/&#8220;/g, "“")
+    .replace(/&#8221;/g, "”")
+    .replace(/&amp;/g, "&");
 };
 
 // Internal helper for excerpt HTML stripping
 const cleanExcerpt = (excerptData: any): string => {
   const rawExcerpt = excerptData?.rendered || "";
-  return rawExcerpt.replace(/(<([^>]+)>)/gi, "");
+  return rawExcerpt
+    .replace(/(<([^>]+)>)/gi, "")
+    .replace(/&#8217;/g, "’")
+    .replace(/&#8216;/g, "‘")
+    .replace(/&#8211;/g, "–")
+    .replace(/&amp;/g, "&")
+    .replace(/&#8220;/g, "“")
+    .replace(/&#038;/g, "&")
+    .replace(/&#8221;/g, "”");
 };
 
 /**
@@ -38,8 +55,8 @@ export const normalizePost = (post: Post, siteType: string): NormalizedPost => {
   const date = post.date || new Date().toISOString();
 
   // 2. Media Extraction
-  const imageUrl = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url 
-    || "/images/homepage/home4.png";
+  const imageUrl = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+    "/images/homepage/home4.png";
 
   // 3. Author Extraction
   const authorName = post._embedded?.author?.[0]?.name || "Unknown Author";
@@ -47,10 +64,14 @@ export const normalizePost = (post: Post, siteType: string): NormalizedPost => {
   // 4. Calculations & Mappings
   const readTimeMins = calculateReadTime(content);
   const topCatObj = getTopLevelCategory(post);
-  const topCategory = topCatObj?.name || "Uncategorized";
+  const topCategory = topCatObj?.name
+    ? cleanCategory(topCatObj?.name) || "Uncategorized"
+    : "Uncategorized";
 
   // 5. URL Generation
-  const typeParam = post.type === "post" ? "main" : (siteType || post.type || "main");
+  const typeParam = post.type === "post"
+    ? "main"
+    : (siteType || post.type || "main");
   const postUrl = `/journal/${slug}?id=${id}&type=${typeParam}`;
 
   return {
@@ -65,13 +86,17 @@ export const normalizePost = (post: Post, siteType: string): NormalizedPost => {
     readTimeLabel: `${readTimeMins} mins read`,
     topCategory,
     postUrl,
+    type: post.type,
   };
 };
 
 /**
  * Transforms an array of raw WordPress Posts.
  */
-export const normalizePosts = (posts: Post[], siteType: string): NormalizedPost[] => {
+export const normalizePosts = (
+  posts: Post[],
+  siteType: string,
+): NormalizedPost[] => {
   if (!Array.isArray(posts)) return [];
-  return posts.map(post => normalizePost(post, siteType));
+  return posts.map((post) => normalizePost(post, siteType));
 };

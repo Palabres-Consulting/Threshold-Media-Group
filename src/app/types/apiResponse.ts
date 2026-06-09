@@ -59,4 +59,5 @@ export interface NormalizedPost {
   readTimeLabel: string;  // e.g., "4 mins read"
   topCategory: string;    // Extracted top-level category name
   postUrl: string;        // Pre-computed internal Next.js routing link
+  type: string;           // Original post type for reference
 }

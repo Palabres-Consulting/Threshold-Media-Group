@@ -14,11 +14,15 @@ import Categories from "./Categories";
 import MobileMenu from "./mobileMenu";
 import DesktopActions from "./DesktopActions";
 import { SiteName } from "@/lib/utils";
+import { ArrowUpRight, Search } from "lucide-react";
 
-const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({ site, t }) => {
+const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({
+  site,
+  t,
+}) => {
   const pathName = usePathname();
   const [hoverId, setHoverId] = useState<number | null>(null);
-  
+
   const { asintLink, extractionLink, mainLink } = useHomeLink(site);
   const path = pathName.slice(3, pathName.length);
   const { main: dict } = t;
@@ -26,7 +30,12 @@ const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({ site, t })
   const thresholdMainNav: NavLinks[] = [
     { id: 0, title: dict.nav.home, href: mainLink, subMenu: null },
     { id: 1, title: dict.nav.aboutUs, href: "/about", subMenu: null },
-    { id: 2, title: dict.nav.ourTechnology, href: "/technology", subMenu: null },
+    {
+      id: 2,
+      title: dict.nav.ourTechnology,
+      href: "/technology",
+      subMenu: null,
+    },
     { id: 3, title: dict.nav.contact, href: "/contact", subMenu: null },
     { id: 4, title: dict.nav.pricing, href: "/pricing", subMenu: null },
   ];
@@ -39,14 +48,13 @@ const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({ site, t })
 
   return (
     <header className="flex justify-center items-center lg:px-10  w-full shadow-xs shadow-foreground/5 px-3 sticky top-0 backdrop-blur-sm bg-transparent z-[1000]">
-      
       {/* DESKTOP NAV */}
       <nav className="lg:flex max-w-[1340px] flex-col gap-7 justify-between hidden w-full py-5 px-5 text-sm border-sub-side">
         <div className="flex justify-between">
           <Logo site={site} />
 
           <div className="flex justify-between gap-7 items-center">
-            {thresholdMainNav.map(({ id, title, href, subMenu }) => (
+            {/* {thresholdMainNav.map(({ id, title, href, subMenu }) => (
               <div key={id} className="relative h-fit" onMouseEnter={() => setHoverId(id)}>
                 <Link
                   href={href}
@@ -72,8 +80,18 @@ const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({ site, t })
                   </div>
                 )}
               </div>
-            ))}
-            
+            ))} */}
+
+            <Link href="/search">
+              <Search className="w-5 h-5" />
+            </Link>
+
+            <Link href="/pricing" className="btn-var1 rounded-3xl">
+              Subscribe
+            </Link>
+
+            <LangSwitcher dict={dict} />
+
             {/* INJECTED DESKTOP ACTIONS */}
             <DesktopActions dict={dict} />
           </div>
@@ -88,10 +106,15 @@ const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({ site, t })
           />
 
           <div className="flex gap-3 items-center">
-            <LangSwitcher dict={dict} />
+            {/* <LangSwitcher dict={dict} /> */}
             <div className="relative group">
               <div className="flex items-center gap-1 cursor-pointer hover:text-accent-main">
-                <Link target="_blank" href={ourMediaLinks.href}>
+                <Link
+                  target="_blank"
+                  href={ourMediaLinks.href}
+                  className="flex items-center gap-1 hover:text-accent-main"
+                >
+                  <ArrowUpRight />
                   {ourMediaLinks.title}
                 </Link>
               </div>
@@ -102,13 +125,13 @@ const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({ site, t })
 
       {/* MOBILE NAV INJECTED */}
       <div className="lg:hidden w-full">
-        <MobileMenu 
-          site={site} 
-          t={t} 
-          dict={dict} 
-          path={path} 
-          mainNav={thresholdMainNav} 
-          links={{ extractionLink, asintLink, mainLink }} 
+        <MobileMenu
+          site={site}
+          t={t}
+          dict={dict}
+          path={path}
+          mainNav={thresholdMainNav}
+          links={{ extractionLink, asintLink, mainLink }}
         />
       </div>
     </header>

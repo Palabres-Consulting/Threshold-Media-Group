@@ -17,7 +17,7 @@
     "english": "English",
     "spanish": "Spanish",
     "welcome": "Welcome",
-    "login": "Login/Sign Up",
+    "login": "Login",
 
     "categories": [
       {
@@ -387,7 +387,7 @@
           }
         ]
       },
-     
+
       {
         "title": "Innovation",
         "slug": "innovation",
@@ -436,7 +436,7 @@
                 "fr_id": 482
               },
               {
-              "title": "Mobile Services & Digital Currencies",
+                "title": "Mobile Services & Digital Currencies",
                 "slug": "mobile-services-and-digital-currencies",
                 "en_id": 489,
                 "fr_id": 487
@@ -448,7 +448,7 @@
             "slug": "digital-sovereignty",
             "en_id": 494,
             "fr_id": 492,
-            "subcategories": [ 
+            "subcategories": [
               {
                 "title": "Data Centers",
                 "slug": "data-centers-digital-sovereignty",
@@ -456,7 +456,7 @@
                 "fr_id": 497
               },
               {
-              "title": "Regional Connectivity & Cybersecurity",
+                "title": "Regional Connectivity & Cybersecurity",
                 "slug": "regional-connectivity-and-cybersecurity",
                 "en_id": 503,
                 "fr_id": 501
@@ -465,7 +465,6 @@
           }
         ]
       }
-     
     ]
   },
   "hero": {
@@ -575,38 +574,47 @@
     "plans": [
       {
         "title": "Freemium",
-        "price": "Free",
-        "description": "Weekly newsletter, public web content, and selected excerpts.",
+        "monthlyPrice": "Free",
+        "annualPrice": "Free",
+        "description": "Weekly editorial digest, public articles, and selected premium excerpts.",
         "offers": [
-          "Weekly newsletter",
-          "Public web content",
-          "Selected excerpts"
-        ]
+          "Weekly TMG Digest",
+          "Public articles",
+          "Selected premium excerpts",
+          "Open event coverage"
+        ],
+        "cta": "Subscribe for Free"
       },
       {
         "title": "TMG Pro Individual",
-        "price": "250",
-        "description": "Full access to EXTRACTION & ASINT, Daily Briefs, WhatsApp Alerts, and Archives.",
+        "monthlyPrice": "14",
+        "annualPrice": "140",
+        "description": "Premium access to TMG's intelligence verticals and personalized weekly briefings",
         "offers": [
           "Full access to EXTRACTION & ASINT",
-          "Daily Briefs",
-          
-          "Archives"
+          "Weekly persona led intelligence newsletter",
+          "Premium analysis & briefings"
         ],
-        "popular": "Popular"
+        "popular": "Popular",
+        "cta": "Subscribe Now"
       },
       {
         "title": "TMG Pro Business",
-        "price": "600",
-        "description": "Up to 5 users, Bespoke Briefings, and Quarterly Strategic Reports.",
+        "monthlyPrice": "On Request",
+        "annualPrice": "On Request",
+        "description": "Team access and tailored intelligence for organizations operating across West Africa.",
         "offers": [
           "Up to 5 users",
+          "Full Premium Access",
           "Bespoke Briefings",
-          "Quarterly Strategic Reports"
-        ]
+          "Quarterly Strategic Reports",
+          "Custom monitoring topics"
+        ],
+        "cta": "Request access"
       }
     ],
     "month": "Month",
+    "year": "Year",
     "subscribe": "Subscribe"
   },
 

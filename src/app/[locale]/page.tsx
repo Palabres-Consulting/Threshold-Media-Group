@@ -17,6 +17,12 @@ import AdDisplay from "@/components/PostDisplaySections/adDisplay";
 import AdDisplayLandscape from "@/components/PostDisplaySections/adDisplayLandscape";
 import cloudinaryLoader from "../helpers/cloudinary";
 import Image from "next/image";
+import HeroSection from "@/components/PostDisplaySections/hero2";
+import FeaturedSection from "@/components/PostDisplaySections/featuredSection";
+import { Edit, Grid } from "lucide-react";
+import { truncateText } from "../helpers/textHelpers";
+import EditorialImageCard from "@/components/PostDisplaySections/editorialImageCard";
+import GridPosts from "@/components/PostDisplaySections/gridPosts";
 
 const Home = async (props: {
   params: Promise<{ locale: "en" | "fr" }>;
@@ -64,7 +70,7 @@ const Home = async (props: {
 
   // 2. Build Query Params
   const queryParams: any = {
-    per_page: 15,
+    per_page: 100,
     lang: locale,
   };
 
@@ -101,12 +107,20 @@ const Home = async (props: {
   console.log("Normalized Articles:", cleanArticles.length);
 
   // 4. Slice data safely
-  const heroPosts = hasArticles ? cleanArticles.slice(0, 3) : [];
+  const heroPosts = hasArticles ? cleanArticles.slice(0, 6) : [];
   // const cyberPosts = hasArticles ? cleanArticles.slice(3, 6) : [];
-  const morePosts = hasArticles ? cleanArticles.slice(3, 8) : [];
-  const opinionPosts = hasArticles ? cleanArticles.slice(8, 16) : [];
-  const greatReadsPosts = hasArticles ? cleanArticles.slice(16, 24) : [];
+  const morePosts = hasArticles ? cleanArticles.slice(6, 11) : [];
+  const opinionPosts = hasArticles ? cleanArticles.slice(12, 20) : [];
+  // const greatReadsPosts = hasArticles ? cleanArticles.slice(16, 24) : [];
+  const featuredPosts = hasArticles ? cleanArticles.slice(21, 28) : [];
+  const gridPosts = hasArticles ? cleanArticles.slice(28, 36) : [];
+  const morePosts2 = hasArticles ? cleanArticles.slice(37, 43) : [];
+  const gridPosts2 = hasArticles ? cleanArticles.slice(44, 52) : [];
+
   // Main Homepage Return
+
+  console.log("Threshold opinions posts length:", cleanArticles.length);
+
   if (site === "main") {
     return (
       <main className="">
@@ -145,7 +159,8 @@ const Home = async (props: {
         </div>
       ) : (
         <>
-          <Hero site={site} posts={heroPosts} />
+          <HeroSection site={site} posts={heroPosts} />
+          {/* <Hero site={site} posts={heroPosts} /> */}
 
           <section className="flex justify-center ">
             <div className="w-[85%] lg:h-[20em] rounded-2xl overflow-hidden relative">
@@ -157,7 +172,7 @@ const Home = async (props: {
             <div className="lg:w-[70%] w-full">
               <MorePosts lang={locale} posts={morePosts} site={site} />
               <ThresholdOpinions
-                site={site} 
+                site={site}
                 posts={opinionPosts}
                 lang={locale}
               />
@@ -172,6 +187,15 @@ const Home = async (props: {
               {/* <Sidebar lang={locale} /> */}
             </div>
           </div>
+
+          <FeaturedSection
+            sectionTitle="Featured"
+            posts={featuredPosts}
+            site={site}
+          />
+          <GridPosts site={site} gridPosts={gridPosts} />
+          <HeroSection site={site} posts={morePosts2} />
+          <GridPosts site={site} gridPosts={gridPosts2} />
         </>
       )}
     </main>

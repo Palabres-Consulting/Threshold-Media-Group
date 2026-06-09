@@ -71,6 +71,8 @@ export const fetchPostsByType = async (
     lang?: string;
     meta_key?: string;
     meta_value?: string;
+    search?: string;
+    search_columns?: string;
     [key: string]: any; 
   },
 ): Promise<Post[]> => {

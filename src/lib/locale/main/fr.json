@@ -17,7 +17,7 @@
     "english": "Anglais",
     "spanish": "Espagnol",
     "welcome": "Bienvenue",
-    "login": "Connexion / Inscription",
+    "login": "Connexion",
 
     "categories": [
       {
@@ -568,44 +568,53 @@
   },
 
   "pricing": {
-    "pageTitle": "Tarification",
-    "headline": "Choisissez votre forfait",
-    "subtext": "Que vous soyez un investisseur individuel ou une entreprise, nous avons un plan d'abonnement adapté à vos besoins. Nos tarifs sont conçus pour offrir une valeur maximale et des insights stratégiques à chaque niveau d'accès.",
+    "pageTitle": "Tarifs",
+    "headline": "Choisissez votre formule",
+    "subtext": "Que vous soyez un investisseur individuel ou une entreprise, nous avons un abonnement adapté à vos besoins. Nos tarifs sont conçus pour offrir une valeur maximale et des analyses stratégiques à chaque niveau d'accès.",
     "plans": [
       {
         "title": "Freemium",
-        "price": "Gratuit",
-        "description": "Newsletter hebdomadaire, contenu web public et extraits sélectionnés.",
+        "monthlyPrice": "Gratuit",
+        "annualPrice": "Gratuit",
+        "description": "Sélection éditoriale hebdomadaire, articles publics et extraits premium sélectionnés.",
         "offers": [
-          "Newsletter hebdomadaire",
-          "Contenu web public",
-          "Extraits sélectionnés"
-        ]
+          "Sélection TMG hebdomadaire",
+          "Articles publics",
+          "Extraits premium sélectionnés",
+          "Couverture d'événements publics"
+        ],
+        "cta": "S'abonner gratuitement"
       },
       {
-        "title": "TMG Pro Individuel",
-        "price": "250",
-        "description": "Accès complet à EXTRACTION & ASINT, briefs quotidiens, alertes WhatsApp et archives.",
+        "title": "TMG Pro Individual",
+        "monthlyPrice": "14",
+        "annualPrice": "140",
+        "description": "Accès premium aux pôles d'expertise de TMG et notes d'information hebdomadaires personnalisées.",
         "offers": [
           "Accès complet à EXTRACTION & ASINT",
-          "Briefs quotidiens",
-
-          "Archives"
+          "Newsletter d'analyse personnalisée hebdomadaire",
+          "Analyses et notes d'information premium"
         ],
-        "popular": "Populaire"
+        "popular": "Populaire",
+        "cta": "S'abonner maintenant"
       },
       {
         "title": "TMG Pro Business",
-        "price": "600",
-        "description": "Jusqu'à 5 utilisateurs, briefings sur mesure et rapports stratégiques trimestriels.",
+        "monthlyPrice": "Sur demande",
+        "annualPrice": "Sur demande",
+        "description": "Accès d'équipe et analyses sur mesure pour les organisations opérant en Afrique de l'Ouest.",
         "offers": [
           "Jusqu'à 5 utilisateurs",
-          "Briefings sur mesure",
-          "Rapports stratégiques trimestriels"
-        ]
+          "Accès Premium complet",
+          "Notes d'information sur mesure",
+          "Rapports stratégiques trimestriels",
+          "Sujets de veille personnalisés"
+        ],
+        "cta": "Demander l'accès"
       }
     ],
     "month": "Mois",
+    "year": "An",
     "subscribe": "S'abonner"
   },
 

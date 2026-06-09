@@ -28,7 +28,7 @@ const PageContainer: React.FC<{
   ];
 
   return (
-    <section className="lg:mx-10">
+    <section className="">
       <div className="py-5 bg-foreground/5 border-sub-side px-6 border-sub-bottom flex justify-between items-center">
         <div className="flex items-center gap-4 text-sm opacity-50">
           <span className="">Home</span> <span className="">/</span>

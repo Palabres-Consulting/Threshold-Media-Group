@@ -16,6 +16,9 @@ import Sidebar from "../PostDisplaySections/sidebar";
 import { normalizePosts } from "@/app/helpers/normalizeData";
 import AdDisplay from "../PostDisplaySections/adDisplay";
 import AdDisplayLandscape from "../PostDisplaySections/adDisplayLandscape";
+import HeroSection from "../PostDisplaySections/hero2";
+import FeaturedSection from "../PostDisplaySections/featuredSection";
+import GridPosts from "../PostDisplaySections/gridPosts";
 
 interface SharedCategoryLayoutProps {
   locale: "en" | "fr";
@@ -102,10 +105,15 @@ export default async function SharedCategoryLayout({
   const cleanArticles = normalizePosts(allArticles, locale);
   // 4. Slice data safely
 
-   const heroPosts = cleanArticles.slice(0, 3) ;
-  const morePosts = cleanArticles.slice(3, 8) ;
-  const opinionPosts = cleanArticles.slice(8, 16) ;
-  const greatReadsPosts = cleanArticles.slice(16, 24) ;
+  const heroPosts = cleanArticles.slice(0, 6);
+  // const cyberPosts = hasArticles ? cleanArticles.slice(3, 6) : [];
+  const morePosts = cleanArticles.slice(6, 11);
+  const opinionPosts = cleanArticles.slice(12, 20);
+  // const greatReadsPosts = hasArticles ? cleanArticles.slice(16, 24) : [];
+  const featuredPosts = cleanArticles.slice(21, 28);
+  const gridPosts = cleanArticles.slice(28, 35);
+  const morePosts2 = cleanArticles.slice(35, 40);
+  const gridPosts2 = cleanArticles.slice(40, 47);
 
   return (
     <main className="mx-2 border-sub-side lg:mx-10 relative overflow-hidden 2xl:mx-auto">
@@ -119,33 +127,43 @@ export default async function SharedCategoryLayout({
         rootCategorySlug={rootCategorySlug}
       />
 
-       <Hero site={wpPostType} posts={heroPosts} />
+      <HeroSection site={wpPostType} posts={heroPosts} />
+      {/* <Hero site={site} posts={heroPosts} /> */}
 
-          <section className="flex justify-center ">
-            <div className="w-[85%] lg:h-[20em] rounded-2xl overflow-hidden relative">
-              <AdDisplayLandscape />
-            </div>
-          </section>
+      <section className="flex justify-center ">
+        <div className="w-[85%] lg:h-[20em] rounded-2xl overflow-hidden relative">
+          <AdDisplayLandscape />
+        </div>
+      </section>
 
-          <div className="w-full flex">
-            <div className="lg:w-[70%] w-full">
-              <MorePosts lang={locale} posts={morePosts} site={wpPostType} />
-              <ThresholdOpinions
-                site={wpPostType} 
-                posts={opinionPosts}
-                lang={locale}
-              />
-              {/* <MorePosts lang={locale} posts={morePosts} /> */}
+      <div className="w-full flex">
+        <div className="lg:w-[70%] w-full">
+          <MorePosts lang={locale} posts={morePosts} site={wpPostType} />
+          <ThresholdOpinions
+            site={wpPostType}
+            posts={opinionPosts}
+            lang={locale}
+          />
+          {/* <MorePosts lang={locale} posts={morePosts} /> */}
 
-              {/* <GreatReads lang={locale} posts={greatReadsPosts} site={wpPostType} /> */}
-            </div>
-            <div className="lg:w-[30%] hidden lg:flex">
-              <div className="w-full py-10 relative overflow-hidden">
-                <AdDisplay />
-              </div>
-              {/* <Sidebar lang={locale} /> */}
-            </div>
+          {/* <GreatReads lang={locale} posts={greatReadsPosts} site={site} /> */}
+        </div>
+        <div className="lg:w-[30%] hidden lg:flex">
+          <div className="w-full py-10 relative overflow-hidden">
+            <AdDisplay />
           </div>
+          {/* <Sidebar lang={locale} /> */}
+        </div>
+      </div>
+
+      <FeaturedSection
+        sectionTitle="Featured"
+        posts={featuredPosts}
+        site={wpPostType}
+      />
+      <GridPosts site={wpPostType} gridPosts={gridPosts} />
+      <HeroSection site={wpPostType} posts={morePosts2} />
+      <GridPosts site={wpPostType} gridPosts={gridPosts2} />
     </main>
   );
 }

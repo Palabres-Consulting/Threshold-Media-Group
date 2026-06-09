@@ -10,6 +10,7 @@ import { formatAuthorDate, truncateText } from "@/app/helpers/textHelpers";
 import { NormalizedPost } from "@/app/types/apiResponse"; // <-- New Clean Type
 import SaveArticleButton from "../utilities/saveArticleButton";
 import ShareArticleButton from "../utilities/shareArticleButton";
+import TriSaveShareCategory from "../utilities/triSaveShareCategory";
 
 const MorePosts = ({
   posts,
@@ -20,6 +21,10 @@ const MorePosts = ({
   lang: Locale;
   site: string;
 }) => {
+  if (posts.length < 5) {
+    return null;
+  }
+
   // 1. Array Destructuring for cleaner variable assignment
   const [post0, post1, post2, post3, post4] = posts || [];
 
@@ -37,47 +42,32 @@ const MorePosts = ({
               {/* Post 0 - Top Left */}
               {post0 && (
                 <div className="relative block lg:h-[70%] w-full">
-                  <SaveArticleButton
+                  <PostCard
+                    slug={post0.slug}
                     postId={post0.id}
-                    url={post0.postUrl}
-                    title={post0.title}
+                    postUrl={post0.postUrl}
+                    site={site}
+                    category={post0.topCategory}
                     excerpt={truncateText(post0.excerpt, 18)}
-                  />
-                  <ShareArticleButton
-                    url={`/journal/${post0.slug || ""}?id=${post0.id || ""}&type=${site}`}
                     title={post0.title}
-                    customRightStyle="right-16 absolute" // 👈 Sits to the left of the Save Button
+                    readTime={post0.readTimeLabel}
+                    imageHeight="aspect-video h-full"
+                    imageSrc={post0.imageUrl}
+                    imageAlt={post0.title}
                   />
-                  <Link href={post0.postUrl} className="block w-full h-full">
-                    <PostCard
-                      category={post0.topCategory}
-                      excerpt={truncateText(post0.excerpt, 18)}
-                      title={post0.title}
-                      readTime={post0.readTimeLabel}
-                      imageHeight="aspect-video h-full"
-                      imageSrc={post0.imageUrl}
-                      imageAlt={post0.title}
-                    />
-                  </Link>
                 </div>
               )}
 
               {/* Post 1 - Bottom Left (Author Post) */}
               {post1 && (
                 <div className="relative block h-full mt-5">
-                  <SaveArticleButton
-                    postId={post1.id}
-                    url={post1.postUrl}
-                    title={post1.title}
-                    excerpt={truncateText(post1.excerpt, 18)}
-                  />
-                  <ShareArticleButton
-                    url={`/journal/${post1.slug || ""}?id=${post1.id || ""}&type=${site}`}
-                    title={post1.title}
-                    customRightStyle="right-16 absolute" // 👈 Sits to the left of the Save Button
-                  />
                   <Link href={post1.postUrl} className="block w-full h-full">
                     <AuthorPost
+                      slug={post1.slug}
+                      postId={post1.id}
+                      postUrl={post1.postUrl}
+                      site={site}
+                      excerpt={truncateText(post1.excerpt, 18)}
                       category={post1.topCategory}
                       image={""}
                       title={
@@ -95,22 +85,11 @@ const MorePosts = ({
             {post2 && (
               <div className="relative  lg:w-[65%] w-full h-full p-6  border-sub-side">
                 <div className="relative">
-
-                
-                  <SaveArticleButton
-                  postId={post2.id}
-                  url={post2.postUrl}
-                  title={post2.title}
-                  excerpt={truncateText(post2.excerpt, 18)}
-                  />
-                <ShareArticleButton
-                  url={`/journal/${post2.slug || ""}?id=${post2.id || ""}&type=${site}`}
-                  title={post2.title}
-                  customRightStyle="right-16 absolute" // 👈 Sits to the left of the Save Button
-                  />
-                
-                <Link href={post2.postUrl} className="block w-full h-full">
                   <PostCard
+                    slug={post2.slug}
+                    postId={post2.id}
+                    postUrl={post2.postUrl}
+                    site={site}
                     category={post2.topCategory}
                     excerpt={truncateText(post2.excerpt, 18)}
                     title={post2.title}
@@ -119,8 +98,7 @@ const MorePosts = ({
                     imageSrc={post2.imageUrl}
                     imageAlt={post2.title}
                   />
-                </Link>
-            </div>
+                </div>
               </div>
             )}
           </div>
@@ -129,17 +107,6 @@ const MorePosts = ({
           <div className="flex flex-col lg:flex-row w-full p-6 gap-6 justify-center items-center border-sub-right">
             {post3 && (
               <div className="relative block rounded-2xl overflow-hidden aspect-video w-full lg:w-[50%] bg-foreground/10 border-sub">
-                <SaveArticleButton
-                  postId={post3.id}
-                  url={post3.postUrl}
-                  title={post3.title}
-                  excerpt={truncateText(post3.excerpt, 18)}
-                />
-                <ShareArticleButton
-                  url={`/journal/${post3.slug || ""}?id=${post3.id || ""}&type=${site}`}
-                  title={post3.title}
-                  customRightStyle="right-16 absolute" // 👈 Sits to the left of the Save Button
-                />
                 <Link href={post3.postUrl} className="block w-full h-full">
                   <Image
                     loader={cloudinaryLoader}
@@ -156,37 +123,43 @@ const MorePosts = ({
             <div className="flex flex-col lg:w-[50%] gap-2 justify-between">
               {post3 && (
                 <div>
-                  <h2 className="text-[1.3rem] font-semibold mb-3">
-                    {post3.title.split(" ").slice(0, 10).join(" ")}
-                    {post3.title.split(" ").length > 10 ? "..." : ""}
-                  </h2>
-                  <p className="opacity-90">
-                    {post3.excerpt.split(" ").slice(0, 30).join(" ")}...
+                  <Link href={post3.postUrl} className="block w-full h-full">
+                    <h2 className="text-base sm:text-base font-bold leading-snug mb-3">
+                      {post3.title.split(" ").slice(0, 10).join(" ")}
+                      {post3.title.split(" ").length > 15 ? "..." : ""}
+                    </h2>
+                  </Link>
+                  <p className="opacity-90 text-sm">
+                    {post3.excerpt.split(" ").slice(0, 20).join(" ")}...
                   </p>
+
+                  <TriSaveShareCategory
+                    category={post3.topCategory}
+                    slug={post3.slug}
+                    id={post3.id}
+                    site={site}
+                    title={post3.title}
+                    postUrl={post3.postUrl}
+                    excerpt={truncateText(post3.excerpt, 18)}
+                  />
                 </div>
               )}
 
               {post4 && (
                 <div className="relative mt-4">
-                  <SaveArticleButton
-                    postId={post4.id}
-                    url={post4.postUrl}
-                    title={post4.title}
-                    excerpt={truncateText(post4.excerpt, 18)}
-                  />
-                  <ShareArticleButton
-                    url={`/journal/${post4.slug || ""}?id=${post4.id || ""}&type=${site}`}
-                    title={post4.title}
-                    customRightStyle="right-16 absolute" // 👈 Sits to the left of the Save Button
-                  />
                   <Link href={post4.postUrl}>
                     <AuthorPost
+                      slug={post4.slug}
+                      postId={post4.id}
+                      postUrl={post4.postUrl}
+                      site={site}
+                      excerpt={truncateText(post4.excerpt, 18)}
                       category={post4.topCategory}
                       image={""}
                       title={post4.title}
                       date={formatAuthorDate(post4.date)}
                       readTime={post4.readTimeLabel}
-                      />
+                    />
                   </Link>
                 </div>
               )}

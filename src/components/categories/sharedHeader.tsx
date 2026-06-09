@@ -1,4 +1,4 @@
-"use client"; // 💡 Added to allow client-side DOM layout tracking
+"use client"; 
 
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
@@ -6,7 +6,7 @@ import Link from "next/link";
 interface SharedHeaderProps {
   title: string;
   locale: "en" | "fr";
-  activeCategory?: string; // The current slug
+  activeCategory?: string; 
   context?: any; // The result from getCategoryContext
   
   // Specific to Home.tsx (Query Routing)
@@ -19,7 +19,6 @@ interface SharedHeaderProps {
 }
 
 export default function SharedHeader({
-  title,
   locale,
   activeCategory,
   context,
@@ -66,88 +65,95 @@ export default function SharedHeader({
   };
 
   return (
-    <header className="px-3 border-b border-[var(--foreground)]/10 pb-4 pt-10 ">
-      <h1 className="text-4xl lg:text-3xl font-black uppercase tracking-tighter mb-6">
-        {title}
-      </h1>
-
-      <div className="flex flex-col gap-3 mb-2 w-full overflow-hidden">
-        {/* --- LEVEL 1 & 2 ROW (Main Navigation) --- */}
+    <header className="w-full bg-[var(--background)] px-4">
+      {/* Top Thick Solid Border */}
+      <div className=" py-4">
+        
+        {/* --- MAIN NAVIGATION ROW (Centered) --- */}
         <nav 
-          ref={layer12NavRef} // 💡 Ref added
-          className="flex flex-nowrap items-center gap-x-6 overflow-x-auto whitespace-nowrap pb-2 text-sm md:text-base [scrollbar-width:thin] [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-[var(--foreground)]/10 [&::-webkit-scrollbar-track]:bg-transparent"
+          ref={layer12NavRef}
+          className="flex flex-nowrap items-center justify-left gap-x-4 overflow-x-auto whitespace-nowrap text-xs md:text-sm tracking-wider font-medium text-[var(--foreground)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {/* === HOME.TSX SPECIFIC: Top-Level Children (When no category is active) === */}
-          {isQueryRouting && !activeCategory && topLevelCategory?.categories?.map((link: any) => (
-            <Link
-              key={link.slug}
-              href={getHref(link.slug)}
-              className="text-[var(--foreground)]/70 hover:text-[var(--foreground)] transition-colors pb-1 shrink-0"
-            >
-              {link.title}
-            </Link>
+          {/* === HOME.TSX SPECIFIC: Top-Level Children === */}
+          {isQueryRouting && !activeCategory && topLevelCategory?.categories?.map((link: any, index: number) => (
+            <React.Fragment key={link.slug}>
+              {index > 0 && <span className="text-[var(--foreground)]/20 font-light text-xs">|</span>}
+              <Link
+                href={getHref(link.slug)}
+                className="hover:text-[var(--foreground)] transition-colors text-[var(--foreground)]/70"
+              >
+                {link.title}
+              </Link>
+            </React.Fragment>
           ))}
 
           {/* === SHARED CONTEXT: Render Parent and Siblings === */}
           {((isQueryRouting && activeCategory && context) || (!isQueryRouting && context)) && (
             <>
               {context.parentLink && (
-                <Link 
-                  href={getHref(context.parentLink.slug, true)} 
-                  className="font-bold border-b-2 border-[var(--foreground)] text-accent-main pb-1 shrink-0"
-                >
-                  {context.parentLink.title}
-                </Link>
+                <>
+                  {/* <Link 
+                    href={getHref(context.parentLink.slug, true)} 
+                    className="font-bold text-[var(--foreground)] border-b border-[var(--foreground)]"
+                  >
+                    {context.parentLink.title}
+                  </Link>
+                  <span className="text-[var(--foreground)]/20 font-light text-xs">|</span> */}
+                </>
               )}
 
-              {context.navLinks?.map((link: any) => {
-                // Determine if this sibling is the active one
+              {context.navLinks?.map((link: any, index: number) => {
                 const isActive = context.activeLevel2Slug === link.slug || (!context.activeLevel2Slug && activeCategory === link.slug);
                 return (
-                  <Link 
-                    key={link.slug} 
-                    href={getHref(link.slug)} 
-                    data-active={isActive ? "true" : "false"} // 💡 Target tag added
-                    className={`pb-1 transition-colors shrink-0 ${
-                      isActive 
-                        ? "font-bold border-b-2 border-[var(--foreground)] text-[var(--foreground)]" 
-                        : "text-[var(--foreground)]/70 hover:text-[var(--foreground)]"
-                    }`}
-                  >
-                    {link.title}
-                  </Link>
+                  <React.Fragment key={link.slug}>
+                    {index > 0 && <span className="text-[var(--foreground)]/20 font-light text-xs">|</span>}
+                    <Link 
+                      href={getHref(link.slug)} 
+                      data-active={isActive ? "true" : "false"}
+                      className={`transition-colors ${
+                        isActive 
+                          ? "font-bold text-[var(--foreground)] border-b border-[var(--foreground)]" 
+                          : "text-[var(--foreground)]/60 hover:text-[var(--foreground)]"
+                      }`}
+                    >
+                      {link.title}
+                    </Link>
+                  </React.Fragment>
                 );
               })}
             </>
           )}
         </nav>
-
-        {/* --- LEVEL 3 ROW (Subcategories rendered as pills) --- */}
-        {context?.childLinks?.length > 0 && (
-          <nav 
-            ref={layer3NavRef} // 💡 Ref added
-            className="flex flex-nowrap items-center gap-x-4 overflow-x-auto whitespace-nowrap pt-2 pb-2 border-t border-[var(--foreground)]/5 [scrollbar-width:thin] [&::-webkit-scrollbar]:h-[2px] [&::-webkit-scrollbar-thumb]:bg-[var(--foreground)]/10 [&::-webkit-scrollbar-track]:bg-transparent"
-          >
-            {context.childLinks.map((child: any) => {
-              const isChildActive = activeCategory === child.slug;
-              return (
-                <Link
-                  key={child.slug}
-                  href={getHref(child.slug)}
-                  data-active={isChildActive ? "true" : "false"} // 💡 Target tag added
-                  className={`transition-colors px-3 py-1 rounded-full shrink-0 ${
-                    isChildActive
-                      ? "bg-[var(--foreground)] text-[var(--background)] font-medium"
-                      : "bg-[var(--foreground)]/5 text-[var(--foreground)]/80 hover:bg-[var(--foreground)]/10"
-                  }`}
-                >
-                  {child.title}
-                </Link>
-              );
-            })}
-          </nav>
-        )}
       </div>
+
+      {/* Bottom Thin Border */}
+      <div className="border-[var(--foreground)]/20 w-full mb-3" />
+
+      {/* --- LAYER 3 SUB-ROW (Subcategories) --- */}
+      {context?.childLinks?.length > 0 && (
+        <nav 
+          ref={layer3NavRef}
+          className="flex flex-nowrap items-center justify-left gap-x-2 overflow-x-auto whitespace-nowrap pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {context.childLinks.map((child: any) => {
+            const isChildActive = activeCategory === child.slug;
+            return (
+              <Link
+                key={child.slug}
+                href={getHref(child.slug)}
+                data-active={isChildActive ? "true" : "false"}
+                className={`transition-colors px-3 py-1 rounded-full text-xs shrink-0 ${
+                  isChildActive
+                    ? "bg-[var(--foreground)] text-[var(--background)] font-medium"
+                    : "bg-[var(--foreground)]/5 text-[var(--foreground)]/80 hover:bg-[var(--foreground)]/10"
+                }`}
+              >
+                {child.title}
+              </Link>
+            );
+          })}
+        </nav>
+      )}
     </header>
   );
 }

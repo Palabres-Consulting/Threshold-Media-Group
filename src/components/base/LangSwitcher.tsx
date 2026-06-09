@@ -58,10 +58,10 @@ const LangSwitcher: React.FC<{ dict: any }> = ({ dict }) => {
   };
   return (
     <div 
-      className="relative h-fit group "
+      className="relative h-fit group  "
       onMouseLeave={() => setTransDropdown(false)} // <-- ADDED: Closes click-state on desktop mouse leave
     >
-      <div className="flex items-center cursor-pointer  lg:justify-between  lg:px-2 py-1 rounded-md gap-1 lg:border">
+      <div className="flex items-center cursor-pointer rounded-md  lg:justify-between  lg:px-2 py-1  gap-1 lg:border">
         <Globe size={15} />
 
         <button

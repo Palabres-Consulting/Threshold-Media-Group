@@ -13,6 +13,7 @@ import { TranslationProvider } from "../../lib/locale/context/translationContext
 import { getTranslations } from "../../lib/locale/i18n/getTranslations";
 import { Toaster } from "react-hot-toast";
 import CookieConsent from "@/components/analytics/cookiesConsent";
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -84,7 +85,10 @@ export default async function RootLayout({
               <QueryProvider>
                 <ToastProvider>
                   <Toaster position="top-center" reverseOrder={false} />
+                  <NuqsAdapter>
+
                   <div className=" mx-auto   border-sub-side">
+
                     <Header t={messages} site={site} />
                     <div className="max-w-[1340px] lg:mx-auto">{children}</div>
 
@@ -92,6 +96,7 @@ export default async function RootLayout({
 
                     <CookieConsent />
                   </div>
+                  </NuqsAdapter>
                 </ToastProvider>
               </QueryProvider>
             </SubdomainProvider>

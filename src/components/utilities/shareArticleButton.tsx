@@ -7,11 +7,13 @@ interface ShareArticleButtonProps {
   url: string;       // Relative path from your app, e.g., /journal/slug?type=extraction
   title: string;     // The article title string
   customRightStyle?: string; // 💡 Allows adjusting positioning offsets per card layout variant
+  overlay?: boolean; // 💡 If true, applies styles suitable for overlay contexts (e.g., hero image)
 }
 
 export default function ShareArticleButton({
   url,
   title,
+  overlay = false, // Optional: If true, applies styles suitable for overlay contexts (e.g., hero image)
   customRightStyle = "right-16", // Default positioning sits next to SaveButton (right-4)
 }: ShareArticleButtonProps) {
   const [copied, setCopied] = useState(false);
@@ -53,26 +55,30 @@ export default function ShareArticleButton({
   };
 
   return (
-    <div className={`top-4 ${customRightStyle} z-[60] flex flex-col items-end gap-1`}>
+    <div className={`${customRightStyle} z-[60] flex flex-col items-end gap-1`}>
       <button
         onClick={handleShareClick}
         type="button"
         aria-label="Share article link"
-        className={`flex items-center justify-center w-8 h-8 rounded-full backdrop-blur-md border transition-all duration-300 shadow-sm ${
-          copied
-            ? "bg-green-600 border-green-600 text-white"
-            : "bg-background/50 border-foreground/20 text-foreground hover:bg-background/80"
+        className={`flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300 ${
+          overlay
+            ? copied
+              ? "bg-green-600 border border-green-600 text-white shadow-sm"
+              : "text-white  border-foreground/20 hover:bg-background/80 backdrop-blur-md shadow-sm  "
+            : copied
+              ? "bg-transparent text-green-600"
+              : "text-foreground hover:opacity-80"
         }`}
       >
         {copied ? (
-          <Check size={16} className="animate-scaleUp" />
+          <Check size={12} className="animate-scaleUp" />
         ) : (
-          <Share2 size={16} />
+          <Share2 size={12} />
         )}
       </button>
 
       {copied && (
-        <span className="text-[9px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded bg-background text-green-600 shadow-md border border-sub">
+        <span className="text-[9px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded bg-background text-green-600 shadow-md border border-foreground/10">
           Copied!
         </span>
       )}

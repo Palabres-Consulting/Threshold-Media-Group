@@ -10,11 +10,17 @@ import { useClientSite } from "@/app/[locale]/hook/useSite";
 import cloudinaryLoader from "@/app/helpers/cloudinary";
 import { useLocale } from "@/lib/locale/context/translationContext";
 import Image from "next/image";
-import { useParams, useSearchParams, useRouter, usePathname } from "next/navigation";
+import {
+  useParams,
+  useSearchParams,
+  useRouter,
+  usePathname,
+} from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useArticleSave } from "@/app/[locale]/hook/useArticles"; // <-- Import added
 import ShareArticleButton from "@/components/utilities/shareArticleButton";
+import { getTopLevelCategory } from "@/app/helpers/categoriesMap";
 
 const UniquePost = () => {
   const params = useParams();
@@ -95,8 +101,8 @@ const UniquePost = () => {
     const currentPath = window.location.pathname + window.location.search;
 
     if (currentPath !== newPath && pathname.startsWith(`/${locale}`)) {
-    router.replace(newPath);
-  }
+      router.replace(newPath);
+    }
   }, [
     post,
     locale,
@@ -139,8 +145,12 @@ const UniquePost = () => {
           />
         </div>
       </div>
-    ); 
+    );
   }
+
+  const topCatObj = getTopLevelCategory(post);
+  console.log("Top-level category object:", topCatObj);
+  const category = topCatObj.name ? topCatObj.name : "Uncategorized";
 
   return (
     <PageContainer id="unique-post" path="" title="Unique Post">
@@ -149,7 +159,7 @@ const UniquePost = () => {
           <div className="border-sub p-6">
             <div className="flex justify-between items-center py-2">
               <div className="flex gap-6 text-foreground/50 items-center">
-                <p className="text-sm">Product</p>
+                <p className="text-sm">{category}</p>
                 <div className="h-[5px] w-[5px] bg-foreground/50 rounded-full"></div>
                 <div className="relative">
                   <ShareArticleButton

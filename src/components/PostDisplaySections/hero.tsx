@@ -23,7 +23,9 @@ export const getTitleValue = (data: Post[] | undefined, key: number) => {
     .replace(/&#8211;/g, "–") // En dash
     .replace(/&amp;/g, "&")
     .replace(/&#8220;/g, "“")
-    .replace(/&#8221;/g, "”");
+    .replace(/&#8221;/g, "”")
+    .replace(/&#038;/g, "&");
+    
 };
 
 const Hero = ({ site, posts }: { site: string; posts: NormalizedPost[] }) => {
@@ -174,7 +176,7 @@ const Hero = ({ site, posts }: { site: string; posts: NormalizedPost[] }) => {
           )}
         </div>
       </div>
-    </section>
+    </section> 
   );
 };
 
