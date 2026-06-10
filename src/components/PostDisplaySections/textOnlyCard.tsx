@@ -8,8 +8,6 @@ import Link from "next/link";
 interface CardProps {
   title: string;
   category: string;
-  date: string;
-  readTime: string;
   postUrl: string;
   postId: number;
   site: string;
@@ -20,8 +18,8 @@ interface CardProps {
 export default function TextOnlyCard({
   title,
   category,
-  postId,
   postUrl,
+  postId,
   site,
   slug,
   excerpt,

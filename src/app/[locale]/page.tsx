@@ -7,7 +7,7 @@ import MorePosts from "../../components/PostDisplaySections/morePosts";
 import Sidebar from "../../components/PostDisplaySections/sidebar";
 import ThresholdHompage from "../../components/thresholdHome/ThresholdHompage";
 import ThresholdOpinions from "../../components/PostDisplaySections/thresholdOpinions";
-import EmptyState from "../../components/ui/empty";
+import EmptyState from "../../components/ui/empty"; 
 import EmptyFull from "../../components/ui/emptyFull";
 import { useServerSite } from "./hook/useServerSite";
 import { CategoriesMap, getCategoryContext } from "../helpers/categoriesMap";

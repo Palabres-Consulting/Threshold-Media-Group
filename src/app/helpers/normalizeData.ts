@@ -72,6 +72,8 @@ export const normalizePost = (post: Post, siteType: string): NormalizedPost => {
   const typeParam = post.type === "post"
     ? "main"
     : (siteType || post.type || "main");
+
+
   const postUrl = `/journal/${slug}?id=${id}&type=${typeParam}`;
 
   return {

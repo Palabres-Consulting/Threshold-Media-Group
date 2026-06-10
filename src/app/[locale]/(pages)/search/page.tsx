@@ -27,7 +27,7 @@ export default async function SearchPage({
 
   const site = await useServerSite();
 
-  let mainResults: any[] = [];
+  let innovationResults: any[] = [];
   let extractionResults: any[] = [];
   let asintResults: any[] = [];
 
@@ -41,14 +41,14 @@ export default async function SearchPage({
     };
 
     // Execute concurrent fetches to avoid serial request blocking
-    const [rawMain, rawExtraction, rawAsint] = await Promise.all([
+    const [rawInnovation, rawExtraction, rawAsint] = await Promise.all([
       fetchInnovationPosts(apiParams).catch(() => []),
       fetchExtractionPosts(apiParams).catch(() => []),
       fetchAsintPosts(apiParams).catch(() => []),
     ]);
 
     // Normalize data formats for standard rendering consumption
-    mainResults = normalizePosts(rawMain, "main");
+    innovationResults = normalizePosts(rawInnovation, "innovation");
     extractionResults = normalizePosts(rawExtraction, "extraction");
     asintResults = normalizePosts(rawAsint, "asint");
   }
@@ -68,7 +68,7 @@ export default async function SearchPage({
         site={site}
         initialQuery={query}
         results={{
-          main: mainResults,
+          innovation: innovationResults,
           extraction: extractionResults,
           asint: asintResults,
         }}

@@ -32,6 +32,7 @@ export default async function SharedCategoryLayout({
   const { main: dict } = getTranslations(locale);
   const navTranslations = dict.nav.categories;
 
+
   // 1. Get the Bloomberg Context & WP ID
   const context = getCategoryContext(slug, navTranslations, locale);
 
@@ -56,19 +57,20 @@ export default async function SharedCategoryLayout({
   let wpPostType: any = "posts";
   const identifier = context.taxonomy || slug;
 
+  
   if (
     identifier.includes("extraction") ||
     identifier === "industries-resources"
   )
-    wpPostType = "extraction";
+  wpPostType = "extraction";
   else if (identifier.includes("asint")) wpPostType = "asint";
   else if (identifier.includes("guinea-intel")) wpPostType = "guinea_intel";
   else if (identifier.includes("innovation")) wpPostType = "innovation";
   else if (identifier.includes("transverse")) wpPostType = "transverse";
-
+  
   // 3. Create a dynamic query parameter
   const queryParams: any = {
-    per_page: 15,
+    per_page: 100,
     lang: locale,
   };
 
@@ -102,7 +104,7 @@ export default async function SharedCategoryLayout({
     );
   }
 
-  const cleanArticles = normalizePosts(allArticles, locale);
+  const cleanArticles = normalizePosts(allArticles, wpPostType);
   // 4. Slice data safely
 
   const heroPosts = cleanArticles.slice(0, 6);
@@ -114,6 +116,9 @@ export default async function SharedCategoryLayout({
   const gridPosts = cleanArticles.slice(28, 35);
   const morePosts2 = cleanArticles.slice(35, 40);
   const gridPosts2 = cleanArticles.slice(40, 47);
+
+
+    console.log("POST URL", cleanArticles[0].postUrl);
 
   return (
     <main className="mx-2 border-sub-side lg:mx-10 relative overflow-hidden 2xl:mx-auto">

@@ -11,7 +11,7 @@ interface SearchInterfaceClientProps {
   initialQuery: string;
   site: string;
   results: {
-    main: any[];
+    innovation: any[];
     extraction: any[];
     asint: any[];
   };
@@ -43,7 +43,7 @@ export default function SearchInterfaceClient({
   const activeResults = results[activeTab as keyof typeof results] || [];
 
   const tabMeta = [
-    { id: "main", name: "Innovation & Tech", count: results.main.length },
+    { id: "innovation", name: "Innovation & Tech", count: results.innovation.length },
     {
       id: "extraction",
       name: "Extraction Intel",
@@ -129,11 +129,7 @@ export default function SearchInterfaceClient({
                 const finalSite = post.type || activeTab;
 
                 // Adapt your routing strategy depending on if it's main vs subdomain architectures
-                const postUrl =
-                  finalSite === "main" || finalSite === "innovation"
-                    ? `/journal/${post.slug}?id=${post.id}&type=${finalSite}`
-                    : `https://${finalSite}.thresholdmedia.group/journal/${post.slug}?id=${post.id}`;
-
+               
                 return (
                   <LandScapeCard
                     key={post.id}
@@ -146,7 +142,7 @@ export default function SearchInterfaceClient({
                     date={post.date || ""}
                     readTime={post.readTimeLabel || "3 Min"}
                     site={finalSite}
-                    postUrl={postUrl}
+                    postUrl={post.postUrl}
                   />
                 );
               })}

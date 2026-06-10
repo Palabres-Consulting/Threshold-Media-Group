@@ -89,11 +89,22 @@ export const fetchPostsByType = async (
   queryParams.append("_embed", "true");
 
   try {
-    const { data }: { data: Post[] } = await axios.get(
+
+    const res = await fetch(
       `${API_BASE}/${postType}?${queryParams}`,
+      {
+        next: {
+          revalidate: 3600,
+        },
+      }
     );
-    return data;
-  } catch (error) {
+
+
+    if (!res.ok) return [];
+
+    return await res.json();
+
+  } catch {
     return [];
   }
 };

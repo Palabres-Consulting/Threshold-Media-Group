@@ -17,7 +17,7 @@ const HeroSection = ({
 }) => {
 
 
-  if (posts.length === 0) {
+  if (posts.length < 6) {
     return null;
   }
 
@@ -30,6 +30,9 @@ const HeroSection = ({
   const fourthPost = posts[3];
   const fifthPost = posts[4];
   const sixthPost = posts[5];
+
+
+  console.log("POST Url", firstPost?.postUrl);
 
   return (
     <section className="w-full  min-h-[400px]  flex flex-col lg:flex-row border-y border-[var(--foreground)]/10 p-3 gap-2 bg-[var(--background)]">
@@ -47,8 +50,6 @@ const HeroSection = ({
             <TextOnlyCard
               title={secondPost?.title || "No Title Available"}
               category={secondPost?.topCategory || "General"}
-              readTime={secondPost?.readTimeLabel || "N/A"}
-              date={formatAuthorDate(secondPost?.date || "")}
               postUrl={secondPost?.postUrl || "#"}
               postId={secondPost?.id || 0}
               site={site}
@@ -84,8 +85,6 @@ const HeroSection = ({
             <TextOnlyCard
               title={fifthPost?.title || "No Title Available"}
               category={fifthPost?.topCategory || "General"}
-              readTime={fifthPost?.readTimeLabel || "N/A"}
-              date={formatAuthorDate(fifthPost?.date || "")}
               postUrl={fifthPost?.postUrl || "#"}
               postId={fifthPost?.id || 0}
               site={site}
