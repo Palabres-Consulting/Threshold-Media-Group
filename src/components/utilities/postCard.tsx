@@ -41,7 +41,6 @@ const PostCard: React.FC<{
         {imageSrc ? (
           <Link href={postUrl} className="block w-full h-full">
             <Image
-              loader={cloudinaryLoader}
               src={imageSrc}
               alt={imageAlt || title}
               fill

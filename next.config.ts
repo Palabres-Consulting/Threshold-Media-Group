@@ -21,8 +21,6 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
-    loader: "custom",
-    loaderFile: "./src/app/helpers/cloudinary.ts", 
   },
 
   async rewrites() {

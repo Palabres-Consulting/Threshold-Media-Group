@@ -14,6 +14,7 @@ import { getTranslations } from "../../lib/locale/i18n/getTranslations";
 import { Toaster } from "react-hot-toast";
 import CookieConsent from "@/components/analytics/cookiesConsent";
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,6 +68,14 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} data-site={site}>
+      <head>
+        <Script
+          id="adsense-init"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

@@ -83,7 +83,6 @@ export const GroupStatistics: React.FC<{ textAlign: string }> = ({
             <div className="flex gap-3">
               {images.map(({ id: imgId, src, alt }) => (
                 <Image
-                  loader={cloudinaryLoader}
                   key={imgId}
                   src={src}
                   alt={alt}

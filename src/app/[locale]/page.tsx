@@ -7,7 +7,7 @@ import MorePosts from "../../components/PostDisplaySections/morePosts";
 import Sidebar from "../../components/PostDisplaySections/sidebar";
 import ThresholdHompage from "../../components/thresholdHome/ThresholdHompage";
 import ThresholdOpinions from "../../components/PostDisplaySections/thresholdOpinions";
-import EmptyState from "../../components/ui/empty"; 
+import EmptyState from "../../components/ui/empty";
 import EmptyFull from "../../components/ui/emptyFull";
 import { useServerSite } from "./hook/useServerSite";
 import { CategoriesMap, getCategoryContext } from "../helpers/categoriesMap";
@@ -23,6 +23,7 @@ import { Edit, Grid } from "lucide-react";
 import { truncateText } from "../helpers/textHelpers";
 import EditorialImageCard from "@/components/PostDisplaySections/editorialImageCard";
 import GridPosts from "@/components/PostDisplaySections/gridPosts";
+import AdBanner from "@/components/ads/AdBanner";
 
 const Home = async (props: {
   params: Promise<{ locale: "en" | "fr" }>;
@@ -162,11 +163,12 @@ const Home = async (props: {
           <HeroSection site={site} posts={heroPosts} />
           {/* <Hero site={site} posts={heroPosts} /> */}
 
-          <section className="flex justify-center ">
+              <AdBanner adSlot="5626006077" />
+          {/* <section className="flex justify-center ">
             <div className="w-[85%] lg:h-[20em] rounded-2xl overflow-hidden relative">
               <AdDisplayLandscape />
             </div>
-          </section>
+          </section> */}
 
           <div className="w-full flex">
             <div className="lg:w-[70%] w-full">

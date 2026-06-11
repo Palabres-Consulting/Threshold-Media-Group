@@ -128,7 +128,6 @@ export const ProfileDetails: React.FC<{
           >
             {isUploadedImage ? (
               <Image
-                loader={cloudinaryLoader}
                 src={avatar_url || "/images/profile/avatar-placeholder.png"}
                 alt="Profile Avatar"
                 fill
@@ -146,7 +145,6 @@ export const ProfileDetails: React.FC<{
               </div>
             ) : (
               <Image
-                loader={cloudinaryLoader}
                 src="/images/profile/avatar-placeholder.png"
                 alt="Profile Avatar"
                 fill

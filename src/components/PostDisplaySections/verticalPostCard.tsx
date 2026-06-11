@@ -35,11 +35,9 @@ export default function VerticalPostCard({
       {/* Top Card Image Area */}
       <div className="relative w-full h-[110px] shrink-0 bg-[var(--foreground)]/5">
         <Image
-          loader={cloudinaryLoader}
           src={image || "/placeholder.jpg"}
           alt={title}
           fill
-          sizes="(max-width: 768px) 100vw, 33vw"
           className="object-cover"
         />
       </div>

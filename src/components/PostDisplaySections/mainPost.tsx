@@ -4,7 +4,6 @@ import React from "react";
 import SaveArticleButton from "../utilities/saveArticleButton";
 import ShareArticleButton from "../utilities/shareArticleButton";
 import Image from "next/image";
-import cloudinaryLoader from "@/app/helpers/cloudinary";
 import CategoryTime from "../utilities/category&time";
 
 const MainPost = ({
@@ -38,7 +37,6 @@ const MainPost = ({
         </div>
 
         <Image
-          loader={cloudinaryLoader}
           src={mainPost.imageUrl || "/images/homepage/home4.png"}
           alt={`Extraction Image 1`}
           fill

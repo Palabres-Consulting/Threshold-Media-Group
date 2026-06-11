@@ -21,7 +21,6 @@ const ListCard: React.FC<ListCardProps> = ({ post, rank }) => {
       <div className="w-[40%] relative h-[7.5em] rounded-2xl overflow-hidden bg-foreground/10 flex-shrink-0">
         {post.imageUrl ? (
           <Image
-            loader={cloudinaryLoader}
             src={post.imageUrl}
             alt={post.title}
             fill

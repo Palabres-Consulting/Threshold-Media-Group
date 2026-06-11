@@ -109,7 +109,6 @@ const MorePosts = ({
               <div className="relative block rounded-2xl overflow-hidden aspect-video w-full lg:w-[50%] bg-foreground/10 border-sub">
                 <Link href={post3.postUrl} className="block w-full h-full">
                   <Image
-                    loader={cloudinaryLoader}
                     src={post3.imageUrl}
                     alt={post3.title}
                     width={1000}

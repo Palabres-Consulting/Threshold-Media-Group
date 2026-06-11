@@ -19,6 +19,7 @@ import AdDisplayLandscape from "../PostDisplaySections/adDisplayLandscape";
 import HeroSection from "../PostDisplaySections/hero2";
 import FeaturedSection from "../PostDisplaySections/featuredSection";
 import GridPosts from "../PostDisplaySections/gridPosts";
+import AdBanner from "../ads/AdBanner";
 
 interface SharedCategoryLayoutProps {
   locale: "en" | "fr";
@@ -135,11 +136,14 @@ export default async function SharedCategoryLayout({
       <HeroSection site={wpPostType} posts={heroPosts} />
       {/* <Hero site={site} posts={heroPosts} /> */}
 
-      <section className="flex justify-center ">
+
+      <AdBanner adSlot="5626006077" />
+
+      {/* <section className="flex justify-center ">
         <div className="w-[85%] lg:h-[20em] rounded-2xl overflow-hidden relative">
           <AdDisplayLandscape />
         </div>
-      </section>
+      </section> */}
 
       <div className="w-full flex">
         <div className="lg:w-[70%] w-full">

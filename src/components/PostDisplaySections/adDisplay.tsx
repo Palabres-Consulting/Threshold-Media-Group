@@ -12,7 +12,6 @@ const AdDisplay = () => {
         rel="noopener noreferrer"
       >
         <Image
-          loader={cloudinaryLoader}
           src="/images/ads/simandou2040.webp"
           alt="Simandou 2040 Ad"
           className="object-cover w-full transition-transform duration-500 hover:scale-105"

@@ -125,7 +125,6 @@ const UserNav = ({ dict, authUrl }: UserNavProps) => {
         >
           <div className="h-[30px] w-[30px] rounded-full bg-foreground/10 relative overflow-hidden">
             <Image
-              loader={cloudinaryLoader}
               src={userAvatar || "/images/profile/avatar-placeholder.png"}
               alt="Profile Avatar"
               fill

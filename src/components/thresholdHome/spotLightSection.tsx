@@ -48,7 +48,6 @@ const SpotLightSection = ({ t }: { t: TranslationSchema["main"]["hero"]} ) => {
             <div key={id} className="flex text-center flex-col gap-4 items-center">
               <div className="relative w-[100px] h-[100px]">
                 <Image
-                  loader={cloudinaryLoader}
                   src={icon}
                   alt={alt}
                   fill

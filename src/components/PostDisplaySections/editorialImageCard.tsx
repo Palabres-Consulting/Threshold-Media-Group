@@ -35,12 +35,11 @@ export default function EditorialImageCard({
       {/* Article Cover Image */}
       <div className="relative w-full h-[160px] rounded-md overflow-hidden bg-[var(--foreground)]/5">
         <Image 
-          loader={cloudinaryLoader}
           src={image || "/placeholder.jpg"} 
           alt={title} 
           fill 
-          sizes="(max-width: 1024px) 100vw, 25vw"
           className="object-cover hover:scale-101 transition-transform duration-300" 
+          unoptimized
         />
       </div>
 

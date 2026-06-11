@@ -36,11 +36,9 @@ const LandScapeCard: React.FC<{
       {/* Left Column: Cover Image Image Area */}
       <div className="relative h-full w-[120px] sm:w-[150px] shrink-0">
         <Image
-          loader={cloudinaryLoader}
           src={image || "/placeholder.png"} // Fallback handling
           alt={title}
           fill
-          sizes="(max-width: 640px) 120px, 150px"
           className="object-cover"
           priority
         />

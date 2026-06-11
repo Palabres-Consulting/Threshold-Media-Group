@@ -248,7 +248,6 @@ export const ThresholdLogo = () => {
   return (
     <div className="flex gap-2">
       <Image
-        loader={cloudinaryLoader}
         width={32}
         height={10}
         alt="Threshold Logo"
@@ -256,7 +255,6 @@ export const ThresholdLogo = () => {
       />
       <div className="flex flex-col">
         <Image
-          loader={cloudinaryLoader}
           width={120}
           height={10}
           alt="Threshold Logo"

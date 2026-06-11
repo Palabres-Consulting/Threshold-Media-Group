@@ -66,7 +66,6 @@ const GreatReads = ({ posts = [], lang, site }: GreatReadsProps) => {
                 {/* Background Backdrop Structural Layer */}
                 <div className="absolute inset-0 h-full w-full overflow-hidden z-10">
                   <Image
-                    loader={cloudinaryLoader}
                     src={post.imageUrl}
                     alt={post.title}
                     fill

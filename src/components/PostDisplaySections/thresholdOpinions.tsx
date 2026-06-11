@@ -69,7 +69,6 @@ const ThresholdOpinions = ({
                   className="block w-full h-full"
                 >
                   <Image
-                    loader={cloudinaryLoader}
                     src={featuredPost.imageUrl}
                     alt={featuredPost.title}
                     width={1000}

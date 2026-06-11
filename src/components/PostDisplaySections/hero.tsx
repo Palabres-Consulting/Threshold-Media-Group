@@ -105,7 +105,6 @@ const Hero = ({ site, posts }: { site: string; posts: NormalizedPost[] }) => {
 
               <div className="rounded-2xl aspect-video  h-[75%] border-sub overflow-hidden bg-foreground/10 relative">
                 <Image
-                  loader={cloudinaryLoader}
                   src={topSidePost.imageUrl || "/images/homepage/home5.png"}
                   alt={`Extraction Image 2`}
                   fill
@@ -152,7 +151,6 @@ const Hero = ({ site, posts }: { site: string; posts: NormalizedPost[] }) => {
                   </div>
               </div>{" "}
                 <Image
-                  loader={cloudinaryLoader}
                   src={bottomSidePost.imageUrl || "/images/homepage/home6.png"}
                   alt={`Extraction Image 3`}
                   fill

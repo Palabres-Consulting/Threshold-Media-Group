@@ -24,7 +24,6 @@ const MediaSection = ({ dict }: { dict: TranslationSchema["main"] }) => {
             </h1>
 
             <Image
-              loader={cloudinaryLoader}
               src={"/images/extraction/extraction001.png"}
               alt={`Extraction Image`}
               fill
@@ -47,7 +46,6 @@ const MediaSection = ({ dict }: { dict: TranslationSchema["main"] }) => {
             <h1 className="font-semibold text-[2rem] z-50 text-white">ASINT</h1>
 
             <Image
-              loader={cloudinaryLoader}
               src={"/images/homepage/home3.png"}
               alt={`ASINT Image`}
               fill

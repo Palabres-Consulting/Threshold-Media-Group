@@ -38,7 +38,6 @@ const ThresholdHompage = ({
             </div>
 
             <Image
-              loader={cloudinaryLoader}
               src={"/images/homepage/Home.svg"}
               alt={`Hero Image`}
               fill

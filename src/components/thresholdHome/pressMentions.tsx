@@ -106,7 +106,6 @@ export const Brands: React.FC<{
               className=" w-40 h-20  bg-white shadow-md rounded-lg text-[1.6rem] p-6 text-center flex items-center justify-center"
             >
               <Image
-                loader={cloudinaryLoader}
                 src={src}
                 alt={altText}
                 width={90}

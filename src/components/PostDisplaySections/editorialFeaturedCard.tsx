@@ -40,7 +40,6 @@ export default function EditorialFeaturedCard({
         {/* Large Center Feature Image Banner */}
         <div className="relative w-full h-[240px] sm:h-[280px] overflow-hidden bg-[var(--foreground)]/5">
           <Image
-            loader={cloudinaryLoader}
             src={image || "/placeholder.jpg"}
             alt={title}
             fill
