@@ -101,6 +101,11 @@ const Home = async (props: {
     allArticles = await fetchPostsByType(wpPostType, queryParams);
   }
 
+
+
+
+  console.log("All Articles", allArticles.length)
+
   hasArticles = allArticles && allArticles.length > 0;
 
   // Normalize all articles immediately after fetching

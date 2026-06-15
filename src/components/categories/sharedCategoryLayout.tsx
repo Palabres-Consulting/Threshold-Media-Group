@@ -24,7 +24,7 @@ import AdBanner from "../ads/AdBanner";
 interface SharedCategoryLayoutProps {
   locale: "en" | "fr";
   slug: string;
-}
+} 
 
 export default async function SharedCategoryLayout({
   locale,
@@ -79,6 +79,9 @@ export default async function SharedCategoryLayout({
   if (context.categoryId && context.taxonomy) {
     queryParams[context.taxonomy] = context.categoryId;
   }
+
+
+
 
   const allArticles = await fetchPostsByType(wpPostType, queryParams);
 

@@ -104,7 +104,8 @@ export const fetchPostsByType = async (
 
     return await res.json();
 
-  } catch {
+  } catch (error: any) {
+    console.error("Error fetching posts:", error);
     return [];
   }
 };

@@ -152,6 +152,14 @@ const UniquePost = () => {
   console.log("Top-level category object:", topCatObj);
   const category = topCatObj.name ? topCatObj.name : "Uncategorized";
 
+  const formattedCategory = category
+    .replace(/&amp;/g, "&")
+    .replace(/&#8217;/g, "’")
+    .replace(/&#8216;/g, "‘")
+    .replace(/&#8211;/g, "–")
+    .replace(/&#8220;/g, "“")
+    .replace(/&#8221;/g, "”");
+
   return (
     <PageContainer id="unique-post" path="" title="Unique Post">
       <div className="w-full flex">
@@ -159,7 +167,7 @@ const UniquePost = () => {
           <div className="border-sub p-6">
             <div className="flex justify-between items-center py-2">
               <div className="flex gap-6 text-foreground/50 items-center">
-                <p className="text-sm">{category}</p>
+                <p className="text-sm">{formattedCategory}</p>
                 <div className="h-[5px] w-[5px] bg-foreground/50 rounded-full"></div>
                 <div className="relative">
                   <ShareArticleButton
