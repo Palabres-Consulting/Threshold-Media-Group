@@ -10,6 +10,7 @@ import {
   fetchSubCategories,
   postKeys,
   getPosts,
+  fetchInnovationPosts,
 } from "../../helpers/fetchLib";
 import { useLocale } from "@/lib/locale/context/translationContext";
 
@@ -52,7 +53,7 @@ export const usePostsByDomain = (
   const { locale } = useLocale();
 
   const fetchFunction = {
-    main: fetchThresholdPosts,
+    main: fetchInnovationPosts,
     extraction: fetchExtractionPosts,
     asint: fetchAsintPosts,
   }[domain];
