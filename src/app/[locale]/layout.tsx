@@ -13,7 +13,7 @@ import { TranslationProvider } from "../../lib/locale/context/translationContext
 import { getTranslations } from "../../lib/locale/i18n/getTranslations";
 import { Toaster } from "react-hot-toast";
 import CookieConsent from "@/components/analytics/cookiesConsent";
-import { NuqsAdapter } from 'nuqs/adapters/next/app'
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import Script from "next/script";
 
 const geistSans = Geist({
@@ -69,11 +69,10 @@ export default async function RootLayout({
   return (
     <html lang={locale} data-site={site}>
       <head>
-        <Script
-          id="adsense-init"
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
+        <script
+          async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
+          crossOrigin="anonymous"
         />
       </head>
       <body
@@ -95,16 +94,16 @@ export default async function RootLayout({
                 <ToastProvider>
                   <Toaster position="top-center" reverseOrder={false} />
                   <NuqsAdapter>
+                    <div className=" mx-auto   border-sub-side">
+                      <Header t={messages} site={site} />
+                      <div className="max-w-[1340px] lg:mx-auto">
+                        {children}
+                      </div>
 
-                  <div className=" mx-auto   border-sub-side">
+                      <Footer dict={messages.main} site={site} />
 
-                    <Header t={messages} site={site} />
-                    <div className="max-w-[1340px] lg:mx-auto">{children}</div>
-
-                    <Footer dict={messages.main} site={site} />
-
-                    <CookieConsent />
-                  </div>
+                      <CookieConsent />
+                    </div>
                   </NuqsAdapter>
                 </ToastProvider>
               </QueryProvider>

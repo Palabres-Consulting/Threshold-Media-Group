@@ -9,6 +9,7 @@ import Image from "next/image";
 import cloudinaryLoader from "@/app/helpers/cloudinary";
 import DisplayHomePosts from "./displayHomePosts";
 import DisplayHomePostsSkeleton from "../skeletons/displayHomePostSkeleton";
+import AdBanner from "../ads/AdBanner";
 
 const ThresholdHompage = ({
   dict,
@@ -48,11 +49,10 @@ const ThresholdHompage = ({
         </div>
         <MediaSection dict={dict} />
       </div>
-
-    <Suspense fallback={<DisplayHomePostsSkeleton />}>
+      <AdBanner adSlot="5626006077" />
+      <Suspense fallback={<DisplayHomePostsSkeleton />}>
         <DisplayHomePosts locale={locale} />
       </Suspense>
-
 
       {/* <AboutTheGroup dict={dict} id="aboutTheGroup" /> */}
       {/* <SpotLightSection t={dict.hero} /> */}
