@@ -76,7 +76,8 @@ export async function middleware(req: NextRequest) {
   if (
     pathname.startsWith("/_next") ||
     pathname === "/favicon.ico" ||
-    pathname.startsWith("/wp-admin")
+    pathname.startsWith("/wp-admin") ||
+    pathname.startsWith("/api")
   ) {
     return NextResponse.next();
   }
@@ -155,6 +156,6 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api/auth/logout|_next/static|_next/image|favicon.ico|locales|ads.txt|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|json)$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|locales|ads.txt|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|json)$).*)",
   ],
 };

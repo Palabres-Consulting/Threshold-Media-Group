@@ -14,6 +14,7 @@ import { getTranslations } from "../../lib/locale/i18n/getTranslations";
 import { Toaster } from "react-hot-toast";
 import CookieConsent from "@/components/analytics/cookiesConsent";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import AnalyticsListener from "@/components/analytics/analyticsListener";
 import Script from "next/script";
 
 const geistSans = Geist({
@@ -68,16 +69,16 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} data-site={site}>
-      <head>
-        <script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID}`}
-          crossOrigin="anonymous"
-        />
-      </head>
+      <head></head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Script
+          id="adsbygoogle-init"
+          strategy="beforeInteractive"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9005242635709168"
+          crossOrigin="anonymous"
+        />
         <Suspense
           fallback={
             <div className="flex justify-center items-center min-h-[100vh]">
@@ -96,6 +97,7 @@ export default async function RootLayout({
                   <NuqsAdapter>
                     <div className=" mx-auto   border-sub-side">
                       <Header t={messages} site={site} />
+                      <AnalyticsListener />
                       <div className="max-w-[1340px] lg:mx-auto">
                         {children}
                       </div>
