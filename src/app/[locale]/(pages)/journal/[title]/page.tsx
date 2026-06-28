@@ -21,6 +21,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useArticleSave } from "@/app/[locale]/hook/useArticles"; // <-- Import added
 import ShareArticleButton from "@/components/utilities/shareArticleButton";
 import { getTopLevelCategory } from "@/app/helpers/categoriesMap";
+import ArticleTracker from "@/components/analytics/analyticsListener";
 
 const UniquePost = () => {
   const params = useParams();
@@ -162,6 +163,13 @@ const UniquePost = () => {
 
   return (
     <PageContainer id="unique-post" path="" title="Unique Post">
+
+      <ArticleTracker 
+      articleId={post.id.toString()} 
+      category={post.type} 
+      locale={locale} 
+    />
+
       <div className="w-full flex">
         <div className="lg:w-[70%] ">
           <div className="border-sub p-6">
