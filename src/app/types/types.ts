@@ -83,13 +83,16 @@ export interface PageLayoutProps {
   contents: PageContents;
 }
 
-
 export interface User {
-  persona: string,
-  title: string, 
-  avatar_url: string, 
-  email: string, 
-  password: string
-  interests: string[]
-  avatar_type: string
+  persona: string;
+  title: string;
+  avatar_url: string;
+  email: string;
+  password: string;
+  interests: string[];
+  avatar_type: string;
+  subscriptions?: {
+    tier: string;
+    status: string;
+  }[];
 }

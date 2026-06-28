@@ -15,6 +15,7 @@ import MobileMenu from "./mobileMenu";
 import DesktopActions from "./DesktopActions";
 import { SiteName } from "@/lib/utils";
 import { ArrowUpRight, Search } from "lucide-react";
+import { useUser } from "@/app/[locale]/hook/useUser";
 
 const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({
   site,
@@ -45,6 +46,10 @@ const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({
     href: "https://gsi-ten.vercel.app/",
     subMenu: null,
   };
+
+  const { data, isLoading } = useUser();
+
+  // console.log(data);
 
   return (
     <header className="flex justify-center items-center lg:px-10  w-full shadow-xs shadow-foreground/5 px-3 sticky top-0 backdrop-blur-sm bg-transparent z-[1000]">
@@ -87,7 +92,9 @@ const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({
             </Link>
 
             <Link href="/pricing" className="btn-var1 rounded-3xl">
-              Subscribe
+              {data?.subscriptions?.some((s) => s.status === "active")
+                ? dict.pricing.subscribed
+                : dict.pricing.subscribe}
             </Link>
 
             <LangSwitcher dict={dict} />

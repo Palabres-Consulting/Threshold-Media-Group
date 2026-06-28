@@ -615,7 +615,8 @@
     ],
     "month": "Mois",
     "year": "An",
-    "subscribe": "S'abonner"
+    "subscribe": "S'abonner",
+    "subscribed": "Abonné"
   },
 
   "contact": {

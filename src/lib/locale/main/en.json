@@ -615,7 +615,9 @@
     ],
     "month": "Month",
     "year": "Year",
-    "subscribe": "Subscribe"
+    "subscribe": "Subscribe",
+    "subscribed": "Subscribed"
+    
   },
 
   "contact": {

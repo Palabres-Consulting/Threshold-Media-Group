@@ -7,13 +7,17 @@ async function handler(req: NextRequest) {
 
   const { data: { user }, error } = await supabase.auth.getUser();
 
-  if (error || !user)
+  if (error || !user) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
 
   // Fetch updated properties explicitly
   const { data: profile } = await supabase
     .from("profiles")
-    .select("title, avatar_url, interests, avatar_type, persona")
+    .select(`
+    *,
+    subscriptions (*) 
+  `)
     .eq("id", user.id)
     .maybeSingle();
 
@@ -26,13 +30,13 @@ async function handler(req: NextRequest) {
     title: profile?.title ?? fallbackProfile.title,
     avatar_url: profile?.avatar_url ?? fallbackProfile.avatar_url,
     email: user.email,
-    password:
-      user.app_metadata.provider === "google"
-        ? `oauth:${user.app_metadata.provider}`
-        : "********",
+    password: user.app_metadata.provider === "google"
+      ? `oauth:${user.app_metadata.provider}`
+      : "********",
     interests: profile?.interests ?? [],
     avatar_type: profile?.avatar_type ?? null,
     persona: profile?.persona ?? null, // Exposing clean raw state to UI client context
+    subscriptions: profile?.subscriptions ?? [],
   };
 
   return NextResponse.json(userProfile, { status: 200 });

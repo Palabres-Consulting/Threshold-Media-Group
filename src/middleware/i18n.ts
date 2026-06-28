@@ -7,16 +7,17 @@ const defaultLocale = "en";
 
 function getLocale(req: NextRequest) {
   const cookieLocale = req.cookies.get("NEXT_LOCALE")?.value;
-
   if (cookieLocale && locales.includes(cookieLocale)) return cookieLocale;
 
   const accept = req.headers.get("accept-language");
-
   if (accept) {
-    const matched = locales.find((locale) =>
-      accept.toLowerCase().includes(locale),
-    );
+    // Split headers like "fr-FR,fr;q=0.9,en-US;q=0.8" into clean language codes
+    const browserLocales = accept
+      .split(",")
+      .map((lang) => lang.split(";")[0].trim().toLowerCase().split("-")[0]);
 
+    // Find the very first language preferred by the browser that you actually support
+    const matched = browserLocales.find((lang) => locales.includes(lang));
     if (matched) return matched;
   }
 
@@ -75,7 +76,7 @@ export function handleI18n(req: NextRequest, cookieDomain?: string) {
   const url = req.nextUrl.clone();
   url.pathname = `/${locale}${pathname}`;
 
-  const res = NextResponse.redirect(url);
+  const res = NextResponse.rewrite(url);
   const cookieOptions: {
     path: string;
     maxAge: number;
