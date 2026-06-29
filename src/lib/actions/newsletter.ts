@@ -7,12 +7,12 @@ mailchimp.setConfig({
     server: process.env.MAILCHIMP_API_SERVER,
 });
 
-const getSubscriberHash = (email: string, tags: string[] = []) => {
+const getSubscriberHash = (email: string) => {
     return crypto.createHash("md5").update(email.toLowerCase()).digest("hex");
 };
 
 export const newsletterService = {
-    subscribe: async (email: string, tags: string[] = []) => {
+    subscribe: async (email: string, tags: string[] = [], persona?: string) => {
         const subscriberHash = getSubscriberHash(email);
 
         try {
@@ -23,14 +23,18 @@ export const newsletterService = {
                     email_address: email,
                     status_if_new: "subscribed",
                     status: "subscribed",
+                    merge_fields: {
+                        PERSONA: persona || "General", // Falls back to "General" if null
+                    },
                 },
             );
 
-            if (tags.length) {
+            if (tags && tags.length > 0) {
                 await mailchimp.lists.updateListMemberTags(
                     process.env.MAILCHIMP_AUDIENCE_ID!,
                     subscriberHash,
                     {
+                        // Map your string array into the { name, status } format Mailchimp expects
                         tags: tags.map((tag) => ({
                             name: tag,
                             status: "active",

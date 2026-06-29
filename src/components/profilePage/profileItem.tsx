@@ -40,7 +40,7 @@ const updateProfileField = async (
     return response.data;
   } else if (title === "Persona") {
     const response = await axios.patch("/api/profile/update_persona", {
-      avatar_url: newValue,
+      persona: newValue,
     });
     return response.data;
   } else {

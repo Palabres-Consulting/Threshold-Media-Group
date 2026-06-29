@@ -15,7 +15,7 @@ export async function activateFreemiumTier() {
         return { success: false, error: "You must be logged in." };
     }
 
-    // Call the unified database engine
+    // 1. Call the unified database engine
     const { data, error } = await supabase.rpc(
         "activate_freemium_subscription",
         {
@@ -31,8 +31,23 @@ export async function activateFreemiumTier() {
         };
     }
 
-    if (user.email) await newsletterService.subscribe(user.email);
-    // Refresh UI
+    // 2. Fetch the profile
+    const { data: profile } = await supabase
+        .from("profiles")
+        .select("persona, interests")
+        .eq("id", user.id)
+        .single();
+
+    // 3. Prepare data
+    // Use persona if it exists, else 'General'. Default interests to empty array.
+    const persona = profile?.persona || "General";
+    const interests = profile?.interests || [];
+
+    // 4. Sync with Mailchimp
+    if (user.email) {
+        await newsletterService.subscribe(user.email, interests, persona);
+    }
+
     revalidatePath("/");
     return { success: true };
 }

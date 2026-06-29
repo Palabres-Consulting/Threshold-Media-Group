@@ -12,6 +12,8 @@ export async function PATCH(req: Request) {
 
   const { persona } = await req.json(); // Accept persona parameter directly from client side
 
+  console.log("PERSONA RECEIVED", persona)
+
   const { error: updateError } = await supabase
     .from("profiles")
     .update({ 
