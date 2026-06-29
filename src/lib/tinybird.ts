@@ -77,7 +77,7 @@ export const popularArticles = defineEndpoint("popular_articles", {
 });
 
 export const tinybird = new Tinybird({
-  token: process.env.TINYBIRD_API_KEY,
+  token: process.env.TINYBIRD_TOKEN,
   baseUrl: 'https://api.europe-west2.gcp.tinybird.co', 
   datasources: { pageViews },
   pipes: { popularArticles },
