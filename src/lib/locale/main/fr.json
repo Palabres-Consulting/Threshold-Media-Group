@@ -707,5 +707,156 @@
       "subscriptionStatus": "Vous n'avez pas d'abonnement actif pour le moment",
       "helpByMail": "Contactez notre service clientèle par email à contact@thresholdmedia.group"
     }
-  }
+  }, 
+
+  "privacyPolicy": {
+      "pageTitle": "Politique de Confidentialité",
+      "headline": "POLITIQUE DE CONFIDENTIALITÉ — THRESHOLD MEDIA GROUP",
+      "subtext": "Dernière mise à jour : 10 juin 2026",
+      "sections": [
+        {
+          "title": "1. Qui sommes-nous",
+          "content": "Threshold Media Group (TMG) est une plateforme de médias numériques axée sur l'intelligence économique, l'analyse économique et les informations stratégiques couvrant la Guinée et l'Afrique de l'Ouest. TMG est exploité par Palabre Holding.\n\nResponsable du traitement : Palabre Holding\nContact : privacy@thresholdmediagroup.com\nSite web : thresholdmediagroup.com"
+        },
+        {
+          "title": "2. Quelles données collectons-nous et pourquoi",
+          "content": "2.1 Inscription au compte et à la newsletter\nLorsque vous vous abonnez à notre newsletter ou créez un compte TMG Pro, nous collectons votre adresse e-mail et votre nom complet. Nous utilisons ces informations pour vous envoyer du contenu éditorial, gérer votre abonnement et communiquer avec vous concernant votre compte. La base légale de ce traitement est votre consentement, que vous pouvez retirer à tout moment.\n\n2.2 Informations de paiement (TMG Pro)\nLorsque vous vous abonnez à TMG Pro, le paiement est traité via LengoPay. TMG ne stocke pas directement les détails de votre carte. LengoPay traite et stocke les données de paiement en notre nom selon ses propres normes de sécurité et de conformité. Nous conservons les enregistrements de transactions à des fins comptables et légales.\n\n2.3 Analytique et cookies\nNous utilisons Google Analytics pour comprendre comment les visiteurs utilisent notre site web. Cela implique la collecte de données telles que les pages visitées, le temps passé sur le site, le type de navigateur, le type d'appareil et la localisation géographique approximative. Ces données sont anonymisées et agrégées. Nous utilisons des cookies pour activer cette fonctionnalité analytique. Vous pouvez gérer vos préférences en matière de cookies à tout moment via notre bannière de cookies ou les paramètres de votre navigateur.\n\n2.4 Données que nous ne collectons pas\nNous ne collectons pas de données personnelles sensibles telles que l'origine raciale ou ethnique, les opinions politiques, les données de santé ou les données biométriques."
+        },
+        {
+          "title": "3. Comment nous utilisons vos données",
+          "content": "Nous utilisons les données que nous collectons aux fins suivantes :\n- Pour vous envoyer nos newsletters et notre contenu éditorial\n- Pour gérer votre abonnement TMG Pro et traiter les paiements\n- Pour analyser les performances du site web et améliorer notre contenu\n- Pour répondre à vos demandes\n- Pour nous conformer à nos obligations légales\n\nNous ne vendons pas vos données personnelles à des tiers. Nous n'utilisons pas vos données pour des prises de décision automatisées ou du profilage."
+        },
+        {
+          "title": "4. Avec qui nous partageons vos données",
+          "content": "Nous partageons les données uniquement avec les catégories de tiers suivantes, strictement nécessaires au fonctionnement de nos services :\n- LengoPay : traitement des paiements pour les abonnements TMG Pro\n- Mailchimp : distribution de la newsletter et gestion des abonnés\n- Google Analytics : analyse du site web\n- Fournisseurs d'hébergement et d'infrastructure : pour le fonctionnement de notre site web\n\nTous les tiers sont tenus de traiter vos données conformément aux lois applicables sur la confidentialité."
+        },
+        {
+          "title": "5. Combien de temps nous conservons vos données",
+          "content": "Abonnés à la newsletter : nous conservons votre adresse e-mail et votre nom tant que votre abonnement est actif. Vous pouvez vous désabonner à tout moment.\n\nComptes TMG Pro : nous conservons les données du compte pour la durée de votre abonnement et pendant une période de 3 ans par la suite à des fins comptables et légales.\n\nDonnées analytiques : les données Google Analytics sont conservées pendant 14 mois par défaut."
+        },
+        {
+          "title": "6. Vos droits",
+          "content": "Selon votre pays de résidence, vous disposez des droits suivants concernant vos données personnelles :\n- Droit d'accès : vous pouvez demander une copie des données personnelles que nous détenons à votre sujet\n- Droit de rectification : vous pouvez nous demander de corriger des données inexactes\n- Droit à l'effacement : vous pouvez nous demander de supprimer vos données, sous réserve de nos obligations légales\n- Droit de retirer son consentement : vous pouvez vous désabonner de notre newsletter ou retirer votre consentement aux analyses à tout moment\n- Droit à la portabilité des données : vous pouvez demander vos données dans un format structuré et lisible par machine\n- Droit d'opposition : vous pouvez vous opposer à certains types de traitement\n\nPour exercer l'un de ces droits, contactez-nous à privacy@thresholdmediagroup.com. Nous vous répondrons dans un délai de 30 jours."
+        },
+        {
+          "title": "7. Cookies",
+          "content": "Nous utilisons les types de cookies suivants sur notre site web :\n- Cookies essentiels : nécessaires au fonctionnement du site. Ne peuvent pas être désactivés.\n- Cookies analytiques : Google Analytics, utilisés pour comprendre comment vous utilisez notre site. Vous pouvez vous désinscrire via notre bannière de cookies ou en installant le module complémentaire de navigateur pour la désactivation de Google Analytics.\n\nNous n'utilisons pas de cookies publicitaires ou de ciblage."
+        },
+        {
+          "title": "8. Transferts internationaux de données",
+          "content": "TMG est exploité depuis la Guinée et s'adresse à un public international. Certains de nos fournisseurs tiers, dont Google et Mailchimp, sont basés aux États-Unis. Lorsque vos données sont transférées en dehors de votre pays de résidence, nous nous assurons que des garanties appropriées sont en place conformément à la loi applicable."
+        },
+        {
+          "title": "9. Sécurité",
+          "content": "Nous prenons des mesures techniques et organisationnelles raisonnables pour protéger vos données personnelles contre tout accès, perte ou divulgation non autorisés. Toutes les transactions de paiement sont traitées via des canaux cryptés via LengoPay."
+        },
+        {
+          "title": "10. Modifications de cette politique",
+          "content": "Nous pouvons mettre à jour cette politique de temps à autre. Nous vous informerons des modifications importantes par e-mail ou en publiant un avis sur notre site web. La date de la dernière mise à jour est indiquée en haut de cette page."
+        },
+        {
+          "title": "11. Contact",
+          "content": "Pour toute question concernant cette politique de confidentialité ou vos données personnelles, contactez-nous à : privacy@thresholdmediagroup.com"
+        }
+      ]
+    },
+    "termsAndConditions": {
+      "pageTitle": "Conditions Générales",
+      "headline": "CONDITIONS GÉNÉRALES — THRESHOLD MEDIA GROUP",
+      "subtext": "Dernière mise à jour : 10 juin 2026",
+      "sections": [
+        {
+          "title": "1. Qui sommes-nous",
+          "content": "Les présentes Conditions Générales régissent votre utilisation du site web et des services de Threshold Media Group, y compris TMG Pro. En accédant à notre site web ou en utilisant nos services, vous acceptez ces conditions. Si vous n'êtes pas d'accord, veuillez ne pas utiliser nos services.\n\nTMG est exploité par Palabre Holding. Contact : legal@thresholdmediagroup.com"
+        },
+        {
+          "title": "2. Notre contenu",
+          "content": "2.1 Contenu éditorial\nTous les articles, analyses, briefings, newsletters et autres contenus éditoriaux publiés sur TMG sont produits à des fins d'information et d'intelligence stratégique uniquement. Rien de ce qui est publié sur TMG ne constitue un conseil financier, juridique, d'investissement ou professionnel.\n\n2.2 Production assistée par l'IA\nCertains contenus TMG sont produits avec l'aide d'outils d'intelligence artificielle et de systèmes d'IA éditoriaux. Tout le contenu est examiné et validé par des éditeurs humains avant publication. TMG assume la responsabilité éditoriale de tout le contenu publié.\n\n2.3 Propriété intellectuelle\nTout le contenu publié sur TMG, y compris les articles, graphiques, logos et éléments de conception, est la propriété de Palabre Holding ou de ses concédants de licence. Vous ne pouvez pas reproduire, republier, distribuer ou commercialiser tout contenu TMG sans autorisation écrite préalable.\n\nVous pouvez partager des liens vers notre contenu et citer de brefs extraits à des fins non commerciales, à condition d'attribuer clairement la source à Threshold Media Group avec un lien vers l'article original."
+        },
+        {
+          "title": "3. Abonnement TMG Pro",
+          "content": "3.1 Ce que comprend TMG Pro\nTMG Pro donne aux abonnés accès à un contenu premium, des newsletters, des archives et des analyses non disponibles pour les utilisateurs gratuits. Le contenu exact inclus dans TMG Pro peut évoluer avec le temps. Nous informerons les abonnés des modifications importantes.\n\n3.2 Tarification\nAbonnement mensuel : 14 $ USD par mois\nAbonnement annuel : 140 € EUR par an\nLes prix peuvent être mis à jour avec un préavis de 30 jours pour les abonnés existants.\n\n3.3 Paiement\nLe paiement est traité via LengoPay. En vous abonnant, vous autorisez des frais récurrents à la fréquence que vous sélectionnez. Tous les paiements sont non remboursables, sauf si la loi applicable l'exige.\n\n3.4 Annulation\nVous pouvez annuler votre abonnement TMG Pro à tout moment. L'annulation prend effet à la fin de la période de facturation en cours. Vous conserverez l'accès jusqu'à cette date."
+        },
+        {
+          "title": "4. Conduite de l'utilisateur",
+          "content": "Vous acceptez de ne pas utiliser le site web ou les services de TMG pour :\n- Copier, extraire ou télécharger systématiquement notre contenu à des fins commerciales\n- Utiliser des outils automatisés pour accéder ou extraire des données de notre site web sans autorisation\n- Usurper l'identité de TMG, de Palabre Holding ou de tout membre de notre personnel\n- Publier ou transmettre tout contenu illégal, diffamatoire ou nuisible via toute fonctionnalité interactive de notre plateforme\n- Tenter d'obtenir un accès non autorisé à toute partie de nos systèmes"
+        },
+        {
+          "title": "5. Exclusion de garanties",
+          "content": "Le contenu TMG est fourni \"tel quel\". Nous ne donnons aucune garantie, expresse ou implicite, concernant l'exactitude, l'exhaustivité ou l'actualité de notre contenu. Les conditions du marché, les situations politiques et les données économiques changent rapidement. TMG ne peut garantir que toutes les informations publiées reflètent la situation la plus actuelle au moment de la lecture."
+        },
+        {
+          "title": "6. Limitation de responsabilité",
+          "content": "Dans toute la mesure permise par la loi, Palabre Holding ne sera pas responsable des dommages directs, indirects, accessoires ou consécutifs découlant de votre utilisation du site web TMG ou de la confiance accordée à son contenu. Cela inclut, sans s'y limiter, les décisions d'investissement, les décisions commerciales ou toute autre décision prise sur la base du contenu TMG."
+        },
+        {
+          "title": "7. Liens tiers",
+          "content": "Notre site web peut contenir des liens vers des sites web tiers. TMG n'est pas responsable du contenu, des pratiques de confidentialité ou de la disponibilité de ces sites web. Les liens ne constituent pas une approbation."
+        },
+        {
+          "title": "8. Loi applicable",
+          "content": "Ces Conditions Générales sont régies par les lois de la République de Guinée. Tout litige découlant de ces conditions sera soumis à la juridiction des tribunaux compétents de Conakry."
+        },
+        {
+          "title": "9. Modifications de ces conditions",
+          "content": "Nous pouvons mettre à jour ces Conditions Générales de temps à autre. Nous vous informerons des modifications importantes par e-mail ou en publiant un avis sur notre site web. L'utilisation continue de nos services après l'entrée en vigueur des modifications constitue votre acceptation des conditions révisées."
+        },
+        {
+          "title": "10. Contact",
+          "content": "Pour toute question concernant ces Conditions Générales : legal@thresholdmediagroup.com"
+        }
+      ]
+    },
+    "faq": {
+      "pageTitle": "FAQ",
+      "headline": "FAQ — THRESHOLD MEDIA GROUP",
+      "subtext": "Foire Aux Questions",
+      "sections": [
+        {
+          "question": "Qu'est-ce que Threshold Media Group ?",
+          "answer": "Threshold Media Group est une plateforme stratégique de médias numériques couvrant les affaires, l'investissement, les mines, les infrastructures, la finance et la transformation économique en Guinée et en Afrique de l'Ouest. Nous publions en anglais et en français à travers trois verticales : Extraction, ASINT et Innovation."
+        },
+        {
+          "question": "Qui produit le contenu de TMG ?",
+          "answer": "Notre équipe éditoriale sélectionne et valide tout le contenu. Certains articles sont produits avec l'aide d'outils éditoriaux d'IA puis examinés et approuvés par des éditeurs humains avant publication. TMG assume l'entière responsabilité éditoriale de tout ce que nous publions."
+        },
+        {
+          "question": "Le contenu de TMG est-il un conseil financier ou d'investissement ?",
+          "answer": "Non. Le contenu de TMG est produit à des fins d'information et d'intelligence stratégique. Rien de ce que nous publions ne constitue un conseil financier, juridique ou d'investissement. Vous devriez consulter un professionnel qualifié avant de prendre toute décision d'investissement ou commerciale."
+        },
+        {
+          "question": "Qu'est-ce que TMG Pro ?",
+          "answer": "TMG Pro est notre offre d'abonnement premium. Elle vous donne accès à du contenu exclusif, des newsletters, des archives et des analyses plus approfondies non disponibles pour les utilisateurs gratuits. TMG Pro est disponible à 14 $ USD par mois ou 140 € EUR par an."
+        },
+        {
+          "question": "Comment m'abonner à TMG Pro ?",
+          "answer": "Vous pouvez vous abonner à TMG Pro directement sur notre site web. Le paiement est traité en toute sécurité via LengoPay. Vous pouvez annuler à tout moment depuis les paramètres de votre compte."
+        },
+        {
+          "question": "Puis-je annuler mon abonnement TMG Pro ?",
+          "answer": "Oui. Vous pouvez annuler à tout moment. Votre accès se poursuit jusqu'à la fin de votre période de facturation en cours. Nous n'offrons pas de remboursement pour les périodes partielles."
+        },
+        {
+          "question": "Comment m'abonner à la newsletter gratuite ?",
+          "answer": "Vous pouvez vous abonner à notre newsletter gratuite en entrant votre adresse e-mail dans le formulaire d'abonnement sur notre page d'accueil ou au bas de n'importe quel article. Vous pouvez vous désabonner à tout moment en utilisant le lien figurant dans chaque e-mail de newsletter."
+        },
+        {
+          "question": "Comment TMG utilise-t-il mes données personnelles ?",
+          "answer": "Nous n'utilisons vos données que pour vous envoyer le contenu que vous avez demandé, pour gérer votre abonnement et pour améliorer notre site web grâce aux analyses. Nous ne vendons pas vos données. Pour plus de détails, consultez notre Politique de Confidentialité."
+        },
+        {
+          "question": "Puis-je utiliser ou republier le contenu de TMG ?",
+          "answer": "Vous pouvez partager des liens vers nos articles et citer de brefs extraits à des fins non commerciales avec une attribution claire à Threshold Media Group et un lien vers l'article original. Pour toute autre utilisation, y compris la reproduction commerciale, veuillez nous contacter à editorial@thresholdmediagroup.com."
+        },
+        {
+          "question": "J'ai trouvé une erreur dans un article. Comment la signaler ?",
+          "answer": "Nous prenons l'exactitude éditoriale très au sérieux. Si vous trouvez une erreur, veuillez nous contacter à editorial@thresholdmediagroup.com avec l'URL de l'article et la correction spécifique que vous proposez. Nous examinons toutes les demandes de correction et mettons à jour les articles lorsque cela est justifié."
+        },
+        {
+          "question": "Comment contacter TMG ?",
+          "answer": "Pour les demandes éditoriales : editorial@thresholdmediagroup.com\nPour les partenariats et le sponsoring : partnerships@thresholdmediagroup.com\nPour les demandes de confidentialité et de données : privacy@thresholdmediagroup.com\nPour les questions juridiques : legal@thresholdmediagroup.com"
+        }
+      ]
+    }
+  
 }

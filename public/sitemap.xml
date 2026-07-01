@@ -13,4 +13,16 @@
     <loc>https://www.thresholdmedia.group/contact</loc>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://www.thresholdmedia.group/privacy-policy</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thresholdmedia.group/terms</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.thresholdmedia.group/faq</loc>
+    <priority>0.8</priority>
+  </url>
 </urlset>
