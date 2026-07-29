@@ -1,12 +1,19 @@
 import axios from "axios";
 import { Post } from "../types/apiResponse";
 
-// Dynamically handle absolute URLs for Server Components vs Client Components
 const getBaseUrl = () => {
-  if (typeof window !== "undefined") return ""; // Client-side can use relative paths
-  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return "http://localhost:3000"; // Default local development port
+  if (typeof window !== "undefined") return ""; // Client-side uses relative paths
+
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  }
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return "http://localhost:3000";
 };
 
 const API_BASE = `${getBaseUrl()}/api/wp`;
@@ -93,18 +100,51 @@ export const fetchPostsByType = async (
 
   queryParams.append("_embed", "true");
 
+  const isServer = typeof window === "undefined";
+
   try {
-    const res = await fetch(`${API_BASE}/${postType}?${queryParams}`, {
-      next: {
-        revalidate: 3600,
-      },
-    });
+    if (isServer) {
+      // 🚀 SERVER-SIDE: Bypass the Next.js API proxy and hit WordPress directly.
+      // This stops Vercel loopback timeouts and deployment URL bugs.
+      const username = process.env.TMG_READER_USER || "";
+      const password = (process.env.TMG_READER_PASS || "").replace(/\s+/g, "");
 
-    if (!res.ok) return [];
+      // Use btoa for cross-environment compatibility (Node 18+ and Browser)
+      const authHeader = btoa(`${username}:${password}`);
 
-    return await res.json();
+      const res = await fetch(
+        `https://wp.tresholdmediagroup.com/wp-json/wp/v2/${postType}?${queryParams}`,
+        {
+          headers: {
+            Authorization: `Basic ${authHeader}`,
+          },
+          next: {
+            revalidate: 3600,
+          },
+        },
+      );
+
+      if (!res.ok) {
+        console.error(
+          `WP Fetch Failed Server-Side: ${res.status} ${res.statusText}`,
+        );
+        return [];
+      }
+      return await res.json();
+    } else {
+      // 💻 CLIENT-SIDE: Route through your secure Next.js API Proxy
+      const res = await fetch(`${API_BASE}/${postType}?${queryParams}`);
+
+      if (!res.ok) {
+        console.error(
+          `Next API Fetch Failed Client-Side: ${res.status} ${res.statusText}`,
+        );
+        return [];
+      }
+      return await res.json();
+    }
   } catch (error: any) {
-    console.error("Error fetching posts:", error);
+    console.error(`Error fetching posts for ${postType}:`, error);
     return [];
   }
 };
@@ -140,8 +180,9 @@ export const fetchTopLevelCategories = async (
   queryParams.append("parent", "0");
   queryParams.append("hide_empty", "false");
 
-  if (params?.per_page)
+  if (params?.per_page) {
     queryParams.append("per_page", params.per_page.toString());
+  }
   if (params?.lang) queryParams.append("lang", params.lang);
 
   const { data } = await axios.get(`${API_BASE}/${taxonomy}?${queryParams}`);
@@ -178,8 +219,9 @@ export const fetchPostsByCategory = async (
   // Explicitly mapping the taxonomy to the ID
   queryParams.append(taxonomy, categoryId.toString());
 
-  if (params?.per_page)
+  if (params?.per_page) {
     queryParams.append("per_page", params.per_page.toString());
+  }
   if (params?.lang) queryParams.append("lang", params.lang);
   if (params?.page) queryParams.append("page", params.page.toString());
 

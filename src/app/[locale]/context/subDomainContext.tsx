@@ -8,7 +8,7 @@ export function SubdomainProvider({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
   const subdomain = searchParams.get("subdomain") || "main";
 
-  console.log(subdomain);
+  // console.log(subdomain);
 
   return (
     <SubdomainContext.Provider value={subdomain}>
