@@ -5,9 +5,12 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
+    // Changed from pageEvents to pageViews to match your exported datasource
     await tinybird.pageViews.ingest({
       timestamp: body.timestamp,
-      session_id: body.session_id,
+      session_id: body.session_id, 
+      event_type: body.event_type || 'page_view', 
+      duration_seconds: body.duration_seconds || 0,
       pathname: body.pathname,
       referrer: body.referrer || null,
       article_id: body.article_id || null,
@@ -18,6 +21,6 @@ export async function POST(req: Request) {
     return new NextResponse('OK', { status: 200 });
   } catch (error) {
     console.error('Tinybird Ingestion Error:', error);
-    return new NextResponse('Error', { status: 200 });
+    return new NextResponse('Error', { status: 200 }); 
   }
 }

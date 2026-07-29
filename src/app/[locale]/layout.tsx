@@ -16,6 +16,7 @@ import CookieConsent from "@/components/analytics/cookiesConsent";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import AnalyticsListener from "@/components/analytics/analyticsListener";
 import Script from "next/script";
+import { fetchAllSegmentIds } from "@/lib/utils";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,9 +38,9 @@ const SUPPORTED_LOCALES = ["en", "fr"] as const;
 type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
 
 export interface TranslationProps {
-  locale: "en" | "fr";
+  locale: string;
   messages: Record<string, object | Record<string, string>>;
-  params: Promise<{ locale: "en" | "fr" }>;
+  params: Promise<{ locale: string}>;
 }
 
 export default async function RootLayout({
@@ -49,7 +50,7 @@ export default async function RootLayout({
   // params contains { locale } from the folder structure [locale]
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: "en" | "fr" }>;
+  params: Promise<{ locale: string }>;
 }) {
   const cookieStore = await cookies();
   const site = (cookieStore.get("site")?.value || "main") as
@@ -66,6 +67,11 @@ export default async function RootLayout({
     : "fr";
 
   const messages = await getTranslations(userLocale);
+
+
+// const response = await fetchAllSegmentIds();
+
+// console.log(response);
 
   return (
     <html lang={locale} data-site={site}>
@@ -88,7 +94,7 @@ export default async function RootLayout({
         >
           <TranslationProvider
             initialMessages={messages}
-            initialLocale={locale}
+            initialLocale={userLocale}
           >
             <SubdomainProvider>
               <QueryProvider>

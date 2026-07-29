@@ -1,8 +1,15 @@
 import axios from "axios";
 import { Post } from "../types/apiResponse";
 
-const API_BASE = "https://wp.tresholdmediagroup.com/wp-json/wp/v2";
+// Dynamically handle absolute URLs for Server Components vs Client Components
+const getBaseUrl = () => {
+  if (typeof window !== "undefined") return ""; // Client-side can use relative paths
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+  return "http://localhost:3000"; // Default local development port
+};
 
+const API_BASE = `${getBaseUrl()}/api/wp`;
 
 export const fetchPostById = async (
   postType: "innovation" | "posts" | "extraction" | "asint",
@@ -16,14 +23,12 @@ export const fetchPostById = async (
 
     console.log(`Fetched post by ID ${id} with lang ${lang}:`, data);
     if (data && data.lang === lang) return data;
-
-
   } catch (error) {
     // Ignore error
     console.error("Error fetching post by ID:", error);
   }
 
-  const pairedId = lang === 'fr' ? id + 1 : id - 1;
+  const pairedId = lang === "fr" ? id + 1 : id - 1;
   try {
     const { data } = await axios.get(`${API_BASE}/${postType}/${pairedId}`, {
       params: { lang: lang, _embed: true },
@@ -73,7 +78,7 @@ export const fetchPostsByType = async (
     meta_value?: string;
     search?: string;
     search_columns?: string;
-    [key: string]: any; 
+    [key: string]: any;
   },
 ): Promise<Post[]> => {
   const queryParams = new URLSearchParams();
@@ -89,33 +94,33 @@ export const fetchPostsByType = async (
   queryParams.append("_embed", "true");
 
   try {
-
-    const res = await fetch(
-      `${API_BASE}/${postType}?${queryParams}`,
-      {
-        next: {
-          revalidate: 3600,
-        },
-      }
-    );
-
+    const res = await fetch(`${API_BASE}/${postType}?${queryParams}`, {
+      next: {
+        revalidate: 3600,
+      },
+    });
 
     if (!res.ok) return [];
 
     return await res.json();
-
   } catch (error: any) {
     console.error("Error fetching posts:", error);
     return [];
   }
 };
 
-export const fetchThresholdPosts = (params?: any) => fetchPostsByType("posts", params);
-export const fetchExtractionPosts = (params?: any) => fetchPostsByType("extraction", params);
-export const fetchAsintPosts = (params?: any) => fetchPostsByType("asint", params);
-export const fetchGuineaIntelPosts = (params?: any) => fetchPostsByType("guinea_intel", params);
-export const fetchInnovationPosts = (params?: any) => fetchPostsByType("innovation", params);
-export const fetchTransversePosts = (params?: any) => fetchPostsByType("transverse", params);
+export const fetchThresholdPosts = (params?: any) =>
+  fetchPostsByType("posts", params);
+export const fetchExtractionPosts = (params?: any) =>
+  fetchPostsByType("extraction", params);
+export const fetchAsintPosts = (params?: any) =>
+  fetchPostsByType("asint", params);
+export const fetchGuineaIntelPosts = (params?: any) =>
+  fetchPostsByType("guinea_intel", params);
+export const fetchInnovationPosts = (params?: any) =>
+  fetchPostsByType("innovation", params);
+export const fetchTransversePosts = (params?: any) =>
+  fetchPostsByType("transverse", params);
 
 export interface Category {
   id: number;
@@ -133,9 +138,10 @@ export const fetchTopLevelCategories = async (
 ): Promise<Category[]> => {
   const queryParams = new URLSearchParams();
   queryParams.append("parent", "0");
-  queryParams.append("hide_empty", "false"); 
+  queryParams.append("hide_empty", "false");
 
-  if (params?.per_page) queryParams.append("per_page", params.per_page.toString());
+  if (params?.per_page)
+    queryParams.append("per_page", params.per_page.toString());
   if (params?.lang) queryParams.append("lang", params.lang);
 
   const { data } = await axios.get(`${API_BASE}/${taxonomy}?${queryParams}`);
@@ -160,7 +166,7 @@ export const fetchSubCategories = async (
 export const fetchPostsByCategory = async (
   postType: string,
   categoryId: number,
-  taxonomy: string = "categories", 
+  taxonomy: string = "categories",
   params?: {
     per_page?: number;
     lang?: string;
@@ -172,7 +178,8 @@ export const fetchPostsByCategory = async (
   // Explicitly mapping the taxonomy to the ID
   queryParams.append(taxonomy, categoryId.toString());
 
-  if (params?.per_page) queryParams.append("per_page", params.per_page.toString());
+  if (params?.per_page)
+    queryParams.append("per_page", params.per_page.toString());
   if (params?.lang) queryParams.append("lang", params.lang);
   if (params?.page) queryParams.append("page", params.page.toString());
 
@@ -200,4 +207,3 @@ export const getPosts = async (
     categories: category,
   });
 };
-

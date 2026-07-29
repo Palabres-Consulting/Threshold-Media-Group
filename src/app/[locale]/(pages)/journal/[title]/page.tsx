@@ -58,7 +58,7 @@ const UniquePost = () => {
     const savedId = window.localStorage.getItem(storageKey);
     if (savedId && /^\d+$/.test(savedId)) {
       setStoredId(parseInt(savedId, 10));
-    }
+    } 
   }, [idFromUrl, storageKey]);
 
   const identifier = idFromUrl || storedId || slug;

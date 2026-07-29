@@ -4,7 +4,6 @@ import { getTranslatedSlug } from "../app/helpers/translateSlug"; // Adjust the 
 const locales = ["en", "fr"];
 const defaultLocale = "en";
 
-
 function getLocale(req: NextRequest) {
   const cookieLocale = req.cookies.get("NEXT_LOCALE")?.value;
   if (cookieLocale && locales.includes(cookieLocale)) return cookieLocale;
@@ -39,7 +38,17 @@ export function handleI18n(req: NextRequest, cookieDomain?: string) {
   if (hasLocale) {
     // FIX: If the user has a cookie with a different locale, redirect them,
     // BUT translate the URL slugs along the way so it doesn't 404!
+
     if (cookieLocale && cookieLocale !== currentLocale) {
+      if (pathname.includes("/admin")) {
+        const url = req.nextUrl.clone();
+        url.pathname = pathname.replace(
+          `/${currentLocale}`,
+          `/${cookieLocale}`,
+        );
+        return NextResponse.redirect(url);
+      }
+
       const segments = pathname.split("/");
 
       const translatedSegments = segments.map((segment, index) => {

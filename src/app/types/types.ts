@@ -96,3 +96,16 @@ export interface User {
     status: string;
   }[];
 }
+
+
+
+export type NewsletterView = "form" | "editor" | "list";
+
+export interface NewsletterDraft {
+  id: string;
+  status: "draft" | "approved" | "published";
+  freemium_content?: string;
+  persona_content?: Record<string, string>;
+  createdAt: string;
+  links?: string[];
+}

@@ -19,28 +19,38 @@ const LangSwitcher: React.FC<{ dict: any }> = ({ dict }) => {
   const [transDropdown, setTransDropdown] = useState(false);
 
 
-
- const handleSelect = (newLocale: Locale) => {
+const handleSelect = (newLocale: Locale) => {
     if (newLocale === locale) return;
 
-    // Split the pathname (e.g., "/fr/journal/slug" -> ["", "fr", "journal", "slug"])
     const segments = pathname.split("/");
+    
+    // 1. Define supported locales so we can check if the URL has one
+    const supportedLocales = ["en", "fr"]; 
+    const hasLocalePrefix = supportedLocales.includes(segments[1]);
 
-    const currentUrlLocale = segments[1]; // "en", "fr", or "ar"
+    // 2. Determine the current locale safely
+    const currentUrlLocale = hasLocalePrefix ? segments[1] : "en"; // Fallback to your default locale
 
-    // Map over the segments and translate the actual category slugs
+    // 3. Map and translate segments
     const translatedSegments = segments.map((segment, index) => {
-      if (index < 2) return segment;
+      if (index === 0) return segment; // Skip the empty string from split()
+      if (index === 1 && hasLocalePrefix) return segment; // Skip translating the locale code itself
+      
+      // Translate dynamic route segments
       return getTranslatedSlug(segment, currentUrlLocale, newLocale);
     });
 
-    // Swap the locale segment in the array to the new locale
-    translatedSegments[1] = newLocale;
+    // 4. Safely swap OR insert the new locale
+    if (hasLocalePrefix) {
+      translatedSegments[1] = newLocale; // Swap existing locale
+    } else {
+      translatedSegments.splice(1, 0, newLocale); // Insert new locale at index 1
+    }
 
     // Rebuild the path base
     const basePath = translatedSegments.join("/");
 
-    // --- FIX IS HERE: Append existing search params if they exist ---
+    // Append existing search params if they exist
     const currentQueries = searchParams.toString();
     const newPath = currentQueries ? `${basePath}?${currentQueries}` : basePath;
 
@@ -55,7 +65,11 @@ const LangSwitcher: React.FC<{ dict: any }> = ({ dict }) => {
     // Push the fully translated URL containing its dynamic params
     router.push(newPath);
     setTransDropdown(false); 
-  };
+};
+
+
+
+
   return (
     <div 
       className="relative h-fit group  "

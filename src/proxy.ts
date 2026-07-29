@@ -9,6 +9,7 @@ const defaultLocale = "en";
 const protectedRoutes = ["/profile"];
 const authRoute = "/auth";
 const onBoardingRoute = "/onboarding";
+const adminRoute = "/admin";
 
 // --- Domain/Host Logic ---
 
@@ -55,7 +56,7 @@ function getSubdomain(host: string): string {
   return "main";
 }
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
   let host = req.headers.get("x-forwarded-host") || req.nextUrl.host;
 
@@ -77,7 +78,8 @@ export async function middleware(req: NextRequest) {
     pathname.startsWith("/_next") ||
     pathname === "/favicon.ico" ||
     pathname.startsWith("/wp-admin") ||
-    pathname.startsWith("/api")
+    pathname.startsWith("/api") 
+    // pathname.startsWith("/admin")
   ) {
     return NextResponse.next();
   }
@@ -134,6 +136,14 @@ export async function middleware(req: NextRequest) {
   if (user && pathWithoutLocale === authRoute) {
     return NextResponse.redirect(new URL(`/${currentLocale}/profile`, req.url));
   }
+
+  const isAdmin = user?.app_metadata?.role === 'admin'
+
+  //protect admin page 
+if (pathWithoutLocale.startsWith(adminRoute) && !isAdmin) { 
+      return NextResponse.redirect(new URL(`/${currentLocale}`, req.url));
+  }
+
 
   if (user && pathWithoutLocale === onBoardingRoute) {
     const { data: profile, error: profileError } = await supabase

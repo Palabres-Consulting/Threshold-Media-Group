@@ -28,7 +28,7 @@ export const newsletterService = {
                     },
                 },
             );
-
+            
             if (tags && tags.length > 0) {
                 await mailchimp.lists.updateListMemberTags(
                     process.env.MAILCHIMP_AUDIENCE_ID!,

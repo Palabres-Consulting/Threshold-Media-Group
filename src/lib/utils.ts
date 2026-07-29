@@ -1,6 +1,8 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+import mailchimp from "@mailchimp/mailchimp_marketing";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -12,20 +14,18 @@ export function cn(...inputs: ClassValue[]) {
  */
 export function getBaseDomainForCookie(host: string): string {
   // Remove port if present (e.g., 'localhost:3000' -> 'localhost')
-  const hostWithoutPort = host.split(':')[0];
+  const hostWithoutPort = host.split(":")[0];
 
   // Handle localhost specifically for development environments
-  if (hostWithoutPort.toLowerCase().includes('localhost')) {
-    return ''; // Omit domain for localhost
+  if (hostWithoutPort.toLowerCase().includes("localhost")) {
+    return ""; // Omit domain for localhost
   }
 
   // For production domains, construct the root domain with a leading dot
   // to make it accessible across all subdomains.
-  const parts = hostWithoutPort.split('.');
-  return `.${parts.slice(parts.length - 2).join('.')}`;
+  const parts = hostWithoutPort.split(".");
+  return `.${parts.slice(parts.length - 2).join(".")}`;
 }
-
-
 
 // lib/constants.ts or similar
 export const SITE_TO_POST_TYPE = {
@@ -40,18 +40,16 @@ export const SITE_TO_POST_TYPE = {
 export type SiteName = keyof typeof SITE_TO_POST_TYPE;
 export type WPPostType = (typeof SITE_TO_POST_TYPE)[SiteName];
 
-
 export const socialLinks = {
   x: "https://x.com/thresholdmediag?s=21",
-  linkedin: "https://www.linkedin.com/company/threshold-media-group-guin%C3%A9e/",
+  linkedin:
+    "https://www.linkedin.com/company/threshold-media-group-guin%C3%A9e/",
   facebook: "https://www.facebook.com/share/1cE3bqj4Sw/?mibextid=wwXIfr",
-  instagram: "https://www.instagram.com/thre.sholdmediagroup_guinea?igsh=MTh2MXNlM3N3cmIwZA==",
+  instagram:
+    "https://www.instagram.com/thre.sholdmediagroup_guinea?igsh=MTh2MXNlM3N3cmIwZA==",
   youtube: "https://www.youtube.com/@ThresholdMediagroup",
-  tiktok: "https://www.tiktok.com/@thresholdmediagroup?"
-
+  tiktok: "https://www.tiktok.com/@thresholdmediagroup?",
 };
-
-
 
 export function getBaseDomain(host: string): string {
   const hostWithoutPort = host.split(":")[0];
@@ -69,9 +67,33 @@ export function getBaseDomain(host: string): string {
   if (parts.length >= 2) {
     // For app.example.com -> .example.com
     return `.${parts.slice(-2).join(".")}`;
-
-  
   }
 
   return hostWithoutPort;
+}
+
+mailchimp.setConfig({
+  apiKey: process.env.MAILCHIMP_API_KEY,
+  server: process.env.MAILCHIMP_API_SERVER,
+});
+
+export async function fetchAllSegmentIds() {
+  try {
+    const listId = process.env.MAILCHIMP_LIST_ID; // Your 1547635 ID
+    const response = await (mailchimp.lists as any).listSegments(
+      process.env.MAILCHIMP_AUDIENCE_ID as string,
+    );
+
+    console.log(JSON.stringify(response.segments, null, 2));
+
+    console.log("=== YOUR MAILCHIMP SEGMENT IDS ===");
+    response.segments.forEach((segment: any) => {
+      console.log(`Persona: ${segment.name} --> ID: ${segment.id}`);
+    });
+    console.log("==================================");
+
+    return response.segments;
+  } catch (error) {
+    console.error("Error fetching segments:", error);
+  }
 }

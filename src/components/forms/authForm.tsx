@@ -83,7 +83,6 @@ const AuthContainer = ({ dict }: { dict: TranslationSchema["main"] }) => {
 
   return (
     <>
-      {/* 2. Place Toaster here or in your Root Layout */}
       <Toaster position="top-center" reverseOrder={false} />
       
       <form
