@@ -1,4 +1,3 @@
-// 📍 Location: lib/actions/newsletterActions.ts
 "use server";
 
 import { createAdminClient } from "@/app/api/_lib/supabaseClient";

@@ -53,6 +53,9 @@ export default function NewsletterForm({ onSuccess }: { onSuccess: (id: string) 
       };
       localStorage.setItem(storageKey, JSON.stringify(payload));
 
+
+      // console.log("Draft saved to localStorage with key:", storageKey, "and payload:", payload);
+
       onSuccess(response.id);
       return "Draft generated successfully!";
     };

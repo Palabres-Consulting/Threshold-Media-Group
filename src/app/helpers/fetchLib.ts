@@ -28,7 +28,7 @@ export const fetchPostById = async (
       params: { lang: lang, _embed: true },
     });
 
-    console.log(`Fetched post by ID ${id} with lang ${lang}:`, data);
+    // console.log(`Fetched post by ID ${id} with lang ${lang}:`, data);
     if (data && data.lang === lang) return data;
   } catch (error) {
     // Ignore error

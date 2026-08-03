@@ -62,14 +62,14 @@ const UniquePost = () => {
   }, [idFromUrl, storageKey]);
 
   const identifier = idFromUrl || storedId || slug;
-  console.log("Using identifier:", identifier, "for postType:", postType);
+  // console.log("Using identifier:", identifier, "for postType:", postType);
   const {
     data: post,
     isLoading,
     isError,
   } = useSinglePost(identifier, postType);
 
-  console.log("Fetched post:", post);
+  // console.log("Fetched post:", post);
 
   // Option A: Get the original, uncompressed full-size image (Best for large hero sections)
   const imageUrl = post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
@@ -150,7 +150,7 @@ const UniquePost = () => {
   }
 
   const topCatObj = getTopLevelCategory(post);
-  console.log("Top-level category object:", topCatObj);
+  // console.log("Top-level category object:", topCatObj);
   const category = topCatObj.name ? topCatObj.name : "Uncategorized";
 
   const formattedCategory = category

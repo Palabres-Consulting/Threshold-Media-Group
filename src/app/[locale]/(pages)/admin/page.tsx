@@ -1,4 +1,5 @@
 import ArticlesAnalytics from "@/components/analytics/articlesAnalytics";
+import { fetchAllSegmentIds } from "@/lib/utils";
 
 function getTinybirdDateRange(daysBack = 30) {
   const end = new Date();
@@ -18,6 +19,9 @@ function getTinybirdDateRange(daysBack = 30) {
 
 export default async function AdminDashboard() {
   const { startDate, endDate } = getTinybirdDateRange(30);
+
+  const segmentIds = await fetchAllSegmentIds();
+  console.log("Fetched Mailchimp Segment IDs:", segmentIds);
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-8">

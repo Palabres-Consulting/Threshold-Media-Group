@@ -38,7 +38,7 @@ async function createAndSendCampaign(
     recipients: recipients,
     settings: {
       subject_line: subject,
-      reply_to: "dkayode@palabres-consulting.com", // Update this
+      reply_to: "editorial@thresholdmedia.group", // Update this
       from_name: "Threshold Media Group",
     },
   });

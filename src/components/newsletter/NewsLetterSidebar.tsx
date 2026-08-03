@@ -43,7 +43,7 @@ export default function NewsletterSidebar({
       let dbDrafts: NewsletterDraft[] = [];
       try {
         dbDrafts = (await fetchDraftsFromDB()) as NewsletterDraft[];
-        console.log("Fetched DB drafts:", dbDrafts);
+        // console.log("Fetched DB drafts:", dbDrafts);
       } catch (e) {
         console.error("Failed to fetch DB drafts", e);
       }

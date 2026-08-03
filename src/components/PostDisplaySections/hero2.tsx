@@ -32,7 +32,7 @@ const HeroSection = ({
   const sixthPost = posts[5];
 
 
-  console.log("POST Url", firstPost?.postUrl);
+  // console.log("POST Url", firstPost?.postUrl);
 
   return (
     <section className="w-full  min-h-[400px]  flex flex-col lg:flex-row border-y border-[var(--foreground)]/10 p-3 gap-2 bg-[var(--background)]">

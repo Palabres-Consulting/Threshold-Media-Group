@@ -104,13 +104,13 @@ const Home = async (props: {
 
 
 
-  console.log("All Articles", allArticles.length)
+  // console.log("All Articles", allArticles.length)
 
   hasArticles = allArticles && allArticles.length > 0;
 
   // Normalize all articles immediately after fetching
   const cleanArticles = normalizePosts(allArticles, site);
-  console.log("Normalized Articles:", cleanArticles.length);
+  // console.log("Normalized Articles:", cleanArticles.length);
 
   // 4. Slice data safely
   const heroPosts = hasArticles ? cleanArticles.slice(0, 6) : [];
@@ -125,7 +125,7 @@ const Home = async (props: {
 
   // Main Homepage Return
 
-  console.log("Threshold opinions posts length:", cleanArticles.length);
+  // console.log("Threshold opinions posts length:", cleanArticles.length);
 
   if (site === "main") {
     return (
