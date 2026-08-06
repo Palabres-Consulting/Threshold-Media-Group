@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-
   images: {
     remotePatterns: [
       {
@@ -12,7 +11,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "wp.tresholdmediagroup.com",
-        pathname: "/**", 
+        pathname: "/**",
       },
       {
         protocol: "https",
@@ -21,20 +20,30 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
       {
-        protocol: "https", 
+        protocol: "https",
         hostname: "lh3.googleusercontent.com",
         pathname: "/**",
-      }
+      },
+      {
+        protocol: "https",
+        hostname: "drive.google.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "drive.usercontent.google.com",
+        pathname: "/**",
+      },
     ],
   },
 
   async rewrites() {
     return [
       {
-        source: '/wp-admin/',
-        destination: 'https://wp.tresholdmediagroup.com/wp-admin/',
+        source: "/wp-admin/",
+        destination: "https://wp.tresholdmediagroup.com/wp-admin/",
       },
-    ]
+    ];
   },
 };
 

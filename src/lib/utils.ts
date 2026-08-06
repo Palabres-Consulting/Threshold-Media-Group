@@ -46,7 +46,7 @@ export const socialLinks = {
     "https://www.linkedin.com/company/threshold-media-group-guin%C3%A9e/",
   facebook: "https://www.facebook.com/share/1cE3bqj4Sw/?mibextid=wwXIfr",
   instagram:
-    "https://www.instagram.com/thre.sholdmediagroup_guinea?igsh=MTh2MXNlM3N3cmIwZA==",
+    "https://www.instagram.com/thresholdmediagroup_guinea?igsh=MTh2MXNlM3N3cmIwZA==",
   youtube: "https://www.youtube.com/@ThresholdMediagroup",
   tiktok: "https://www.tiktok.com/@thresholdmediagroup?",
 };
