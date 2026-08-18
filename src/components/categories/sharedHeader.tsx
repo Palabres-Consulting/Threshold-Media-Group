@@ -130,7 +130,7 @@ export default function SharedHeader({
       <div className="border-[var(--foreground)]/20 w-full mb-3" />
 
       {/* --- LAYER 3 SUB-ROW (Subcategories) --- */}
-      {context?.childLinks?.length > 0 && (
+      {/* {context?.childLinks?.length > 0 && (
         <nav 
           ref={layer3NavRef}
           className="flex flex-nowrap items-center justify-left gap-x-2 overflow-x-auto whitespace-nowrap pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
@@ -153,7 +153,7 @@ export default function SharedHeader({
             );
           })}
         </nav>
-      )}
+      )} */}
     </header>
   );
 }
