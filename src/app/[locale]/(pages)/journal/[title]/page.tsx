@@ -41,10 +41,10 @@ const UniquePost = () => {
 
   const postTypeMap: Record<
     string,
-    "innovation" | "posts" | "extraction" | "asint"
+    "innovation"  | "extraction" | "asint"
   > = {
     innovation: "innovation",
-    main: "posts",
+    // main: "posts",
     extraction: "extraction",
     asint: "asint",
   };
@@ -58,7 +58,7 @@ const UniquePost = () => {
     const savedId = window.localStorage.getItem(storageKey);
     if (savedId && /^\d+$/.test(savedId)) {
       setStoredId(parseInt(savedId, 10));
-    } 
+    }
   }, [idFromUrl, storageKey]);
 
   const identifier = idFromUrl || storedId || slug;
@@ -163,12 +163,11 @@ const UniquePost = () => {
 
   return (
     <PageContainer id="unique-post" path="" title="Unique Post">
-
-      <ArticleTracker 
-      articleId={post.id.toString()} 
-      category={post.type} 
-      locale={locale} 
-    />
+      <ArticleTracker
+        articleId={post.id.toString()}
+        category={post.type}
+        locale={locale}
+      />
 
       <div className="w-full flex">
         <div className="lg:w-[70%] ">
@@ -177,6 +176,14 @@ const UniquePost = () => {
               <div className="flex gap-6 text-foreground/50 items-center">
                 <p className="text-sm">{formattedCategory}</p>
                 <div className="h-[5px] w-[5px] bg-foreground/50 rounded-full"></div>
+                <p className="text-sm">
+                  {new Date(post.date).toLocaleDateString(locale, {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+              
                 <div className="relative">
                   <ShareArticleButton
                     title={formattedTitle || "Post Title"}

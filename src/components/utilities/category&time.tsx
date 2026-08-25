@@ -13,7 +13,7 @@ const CategoryTime: React.FC<{
           bg ? "bg-accent-main text-white px-2" : "text-accent-main"
         }  rounded-md  py-1 text-xs font-light text-nowrap`}
       >
-        {category.replace("&amp;", "&").replace("&quot;", '"').slice(0, 20)}
+        {category.replace("&amp;", "&").replace("&quot;", '"').slice(0, 18)}
       </div>
       <div
         className={`${

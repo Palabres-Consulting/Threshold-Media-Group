@@ -20,13 +20,13 @@ function getTinybirdDateRange(daysBack = 30) {
 export default async function AdminDashboard() {
   const { startDate, endDate } = getTinybirdDateRange(30);
 
-  const segmentIds = await fetchAllSegmentIds();
-  console.log("Fetched Mailchimp Segment IDs:", segmentIds);
+  // const segmentIds = await fetchAllSegmentIds();
+  // console.log("Fetched Mailchimp Segment IDs:", segmentIds);
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold text-foreground">
           Performance Dashboard
         </h1>
         <p className="text-sm text-gray-500 mt-1">

@@ -16,9 +16,16 @@ interface SidebarProps {
 
 const Sidebar = ({ lang, site }: SidebarProps) => {
   // Fetch latest posts as a placeholder for "Popular/Featured" (Never leaves it empty)
+
+  const validPostTypes: Record<string, "innovation" | "extraction" | "asint"> = {
+    main: "innovation",
+    extraction: "extraction",
+    asint: "asint",
+  };
+
   const { data: recentPosts, isLoading: isPostsLoading } = usePostsByDomain(site, undefined, 30);
 
-  const normalizedRecentPosts = normalizePosts(recentPosts || [], site); 
+  const normalizedRecentPosts = normalizePosts(recentPosts || [], validPostTypes[site]); 
 
   console.log("Sidebar - Recent Posts:", normalizedRecentPosts.length);
 
