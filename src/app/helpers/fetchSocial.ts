@@ -27,6 +27,7 @@ export async function fetchFacebookMetrics(
 
     if (pageData.error) {
       console.error("META PAGE ERROR:", pageData.error.message);
+      return null;
     }
     // 2. Fetch engagement insights (Views & Interactions)
     const insightsUrl =

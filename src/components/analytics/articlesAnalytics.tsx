@@ -43,6 +43,8 @@ export default async function ArticlesAnalytics({
     fetchYouTubeMetrics(process.env.YT_CHANNEL_ID!, process.env.YT_API_KEY!),
   ]);
 
+  console.log("Fetched Facebook Stats:", facebookStats);
+
   const normalizedArticles = rawArticlesResult
     .filter(Boolean)
     .map((post) => normalizePost(post!, post!.type)); 
