@@ -12,13 +12,10 @@ const PageContainer: React.FC<{
   path: string;
   children: ReactNode;
 }> = ({ id, title, path, children }) => {
-  const pathname = usePathname().slice(4, usePathname().length);
-
-  // console.log("Pathname:", pathname);
-
-  // console.log("Display Pathname:", pathname.at(0)?.toUpperCase() + pathname.slice(1))
-
-  const displayPathname = (pathname.at(0)?.toUpperCase() + pathname.slice(1)).slice(0, 30) + "...";
+  // Extract and capitalize the path. 
+  // We removed the hardcoded .slice(0, 30) + "..." logic.
+  const rawPathname = usePathname().slice(4);
+  const displayPathname = rawPathname.charAt(0)?.toUpperCase() + rawPathname.slice(1);
 
   const socialMediaLinks = [
     { href: socialLinks.facebook, icon: FaFacebook },
@@ -28,21 +25,31 @@ const PageContainer: React.FC<{
   ];
 
   return (
-    <section className="">
-      
-      <div className="py-5 bg-foreground/5 border-sub-side px-6 border-sub-bottom flex justify-between items-center">
-        <div className="flex items-center gap-4 text-sm opacity-50">
-          <span className="">Home</span> <span className="">/</span>
-          {displayPathname }
+    <section>
+      {/* Container: Stacks on mobile (flex-col), sits side-by-side on desktop (md:flex-row) */}
+      <div className="py-5 bg-foreground/5 border-sub-side px-6 border-sub-bottom flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        
+        {/* Breadcrumbs: min-w-0 is critical here; it prevents the flex child from overflowing its parent */}
+        <div className="flex items-center gap-2 text-sm opacity-50 min-w-0 w-full md:w-auto">
+          <Link href="/" className="shrink-0 hover:underline">Home</Link> 
+          <span className="shrink-0">/</span>
+          
+          {/* The 'truncate' class automatically adds '...' ONLY when there isn't enough screen space */}
+          <span className="truncate block" title={displayPathname}>
+            {displayPathname}
+          </span>
         </div>
-        <div className="">
-          <ul className="flex gap-6">
+
+        {/* Social Icons: shrink-0 prevents them from getting squished by long breadcrumbs */}
+        <div className="shrink-0">
+          <ul className="flex gap-3 md:gap-4">
             {socialMediaLinks.map(({ href, icon: Icon }, index) => (
               <li key={index} className="flex">
                 <Link
                   href={href}
                   target="_blank"
-                  className="rounded-full p-3 text-[1.5rem] border-sub text-accent-main"
+                  // Slightly smaller padding/text on mobile, scaling up on md screens
+                  className="rounded-full p-2 md:p-3 text-xl md:text-[1.5rem] border-sub text-accent-main hover:bg-foreground/10 transition-colors"
                 >
                   <Icon />
                 </Link>
@@ -51,6 +58,7 @@ const PageContainer: React.FC<{
           </ul>
         </div>
       </div>
+      
       <div className="border-sub-side">{children}</div>
     </section>
   );

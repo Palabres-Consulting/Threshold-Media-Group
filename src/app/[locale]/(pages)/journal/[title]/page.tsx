@@ -39,10 +39,7 @@ const UniquePost = () => {
 
   const site = useClientSite();
 
-  const postTypeMap: Record<
-    string,
-    "innovation"  | "extraction" | "asint"
-  > = {
+  const postTypeMap: Record<string, "innovation" | "extraction" | "asint"> = {
     innovation: "innovation",
     // main: "posts",
     extraction: "extraction",
@@ -62,14 +59,14 @@ const UniquePost = () => {
   }, [idFromUrl, storageKey]);
 
   const identifier = idFromUrl || storedId || slug;
-  // console.log("Using identifier:", identifier, "for postType:", postType);
+  console.log("Using identifier:", identifier, "for postType:", postType);
   const {
     data: post,
     isLoading,
     isError,
   } = useSinglePost(identifier, postType);
 
-  // console.log("Fetched post:", post);
+  console.log("Fetched post:", post);
 
   // Option A: Get the original, uncompressed full-size image (Best for large hero sections)
   const imageUrl = post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
@@ -172,10 +169,16 @@ const UniquePost = () => {
       <div className="w-full flex">
         <div className="lg:w-[70%] ">
           <div className="border-sub p-6">
-            <div className="flex justify-between items-center py-2">
-              <div className="flex gap-6 text-foreground/50 items-center">
+            {/* Post Meta */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center py-4 gap-4">
+              {/* --- METADATA (Left side / Top on mobile) --- */}
+              {/* Added flex-wrap so if the category is super long, the date wraps below it naturally */}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-foreground/50">
                 <p className="text-sm">{formattedCategory}</p>
-                <div className="h-[5px] w-[5px] bg-foreground/50 rounded-full"></div>
+
+                {/* shrink-0 prevents the dot from being squished; hidden sm:block prevents awkward orphans on wrap */}
+                <div className="hidden sm:block h-[5px] w-[5px] shrink-0 bg-foreground/50 rounded-full"></div>
+
                 <p className="text-sm">
                   {new Date(post.date).toLocaleDateString(locale, {
                     year: "numeric",
@@ -183,40 +186,47 @@ const UniquePost = () => {
                     day: "numeric",
                   })}
                 </p>
-              
-                <div className="relative">
+              </div>
+
+              {/* --- ACTIONS (Right side / Bottom on mobile) --- */}
+              {/* Grouped Share and Save together; shrink-0 prevents buttons from being compressed */}
+              <div className="flex items-center gap-4 shrink-0">
+                <div className="relative shrink-0">
                   <ShareArticleButton
                     title={formattedTitle || "Post Title"}
                     url={postUrl}
                   />
                 </div>
-              </div>
 
-              {/* --- SAVE BUTTON ADDED HERE --- */}
-              <div className="flex items-center gap-2">
-                {message && (
-                  <span className="text-xs text-foreground/60">{message}</span>
-                )}
-                <button
-                  onClick={toggleSave}
-                  disabled={isSaving || isInitializing}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm transition-colors ${
-                    isSaved
-                      ? "bg-foreground text-background border-foreground"
-                      : "bg-transparent text-foreground border-foreground/30 hover:border-foreground"
-                  }`}
-                >
-                  {isInitializing
-                    ? "Checking..." // Or an empty state, or a spinner
-                    : isSaving
-                      ? "Saving..."
-                      : isSaved
-                        ? "★ Saved"
-                        : "☆ Save Article"}
-                </button>
+                {/* --- SAVE BUTTON --- */}
+                <div className="flex items-center gap-2 shrink-0">
+                  {message && (
+                    <span className="text-xs text-foreground/60">
+                      {message}
+                    </span>
+                  )}
+                  <button
+                    onClick={toggleSave}
+                    disabled={isSaving || isInitializing}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm transition-colors ${
+                      isSaved
+                        ? "bg-foreground text-background border-foreground"
+                        : "bg-transparent text-foreground border-foreground/30 hover:border-foreground"
+                    }`}
+                  >
+                    {isInitializing
+                      ? "Checking..." // Or an empty state, or a spinner
+                      : isSaving
+                        ? "Saving..."
+                        : isSaved
+                          ? "★ Saved"
+                          : "☆ Save Article"}
+                  </button>
+                </div>
               </div>
             </div>
 
+            {/* Post Content */}
             <div className="flex flex-col gap-10 mb-20 mt-4">
               <h1 className="lg:text-[3.5rem] text-[2rem] font-bold ">
                 {formattedTitle || "Post Title"}
