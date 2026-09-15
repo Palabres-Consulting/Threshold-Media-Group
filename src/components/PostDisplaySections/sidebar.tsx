@@ -11,21 +11,21 @@ import { normalizePosts } from "@/app/helpers/normalizeData";
 
 interface SidebarProps {
   lang: Locale;
-  site: "main" | "extraction" | "asint";
+  postType: "innovation" | "extraction" | "asint";
 }
 
-const Sidebar = ({ lang, site }: SidebarProps) => {
+const Sidebar = ({ lang, postType }: SidebarProps) => {
   // Fetch latest posts as a placeholder for "Popular/Featured" (Never leaves it empty)
 
   const validPostTypes: Record<string, "innovation" | "extraction" | "asint"> = {
-    main: "innovation",
+    innovation: "innovation",
     extraction: "extraction",
     asint: "asint",
   };
 
-  const { data: recentPosts, isLoading: isPostsLoading } = usePostsByDomain(site, undefined, 30);
+  const { data: recentPosts, isLoading: isPostsLoading } = usePostsByDomain(postType, undefined, 30);
 
-  const normalizedRecentPosts = normalizePosts(recentPosts || [], validPostTypes[site]); 
+  const normalizedRecentPosts = normalizePosts(recentPosts || [], validPostTypes[postType]); 
 
   console.log("Sidebar - Recent Posts:", normalizedRecentPosts.length);
 

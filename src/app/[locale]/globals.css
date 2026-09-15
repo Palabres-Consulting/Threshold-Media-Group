@@ -66,6 +66,10 @@
   --accent-main: #28a745; /* green for asint */
 }
 
+[data-site="innovation"] {
+  --accent-main: #6c5ce7; /* purple for innovation */
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

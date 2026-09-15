@@ -49,10 +49,10 @@ export default async function TransversePage() {
               </div>
 
               <div className="flex flex-col gap-2 flex-grow max-w-xl">
-                <div className="text-[11px] font-extrabold uppercase tracking-widest text-primary">
+                <div className="text-[11px] font-extrabold uppercase tracking-widest text-foreground/50">
                   {video.channelName || "Featured Highlight"}
                 </div>
-                <h3 className="text-lg md:text-xl font-extrabold tracking-tight leading-snug group-hover:text-primary transition-colors">
+                <h3 className="text-lg md:text-xl font-extrabold tracking-tight leading-snug group-hover:text-foreground/50 transition-colors">
                   {video.title}
                 </h3>
                 <div className="text-xs font-semibold text-foreground/50">

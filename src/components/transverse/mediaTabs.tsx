@@ -5,17 +5,17 @@ import { useParams, usePathname } from "next/navigation";
 
 const MEDIA_TABS = [
   { name: "All Highlights", href: "/transverse", typeId: undefined },
-  { name: "AI or Die", href: "/transverse/ai-or-die", typeId: "ai-or-die" },
-  {
-    name: "Guinea Means Business",
-    href: "/transverse/guinea-means-business",
-    typeId: "guinea-means-business",
-  },
-  {
-    name: "One Quarter, One City",
-    href: "/transverse/one-quarter-one-city",
-    typeId: "one-quarter-one-city",
-  },
+  // { name: "AI or Die", href: "/transverse/ai-or-die", typeId: "ai-or-die" },
+  // {
+  //   name: "Guinea Means Business",
+  //   href: "/transverse/guinea-means-business",
+  //   typeId: "guinea-means-business",
+  // },
+  // {
+  //   name: "One Quarter, One City",
+  //   href: "/transverse/one-quarter-one-city",
+  //   typeId: "one-quarter-one-city",
+  // },
 ];
 
 export default function MediaTabs() {

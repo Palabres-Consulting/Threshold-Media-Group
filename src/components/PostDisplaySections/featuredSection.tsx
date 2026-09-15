@@ -27,10 +27,10 @@ export default function FeaturedSection({
   const rightColumnPosts = posts.slice(4, 6); // Position indices 4, 5
 
   return (
-    <section className="w-full bg-[var(--background)] px-4 py-6">
+    <section className="w-full bg-[var(--background)] px-4 py-10">
       {/* 1. Header String Element with Full-Width Line Boundary */}
       <div className="w-full mb-6">
-        <h2 className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-[var(--foreground)] pb-2 border-b border-[var(--foreground)]/20">
+        <h2 className="font-serif text-xl sm:text-4xl font-bold tracking-tight text-[var(--foreground)] pb-2 border-b border-[var(--foreground)]/20">
           {sectionTitle}
         </h2>
       </div>

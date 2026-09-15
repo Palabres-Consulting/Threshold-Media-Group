@@ -65,7 +65,7 @@ export default function EditorialFeaturedCard({
         </span> */}
 
         {/* Action Buttons Wrapper Row */}
-        <div className="flex justify-between  ">
+        <div className="flex justify-between">
           <div className="flex items-center gap-1.5 truncate">
             <svg
               xmlns="http://www.w3.org/2000/svg"

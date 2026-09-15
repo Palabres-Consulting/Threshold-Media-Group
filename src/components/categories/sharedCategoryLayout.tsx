@@ -20,11 +20,12 @@ import HeroSection from "../PostDisplaySections/hero2";
 import FeaturedSection from "../PostDisplaySections/featuredSection";
 import GridPosts from "../PostDisplaySections/gridPosts";
 import AdBanner from "../ads/AdBanner";
+import TMGView from "../PostDisplaySections/tmgView";
 
 interface SharedCategoryLayoutProps {
   locale: "en" | "fr";
   slug: string;
-} 
+}
 
 export default async function SharedCategoryLayout({
   locale,
@@ -32,7 +33,6 @@ export default async function SharedCategoryLayout({
 }: SharedCategoryLayoutProps) {
   const { main: dict } = getTranslations(locale);
   const navTranslations = dict.nav.categories;
-
 
   // 1. Get the Bloomberg Context & WP ID
   const context = getCategoryContext(slug, navTranslations, locale);
@@ -58,17 +58,16 @@ export default async function SharedCategoryLayout({
   let wpPostType: any = "posts";
   const identifier = context.taxonomy || slug;
 
-  
   if (
     identifier.includes("extraction") ||
     identifier === "industries-resources"
   )
-  wpPostType = "extraction";
+    wpPostType = "extraction";
   else if (identifier.includes("asint")) wpPostType = "asint";
   else if (identifier.includes("guinea-intel")) wpPostType = "guinea_intel";
   else if (identifier.includes("innovation")) wpPostType = "innovation";
   else if (identifier.includes("transverse")) wpPostType = "transverse";
-  
+
   // 3. Create a dynamic query parameter
   const queryParams: any = {
     per_page: 100,
@@ -79,9 +78,6 @@ export default async function SharedCategoryLayout({
   if (context.categoryId && context.taxonomy) {
     queryParams[context.taxonomy] = context.categoryId;
   }
-
-
-
 
   const allArticles = await fetchPostsByType(wpPostType, queryParams);
 
@@ -121,8 +117,12 @@ export default async function SharedCategoryLayout({
   const morePosts2 = cleanArticles.slice(35, 40);
   const gridPosts2 = cleanArticles.slice(40, 47);
 
+  const gridPosts3 = cleanArticles.slice(53, 60);
+  const opinionPosts2 = cleanArticles.slice(61, 69);
 
-    console.log("POST URL", cleanArticles[0].postUrl);
+  const tmgviewPosts = cleanArticles.filter((post) => post.custom_author);
+
+  console.log("POST URL", cleanArticles[0].postUrl);
 
   return (
     <main className="mx-2 border-sub-side lg:mx-10 relative overflow-hidden 2xl:mx-auto">
@@ -138,7 +138,6 @@ export default async function SharedCategoryLayout({
 
       <HeroSection site={wpPostType} posts={heroPosts} />
       {/* <Hero site={site} posts={heroPosts} /> */}
-
 
       <AdBanner adSlot="5626006077" />
 
@@ -175,6 +174,19 @@ export default async function SharedCategoryLayout({
       />
       <GridPosts site={wpPostType} gridPosts={gridPosts} />
       <HeroSection site={wpPostType} posts={morePosts2} />
+
+      {tmgviewPosts.length > 1 && (
+        <div className="w-full flex">
+          <div className="lg:w-[70%] w-full">
+            <TMGView posts={tmgviewPosts} lang={locale} site={wpPostType} />
+          </div>
+          <div className="lg:w-[30%] hidden lg:flex">
+            <div className="w-full py-10 relative overflow-hidden">
+              <AdDisplay />
+            </div>
+          </div>
+        </div>
+      )}
       <GridPosts site={wpPostType} gridPosts={gridPosts2} />
     </main>
   );

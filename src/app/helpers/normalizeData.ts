@@ -61,6 +61,8 @@ export const normalizePost = (post: Post, siteType: string): NormalizedPost => {
   // 3. Author Extraction
   const authorName = post._embedded?.author?.[0]?.name || "Unknown Author";
 
+  const custom_author = post.acf?.custom_author || null;
+
   // 4. Calculations & Mappings
   const readTimeMins = calculateReadTime(content);
   const topCatObj = getTopLevelCategory(post);
@@ -72,7 +74,6 @@ export const normalizePost = (post: Post, siteType: string): NormalizedPost => {
   const typeParam = post.type === "post"
     ? "main"
     : (siteType || post.type || "main");
-
 
   const postUrl = `/journal/${slug}?id=${id}&type=${typeParam}`;
 
@@ -89,6 +90,7 @@ export const normalizePost = (post: Post, siteType: string): NormalizedPost => {
     topCategory,
     postUrl,
     type: post.type,
+    custom_author: custom_author || undefined,
   };
 };
 

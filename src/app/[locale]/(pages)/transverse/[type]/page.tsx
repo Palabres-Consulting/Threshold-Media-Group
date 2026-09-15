@@ -81,7 +81,7 @@ export default async function TransverseCategoryPage({ params }: TransverseCateg
                 <div className="text-[11px] font-extrabold uppercase tracking-widest text-primary">
                   {video.channelName || categoryData.name}
                 </div>
-                <h3 className="text-lg md:text-xl font-extrabold tracking-tight leading-snug group-hover:text-primary transition-colors">
+                <h3 className="text-lg md:text-xl font-extrabold tracking-tight leading-snug group-hover:text-foreground/80 transition-colors">
                   {video.title}
                 </h3>
                 <div className="text-xs font-semibold text-foreground/50">

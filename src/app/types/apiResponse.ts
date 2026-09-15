@@ -29,6 +29,7 @@ export interface Post {
     is_featured?: boolean;
     priority?: number;
     [key: string]: any;
+    custom_author?: string;
   };
   _embedded?: {
     author?: any[];
@@ -37,6 +38,7 @@ export interface Post {
     [key: string]: any;
   };
   _links?: Record<string, Array<{ href: string; embeddable?: boolean }>>;
+  translations: Record<string, number>; // Polylang translations mapping
 }
 
 export interface ApiResponse<T> {
@@ -60,4 +62,5 @@ export interface NormalizedPost {
   topCategory: string;    // Extracted top-level category name
   postUrl: string;        // Pre-computed internal Next.js routing link
   type: string;           // Original post type for reference
+  custom_author?: string; // Optional custom author field
 }

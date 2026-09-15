@@ -24,6 +24,7 @@ import { truncateText } from "../helpers/textHelpers";
 import EditorialImageCard from "@/components/PostDisplaySections/editorialImageCard";
 import GridPosts from "@/components/PostDisplaySections/gridPosts";
 import AdBanner from "@/components/ads/AdBanner";
+import TMGView from "@/components/PostDisplaySections/tmgView";
 
 const Home = async (props: {
   params: Promise<{ locale: "en" | "fr" }>;
@@ -101,9 +102,6 @@ const Home = async (props: {
     allArticles = await fetchPostsByType(wpPostType, queryParams);
   }
 
-
-
-
   // console.log("All Articles", allArticles.length)
 
   hasArticles = allArticles && allArticles.length > 0;
@@ -122,7 +120,14 @@ const Home = async (props: {
   const gridPosts = hasArticles ? cleanArticles.slice(28, 36) : [];
   const morePosts2 = hasArticles ? cleanArticles.slice(37, 43) : [];
   const gridPosts2 = hasArticles ? cleanArticles.slice(44, 52) : [];
+  const gridPosts3 = hasArticles ? cleanArticles.slice(53, 60) : [];
+  const opinionPosts2 = hasArticles ? cleanArticles.slice(61, 69) : [];
 
+  const tmgviewPosts = hasArticles
+    ? cleanArticles.filter((post) => post.custom_author)
+    : [];
+
+  console.log("TMG View Posts Length:", tmgviewPosts.length);
   // Main Homepage Return
 
   // console.log("Threshold opinions posts length:", cleanArticles.length);
@@ -168,7 +173,7 @@ const Home = async (props: {
           <HeroSection site={site} posts={heroPosts} />
           {/* <Hero site={site} posts={heroPosts} /> */}
 
-              <AdBanner adSlot="5626006077" />
+          <AdBanner adSlot="5626006077" />
           {/* <section className="flex justify-center ">
             <div className="w-[85%] lg:h-[20em] rounded-2xl overflow-hidden relative">
               <AdDisplayLandscape />
@@ -202,6 +207,19 @@ const Home = async (props: {
           />
           <GridPosts site={site} gridPosts={gridPosts} />
           <HeroSection site={site} posts={morePosts2} />
+
+          {tmgviewPosts.length > 1 && (
+            <div className="w-full flex">
+              <div className="lg:w-[70%] w-full">
+                <TMGView posts={tmgviewPosts} lang={locale} site={wpPostType} />
+              </div>
+              <div className="lg:w-[30%] hidden lg:flex">
+                <div className="w-full py-10 relative overflow-hidden">
+                  <AdDisplay />
+                </div>
+              </div>
+            </div>
+          )}
           <GridPosts site={site} gridPosts={gridPosts2} />
         </>
       )}

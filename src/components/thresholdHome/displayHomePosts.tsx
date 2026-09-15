@@ -52,7 +52,7 @@ const DisplayHomePosts = async ({ locale }: DisplayHomePostsProps) => {
       title: "Innovation & Tech",
       slug: "innovation",
       posts: innovationPosts,
-      isSubdomain: false,
+      isSubdomain: true,
     },
   
   ];

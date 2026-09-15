@@ -621,9 +621,9 @@
   },
 
   "contact": {
-    "title": "Stop Operating in the Blind Spot",
+    "title": "Contact",
     "subtitle": "Whether you need a bespoke intelligence report or an enterprise subscription, our experts are ready to assist your decision-making process.",
-    "submit": "Request Strategic Access",
+    "submit": "Submit",
     "contactForm": {
       "fullName": {
         "firstNameLabel": "FirstName",
@@ -661,7 +661,8 @@
     "login": "Login / Sign Up",
     "contactInfo": "Contact Information",
     "contactDescription": "For inquiries, support, or to request a demo, please contact us at: contact@thresholdmedia.group",
-    "description": "To become the essential analytical benchmark for the region's economic dynamics. "
+    "description": "To become the essential analytical benchmark for the region's economic dynamics. ",
+    "faq": "Faq"
   },
   "auth": {
     "buttons": {

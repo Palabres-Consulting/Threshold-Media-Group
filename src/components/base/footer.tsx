@@ -22,6 +22,8 @@ const Footer = ({
     { id: 3, name: dict.footer.asint, href: "/asint" },
     { id: 4, name: dict.footer.extraction, href: "/extraction" },
     { id: 5, name: dict.footer.login, href: "/auth/login" },
+    { id: 6, name: dict.footer.faq, href: "/faq" }
+
   ];
 
   const socialMediaLinks = [
@@ -95,7 +97,7 @@ const Footer = ({
             <Link href="/terms" className="hover:opacity-70">
             <strong className="">{dict.footer.terms}</strong> || 
             </Link>
-            <Link href="/privacy" className="hover:opacity-70">
+            <Link href="/privacy-policy" className="hover:opacity-70">
               <strong className=""> {dict.footer.privacy}</strong>
             </Link>
           </div>

@@ -18,61 +18,7 @@ const getBaseUrl = () => {
 
 const API_BASE = `${getBaseUrl()}/api/wp`;
 
-export const fetchPostById = async (
-  postType: "innovation" | "posts" | "extraction" | "asint",
-  id: number,
-  lang: string = "en",
-): Promise<Post | null> => {
-  try {
-    const { data } = await axios.get(`${API_BASE}/${postType}/${id}`, {
-      params: { lang: lang, _embed: true },
-    });
 
-    // console.log(`Fetched post by ID ${id} with lang ${lang}:`, data);
-    if (data && data.lang === lang) return data;
-  } catch (error) {
-    // Ignore error
-    console.error("Error fetching post by ID:", error);
-  }
-
-  const pairedId = lang === "fr" ? id + 1 : id - 1;
-  try {
-    const { data } = await axios.get(`${API_BASE}/${postType}/${pairedId}`, {
-      params: { lang: lang, _embed: true },
-    });
-    if (data && data.lang === lang) return data;
-  } catch (error) {
-    // Ignore error
-  }
-
-  return null;
-};
-
-export const fetchPostBySlug = async (
-  postType: "innovation" | "posts" | "extraction" | "asint",
-  slug: string,
-  lang: string = "en",
-): Promise<Post | null> => {
-  const { data } = await axios.get(`${API_BASE}/${postType}`, {
-    params: { slug: slug, lang: lang, _embed: true },
-  });
-
-  if (data.length > 0) return data[0];
-
-  const { data: baseData } = await axios.get(`${API_BASE}/${postType}`, {
-    params: { slug: slug, _embed: true },
-  });
-
-  if (baseData.length > 0) {
-    const basePost = baseData[0];
-    if (basePost.lang === lang) return basePost;
-    if (basePost.meta?.polylang?.translations?.[lang]) {
-      const translatedId = basePost.meta.polylang.translations[lang];
-      return await fetchPostById(postType, translatedId, lang);
-    }
-  }
-  return null;
-};
 
 // Generic fetch function for any post type (Supports dynamically appending custom taxonomy IDs!)
 export const fetchPostsByType = async (
@@ -148,6 +94,94 @@ export const fetchPostsByType = async (
     return [];
   }
 };
+
+
+export const fetchPostById = async (
+  postType: "innovation" | "posts" | "extraction" | "asint",
+  id: number,
+  lang: string = "en",
+): Promise<Post | null> => {
+  try {
+    // 1. Fetch the original post using the known ID
+    const { data: sourcePost } = await axios.get(`${API_BASE}/${postType}/${id}`, {
+      params: { _embed: true },
+    });
+    
+    // console.log(`SOURCE POST:`, sourcePost);
+    if (!sourcePost) return null;
+
+    // 2. If the post is already in the requested language, return it directly
+    if (sourcePost.lang === lang) {
+      return sourcePost;
+    }
+
+
+    // 3. Look up the exact ID for the requested language translation
+    // Polylang exposes this either directly on `translations` or inside `meta.polylang`
+    const translationsMap = sourcePost.translations || sourcePost.meta?.polylang?.translations;
+    const translatedId = translationsMap?.[lang];
+
+    if (!translatedId) {
+      console.warn(`No ${lang} translation found for post ID ${id}`);
+      return null;
+    }
+
+    // 4. Fetch the mapped translated post
+    const { data: translatedPost } = await axios.get(`${API_BASE}/${postType}/${translatedId}`, {
+      params: { _embed: true },
+    });
+
+    return translatedPost;
+  } catch (error) {
+    console.error(`Error fetching post by ID ${id}:`, error);
+    return null;
+  }
+};
+
+export const fetchPostBySlug = async (
+  postType: "innovation" | "posts" | "extraction" | "asint",
+  slug: string,
+  lang: string = "en",
+): Promise<Post | null> => {
+  try {
+    // 1. Try fetching directly by slug and language first (Fastest path)
+    const { data } = await axios.get(`${API_BASE}/${postType}`, {
+      params: { slug: slug, lang: lang, _embed: true },
+    });
+
+    if (data && data.length > 0) {
+      return data[0]; // Found exact match for slug + lang
+    }
+
+    // 2. If not found, the slug might belong to a different language version.
+    // Fetch just by slug (ignoring language) to find the source post.
+    const { data: baseData } = await axios.get(`${API_BASE}/${postType}`, {
+      params: { slug: slug, _embed: true },
+    });
+    
+    if (!baseData || baseData.length === 0) return null;
+
+    const basePost = baseData[0];
+
+    // 3. Extract the translation map
+    const translationsMap = basePost.translations || basePost.meta?.polylang?.translations;
+    const translatedId = translationsMap?.[lang];
+
+    if (translatedId) {
+      // 4. We found the ID for the target language, fetch it using our deterministic ID function
+      return await fetchPostById(postType, translatedId, lang);
+    }
+
+    return null;
+  } catch (error) {
+    console.error(`Error fetching post by slug ${slug}:`, error);
+    return null;
+  }
+};
+
+
+
+
 
 export const fetchThresholdPosts = (params?: any) =>
   fetchPostsByType("posts", params);
@@ -249,3 +283,70 @@ export const getPosts = async (
     categories: category,
   });
 };
+
+
+
+
+
+
+
+
+
+// export const fetchPostById = async (
+//   postType: "innovation" | "posts" | "extraction" | "asint",
+//   id: number,
+//   lang: string = "en",
+// ): Promise<Post | null> => {
+//   try {
+//     const { data } = await axios.get(`${API_BASE}/${postType}/${id}`, {
+//       params: { lang: lang, _embed: true },
+//     });
+
+//     console.log(`Fetched post by ID ${id} with lang ${lang}:`, data);
+//     if (data && data.lang === lang) return data;
+
+//   } catch (error) {
+//     // Ignore error
+//     console.error("Error fetching post by ID:", error);
+//   }
+
+//   const pairedId = lang === "fr" ? id + 1 : id - 1;
+//   try {
+//     const { data } = await axios.get(`${API_BASE}/${postType}/${pairedId}`, {
+//       params: { lang: lang, _embed: true },
+//     });
+//     if (data && data.lang === lang) return data;
+//   } catch (error) {
+//     // Ignore error
+//   }
+
+//   return null;
+// };
+
+// export const fetchPostBySlug = async (
+//   postType: "innovation" | "posts" | "extraction" | "asint",
+//   slug: string,
+//   lang: string = "en",
+// ): Promise<Post | null> => {
+//   const { data } = await axios.get(`${API_BASE}/${postType}`, {
+//     params: { slug: slug, lang: lang, _embed: true },
+//   });
+
+//   if (data.length > 0) return data[0];
+
+//   const { data: baseData } = await axios.get(`${API_BASE}/${postType}`, {
+//     params: { slug: slug, _embed: true },
+//   });
+  
+//   console.log(`Fetched base post by slug ${slug} with lang ${lang}:`, baseData);
+
+//   if (baseData.length > 0) {
+//     const basePost = baseData[0];
+//     if (basePost.lang === lang) return basePost;
+//     if (basePost.meta?.polylang?.translations?.[lang]) {
+//       const translatedId = basePost.meta.polylang.translations[lang];
+//       return await fetchPostById(postType, translatedId, lang);
+//     }
+//   }
+//   return null;
+// };

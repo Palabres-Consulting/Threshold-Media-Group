@@ -24,7 +24,8 @@ const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({
   const pathName = usePathname();
   const [hoverId, setHoverId] = useState<number | null>(null);
 
-  const { asintLink, extractionLink, mainLink } = useHomeLink(site);
+  const { asintLink, extractionLink, mainLink, innovationLink } =
+    useHomeLink(site);
   const path = pathName.slice(3, pathName.length);
   const { main: dict } = t;
 
@@ -109,6 +110,7 @@ const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({
             mainDomainLink={mainLink}
             extractionLink={extractionLink}
             asintLink={asintLink}
+            innovationLink={innovationLink}
             dict={t}
           />
 
@@ -138,7 +140,7 @@ const Header: React.FC<{ site: SiteName; t: TranslationSchema }> = ({
           dict={dict}
           path={path}
           mainNav={thresholdMainNav}
-          links={{ extractionLink, asintLink, mainLink }}
+          links={{ extractionLink, asintLink, mainLink, innovationLink }}
         />
       </div>
     </header>

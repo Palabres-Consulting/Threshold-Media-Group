@@ -46,14 +46,14 @@ export const useExtractionPosts = (category?: string, limit: number = 10) => {
 
 // Generic hook that determines post type based on subdomain
 export const usePostsByDomain = (
-  domain: "main" | "extraction" | "asint",
+  domain: "innovation" | "extraction" | "asint",
   category?: string,
   limit: number = 10
 ) => {
   const { locale } = useLocale();
 
   const fetchFunction = {
-    main: fetchInnovationPosts,
+    innovation: fetchInnovationPosts,
     extraction: fetchExtractionPosts,
     asint: fetchAsintPosts,
   }[domain];

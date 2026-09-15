@@ -3,26 +3,25 @@
 import { TranslationSchema } from "@/lib/locale";
 import Link from "next/link";
 import React from "react";
-import { useHomeLink } from "../base/logo";
+import { AsintLogo, ExtractionLogo, InnovationLogo, useHomeLink } from "../base/logo";
 import Image from "next/image";
-import cloudinaryLoader from "@/app/helpers/cloudinary";
+
 
 const MediaSection = ({ dict }: { dict: TranslationSchema["main"] }) => {
-  const { asintLink, extractionLink } = useHomeLink();
+  const { asintLink, extractionLink, innovationLink } = useHomeLink();
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 mt-6">
       <Link href={extractionLink}>
         <div className="flex flex-col gap-4 rounded-2xl  aspect-video">
           <div className="flex items-center justify-center rounded-2xl overflow-hidden relative bg-foreground/5 h-[80%]">
-            <div className="absolute  lg:h-full z-40 w-full bg-gradient-to-t from-10% from-black/20 via-black/20 via-30% to-70% to-black/50">
+            <div className="absolute  lg:h-full z-40 w-full bg-gradient-to-t from-10% from-black/80 via-black/40 via-30% to-70% to-black/80">
               {" "}
             </div>
-
-            <h1 className="font-semibold text-[2rem] z-50 text-white">
-              EXTRACTION
-            </h1>
-
+            <div className="relative z-50">
+              <ExtractionLogo />
+            </div>
+          
             <Image
               src={"/images/extraction/extraction001.png"}
               alt={`Extraction Image`}
@@ -39,15 +38,41 @@ const MediaSection = ({ dict }: { dict: TranslationSchema["main"] }) => {
       <Link href={asintLink}>
         <div className="flex flex-col gap-4 rounded-2xl  aspect-video">
           <div className="flex items-center justify-center relative overflow-hidden bg-foreground/5 rounded-2xl h-[80%]">
-            <div className="absolute  lg:h-full z-40 w-full bg-gradient-to-t from-10% from-black/20 via-black/20 via-30% to-70% to-black/50">
+            <div className="absolute  lg:h-full z-40 w-full bg-gradient-to-t from-10% from-black/80 via-black/40 via-30% to-70% to-black/80">
               {" "}
             </div>
 
-            <h1 className="font-semibold text-[2rem] z-50 text-white">ASINT</h1>
+            <div className="relative z-50">
+              <AsintLogo />
+            </div>
 
             <Image
               src={"/images/homepage/home3.png"}
               alt={`ASINT Image`}
+              fill
+              className="object-cover w-full h-full  absolute"
+              // unoptimized
+            />
+          </div>
+          <div className="">
+            <p className="text-sm text-left">{dict.hero.asintText}</p>
+          </div>
+        </div>
+      </Link>
+      <Link href={innovationLink}>
+        <div className="flex flex-col gap-4 rounded-2xl  aspect-video">
+          <div className="flex items-center justify-center relative overflow-hidden bg-foreground/5 rounded-2xl h-[80%]">
+            <div className="absolute  lg:h-full z-40 w-full bg-gradient-to-t from-10% from-black/80 via-black/40 via-30% to-70% to-black/80">
+              {" "}
+            </div>
+
+            <div className="relative z-50">
+              <InnovationLogo />
+            </div>
+
+            <Image
+              src={"/images/homepage/home3.png"}
+              alt={`INNOVATION Image`}
               fill
               className="object-cover w-full h-full absolute"
               // unoptimized

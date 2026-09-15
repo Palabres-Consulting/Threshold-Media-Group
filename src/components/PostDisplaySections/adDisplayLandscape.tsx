@@ -18,6 +18,7 @@ const AdDisplayLandscape = () => {
             className="object-contain   w-full transition-transform  duration-500 hover:scale-105"
             fill
             priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </Link>
       </div>

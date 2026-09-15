@@ -32,6 +32,12 @@ const UniquePost = () => {
   const pathname = usePathname();
   const slug = params.title as string;
   const postType = searchParams.get("type") || "main";
+  const sidebarPostType: "extraction" | "asint" | "innovation" =
+    postType === "extraction" ||
+    postType === "asint" ||
+    postType === "innovation"
+      ? postType
+      : "innovation";
   const idParam = searchParams.get("id");
   const idFromUrl =
     idParam && /^\d+$/.test(idParam) ? parseInt(idParam, 10) : null;
@@ -66,7 +72,7 @@ const UniquePost = () => {
     isError,
   } = useSinglePost(identifier, postType);
 
-  console.log("Fetched post:", post);
+  // console.log("Fetched post:", post);
 
   // Option A: Get the original, uncompressed full-size image (Best for large hero sections)
   const imageUrl = post?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
@@ -158,6 +164,8 @@ const UniquePost = () => {
     .replace(/&#8220;/g, "“")
     .replace(/&#8221;/g, "”");
 
+  console.log("post.custom_author:", post.custom_author);
+
   return (
     <PageContainer id="unique-post" path="" title="Unique Post">
       <ArticleTracker
@@ -235,7 +243,7 @@ const UniquePost = () => {
               {/* Image Container */}
               <div className="rounded-2xl lg:h-[60vh] h-[40vh]  w-full border-sub bg-foreground/5 relative overflow-hidden">
                 <Image
-                  loader={cloudinaryLoader}
+                  // loader={cloudinaryLoader}
                   src={finalImageUrl || "/images/homepage/home4.png"}
                   alt={post?.title?.rendered || "Post Image"}
                   className="object-cover h-full w-full transition-transform duration-500 hover:scale-105"
@@ -257,12 +265,18 @@ const UniquePost = () => {
                 }}
               />
             </div>
+            {/* custom author section in italics */}
+            <div className="text-sm text-muted-foreground italic">
+              {post.acf?.custom_author
+                ? `Written by ${post.acf?.custom_author}`
+                : ""}
+            </div>
           </div>
           <div className="">{/* <ThresholdOpinions /> */}</div>
         </div>
         <div className="lg:w-[30%] hidden lg:block relative overflow-hidden">
           {/* <EmptyFull lang={locale} title="No Content Yet" description="" /> */}
-          <Sidebar site={site} lang={locale} />
+          <Sidebar postType={sidebarPostType} lang={locale} />
         </div>
       </div>
     </PageContainer>

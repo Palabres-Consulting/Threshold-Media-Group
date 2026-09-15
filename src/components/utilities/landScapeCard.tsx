@@ -5,7 +5,6 @@ import Image from "next/image";
 import SaveArticleButton from "./saveArticleButton";
 import ShareArticleButton from "./shareArticleButton";
 import { truncateText } from "@/app/helpers/textHelpers";
-import cloudinaryLoader from "@/app/helpers/cloudinary";
 import Link from "next/link";
 
 const LandScapeCard: React.FC<{
@@ -41,6 +40,7 @@ const LandScapeCard: React.FC<{
           fill
           className="object-cover"
           priority
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
       </div>
 

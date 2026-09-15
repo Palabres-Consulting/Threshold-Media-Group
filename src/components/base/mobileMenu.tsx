@@ -20,6 +20,7 @@ interface MobileMenuProps {
     extractionLink: string;
     asintLink: string;
     mainLink: string;
+    innovationLink: string;
   };
 }
 
@@ -84,6 +85,7 @@ export default function MobileMenu({ site, t, dict, path, mainNav, links }: Mobi
               extractionLink={links.extractionLink}
               asintLink={links.asintLink}
               mainDomainLink={links.mainLink}
+              innovationLink={links.innovationLink}
               dict={t}
             />
           </ul>
