@@ -57,18 +57,13 @@ export default Logo;
 export const InnovationLogo = () => { 
   return (
     <div className="flex items-center gap-2">
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 14 14"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M6.99286 0V5.01639C6.07503 4.22968 5.45801 2.75501 5.45801 1.06745C5.45801 0.699808 5.48729 0.342962 5.54285 0H6.99286Z"
-          fill="#28A745"
-        />
-      </svg>
+      <Image
+        src="/logos/innovationlight.png"
+        alt="Innovation Logo"
+        width={180}
+        height={28}
+        className="dark:invert object-contain"
+      />
     </div>
   ) 
 }
