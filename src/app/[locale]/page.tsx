@@ -34,6 +34,17 @@ const Home = async (props: {
   const params = await props.params;
   const { locale } = params;
   const site = await useServerSite();
+  const { main: dict } = getTranslations(locale);
+  
+
+
+  if (site === "main") {
+    return (
+      <main className="">
+        <ThresholdHompage locale={locale} dict={dict} />
+      </main>
+    );
+  }
 
   // Extract the active category from the URL search parameters
   const activeCategory =
@@ -49,7 +60,8 @@ const Home = async (props: {
     | "innovation"
     | "transverse";
 
-  const { main: dict } = getTranslations(locale);
+
+
   const navTranslations = dict.nav.categories;
 
   // 1. Map Site to Top Level Category Context
@@ -131,14 +143,6 @@ const Home = async (props: {
   // Main Homepage Return
 
   // console.log("Threshold opinions posts length:", cleanArticles.length);
-
-  if (site === "main") {
-    return (
-      <main className="">
-        <ThresholdHompage locale={locale} dict={dict} />
-      </main>
-    );
-  }
 
   // If completely empty site (no articles and no category selected)
   if (!hasArticles && !activeCategory) {

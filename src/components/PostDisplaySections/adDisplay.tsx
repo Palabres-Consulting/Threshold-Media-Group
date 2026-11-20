@@ -5,7 +5,7 @@ import React from "react";
 
 const AdDisplay = () => {
   return (
-    <section className=" w-full h-fit aspect-square overflow-hidden relative ">
+    <section className=" w-full h-fit aspect-square overflow-hidden ">
       <Link
         href="https://www.simandou2040.gn/"
         target="_blank"
